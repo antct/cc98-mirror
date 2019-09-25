@@ -13,7 +13,9 @@ Refer to [cc98-pwa](https://github.com/ZJU-CC98/CC98-PWA), try to depoly this si
 
 ## forward
 
-Use flask(requests) module to forward your request to real cc98 server. File `forward.py` provides flask api written in `Blueprint` style.
+Use flask(requests) module to forward your request to real cc98 server.
+
+File `forward.py` provides flask api written in `Blueprint` style.
 
 ## diagram
 
