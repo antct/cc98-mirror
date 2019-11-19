@@ -10,6 +10,7 @@ A simple way to forward cc98 service from intranet to extranet.
 4. Image compress option, make image transferring more faster.
 5. Timely notification, menu color will change automatically.
 6. Button `signin`, there's still a bug when someone never signin before.
+7. HTTP links redirect, include topic links and normal links.
 
 ## prepare
 
