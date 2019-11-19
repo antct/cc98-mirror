@@ -1,0 +1,16 @@
+{
+  "short_name": "CC98 @TT",
+  "name": "CC98 @TT",
+  "description": "ZJU CC98 Forum PWA version.",
+  "icons": [
+    {
+      "src": "icons/snowball-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#66ccff",
+  "background_color": "#ffffff"
+}
