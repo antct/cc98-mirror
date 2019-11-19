@@ -8,6 +8,8 @@ A simple way to forward cc98 service from intranet to extranet.
 2. Menu option `social`, abour your fans and followers.
 3. Advanced menu option `search`, add sub-option `search user`.
 4. Image compress option, make image transferring more faster.
+5. Timely notification, menu color will change automatically.
+6. Button `signin`, there's still a bug when someone never signin before.
 
 ## prepare
 
