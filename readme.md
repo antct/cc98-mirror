@@ -2,6 +2,13 @@
 
 A simple way to forward cc98 service from intranet to extranet.
 
+## feature
+
+1. Menu option `notice`, provide notifications you received.
+2. Menu option `social`, abour your fans and followers.
+3. Advanced menu option `search`, add sub-option `search user`.
+4. Image compress option, make image transferring more faster.
+
 ## prepare
 
 1. Extranet server like AliYun.
@@ -14,8 +21,6 @@ Refer to [cc98-pwa](https://github.com/ZJU-CC98/CC98-PWA), try to depoly this si
 ## forward
 
 Use flask(requests) module to forward your request to real cc98 server.
-
-File `forward.py` provides flask api written in `Blueprint` style.
 
 ## diagram
 
