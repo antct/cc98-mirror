@@ -92,10 +92,10 @@ const DrawerMenu: React.FC = () => {
             {customHome !== 4 && (
               <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
-            <Item icon={<MarkunreadIcon />} text="通知" onClick={jump('/notice')} />
+            <Item icon={<MarkunreadIcon color={(user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
             <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
-            <Item icon={<SpeakerNotesIcon />} text="私信" onClick={jump('/messageList')} />
+            <Item icon={<SpeakerNotesIcon color={(user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
             <Item icon={<HelpIcon />} text="帮助" onClick={jump('/help')} />

@@ -2,7 +2,7 @@ import { Model } from '@/hooks/useModel'
 import { navigate } from '@/utils/history'
 import { GET } from '@/utils/fetch'
 import { logIn, logOut, isLogIn } from '@/utils/logIn'
-import { IUser } from '@cc98/api'
+import { IUser, IUnRead } from '@cc98/api'
 
 interface State {
   /**
@@ -13,6 +13,7 @@ interface State {
    * 个人账户信息
    */
   myInfo: IUser | null
+  unRead: IUnRead | null
 }
 
 class UserModel extends Model<State> {
@@ -22,6 +23,7 @@ class UserModel extends Model<State> {
     this.state = {
       isLogIn: isLogIn(),
       myInfo: null,
+      unRead: null
     }
 
     this.FRESH_INFO()
@@ -46,6 +48,7 @@ class UserModel extends Model<State> {
     this.setState({
       isLogIn: false,
       myInfo: null,
+      unRead: null
     })
 
     // not a wise way
@@ -64,6 +67,12 @@ class UserModel extends Model<State> {
     myInfo.fail().succeed(myInfo => {
       this.setState({
         myInfo,
+      })
+    })
+    const unRead = await GET<IUnRead>('me/unread-count')
+    unRead.fail().succeed(unRead => {
+      this.setState({
+        unRead,
       })
     })
   }

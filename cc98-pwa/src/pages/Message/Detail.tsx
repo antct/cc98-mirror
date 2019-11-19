@@ -51,9 +51,9 @@ export default ({ id }: Props) => {
  * 私信-会话列表
  */
 const MessageList = ({ id, refresh }: Props & { refresh: () => void }) => {
-  const service = (from: number) => getMessageContent(id, from, 10)
+  const service = (from: number) => getMessageContent(id, from, 20)
   const [list, state, callback] = useInfList(service, {
-    step: 10,
+    step: 20,
   })
 
   const { isLoading, isEnd } = state
