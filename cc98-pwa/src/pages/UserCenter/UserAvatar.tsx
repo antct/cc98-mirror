@@ -7,12 +7,16 @@ import { Avatar, IconButton, Typography, CircularProgress } from '@material-ui/c
 
 import ExpandPanel from './ExpandPanel'
 
+import useFetcher from '@/hooks/useFetcher'
+
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import EditIcon from '@material-ui/icons/Edit'
 import ChatIcon from '@material-ui/icons/Chat'
 
+import { getSignState, signIn } from '@/services/global'
 import { followUser, unFollowUser } from '@/services/user'
-import { IUser } from '@cc98/api'
+import { IUser, ISignIn } from '@cc98/api'
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -44,8 +48,29 @@ interface Props {
 }
 
 const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
+  const [signState, setSignState] = useFetcher(isUserCenter ? () => getSignState() : null)
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingSign, setIsLoadingSign] = useState(false)
+  const toggleSign = async () => {
+    // here a bug when first signin
+    if (signState && !signState.hasSignedInToday) {
+      if (isLoadingSign) {
+        return
+      }
+      setIsLoadingSign(true)
+
+      const res = await signIn()
+      res
+        .fail(() => setIsLoadingSign(false))
+        .succeed((newSignState) => {
+          setSignState(newSignState)
+          setIsLoadingSign(false)
+        })
+    } else {
+      return
+    }
+  }
   const toggleFunc = async () => {
     if (isLoading) {
       return
@@ -71,23 +96,32 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   }
 
   const buttonsJSX = isUserCenter ? (
-    <IconButton onClick={() => navigate('/userCenter/edit')}>
-      <EditIcon />
-    </IconButton>
-  ) : (
     <>
-      <IconButton onClick={toggleFunc}>
-        {isLoading ? (
+      <IconButton onClick={toggleSign}>
+        {isLoadingSign ? (
           <CircularProgress size={20} />
         ) : (
-          <FavoriteIcon color={isFollowing ? 'secondary' : 'disabled'} />
-        )}
+            <FingerprintIcon color={(signState && signState.hasSignedInToday) ? 'secondary' : 'disabled'} />
+          )}
       </IconButton>
-      <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)}>
-        <ChatIcon />
+      <IconButton onClick={() => navigate('/userCenter/edit')}>
+        <EditIcon />
       </IconButton>
     </>
-  )
+  ) : (
+      <>
+        <IconButton onClick={toggleFunc}>
+          {isLoading ? (
+            <CircularProgress size={20} />
+          ) : (
+              <FavoriteIcon color={isFollowing ? 'secondary' : 'disabled'} />
+            )}
+        </IconButton>
+        <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)}>
+          <ChatIcon />
+        </IconButton>
+      </>
+    )
 
   return (
     <ExpandPanel expanded>
