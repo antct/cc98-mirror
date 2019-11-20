@@ -7,6 +7,7 @@ import ListItemText from '@/hotfix/ListItemText'
 
 import BarChartIcon from '@material-ui/icons/BarChart'
 import CopyrightIcon from '@material-ui/icons/Copyright'
+import SmartphoneIcon from '@material-ui/icons/Smartphone'
 
 import { navigate } from '@/utils/history'
 
@@ -29,7 +30,8 @@ const Item: React.FC<ItemProps> = ({ icon, text, url }) => (
 const Index = () => (
   <List>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
-    <Item icon={<CopyrightIcon />} text="开发者" url="/help/devTeam" />
+    <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
+    <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />
   </List>
 )
 

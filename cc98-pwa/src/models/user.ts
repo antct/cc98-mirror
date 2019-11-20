@@ -4,6 +4,9 @@ import { GET } from '@/utils/fetch'
 import { logIn, logOut, isLogIn } from '@/utils/logIn'
 import { IUser, IUnRead } from '@cc98/api'
 
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
 interface State {
   /**
    * 是否登录
@@ -23,7 +26,7 @@ class UserModel extends Model<State> {
     this.state = {
       isLogIn: isLogIn(),
       myInfo: null,
-      unRead: null
+      unRead: null,
     }
 
     this.FRESH_INFO()
@@ -69,6 +72,7 @@ class UserModel extends Model<State> {
         myInfo,
       })
     })
+
     const unRead = await GET<IUnRead>('me/unread-count')
     unRead.fail().succeed(unRead => {
       this.setState({

@@ -16,7 +16,7 @@ const Home = () => {
   const { customHome } = useModel(settingModel, ['customHome'])
   const { CHANGE_CUSTOMHOME } = settingModel
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     CHANGE_CUSTOMHOME(parseInt(event.target.value, 10))
   }
 

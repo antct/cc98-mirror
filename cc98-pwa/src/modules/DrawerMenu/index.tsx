@@ -71,6 +71,7 @@ const DrawerMenu: React.FC = () => {
   const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
   const { CLOSE_DRAWER } = stateModel
 
+  const { useNotification} = useModel(settingModel, ['useNotification'])
   const { customHome } = useModel(settingModel, ['customHome'])
 
   return (
@@ -95,8 +96,8 @@ const DrawerMenu: React.FC = () => {
             {customHome !== 4 && (
               <Item icon={<CenterFocusStrongIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
-            <Item icon={<NotificationsIcon color={(user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
-            <Item icon={<MailIcon color={(user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
+            <Item icon={<NotificationsIcon color={(useNotification && user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
+            <Item icon={<MailIcon color={(useNotification && user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
             <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />

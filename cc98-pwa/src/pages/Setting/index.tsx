@@ -7,6 +7,7 @@ import Theme from './Theme'
 import Mode from './Mode'
 import Cache from './Cache'
 import Compress from './Compress'
+import Notification from './Notification'
 import CustomHome from './Home'
 
 const Setting: React.FC = () => (
@@ -14,6 +15,7 @@ const Setting: React.FC = () => (
     {/* <Signalr /> */}
     <Theme />
     <Mode />
+    <Notification />
     <Compress />
     <Cache />
     <CustomHome />

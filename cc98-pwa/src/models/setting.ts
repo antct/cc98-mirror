@@ -17,6 +17,7 @@ interface State {
    * 是否开启实时通知
    */
   useSignalr: boolean
+  useNotification: boolean
   useCompress: boolean
   /**
    * 缓存页数
@@ -36,6 +37,7 @@ class SettingModel extends Model<State> {
       theme: ThemeEnum.DEFAULT,
       mode: ModeEnum.LIGHT,
       useSignalr: false,
+      useNotification: true,
       useCompress: true,
       cacheSize: 3,
       customHome: 1,
@@ -64,6 +66,13 @@ class SettingModel extends Model<State> {
   TOGGLE_SIGNALR = () => {
     this.setState(state => ({
       useSignalr: !state.useSignalr,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_NOTIFICATION = () => {
+    this.setState(state => ({
+      useNotification: !state.useNotification,
     }))
     this.SYNC_SETTING()
   }
