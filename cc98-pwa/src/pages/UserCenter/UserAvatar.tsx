@@ -49,12 +49,13 @@ interface Props {
 
 const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [signState, setSignState] = useFetcher(isUserCenter ? () => getSignState() : null)
+  const [isSign, setIsSign] = useState(false)
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingSign, setIsLoadingSign] = useState(false)
   const toggleSign = async () => {
-    // here a bug when first signin
-    if (signState && !signState.hasSignedInToday) {
+    // if signState exists, sign yesterday, else not
+    if ((signState && !signState.hasSignedInToday) || !signState) {
       if (isLoadingSign) {
         return
       }
@@ -65,6 +66,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
         .fail(() => setIsLoadingSign(false))
         .succeed((newSignState) => {
           setSignState(newSignState)
+          setIsSign(true)
           setIsLoadingSign(false)
         })
     } else {
@@ -101,7 +103,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
         {isLoadingSign ? (
           <CircularProgress size={20} />
         ) : (
-            <FingerprintIcon color={(signState && signState.hasSignedInToday) ? 'secondary' : 'disabled'} />
+            <FingerprintIcon color={((signState && signState.hasSignedInToday) || (!signState && isSign)) ? 'secondary' : 'disabled'} />
           )}
       </IconButton>
       <IconButton onClick={() => navigate('/userCenter/edit')}>
