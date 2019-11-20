@@ -12,22 +12,18 @@ import ListItemText from '@/hotfix/ListItemText'
 
 import WidgetsIcon from '@material-ui/icons/Widgets'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import BookIcon from '@material-ui/icons/Book'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import FiberNewIcon from '@material-ui/icons/FiberNew'
 import HomeIcon from '@material-ui/icons/Home'
 import SearchIcon from '@material-ui/icons/Search'
-import CollectionsIcon from '@material-ui/icons/Collections'
 import GroupIcon from '@material-ui/icons/Group'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
-import MarkunreadIcon from '@material-ui/icons/Markunread'
-import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import EventIcon from '@material-ui/icons/Event'
 import MailIcon from '@material-ui/icons/Mail'
-import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong'
+import ToysIcon from '@material-ui/icons/Toys'
 
 import UserInfo from './UserInfo'
 
@@ -94,14 +90,14 @@ const DrawerMenu: React.FC = () => {
             )}
             <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
             {customHome !== 4 && (
-              <Item icon={<CenterFocusStrongIcon />} text="关注" onClick={jump('/myFollow')} />
+              <Item icon={<ToysIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
             <Item icon={<NotificationsIcon color={(useNotification && user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
             <Item icon={<MailIcon color={(useNotification && user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
-            <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
+            <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<HelpOutlineIcon />} text="帮助" onClick={jump('/help')} />
           </>
         )}

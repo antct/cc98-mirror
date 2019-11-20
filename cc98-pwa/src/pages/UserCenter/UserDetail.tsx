@@ -40,7 +40,7 @@ const RecentTopics: React.FC<Props> = ({ info }) => (
       <ListItem name="性别" value={info.gender === 1 ? '男' : '女'} />
       <ListItem name="发帖" value={info.postCount} />
       <ListItem name="财富值" value={info.wealth} />
-      <ListItem name="被删贴数" value={info.deleteCount} />
+      <ListItem name="被删贴数" value={-1*info.deleteCount} />
       <ListItem name="关注" value={info.followCount} />
       <ListItem name="粉丝" value={info.fanCount} />
       <ListItem name="威望" value={info.prestige} />

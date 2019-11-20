@@ -2,7 +2,7 @@ import React from 'react'
 
 import useFetcher from '@/hooks/useFetcher'
 
-// import Announcement from './Announcement'
+import Announcement from './Announcement'
 import RecommendReadings from './Recommend'
 
 import { getHomeInfo } from '@/services/global'
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {/* <Announcement content={homeInfo.announcement} /> */}
+      <Announcement content={homeInfo.announcement} />
       <RecommendReadings recommendationReading={homeInfo.recommendationReading} />
     </>
   )
