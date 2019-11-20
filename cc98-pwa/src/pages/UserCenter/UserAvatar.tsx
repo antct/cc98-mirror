@@ -53,9 +53,15 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingSign, setIsLoadingSign] = useState(false)
+
+  // situation1: signState, false or true, signState
+  // situation2: signState null
   const toggleSign = async () => {
     // if signState exists, sign yesterday, else not
-    if ((signState && !signState.hasSignedInToday) || !signState) {
+    if (isSign) {
+        return
+    }
+    if ((signState && !signState.hasSignedInToday) || (!signState && !isSign)) {
       if (isLoadingSign) {
         return
       }

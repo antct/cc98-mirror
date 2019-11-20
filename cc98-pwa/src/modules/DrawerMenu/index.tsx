@@ -10,7 +10,8 @@ import settingModel from '@/models/setting'
 import { Divider, Drawer, List, ListItem, ListItemIcon } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
 
-import AspectRatioIcon from '@material-ui/icons/AspectRatio'
+import WidgetsIcon from '@material-ui/icons/Widgets'
+import NotificationsIcon from '@material-ui/icons/Notifications'
 import BookIcon from '@material-ui/icons/Book'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import FiberNewIcon from '@material-ui/icons/FiberNew'
@@ -20,11 +21,13 @@ import CollectionsIcon from '@material-ui/icons/Collections'
 import GroupIcon from '@material-ui/icons/Group'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
-import HelpIcon from '@material-ui/icons/Help'
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
 import MarkunreadIcon from '@material-ui/icons/Markunread'
 import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import EventIcon from '@material-ui/icons/Event'
+import MailIcon from '@material-ui/icons/Mail'
+import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong'
 
 import UserInfo from './UserInfo'
 
@@ -88,22 +91,22 @@ const DrawerMenu: React.FC = () => {
             {customHome !== 3 && (
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
             )}
-            <Item icon={<AspectRatioIcon />} text="版面" onClick={jump('/boardList')} />
+            <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
             {customHome !== 4 && (
-              <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
+              <Item icon={<CenterFocusStrongIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
-            <Item icon={<MarkunreadIcon color={(user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
-            <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
+            <Item icon={<NotificationsIcon color={(user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
+            <Item icon={<MailIcon color={(user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
-            <Item icon={<SpeakerNotesIcon color={(user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
+            <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
-            <Item icon={<HelpIcon />} text="帮助" onClick={jump('/help')} />
+            <Item icon={<HelpOutlineIcon />} text="帮助" onClick={jump('/help')} />
           </>
         )}
         {!user.isLogIn && (
           <>
-            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/96486d9b')} />
+            <Item icon={<HelpOutlineIcon />} text="联系" onClick={jump('https://github.com/96486d9b')} />
           </>
         )}
         {user.isLogIn && (
