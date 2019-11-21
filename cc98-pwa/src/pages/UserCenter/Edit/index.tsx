@@ -70,7 +70,7 @@ const FormBody = () => {
   }
 
   const handleChange = (name: keyof typeof info) => (
-    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
+    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const updatedInfo = {
       ...info,

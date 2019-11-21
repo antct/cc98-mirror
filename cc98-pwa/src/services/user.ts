@@ -78,6 +78,8 @@ export function updateMyAvatar(file: File) {
  */
 export function modifyMyAvatar(newAvatar: string) {
   return PUT('me/portrait', {
-    params: newAvatar,
+    params: newAvatar
+    .replace('https://api.96486d9b.cn/cc98/images', 'http://www.cc98.org/static/images')
+    .replace('https://api.96486d9b.cn/cc98/files', 'http://file.cc98.org'),
   })
 }
