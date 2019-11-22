@@ -14,11 +14,11 @@ const Setting: React.FC = () => (
   <List>
     {/* <Signalr /> */}
     <Theme />
+    <CustomHome />
     <Mode />
     <Notification />
     <Compress />
     <Cache />
-    <CustomHome />
   </List>
 )
 

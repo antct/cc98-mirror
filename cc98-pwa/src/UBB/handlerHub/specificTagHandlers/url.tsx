@@ -26,7 +26,8 @@ const handler: ITagHandler<React.ReactNode> = {
 
     const safeURL = isSafe(dangerousURL) ? dangerousURL : undefined
 
-    return <a href={safeURL} style={{textDecoration: 'none'}}>{children}</a>
+    // return <a href={safeURL} style={{textDecoration: 'none'}}>{children}</a>
+    return <a href={safeURL}>{children}</a>
   },
 }
 

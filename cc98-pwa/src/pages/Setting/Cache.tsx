@@ -23,7 +23,7 @@ const Cache = () => {
 
   return (
     <ListItem>
-      <ListItemText primary="缓存页数" secondary="此项十分影响性能（重启生效）" />
+      <ListItemText primary="缓存页数" secondary="十分影响性能（重启生效）" />
       <TextField
         select
         InputProps={{

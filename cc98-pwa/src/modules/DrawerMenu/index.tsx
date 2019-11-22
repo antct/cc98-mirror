@@ -96,8 +96,8 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<MailIcon color={(useNotification && user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
-            <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
             <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
+            <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
             <Item icon={<HelpIcon />} text="帮助" onClick={jump('/help')} />
           </>
         )}

@@ -8,6 +8,7 @@ import green from '@material-ui/core/colors/lightGreen'
 // https://material.io/tools/color/#!/?view.left=0&view.right=0
 
 export enum ThemeEnum {
+  AUTO,
   DEFAULT,
   SPRING,
   SUMMER,
@@ -20,8 +21,28 @@ export enum ModeEnum {
   DARK,
 }
 
+const autoLight: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#7A92C2',
+    },
+    secondary: pink,
+  },
+}
+
+const autoDark: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#7A92C2',
+    },
+    secondary: pink,
+    type: 'dark',
+  },
+}
+
+
 // default
-const blueLight: ThemeOptions = {
+const defaultLight: ThemeOptions = {
   palette: {
     primary: {
       main: blue[400],
@@ -31,7 +52,7 @@ const blueLight: ThemeOptions = {
   },
 }
 
-const blueDark: ThemeOptions = {
+const defaultDark: ThemeOptions = {
   palette: {
     primary: {
       main: blue[400],
@@ -43,25 +64,82 @@ const blueDark: ThemeOptions = {
 }
 
 // spring
-const greenLight: ThemeOptions = {
+const springLight: ThemeOptions = {
   palette: {
     primary: {
-      main: green[300],
+      main: '#95B675',
     },
     secondary: pink,
   },
 }
 
-const greenDark: ThemeOptions = {
+const springDark: ThemeOptions = {
   palette: {
     primary: {
-      main: green[300],
-      contrastText: '#fff',
+      main: '#95B675',
     },
     secondary: pink,
     type: 'dark',
   },
 }
+
+const summerLight: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#5198D8',
+    },
+    secondary: pink,
+  },
+}
+
+const summerDark: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#5198D8',
+    },
+    secondary: pink,
+    type: 'dark',
+  },
+}
+
+const autumnLight: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#F4A460',
+    },
+    secondary: pink,
+  },
+}
+
+const autumnDark: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#F4A460',
+    },
+    secondary: pink,
+    type: 'dark',
+  },
+}
+
+const winnerLight: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#7A92C2',
+    },
+    secondary: pink,
+  },
+}
+
+const winnerDark: ThemeOptions = {
+  palette: {
+    primary: {
+      main: '#7A92C2',
+    },
+    secondary: pink,
+    type: 'dark',
+  },
+}
+
 
 const themeMap: {
   [key: string]: {
@@ -69,12 +147,20 @@ const themeMap: {
   }
 } = {
   [ModeEnum.LIGHT]: {
-    [ThemeEnum.DEFAULT]: blueLight,
-    [ThemeEnum.SPRING]: greenLight,
+    [ThemeEnum.AUTO]: autoLight,
+    [ThemeEnum.DEFAULT]: defaultLight,
+    [ThemeEnum.SPRING]: springLight,
+    [ThemeEnum.SUMMER]: summerLight,
+    [ThemeEnum.FALL]: autumnLight,
+    [ThemeEnum.WINTER]: winnerLight
   },
   [ModeEnum.DARK]: {
-    [ThemeEnum.DEFAULT]: blueDark,
-    [ThemeEnum.SPRING]: greenDark,
+    [ThemeEnum.AUTO]: autoDark,
+    [ThemeEnum.DEFAULT]: defaultDark,
+    [ThemeEnum.SPRING]: springDark,
+    [ThemeEnum.SUMMER]: summerDark,
+    [ThemeEnum.FALL]: autumnDark,
+    [ThemeEnum.WINTER]: winnerDark
   },
 }
 

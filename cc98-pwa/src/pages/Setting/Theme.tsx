@@ -8,18 +8,19 @@ import settingModel from '@/models/setting'
 import { ThemeEnum } from '@/theme'
 
 const ranges = [
+  { label: '自动', value: ThemeEnum.AUTO },
   { label: '默认', value: ThemeEnum.DEFAULT },
   { label: '春', value: ThemeEnum.SPRING },
-  // { label: '夏', value: ThemeEnum.SUMMER },
-  // { label: '秋', value: ThemeEnum.FALL },
-  // { label: '冬', value: ThemeEnum.WINTER },
+  { label: '夏', value: ThemeEnum.SUMMER },
+  { label: '秋', value: ThemeEnum.FALL },
+  { label: '冬', value: ThemeEnum.WINTER },
 ]
 
 const Theme = () => {
   const { theme } = useModel(settingModel, ['theme'])
   const { CHANGE_THEME } = settingModel
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     CHANGE_THEME(parseInt(event.target.value, 10))
   }
 

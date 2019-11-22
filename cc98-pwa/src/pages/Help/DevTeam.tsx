@@ -36,7 +36,7 @@ const CardFlexDiv = styled.div`
 `
 
 export default () => {
-  const ids = [40994, 531603]
+  const ids = [5298, 531603]
   const descriptions = [
     'CC98 PWA 团队',
     '低级改造师'

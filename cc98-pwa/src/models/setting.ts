@@ -34,7 +34,7 @@ class SettingModel extends Model<State> {
     super()
 
     this.state = {
-      theme: ThemeEnum.DEFAULT,
+      theme: ThemeEnum.AUTO,
       mode: ModeEnum.LIGHT,
       useSignalr: false,
       useNotification: true,

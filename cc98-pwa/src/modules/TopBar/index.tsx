@@ -48,7 +48,7 @@ const TopBar: React.FC = () => (
         <MenuIcon />
       </IconButtonS>
 
-      <MainText>CC98 @TT</MainText>
+      <MainText>CC98 ©TT</MainText>
       <Version>{version}</Version>
     </ToolbarS>
   </AppBarS>
