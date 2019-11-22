@@ -12,14 +12,14 @@ import ListItemText from '@/hotfix/ListItemText'
 
 import WidgetsIcon from '@material-ui/icons/Widgets'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import CancelIcon from '@material-ui/icons/Cancel'
 import FiberNewIcon from '@material-ui/icons/FiberNew'
 import HomeIcon from '@material-ui/icons/Home'
-import SearchIcon from '@material-ui/icons/Search'
+import PageviewIcon from '@material-ui/icons/Pageview'
 import GroupIcon from '@material-ui/icons/Group'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline'
+import HelpIcon from '@material-ui/icons/Help'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import EventIcon from '@material-ui/icons/Event'
 import MailIcon from '@material-ui/icons/Mail'
@@ -97,18 +97,18 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
-            <Item icon={<SearchIcon />} text="搜索" onClick={jump('/search')} />
-            <Item icon={<HelpOutlineIcon />} text="帮助" onClick={jump('/help')} />
+            <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
+            <Item icon={<HelpIcon />} text="帮助" onClick={jump('/help')} />
           </>
         )}
         {!user.isLogIn && (
           <>
-            <Item icon={<HelpOutlineIcon />} text="联系" onClick={jump('https://github.com/96486d9b')} />
+            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/96486d9b')} />
           </>
         )}
         {user.isLogIn && (
           <>
-            <Item icon={<ExitToAppIcon />} text="登出" onClick={LOG_OUT} />
+            <Item icon={<CancelIcon />} text="退出" onClick={LOG_OUT} />
           </>
         )}
       </ListS>
