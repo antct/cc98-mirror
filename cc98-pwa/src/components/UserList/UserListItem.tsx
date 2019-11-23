@@ -12,6 +12,8 @@ import useFetcher from '@/hooks/useFetcher'
 
 import { getUserInfoById } from '@/services/user'
 
+import { IUser } from '@cc98/api'
+
 const Text = styled.span`
   display: block;
   max-width: 80%;
@@ -21,21 +23,21 @@ const Text = styled.span`
 `
 
 interface Props {
-  data: number
+  data: IUser
 }
 
 const navigateToDetail = (userId: number) => navigate(`/user/${userId}`)
 
 export default ({ data }: Props) => {
-  const [userInfo] = useFetcher(() => getUserInfoById(data))
-  if (userInfo === null) {
-    return null
-  }
-  const { name, portraitUrl, lastLogOnTime, signatureCode } = userInfo
+  // const [userInfo] = useFetcher(() => getUserInfoById(data))
+  // if (userInfo === null) {
+  //   return null
+  // }
+  const { name, portraitUrl, lastLogOnTime, signatureCode } = data
   let fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
-    <ListItem button divider onClick={() => navigateToDetail(data)}>
+    <ListItem button divider onClick={() => navigateToDetail(data.id)}>
       <ListItemAvatar>
         <Avatar src={portraitUrl} />
       </ListItemAvatar>

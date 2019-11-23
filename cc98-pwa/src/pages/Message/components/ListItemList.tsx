@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import muiStyled from '@/muiStyled'
 
-import { List } from '@material-ui/core'
+import useModel from '@/hooks/useModel'
+import userModel from '@/models/user'
+import stateModel from '@/models/state'
+import settingModel from '@/models/setting'
 
-import UserListItem from './UserListItem'
-
-import { IUser } from '@cc98/api'
+import ListItem from './ListItem'
+import { IMessageContent, IRecentMessage, IUser } from '@cc98/api'
 import { getUsersInfoByIds } from '@/services/user'
 
-const ListS = muiStyled(List)({
-  width: '100%',
-})
-
 interface Props {
-  data: number[]
+  data: IRecentMessage[]
   func: () => void
 }
 
@@ -28,11 +25,12 @@ export default ({ data, func }: Props) => {
       return null
     }
     let nextData = data.slice(fromPos)
-    getUsersInfoByIds(nextData).then(res => {
+    let ids = nextData.map(x => x.userId)
+    getUsersInfoByIds(ids).then(res => {
       res
         .fail(err => { })
         .succeed(list => {
-          let fixList = nextData.map(x => list.filter(y => y.id === x)[0])
+          let fixList = nextData.map(x => list.filter(y => y.id === x.userId)[0])
           setUserList(prevList => prevList.concat(fixList))
           func()
         })
@@ -44,10 +42,10 @@ export default ({ data, func }: Props) => {
   }, [data])
 
   return (
-    <ListS>
-      {userList.map(x => (
-        <UserListItem key={x.id} data={x} />
+    <>
+      {data.map((item, index) => (
+        <ListItem key={data[index].userId} message={data[index]} user={userList[index]} />
       ))}
-    </ListS>
+    </>
   )
 }

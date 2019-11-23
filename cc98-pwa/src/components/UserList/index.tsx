@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import useInfList, { Service as InfService } from '@/hooks/useInfList'
+import useInfList, { Service as InfService, useInfListFix } from '@/hooks/useInfList'
 import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
 import useDelay from '@/hooks/useDelay'
 
@@ -40,7 +40,7 @@ interface InfProps {
 }
 
 const InfUserList: React.FC<InfProps> = ({ service }) => {
-  const [data, state, callback] = useInfList(service, {
+  const [data, state, callback, loaded] = useInfListFix(service, {
     fail: navigateHandler,
   })
   const { isLoading, isEnd } = state
@@ -49,7 +49,7 @@ const InfUserList: React.FC<InfProps> = ({ service }) => {
     <>
       {isEnd && data.length === 0 && <EmtpyList />}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
-        <UserList data={data} />
+        <UserList data={data} func={loaded}/>
       </InfiniteList>
     </>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { navigate } from '@/utils/history'
-import { IRecentMessage } from '@cc98/api'
+import { IRecentMessage, IUser } from '@cc98/api'
 
 import dayjs from 'dayjs'
 
@@ -23,16 +23,23 @@ const Text = styled.span`
 
 interface Props {
   message: IRecentMessage
+  user: IUser
 }
 
 const navigateToDetail = (userId: number) => navigate(`/messageDetail/${userId}`)
 
-export default ({ message }: Props) => {
-  const [userInfo] = useFetcher(() => getUserInfoById(message.userId))
-  if (userInfo === null) {
+export default ({ message, user }: Props) => {
+  // const [userInfo] = useFetcher(() => getUserInfoById(message.userId))
+  // if (userInfo === null) {
+  //   return null
+  // }
+  if (message === null || message === undefined) {
     return null
   }
-  const { name, portraitUrl } = userInfo
+  if (user === null || user === undefined) {
+    return null
+  }
+  const { name, portraitUrl } = user
 
   return (
     <ListItem button onClick={() => navigateToDetail(message.userId)}>

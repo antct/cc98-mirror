@@ -30,6 +30,7 @@ class UserModel extends Model<State> {
     }
 
     this.FRESH_INFO()
+    this.FRESH_READ()
   }
 
   LOG_IN = async (username: string, password: string) => {
@@ -72,6 +73,19 @@ class UserModel extends Model<State> {
         myInfo,
       })
     })
+
+    const unRead = await GET<IUnRead>('me/unread-count')
+    unRead.fail().succeed(unRead => {
+      this.setState({
+        unRead,
+      })
+    })
+  }
+
+  FRESH_READ = async () => {
+    if (!this.state.isLogIn) {
+      return
+    }
 
     const unRead = await GET<IUnRead>('me/unread-count')
     unRead.fail().succeed(unRead => {

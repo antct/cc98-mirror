@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
 
-import useInfList from '@/hooks/useInfList'
+import useInfList, {useInfListFix} from '@/hooks/useInfList'
 import InfiniteList from '@/components/InfiniteList'
 
 import { List } from '@material-ui/core'
 
 import DetailItem from './components/DetailItem'
+import DetailItemList from './components/DetailItemList'
 import Editor from './Editor'
 import { getMessageContent, sendMessage } from '@/services/message'
 
@@ -52,7 +53,7 @@ export default ({ id }: Props) => {
  */
 const MessageList = ({ id, refresh }: Props & { refresh: () => void }) => {
   const service = (from: number) => getMessageContent(id, from, 20)
-  const [list, state, callback] = useInfList(service, {
+  const [list, state, callback, loaded] = useInfListFix(service, {
     step: 20,
   })
 
@@ -76,9 +77,7 @@ const MessageList = ({ id, refresh }: Props & { refresh: () => void }) => {
           isLoading={isLoading}
           callback={callback}
         >
-          {list.map(item => (
-            <DetailItem key={item.id} message={item} />
-          ))}
+          <DetailItemList data={list} func={loaded}></DetailItemList>
         </InfiniteList>
       </ListS>
 

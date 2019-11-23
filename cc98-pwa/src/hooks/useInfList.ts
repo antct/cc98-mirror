@@ -30,6 +30,50 @@ interface Options<T> {
   success?: (data: T[]) => void
 }
 
+export function useInfListFix<T>(service: Service<T[]>, options: Options<T> = {}) {
+  const [state, setState] = useState<InfListState>({
+    isLoading: false,
+    isEnd: false,
+    from: (options && options.initFrom) || 0,
+  })
+
+  const [list, setList] = useState<T[]>([])
+  const [deltaList, setDeltaList] = useState<T[]>([])
+
+  function callback() {
+    setState({
+      ...state,
+      isLoading: true,
+    })
+
+    service(state.from).then(res => {
+      res
+        .fail(err => {
+          options.fail && options.fail(err)
+        })
+        .succeed(list => {
+          setDeltaList(list)
+          setList(prevList => prevList.concat(list))
+          options.success && options.success(list)
+        })
+    })
+  }
+
+  function loaded() {
+    setState({
+      isLoading: false,
+      isEnd: deltaList.length !== (options.step || 20),
+      from: state.from += deltaList.length,
+    })
+  }
+
+  useEffect(() => {
+    callback()
+  }, [])
+
+  return [list, state, callback, loaded] as [typeof list, typeof state, typeof callback, typeof loaded]
+}
+
 export default function useInfList<T>(service: Service<T[]>, options: Options<T> = {}) {
   const [state, setState] = useState<InfListState>({
     isLoading: false,
