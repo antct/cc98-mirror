@@ -9,7 +9,7 @@ import UBB from '@/UBB'
 
 const UBBDiv = styled.div`
   width: 100%;
-  margin: 0 12px;
+  margin: 0 20px;
 `
 
 interface Props {

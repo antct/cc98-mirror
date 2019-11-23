@@ -60,6 +60,7 @@ export default ({ data, func }: Props) => {
           setPostList(prevList => prevList.concat(fixList))
           if (!flag) {
             flag = true
+            return
           } else {
             func()
             if (useNotification && data && data.length) {
@@ -76,6 +77,7 @@ export default ({ data, func }: Props) => {
           setTopicList(prevList => prevList.concat(fixList))
           if (!flag) {
             flag = true
+            return
           } else {
             func()
             if (useNotification && data && data.length) {

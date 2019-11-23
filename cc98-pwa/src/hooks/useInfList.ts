@@ -60,11 +60,11 @@ export function useInfListFix<T>(service: Service<T[]>, options: Options<T> = {}
   }
 
   function loaded() {
-    setState({
+    setState(prevState => ({
       isLoading: false,
       isEnd: deltaList.length !== (options.step || 20),
-      from: state.from += deltaList.length,
-    })
+      from: prevState.from + deltaList.length,
+    }))
   }
 
   useEffect(() => {

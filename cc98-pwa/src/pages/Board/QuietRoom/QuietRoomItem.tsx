@@ -59,12 +59,12 @@ export default ({ info, boardId, refreshFunc, canManage }: Props) => (
       </div>
       <RightDiv>
         <Typography>{`操作人：${info.operatorUserName}`}</Typography>
-        <Actions
+        {canManage && (<Actions
           boardId={boardId}
           userId={info.userId}
           refreshFunc={refreshFunc}
           canManage={canManage}
-        />
+        />)}
       </RightDiv>
     </FlexDiv>
 
