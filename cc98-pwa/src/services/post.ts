@@ -71,6 +71,15 @@ export function getSinglePost(topicId: number | string, floor: number) {
   }).then(res => Promise.resolve(res.map(posts => posts[0])))
 }
 
+export function getFloor(topicId: number | string, floor: number) {
+  return GET<IPost[]>(`topic/${topicId}/post`, {
+    params: {
+      from: floor - 1,
+      size: 1,
+    },
+  })
+}
+
 /**
  * 追踪非匿名版块的用户
  */

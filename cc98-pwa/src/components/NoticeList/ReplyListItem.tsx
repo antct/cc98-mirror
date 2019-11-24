@@ -116,12 +116,12 @@ export default ({ data, post, topic }: Props) => {
   let info1 = dayjs(data.time).fromNow()
   let info2 = data.isRead ? '已读' : '未读'
 
-  let page = Math.floor(floor / 10) + 1
-  let offset = floor % 10
+  // let page = Math.floor(floor / 10) + 1
+  // let offset = floor % 10
 
   return (
     <ReplyItem
-      onClick={() => navigate(`/topic/${data.topicId}/${page}#${offset}`)}
+      onClick={() => navigate(`/topic/${data.topicId}/${floor}`)}
       title={title}
       subtitle={subtitle}
       info1={info1}

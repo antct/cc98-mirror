@@ -13,12 +13,15 @@ import FixButtons from './FixButtons'
 import { getTopicInfo } from '@/services/topic'
 import {
   getPost,
+  getFloor,
   getReversePost,
   getTracePost,
   getAnonymousTracePost,
   getHotPost,
 } from '@/services/post'
 import { navigateHandler } from '@/services/utils/errorHandler'
+import { number } from '_@types_prop-types@15.7.3@@types/prop-types'
+import { getFollower } from '@/services/social'
 
 const EndPlaceholder = styled.div`
   height: 64px;
@@ -27,6 +30,7 @@ const EndPlaceholder = styled.div`
 interface Props {
   // 帖子 ID
   topicId: string
+  floor?: string
   // 追踪非匿名帖子
   userId?: string
   // 追踪匿名帖子
@@ -35,11 +39,10 @@ interface Props {
   isReverse?: boolean
 }
 
-const Topic = ({ topicId, userId, postId, isReverse }: Props) => {
+const Topic = ({ topicId, floor, userId, postId, isReverse }: Props) => {
   const [topicInfo, setTopicInfo] = useFetcher(() => getTopicInfo(topicId), {
     fail: navigateHandler,
   })
-
   // 用于刷新
   const [postListKey, setPostListKey] = useState(0)
 
@@ -54,6 +57,8 @@ const Topic = ({ topicId, userId, postId, isReverse }: Props) => {
     ? (from: number) => getTracePost(topicInfo.id, userId, from)
     : postId
     ? (from: number) => getAnonymousTracePost(topicInfo.id, postId, from)
+    : floor
+    ? (from: number) => getFloor(topicInfo.id, floor)
     : (from: number) => getPost(topicInfo.id, from)
 
   const hotPostService = () => getHotPost(topicInfo.id)
