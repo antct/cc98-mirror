@@ -30,6 +30,7 @@ const EndPlaceholder = styled.div`
 interface Props {
   // 帖子 ID
   topicId: string
+  page?: string
   floor?: string
   // 追踪非匿名帖子
   userId?: string
@@ -39,7 +40,7 @@ interface Props {
   isReverse?: boolean
 }
 
-const Topic = ({ topicId, floor, userId, postId, isReverse }: Props) => {
+const Topic = ({ topicId, page, floor, userId, postId, isReverse }: Props) => {
   const [topicInfo, setTopicInfo] = useFetcher(() => getTopicInfo(topicId), {
     fail: navigateHandler,
   })
@@ -58,7 +59,7 @@ const Topic = ({ topicId, floor, userId, postId, isReverse }: Props) => {
     : postId
     ? (from: number) => getAnonymousTracePost(topicInfo.id, postId, from)
     : floor
-    ? (from: number) => getFloor(topicInfo.id, floor)
+    ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page)-1) + parseInt(floor) : parseInt(floor))
     : (from: number) => getPost(topicInfo.id, from)
 
   const hotPostService = () => getHotPost(topicInfo.id)

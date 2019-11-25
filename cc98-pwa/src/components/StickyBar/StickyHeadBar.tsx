@@ -45,18 +45,19 @@ const SubTitle = muiStyled(Typography).attrs({
 
 interface Props {
   title: string
+  titleClick?: () => void
   subTitle: string
   subTitleClick?: () => void
   action?: React.ReactNode
 }
 
-const StickyHeadBar: React.FC<Props> = ({ title, subTitle, subTitleClick, action }) => {
+const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action }) => {
   return (
     <StickyBar>
       <GobackIcon onClick={goback}>
         <KeyboardBackspaceIcon />
       </GobackIcon>
-      <Title>{title}</Title>
+      <Title onClick={titleClick}>{title}</Title>
       <SubTitle onClick={subTitleClick}>{subTitle}</SubTitle>
       {action && <AcitonDiv>{action}</AcitonDiv>}
     </StickyBar>

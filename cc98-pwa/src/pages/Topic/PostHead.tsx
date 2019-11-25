@@ -33,6 +33,7 @@ const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc }) => {
   return (
     <StickyHeadBar
       title={topicInfo.title}
+      titleClick={() => navigate(`/topic/${topicInfo.id}`)}
       subTitle={boardName}
       subTitleClick={() => navigate(`/board/${topicInfo.boardId}`)}
       action={<PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} />}
