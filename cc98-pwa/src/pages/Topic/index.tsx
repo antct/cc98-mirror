@@ -80,7 +80,7 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse }: Props) => {
     <>
       <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} />
       <PostList key={postListKey} service={postService} isTrace={isTrace}>
-        {!isTrace && <PostListHot service={hotPostService} />}
+        {!isTrace && !page && !floor && <PostListHot service={hotPostService} />}
       </PostList>
       <FixButtons topicInfo={topicInfo} isReverse={isReverse} refreshFunc={refreshFunc} />
       <EndPlaceholder />
