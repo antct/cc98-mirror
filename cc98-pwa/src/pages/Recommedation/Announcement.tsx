@@ -7,7 +7,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import UBB from '@/UBB'
 
 const WrapperDiv = styled.div`
-  margin: 12px 16px;
+  margin: 8px 16px;
 `
 
 interface Props {

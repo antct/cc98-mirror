@@ -29,6 +29,7 @@ declare module '@cc98/api' {
     /**
      * 兼职
      */
+    fullTimeJob: IBasicTopic[]
     partTimeJob: IBasicTopic[]
     /**
      * 总帖数
