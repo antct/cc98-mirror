@@ -1,4 +1,6 @@
 import React from 'react'
+import useDelay from '@/hooks/useDelay'
+import LoadingCircle from '@/components/LoadingCircle'
 
 import useFetcher from '@/hooks/useFetcher'
 
@@ -13,9 +15,10 @@ const Home: React.FC = () => {
   const [homeInfo] = useFetcher(getHomeInfo, {
     fail: notificationHandler,
   })
+  const isResolve = useDelay(300)
 
-  if (homeInfo === null) {
-    return null
+  if (homeInfo === null || !isResolve) {
+    return <LoadingCircle />
   }
 
   return (
