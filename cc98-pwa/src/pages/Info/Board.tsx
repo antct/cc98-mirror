@@ -54,7 +54,6 @@ const Info1 = muiStyled(Typography).attrs({
 interface Props {
   name: string
   data: IBasicTopic[]
-  board: boolean
 }
 
 export default (props: Props) => (
@@ -69,9 +68,7 @@ export default (props: Props) => (
     {props.data.map((info: IBasicTopic) => {
       const [boardName, setBoardName] = useState('')
       useEffect(() => {
-        if (props.board) {
-          getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
-        }
+        getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
       }, [])
       return (
         <ListItemS button divider onClick={() => navigate(`/topic/${info.id}`)}>
@@ -79,9 +76,9 @@ export default (props: Props) => (
             <Title>{info.title}</Title>
           </TitleArea>
 
-          {props.board && <InfoArea>
+          <InfoArea>
             <Info1>{boardName}</Info1>
-          </InfoArea>}
+          </InfoArea>
         </ListItemS>
       )
     })}

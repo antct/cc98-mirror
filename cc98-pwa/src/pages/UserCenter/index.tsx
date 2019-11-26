@@ -3,10 +3,13 @@ import React from 'react'
 import useModel from '@/hooks/useModel'
 import userModel from '@/models/user'
 
+import useDelay from '@/hooks/useDelay'
 import useFetcher from '@/hooks/useFetcher'
 
 import styled from 'styled-components'
 import img404 from '@/assets/error.png'
+
+import LoadingCircle from '@/components/LoadingCircle'
 
 import { IUser } from '@cc98/api'
 import { getUserInfoById, getUserInfoByName } from '@/services/user'
@@ -66,11 +69,23 @@ const Wrapper: React.FC<WrapperProps> = props => {
 
   if (props.id) {
     const [userInfo] = useFetcher(props.id ? () => getUserInfoById(props.id as string) : null)
+    const isResolve = useDelay(300)
+    if (userInfo === null || !isResolve) {
+      return <LoadingCircle />
+    }
     return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
   } else if (props.name) {
     const [userInfo] = useFetcher(props.name ? () => getUserInfoByName(props.name as string) : null)
+    const isResolve = useDelay(300)
+    if (userInfo === null || !isResolve) {
+      return <LoadingCircle />
+    }
     return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
   } else {
+    const isResolve = useDelay(300)
+    if (myInfo === null || !isResolve) {
+      return <LoadingCircle />
+    }
     return myInfo && <UserCenter info={myInfo} isUserCenter={true} />
   }
 }

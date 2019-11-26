@@ -6,10 +6,10 @@ import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 
 const ranges = [
-  { label: '推荐阅读', value: 1 },
-  { label: '热门话题', value: 2 },
+  { label: '资讯', value: 1 },
+  { label: '热门', value: 2 },
   { label: '新帖', value: 3 },
-  { label: '关注列表', value: 4 },
+  { label: '关注', value: 4 },
 ]
 
 const Home = () => {

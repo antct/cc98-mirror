@@ -21,9 +21,9 @@ import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
-import EventIcon from '@material-ui/icons/Event'
 import MailIcon from '@material-ui/icons/Mail'
 import ToysIcon from '@material-ui/icons/Toys'
+import InfoIcon from '@material-ui/icons/Info'
 
 import UserInfo from './UserInfo'
 
@@ -80,7 +80,7 @@ const DrawerMenu: React.FC = () => {
           <>
             <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
             {customHome !== 1 && (
-              <Item icon={<EventIcon />} text="推荐" onClick={jump('/recommedation')} />
+              <Item icon={<InfoIcon />} text="资讯" onClick={jump('/info')} />
             )}
             {customHome !== 2 && (
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />

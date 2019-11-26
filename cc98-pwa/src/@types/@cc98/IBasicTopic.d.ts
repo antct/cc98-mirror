@@ -4,6 +4,7 @@ declare module '@cc98/api' {
      * 帖子id
      */
     id: number
+    url: string
     title: string
     /**
      * 版面id

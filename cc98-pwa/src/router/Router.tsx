@@ -14,7 +14,7 @@ import MessageList from '@/pages/Message/List'
 import MyFollow from '@/pages/MyFollow'
 import Notice from '@/pages/Notice'
 import Social from '@/pages/Social'
-import Recommedation from '@/pages/Recommedation'
+import Info from '@/pages/Info'
 import NewTopic from '@/pages/NewTopic'
 import Search from '@/pages/Search'
 import Setting from '@/pages/Setting'
@@ -74,7 +74,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="user/:id" component={UserCenter} />
     <Route path="user/name/:name" component={UserCenter} />
 
-    <Route path="recommedation" component={Recommedation} />
+    <Route path="info" component={Info} />
 
     <Route path="editor/postTopic/:boardId" component={Editor} />
     <Route path="editor/replyTopic/:topicId/" component={Editor} />
