@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import { List, ListItem, ListItemIcon, Divider, Avatar, Typography } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
-
-import Event from '@material-ui/icons/Event'
+import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 
 import { IRecommendationReading } from '@cc98/api'
 
@@ -73,7 +72,7 @@ export default (props: Props) => (
   <List>
     <ListItem>
       <ListItemIcon>
-        <Event />
+        <VolumeUpIcon />
       </ListItemIcon>
       <ListItemText primary="推荐阅读" />
     </ListItem>

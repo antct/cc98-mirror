@@ -39,7 +39,7 @@ export default () => {
   const ids = [5298, 531603]
   const descriptions = [
     'CC98 PWA 团队',
-    '低级改造师'
+    '低级魔法改造师'
   ]
 
   const [usersInfo, setUsersInfo] = useState<IUser[]>([])

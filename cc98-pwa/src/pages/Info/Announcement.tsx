@@ -2,8 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { ListItem, ListItemText, ListItemIcon, Divider } from '@material-ui/core'
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
-
+import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import UBB from '@/UBB'
 
 const WrapperDiv = styled.div`
@@ -18,7 +17,7 @@ export default ({ content }: Props) => (
   <>
     <ListItem>
       <ListItemIcon>
-        <InfoOutlinedIcon />
+        <VolumeUpIcon />
       </ListItemIcon>
       <ListItemText primary="全站公告" />
     </ListItem>

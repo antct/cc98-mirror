@@ -30,7 +30,7 @@ const Item: React.FC<ItemProps> = ({ icon, text, url }) => (
 const Index = () => (
   <List>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
-    <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
+    <Item icon={<CopyrightIcon />} text="开发组" url="/help/devTeam" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />
   </List>
 )

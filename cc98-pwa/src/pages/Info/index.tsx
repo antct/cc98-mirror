@@ -1,39 +1,19 @@
-import React from 'react'
-import useDelay from '@/hooks/useDelay'
-import LoadingCircle from '@/components/LoadingCircle'
+import React, { useState } from 'react'
 
-import useFetcher from '@/hooks/useFetcher'
+import Home from './Home'
+import FixFab from '@/components/FixFab'
 
-import Announcement from './Announcement'
-import Board from './Board'
-import Recommend from './Recommend'
+import RotateRightIcon from '@material-ui/icons/RotateRight'
 
-import { getHomeInfo } from '@/services/global'
-import { notificationHandler } from '@/services/utils/errorHandler'
-
-const Home: React.FC = () => {
-  const [homeInfo] = useFetcher(getHomeInfo, {
-    fail: notificationHandler,
-  })
-  const isResolve = useDelay(300)
-
-  if (homeInfo === null || !isResolve) {
-    return <LoadingCircle />
-  }
+export default () => {
+  const [homeKey, setHomeKey] = useState(0)
 
   return (
     <>
-      <Announcement content={homeInfo.announcement} />
-      <Recommend recommendationReading={homeInfo.recommendationReading} />
-      <Board name='学习天地' data={homeInfo.study} />
-      <Board name='感性空间' data={homeInfo.emotion} />
-      <Board name='实习兼职' data={homeInfo.partTimeJob} />
-      <Board name='求职广场' data={homeInfo.fullTimeJob} />
-      <Board name='跳蚤市场' data={homeInfo.fleaMarket} />
-      <Board name='学术信息' data={homeInfo.academics} />
-      <Board name='校园活动' data={homeInfo.schoolEvent} />
+      <Home key={homeKey} />
+      <FixFab>
+        <RotateRightIcon onClick={() => setHomeKey(homeKey + 1)} />
+      </FixFab>
     </>
   )
 }
-
-export default Home
