@@ -25,7 +25,7 @@ const Home: React.FC = () => {
     <>
       <Announcement content={homeInfo.announcement} />
       <Recommend recommendationReading={homeInfo.recommendationReading} />
-      <Board name='今日十大' data={homeInfo.hotTopic} />
+      <Board name='热门话题' data={homeInfo.hotTopic} />
       <Board name='学习天地' data={homeInfo.study} />
       <Board name='感性空间' data={homeInfo.emotion} />
       <Board name='实习兼职' data={homeInfo.partTimeJob} />

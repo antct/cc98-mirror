@@ -66,23 +66,21 @@ interface WrapperProps {
 
 const Wrapper: React.FC<WrapperProps> = props => {
   const { myInfo } = useModel(userModel, ['myInfo'])
+  const isResolve = useDelay(300)
 
   if (props.id) {
     const [userInfo] = useFetcher(props.id ? () => getUserInfoById(props.id as string) : null)
-    const isResolve = useDelay(300)
     if (userInfo === null || !isResolve) {
       return <LoadingCircle />
     }
     return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
   } else if (props.name) {
     const [userInfo] = useFetcher(props.name ? () => getUserInfoByName(props.name as string) : null)
-    const isResolve = useDelay(300)
     if (userInfo === null || !isResolve) {
       return <LoadingCircle />
     }
     return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
   } else {
-    const isResolve = useDelay(300)
     if (myInfo === null || !isResolve) {
       return <LoadingCircle />
     }

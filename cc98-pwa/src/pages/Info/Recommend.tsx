@@ -11,6 +11,11 @@ import { IRecommendationReading } from '@cc98/api'
 
 import dayjs from 'dayjs'
 
+const ListS = muiStyled(List)({
+  paddingTop: '0px',
+  paddingBottom: '0px',
+})
+
 const AvatarS = muiStyled(Avatar)({
   backgroundColor: '#999',
 })
@@ -69,7 +74,7 @@ interface Props {
   recommendationReading: IRecommendationReading[]
 }
 export default (props: Props) => (
-  <List>
+  <ListS>
     <ListItem>
       <ListItemIcon>
         <VolumeUpIcon />
@@ -97,5 +102,5 @@ export default (props: Props) => (
         </ListItemS>
       )
     })}
-  </List>
+  </ListS>
 )

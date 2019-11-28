@@ -25,5 +25,6 @@ export default ({ content }: Props) => (
     <WrapperDiv>
       <UBB ubbText={content} />
     </WrapperDiv>
+    <Divider />
   </>
 )

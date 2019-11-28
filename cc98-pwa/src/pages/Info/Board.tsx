@@ -14,6 +14,11 @@ import { getBoardNameById } from '@/services/board'
 
 import { IBasicTopic } from '@cc98/api'
 
+const ListS = muiStyled(List)({
+  paddingTop: '0px',
+  paddingBottom: '0px',
+})
+
 const ListItemS = muiStyled(ListItem)({
   display: 'flex',
   justifyContent: 'space-between',
@@ -57,7 +62,7 @@ interface Props {
 }
 
 export default (props: Props) => (
-  <List>
+  <ListS>
     <ListItem>
       <ListItemIcon>
         <VolumeUpIcon />
@@ -83,5 +88,5 @@ export default (props: Props) => (
       )
     })}
 
-  </List>
+  </ListS>
 )

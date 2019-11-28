@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import muiStyled from '@/muiStyled'
+import styled from 'styled-components'
 
 import { Paper, Divider } from '@material-ui/core'
 
@@ -7,6 +8,7 @@ import Header from './Header'
 import Content from './Content'
 import Actions from './Actions'
 import Awards from './Awards'
+import UBB from '@/UBB'
 
 import { getSinglePost } from '@/services/post'
 import { IPost, IUser } from '@cc98/api'
@@ -17,6 +19,10 @@ const Wrapper = muiStyled(Paper).attrs({
 })({
   marginTop: 6,
 })
+
+const WrapperDiv = styled.div`
+  margin: 8px 32px;
+`
 
 interface Props {
   /**
@@ -68,11 +74,20 @@ export default ({ postInfo, userInfo, isHot, isTrace = false }: Props) => {
         isTrace={isTrace}
         refreshPost={refreshPost}
       />
+      {/* {userInfo !== undefined && userInfo.signatureCode &&
+        (
+          <>
+            <Divider />
+            <WrapperDiv>
+              <UBB ubbText={userInfo.signatureCode} />
+            </WrapperDiv>
+          </>
+        )
+      } */}
       <Awards
         key={currentPost.awards ? currentPost.awards.length : 0}
         awards={currentPost.awards}
       />
-
       <Divider />
     </Wrapper>
   )
