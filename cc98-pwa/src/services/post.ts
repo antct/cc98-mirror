@@ -13,6 +13,18 @@ export function getPost(id: number, from: number) {
   })
 }
 
+export function getSharePost(shareId: string, from: number) {
+  let topicId = shareId.slice(0, shareId.indexOf('+'))
+  let share_token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
+  return GET<IPost[]>(`topic/${topicId}/post`, {
+    params: {
+      share_token,
+      from,
+      size: 10,
+    },
+  })
+}
+
 export function getPostList(data: IReply[]) {
   let id = data.map(x => `id=${x.postId}`).join('&')
   return GET<IPost[]>(`post/basic?${id}`)
@@ -113,6 +125,12 @@ export function getAnonymousTracePost(topicId: number, postId: number | string, 
  */
 export function getHotPost(topicId: number) {
   return GET<IPost[]>(`topic/${topicId}/hot-post`)
+}
+
+export function getShareHotPost(shareId: string) {
+  let topicId = shareId.slice(0, shareId.indexOf('+'))
+  let token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
+  return GET<IPost[]>(`topic/${topicId}/hot-post?share_token=${token}`)
 }
 
 /**

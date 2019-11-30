@@ -41,11 +41,12 @@ interface Props {
    * 是否追踪
    */
   isTrace?: boolean
+  isShare: boolean
 }
 
 const DELETE_CONTENT = '该贴已被 my CC98, my home'
 
-export default ({ postInfo, userInfo, isHot, isTrace = false }: Props) => {
+export default ({ postInfo, userInfo, isHot, isTrace = false, isShare }: Props) => {
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
   if (postInfo.isDeleted) {
     postInfo.content = DELETE_CONTENT
@@ -66,14 +67,14 @@ export default ({ postInfo, userInfo, isHot, isTrace = false }: Props) => {
 
   return (
     <Wrapper>
-      <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} />
+      <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
       <Content postInfo={currentPost} />
-      <Actions
+      {!isShare && <Actions
         postInfo={currentPost}
         userInfo={userInfo}
         isTrace={isTrace}
         refreshPost={refreshPost}
-      />
+      />}
       {/* {userInfo !== undefined && userInfo.signatureCode &&
         (
           <>

@@ -49,14 +49,15 @@ interface Props {
   subTitle: string
   subTitleClick?: () => void
   action?: React.ReactNode
+  isShare?: boolean
 }
 
-const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action }) => {
+const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action, isShare }) => {
   return (
     <StickyBar>
-      <GobackIcon onClick={goback}>
+      {!!!isShare && <GobackIcon onClick={goback}>
         <KeyboardBackspaceIcon />
-      </GobackIcon>
+      </GobackIcon>}
       <Title onClick={titleClick}>{title}</Title>
       <SubTitle onClick={subTitleClick}>{subTitle}</SubTitle>
       {action && <AcitonDiv>{action}</AcitonDiv>}

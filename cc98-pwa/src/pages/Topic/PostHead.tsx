@@ -13,9 +13,10 @@ import { navigate } from '@/utils/history'
 interface Props {
   topicInfo: ITopic
   refreshFunc: () => void
+  isShare: boolean
 }
 
-const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc }) => {
+const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc, isShare }) => {
   const [boardName, setBoardName] = useState('')
 
   useEffect(() => {
@@ -33,10 +34,11 @@ const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc }) => {
   return (
     <StickyHeadBar
       title={topicInfo.title}
-      titleClick={() => navigate(`/topic/${topicInfo.id}`)}
-      subTitle={boardName}
-      subTitleClick={() => navigate(`/board/${topicInfo.boardId}`)}
-      action={<PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} />}
+      titleClick={isShare ? () => false : () => navigate(`/topic/${topicInfo.id}`)}
+      subTitle={isShare ? '分享模式' : boardName}
+      subTitleClick={isShare ? () => false : () => navigate(`/board/${topicInfo.boardId}`)}
+      action={isShare ? null : <PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} />}
+      isShare={isShare}
     />
   )
 }

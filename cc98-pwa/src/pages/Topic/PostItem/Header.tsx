@@ -57,13 +57,14 @@ interface Props {
    * 是否热帖
    */
   isHot?: boolean
+  isShare: boolean
 }
 
-export default ({ postInfo, userInfo, isHot }: Props) => (
+export default ({ postInfo, userInfo, isHot, isShare }: Props) => (
   <FlexDiv>
     <AvatarArea>
       <AvatarS
-        onClick={() => !postInfo.isAnonymous && navigate(`/user/${postInfo.userId}`)}
+        onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
         src={userInfo && userInfo.portraitUrl}
       >
         {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}

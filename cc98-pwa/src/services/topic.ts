@@ -58,6 +58,11 @@ export function getTopicInfo(id: number | string) {
   return GET<ITopic>(`topic/${id}`)
 }
 
+export function getShareTopicInfo(shareId: string) {
+  let topicId = shareId.slice(0, shareId.indexOf('+'))
+  let token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
+  return GET<ITopic>(`topic/${topicId}?share_token=${token}`)
+}
 
 export function getTopicList(data: IReply[]) {
   let id = data.map(x => `id=${x.topicId}`).join('&')
@@ -205,3 +210,4 @@ export function FavoriteTopic(topicId: number, opt: boolean | null) {
 
   return DELETE(url)
 }
+

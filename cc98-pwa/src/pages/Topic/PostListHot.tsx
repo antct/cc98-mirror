@@ -8,9 +8,10 @@ import { IPost } from '@cc98/api'
 
 interface Props {
   service: Service<IPost[]>
+  isShare: boolean
 }
 
-export default ({ service }: Props) => {
+export default ({ service, isShare }: Props) => {
   const [userMap, updateUserMap] = useUserMap()
 
   const [posts] = useFetcher(service, {
@@ -24,7 +25,7 @@ export default ({ service }: Props) => {
   return (
     <>
       {posts.map((info: IPost) => (
-        <PostItem key={info.id} postInfo={info} userInfo={userMap[info.userId]} isHot />
+        <PostItem key={info.id} postInfo={info} userInfo={userMap[info.userId]} isHot isShare={isShare}/>
       ))}
     </>
   )

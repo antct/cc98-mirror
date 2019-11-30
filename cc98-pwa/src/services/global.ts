@@ -22,6 +22,11 @@ export function getSignState() {
   return GET<ISignIn>('me/signin')
 }
 
+export function getShare() {
+  return GET('share')
+}
+
+
 /**
  * 签到
  */

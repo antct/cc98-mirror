@@ -59,6 +59,8 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="topic/:topicId/anonymous/trace/:postId" component={Topic} />
     <Route path="topic/:topicId/trace/:userId" component={Topic} />
 
+    <Route path="share/:shareId" component={Topic} />
+
     <Route path="myFollow" component={MyFollow} />
     <Route path="notice" component={Notice} />
     <Route path="social" component={Social} />

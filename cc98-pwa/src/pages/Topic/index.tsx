@@ -10,7 +10,7 @@ import PostListHot from './PostListHot'
 import PostList from './PostList'
 import FixButtons from './FixButtons'
 
-import { getTopicInfo } from '@/services/topic'
+import { getTopicInfo, getShareTopicInfo } from '@/services/topic'
 import {
   getPost,
   getFloor,
@@ -18,9 +18,10 @@ import {
   getTracePost,
   getAnonymousTracePost,
   getHotPost,
+  getSharePost,
+  getShareHotPost
 } from '@/services/post'
 import { navigateHandler } from '@/services/utils/errorHandler'
-import { number } from '_@types_prop-types@15.7.3@@types/prop-types'
 import { getFollower } from '@/services/social'
 
 const EndPlaceholder = styled.div`
@@ -38,10 +39,20 @@ interface Props {
   postId?: string
   // 是否逆向
   isReverse?: boolean
+  shareId?: string
 }
 
-const Topic = ({ topicId, page, floor, userId, postId, isReverse }: Props) => {
-  const [topicInfo, setTopicInfo] = useFetcher(() => getTopicInfo(topicId), {
+const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Props) => {
+  const isShare = !(shareId === undefined)
+  const atob = (str: string) => {
+    try {
+      return window.atob(str)
+    } catch (err) {
+      return ''
+    }
+  }
+  const realId = !(shareId === undefined) ? atob(shareId) : topicId
+  const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getShareTopicInfo(realId) : () => getTopicInfo(realId), {
     fail: navigateHandler,
   })
   // 用于刷新
@@ -55,20 +66,20 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse }: Props) => {
   const postService = isReverse
     ? (from: number) => getReversePost(topicInfo.id, from, topicInfo.replyCount)
     : userId
-    ? (from: number) => getTracePost(topicInfo.id, userId, from)
-    : postId
-    ? (from: number) => getAnonymousTracePost(topicInfo.id, postId, from)
-    : floor
-    ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page)-1) + parseInt(floor) : parseInt(floor))
-    : (from: number) => getPost(topicInfo.id, from)
+      ? (from: number) => getTracePost(topicInfo.id, userId, from)
+      : postId
+        ? (from: number) => getAnonymousTracePost(topicInfo.id, postId, from)
+        : floor
+          ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page) - 1) + parseInt(floor) : parseInt(floor))
+          : (from: number) => isShare ? getSharePost(realId, from) : getPost(topicInfo.id, from)
 
-  const hotPostService = () => getHotPost(topicInfo.id)
+  const hotPostService = () => isShare ? getShareHotPost(realId) : getHotPost(topicInfo.id)
 
   // 是否处于追踪状态
   const isTrace = !!userId || !!postId
 
   const refreshFunc = () => {
-    getTopicInfo(topicId).then(res =>
+    getTopicInfo(realId).then(res =>
       res.fail(navigateHandler).succeed(newTopicInfo => {
         setTopicInfo(newTopicInfo)
         setPostListKey(prevKey => prevKey + 1)
@@ -78,11 +89,11 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse }: Props) => {
 
   return (
     <>
-      <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} />
-      <PostList key={postListKey} service={postService} isTrace={isTrace}>
-        {!isTrace && !page && !floor && <PostListHot service={hotPostService} />}
+      <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />
+      <PostList key={postListKey} service={postService} isTrace={isTrace} isShare={isShare}>
+        {!isTrace && !page && !floor && <PostListHot service={hotPostService} isShare={isShare} />}
       </PostList>
-      <FixButtons topicInfo={topicInfo} isReverse={isReverse} refreshFunc={refreshFunc} />
+      {!isShare && <FixButtons topicInfo={topicInfo} isReverse={isReverse} refreshFunc={refreshFunc} />}
       <EndPlaceholder />
     </>
   )

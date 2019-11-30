@@ -15,6 +15,7 @@ interface IUserMap {
 interface Props {
   service: Service<IPost[]>
   isTrace: boolean
+  isShare: boolean
 }
 
 export function useUserMap() {
@@ -35,7 +36,7 @@ export function useUserMap() {
   return [userMap, updateUserMap] as [typeof userMap, typeof updateUserMap]
 }
 
-const PostList: React.FC<Props> = ({ service, isTrace, children }) => {
+const PostList: React.FC<Props> = ({ service, isTrace, children, isShare }) => {
   const [userMap, updateUserMap] = useUserMap()
 
   const [posts, state, callback] = useInfList(service, {
@@ -49,7 +50,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children }) => {
       {posts.map(info =>
         info.floor === 1 ? (
           <React.Fragment key={info.id}>
-            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} />
+            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} />
             {children /** <PostListHot /> */}
           </React.Fragment>
         ) : (
@@ -58,6 +59,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children }) => {
             postInfo={info}
             userInfo={userMap[info.userId]}
             isTrace={isTrace}
+            isShare={isShare}
           />
         )
       )}
