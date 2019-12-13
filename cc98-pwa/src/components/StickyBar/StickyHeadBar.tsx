@@ -55,9 +55,12 @@ interface Props {
 const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action, isShare }) => {
   return (
     <StickyBar>
-      {!!!isShare && <GobackIcon onClick={goback}>
-        <KeyboardBackspaceIcon />
-      </GobackIcon>}
+      {
+        !!!isShare &&
+        <GobackIcon onClick={goback}>
+          <KeyboardBackspaceIcon />
+        </GobackIcon>
+      }
       <Title onClick={titleClick}>{title}</Title>
       <SubTitle onClick={subTitleClick}>{subTitle}</SubTitle>
       {action && <AcitonDiv>{action}</AcitonDiv>}

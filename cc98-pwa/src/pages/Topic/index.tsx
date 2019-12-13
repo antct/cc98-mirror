@@ -10,7 +10,10 @@ import PostListHot from './PostListHot'
 import PostList from './PostList'
 import FixButtons from './FixButtons'
 
-import { getTopicInfo, getShareTopicInfo } from '@/services/topic'
+import { 
+  getTopicInfo, 
+  getShareTopicInfo 
+} from '@/services/topic'
 import {
   getPost,
   getFloor,
@@ -43,15 +46,15 @@ interface Props {
 }
 
 const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Props) => {
-  const isShare = !(shareId === undefined)
-  const atob = (str: string) => {
+  const safeATOB = (str: string) => {
     try {
       return window.atob(str)
     } catch (err) {
-      return ''
+      return '+'
     }
   }
-  const realId = !(shareId === undefined) ? atob(shareId) : topicId
+  const realId = !!shareId ? safeATOB(shareId) : topicId
+  const isShare = !!shareId
   const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getShareTopicInfo(realId) : () => getTopicInfo(realId), {
     fail: navigateHandler,
   })

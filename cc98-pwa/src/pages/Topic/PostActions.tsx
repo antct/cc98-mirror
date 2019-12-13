@@ -16,7 +16,7 @@ import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
 import { ITopic } from '@cc98/api'
 
 import { getTopicFavorite, FavoriteTopic } from '@/services/topic'
-import { getShare } from '@/services/global'
+import { getShareToken } from '@/services/global'
 import { getBoardMastersById } from '@/services/board'
 
 import { favoriteHandler } from '@/services/utils/errorHandler'
@@ -58,21 +58,20 @@ export default ({ topicInfo, refreshFunc }: Props) => {
   }
 
   const handleShare = async () => {
-    const res = await getShare()
+    const res = await getShareToken(topicInfo.id)
     res
       .fail(err => {
-        snackbar.success('获取分享链接失败')
+        snackbar.success('分享链接获取失败')
         handleClose()
       })
-      .succeed(data => {
-        let shareId = window.btoa(`${topicInfo.id}+${data}`)
+      .succeed(res => {
+        let shareId = window.btoa(`${topicInfo.id}+${res.token}`)
         if (document.location) {
           copy2Clipboard(`https://${document.location.host}/share/${shareId}`)
         }
         snackbar.success('分享链接已经成功复制到剪切板')
         handleClose()
       })
-
   }
 
   const handleFavorite = async () => {

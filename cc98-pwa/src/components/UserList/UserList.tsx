@@ -22,6 +22,10 @@ export default ({ data, func }: Props) => {
   const size = 20
 
   function callback() {
+    if (data.length === userList.length) {
+      func()
+      return null
+    }
     let offset = data.length % size === 0 ? 20 : data.length % size
     let fromPos = data.length - offset
     if (fromPos < 0) {

@@ -69,12 +69,15 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare }: Props) 
     <Wrapper>
       <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
       <Content postInfo={currentPost} />
-      {!isShare && <Actions
-        postInfo={currentPost}
-        userInfo={userInfo}
-        isTrace={isTrace}
-        refreshPost={refreshPost}
-      />}
+      {
+        // !isShare &&
+        <Actions
+          postInfo={currentPost}
+          userInfo={userInfo}
+          isTrace={isTrace}
+          refreshPost={refreshPost}
+        />
+      }
       {/* {userInfo !== undefined && userInfo.signatureCode &&
         (
           <>

@@ -25,6 +25,8 @@ export function navigateHandler(err: FetchError) {
     navigate('/error/403', { replace: true })
   } else if (err.status === 404) {
     navigate('/error/404', { replace: true })
+  } else if (err.status === 410) {
+    navigate('/error/410', { replace: true })
   } else if (err.status === 500 || err.status === 502 || err.status === 503) {
     navigate('/error/500', { replace: true })
   }

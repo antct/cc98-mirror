@@ -14,9 +14,9 @@ export function getPost(id: number, from: number) {
 }
 
 export function getSharePost(shareId: string, from: number) {
-  let topicId = shareId.slice(0, shareId.indexOf('+'))
-  let share_token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
-  return GET<IPost[]>(`topic/${topicId}/post`, {
+  let id = shareId.slice(0, shareId.indexOf('+'))
+  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
+  return GET<IPost[]>(`topic/${id}/post`, {
     params: {
       share_token,
       from,
@@ -128,9 +128,13 @@ export function getHotPost(topicId: number) {
 }
 
 export function getShareHotPost(shareId: string) {
-  let topicId = shareId.slice(0, shareId.indexOf('+'))
-  let token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
-  return GET<IPost[]>(`topic/${topicId}/hot-post?share_token=${token}`)
+  let id = shareId.slice(0, shareId.indexOf('+'))
+  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
+  return GET<IPost[]>(`topic/${id}/hot-post`, {
+    params: {
+      share_token
+    },
+  })
 }
 
 /**

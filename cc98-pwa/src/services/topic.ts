@@ -59,9 +59,13 @@ export function getTopicInfo(id: number | string) {
 }
 
 export function getShareTopicInfo(shareId: string) {
-  let topicId = shareId.slice(0, shareId.indexOf('+'))
-  let token = shareId.slice(shareId.indexOf('+')+1, shareId.length)
-  return GET<ITopic>(`topic/${topicId}?share_token=${token}`)
+  let id = shareId.slice(0, shareId.indexOf('+'))
+  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
+  return GET<ITopic>(`topic/${id}`, {
+    params: {
+      share_token
+    }
+  })
 }
 
 export function getTopicList(data: IReply[]) {

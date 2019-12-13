@@ -48,7 +48,21 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
     setAnchorEl(null)
   }
 
+  function checkLogIn() {
+    if (!userModel.state.isLogIn) {
+      snackbar.error('请先登录')
+
+      return false
+    }
+
+    return true
+  }
+
   const handleTrace = () => {
+    if (!checkLogIn()) {
+      handleClose()
+      return
+    }
     if (isTrace) {
       navigate(`/topic/${postInfo.topicId}`)
     } else {
@@ -61,15 +75,15 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
     handleClose()
   }
 
-  const handleShare = () => {
-    if (document.location) {
-      copy2Clipboard(
-        `https://${document.location.host}/topic/${postInfo.topicId}#${postInfo.floor}`
-      )
-    }
-    snackbar.success('分享链接已经成功复制到剪切板')
-    handleClose()
-  }
+  // const handleShare = () => {
+  //   if (document.location) {
+  //     copy2Clipboard(
+  //       `https://${document.location.host}/topic/${postInfo.topicId}#${postInfo.floor}`
+  //     )
+  //   }
+  //   snackbar.success('分享链接已经成功复制到剪切板')
+  //   handleClose()
+  // }
 
   // 控制 评分 的显示
   const [showJudge, setShowJudge] = useState(false)
@@ -88,11 +102,19 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
   const manageClose = () => setShowManage(false)
 
   const handleJudge = () => {
+    if (!checkLogIn()) {
+      handleClose()
+      return
+    }
     judgeOpen()
     handleClose()
   }
 
   const handleManage = () => {
+    if (!checkLogIn()) {
+      handleClose()
+      return
+    }
     manageOpen()
     handleClose()
   }
@@ -134,7 +156,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
           </MenuItem>
         )}
         <MenuItem onClick={handleJudge}>评分</MenuItem>
-        <MenuItem onClick={handleShare}>分享</MenuItem>
+        {/* <MenuItem onClick={handleShare}>分享</MenuItem> */}
         {canManage && <MenuItem onClick={handleManage}>管理</MenuItem>}
       </Menu>
     </>
