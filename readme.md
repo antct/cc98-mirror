@@ -12,6 +12,8 @@ A simple way to forward cc98 service from intranet to extranet.
 6. Button `signin`, there's still a bug when someone never signin before.
 7. HTTP links redirect, include topic links and normal links.
 8. Modified infinite list, support multiple web requests.
+9. `share` mode, support sharing topics without password.
+10. ...
 
 ## prepare
 
