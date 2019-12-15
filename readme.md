@@ -13,7 +13,7 @@ A simple way to forward cc98 service from intranet to extranet.
 7. HTTP links redirect, include topic links and normal links.
 8. Modified infinite list, support multiple web requests.
 9. `share` mode, support sharing topics without password.
-10. ...
+10. And so on.
 
 ## prepare
 
