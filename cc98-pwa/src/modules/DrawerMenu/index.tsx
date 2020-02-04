@@ -103,7 +103,7 @@ const DrawerMenu: React.FC = () => {
         )}
         {!user.isLogIn && (
           <>
-            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/96486d9b')} />
+            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/conv1d')} />
           </>
         )}
         {user.isLogIn && (

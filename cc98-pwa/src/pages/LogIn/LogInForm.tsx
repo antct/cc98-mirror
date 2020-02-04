@@ -98,7 +98,7 @@ const LogIn: React.FC = () => {
             loading: false,
             logInFail: true,
           })
-        }, 2000)
+        }, 1000)
 
         loginHandler(err)
       })
@@ -109,7 +109,7 @@ const LogIn: React.FC = () => {
             logInFail: false,
           })
           navigate('/')
-        }, 1500)
+        }, 1000)
       })
   }
 
