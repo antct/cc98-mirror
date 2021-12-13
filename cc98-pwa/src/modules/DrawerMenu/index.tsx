@@ -22,7 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import MailIcon from '@material-ui/icons/Mail'
-import ToysIcon from '@material-ui/icons/Toys'
+import PagesIcon from '@material-ui/icons/Pages'
 import InfoIcon from '@material-ui/icons/Info'
 
 import UserInfo from './UserInfo'
@@ -90,7 +90,7 @@ const DrawerMenu: React.FC = () => {
             )}
             <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
             {customHome !== 4 && (
-              <Item icon={<ToysIcon />} text="关注" onClick={jump('/myFollow')} />
+              <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
             <Item icon={<NotificationsIcon color={(useNotification && user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
             <Item icon={<MailIcon color={(useNotification && user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
@@ -103,7 +103,7 @@ const DrawerMenu: React.FC = () => {
         )}
         {!user.isLogIn && (
           <>
-            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/conv1d')} />
+            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/ttcqaq')} />
           </>
         )}
         {user.isLogIn && (

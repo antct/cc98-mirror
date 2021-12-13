@@ -26,7 +26,7 @@ const UserRecentPostsItem: React.FC<{
   return (
     <TopicItem
       title={post.content}
-      subtitle=""
+      subtitle={`赞 ${post.likeCount} 踩 ${post.dislikeCount}`}
       info1={`${post.floor} L`}
       info2={dayjs(post.time).fromNow()}
       onClick={() => navigate(`/topic/${post.topicId}#${post.floor}`)}

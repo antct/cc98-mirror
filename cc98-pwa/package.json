@@ -23,7 +23,7 @@
   "dependencies": {
     "@aspnet/signalr": "^1.1.4",
     "@cc98/ubb-core": "1.1.0",
-    "@material-ui/core": "^4.0.0-beta.2",
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.0.0-beta.0",
     "@material-ui/styles": "^4.0.0-beta.2",
     "@reach/router": "^1.2.1",
@@ -36,6 +36,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-spring": "^8.0.19",
+    "rehype-raw": "^6.1.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
     "styled-components": "^4.2.0",

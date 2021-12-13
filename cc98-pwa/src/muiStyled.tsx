@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '@material-ui/styles'
 import { CSSProperties, WithStylesOptions } from '@material-ui/styles/withStyles'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { Theme } from '@material-ui/core/styles/createTheme'
 export { Theme }
 
 export default function muiStyled<Props>(Component: React.ComponentType<Props> | React.ReactType) {

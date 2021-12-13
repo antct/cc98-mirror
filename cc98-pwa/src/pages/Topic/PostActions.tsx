@@ -65,9 +65,8 @@ export default ({ topicInfo, refreshFunc }: Props) => {
         handleClose()
       })
       .succeed(res => {
-        let shareId = window.btoa(`${topicInfo.id}+${res.token}`)
         if (document.location) {
-          copy2Clipboard(`https://${document.location.host}/share/${shareId}`)
+          copy2Clipboard(`http://${document.location.host}/share/${res.token}`)
         }
         snackbar.success('分享链接已经成功复制到剪切板')
         handleClose()

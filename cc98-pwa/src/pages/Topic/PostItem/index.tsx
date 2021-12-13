@@ -13,6 +13,9 @@ import UBB from '@/UBB'
 import { getSinglePost } from '@/services/post'
 import { IPost, IUser } from '@cc98/api'
 
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
 const Wrapper = muiStyled(Paper).attrs({
   square: true,
   elevation: 0,
@@ -21,7 +24,7 @@ const Wrapper = muiStyled(Paper).attrs({
 })
 
 const WrapperDiv = styled.div`
-  margin: 8px 32px;
+  margin: 8px 16px;
 `
 
 interface Props {
@@ -48,6 +51,7 @@ const DELETE_CONTENT = '该贴已被 my CC98, my home'
 
 export default ({ postInfo, userInfo, isHot, isTrace = false, isShare }: Props) => {
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
+  const { useSignature } = useModel(settingModel, ['useSignature'])
   if (postInfo.isDeleted) {
     postInfo.content = DELETE_CONTENT
   }
@@ -78,7 +82,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare }: Props) 
           refreshPost={refreshPost}
         />
       }
-      {/* {userInfo !== undefined && userInfo.signatureCode &&
+      {useSignature && userInfo !== undefined && userInfo.signatureCode &&
         (
           <>
             <Divider />
@@ -87,7 +91,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare }: Props) 
             </WrapperDiv>
           </>
         )
-      } */}
+      }
       <Awards
         key={currentPost.awards ? currentPost.awards.length : 0}
         awards={currentPost.awards}

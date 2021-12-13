@@ -7,5 +7,6 @@ declare module '@cc98/api' {
     postId: number
     time: string
     isRead: true
+    postBasicInfo: IPost
   }
 }

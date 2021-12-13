@@ -7,6 +7,10 @@ html {
   /* font-size: 14px; */
 }
 
+html::-webkit-scrollbar {
+    width: 0px;
+}
+
 body {
   margin: 0;
   height: 100%;

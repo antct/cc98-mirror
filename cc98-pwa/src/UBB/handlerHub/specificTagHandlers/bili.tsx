@@ -15,7 +15,7 @@ const handler: ITagHandler<React.ReactNode> = {
     return (
       <iframe
         className="ubb-tag-bili"
-        src={`https://player.bilibili.com/player.html?aid=${innerText}&page=${partNumber}`}
+        src={`https://player.bilibili.com/player.html?bvid=${innerText}&page=${partNumber}`}
         allowFullScreen
       />
     )

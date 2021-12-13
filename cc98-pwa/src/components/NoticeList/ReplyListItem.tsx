@@ -91,13 +91,13 @@ export const ReplyItem: React.FC<ItemProps> = ({ onClick, title, subtitle, info1
 
 interface Props {
   data: IReply
-  post: IPost
   topic: ITopic
 }
 
-export default ({ data, post, topic }: Props) => {
+export default ({ data, topic }: Props) => {
   // const [postInfo, setPostInfo] = useFetcher(() => getPostInfoById(data.postId))
   // const [topicInfo, setTopicInfo] = useFetcher(() => getTopicInfoById(data.topicId))
+  const post = data.postBasicInfo
   if (post === null || post === undefined) {
     return null
   }

@@ -6,8 +6,12 @@ import styled from 'styled-components'
 import { List, ListItem, ListItemIcon, Divider, Avatar, Typography } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 
 import { IRecommendationReading } from '@cc98/api'
+
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 import dayjs from 'dayjs'
 
@@ -73,17 +77,23 @@ const Info2 = Info1
 interface Props {
   recommendationReading: IRecommendationReading[]
 }
-export default (props: Props) => (
+export default (props: Props) => {
+  const { showRecommend } = useModel(settingModel, ['showRecommend'])
+  const { TOGGLE_RECOMMEND } = settingModel
+  
+  return (
   <ListS>
     <ListItem>
-      <ListItemIcon>
-        <VolumeUpIcon />
+      <ListItemIcon onClick={TOGGLE_RECOMMEND}>
+        {
+          showRecommend ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
+        }
       </ListItemIcon>
       <ListItemText primary="推荐阅读" />
     </ListItem>
     <Divider />
 
-    {props.recommendationReading.map((info: IRecommendationReading) => {
+    {showRecommend && props.recommendationReading.map((info: IRecommendationReading) => {
       let url = info.imageUrl
       let name = url.slice(url.lastIndexOf('/') + 2, url.lastIndexOf('.'))
       let boardName = decodeURI(name)
@@ -103,4 +113,5 @@ export default (props: Props) => (
       )
     })}
   </ListS>
-)
+  )
+}

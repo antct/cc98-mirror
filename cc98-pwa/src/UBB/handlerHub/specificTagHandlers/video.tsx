@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { globalHistory, HistoryUnsubscribe } from '@reach/router'
 
-import 'dplayer/dist/DPlayer.min.css'
+// import 'dplayer/dist/DPlayer.min.css'
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,

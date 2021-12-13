@@ -8,6 +8,7 @@ import mahjong from './mahjong'
 import ms from './ms'
 import needreply from './needreply'
 import tb from './tb'
+import cc98 from './cc98'
 
 import line from './line'
 
@@ -18,6 +19,7 @@ const generalTagHandlers: IHandlerHub<React.ReactNode>['generalTagHandlers'] = [
   ms,
   needreply,
   tb,
+  cc98,
 
   // tag without close
   line,

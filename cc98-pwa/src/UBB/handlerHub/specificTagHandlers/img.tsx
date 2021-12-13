@@ -6,12 +6,22 @@ import settingModel from '@/models/setting'
 
 import React from 'react'
 
+import { PhotoProvider, PhotoConsumer } from 'react-photo-view';
+import 'react-photo-view/dist/index.css';
+
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
 
   render(node: TagNode, context: IContext) {
     const { useCompress } = useModel(settingModel, ['useCompress'])
-    return <img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} />
+    return (
+      <PhotoProvider bannerVisible={false}>
+        <PhotoConsumer src={`${node.innerText}!${useCompress}`}>
+          <img src={`${node.innerText}!${useCompress}`} alt="" />
+        </PhotoConsumer>
+      </PhotoProvider>
+    );
+    // return <img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} />
   },
 }
 

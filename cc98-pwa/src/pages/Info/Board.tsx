@@ -9,6 +9,7 @@ import {
 import ListItemText from '@/hotfix/ListItemText'
 
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 
 import { getBoardNameById } from '@/services/board'
 
@@ -59,18 +60,23 @@ const Info1 = muiStyled(Typography).attrs({
 interface Props {
   name: string
   data: IBasicTopic[]
+  status: boolean
+  func: () => void
 }
 
-export default (props: Props) => (
+export default (props: Props) => {
+  return (
   <ListS>
     <ListItem>
-      <ListItemIcon>
-        <VolumeUpIcon />
+      <ListItemIcon onClick={props.func}>
+        {
+          props.status ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
+        }
       </ListItemIcon>
       <ListItemText primary={props.name} />
     </ListItem>
     <Divider />
-    {props.data.map((info: IBasicTopic) => {
+    {props.status && props.data.map((info: IBasicTopic) => {
       const [boardName, setBoardName] = useState('')
       useEffect(() => {
         getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
@@ -89,4 +95,5 @@ export default (props: Props) => (
     })}
 
   </ListS>
-)
+  )
+}

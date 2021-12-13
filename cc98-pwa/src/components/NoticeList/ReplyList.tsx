@@ -20,14 +20,13 @@ const ListS = muiStyled(List)({
 
 interface ItemProps {
   data: IReply[]
-  postList: IPost[]
   topicList: ITopic[]
 }
 
-export const ReplyList: React.FC<ItemProps> = ({ data, postList, topicList }) => (
+export const ReplyList: React.FC<ItemProps> = ({ data, topicList }) => (
   <ListS>
     {data.map((x, index) => (
-      <ReplyListItem key={x.id} data={x} post={postList[index]} topic={topicList[index]} />
+      <ReplyListItem key={x.id} data={x} topic={topicList[index]} />
     ))}
   </ListS>
 )
@@ -52,37 +51,32 @@ export default ({ data, func }: Props) => {
       return null
     }
     let nextData = data.slice(fromPos)
-    getPostList(nextData).then(res => {
-      res
-        .fail(err => { })
-        .succeed(list => {
-          let fixList = nextData.map(x => list.filter(y => y.id === x.postId)[0])
-          setPostList(prevList => prevList.concat(fixList))
-          if (!flag) {
-            flag = true
-            return
-          } else {
-            func()
-            if (useNotification && data && data.length) {
-              FRESH_READ()
-            }
-          }
-        })
-    })
+    // getPostList(nextData).then(res => {
+    //   res
+    //     .fail(err => { })
+    //     .succeed(list => {
+    //       let fixList = nextData.map(x => list.filter(y => y.id === x.postId)[0])
+    //       setPostList(prevList => prevList.concat(fixList))
+    //       if (!flag) {
+    //         flag = true
+    //         return
+    //       } else {
+    //         func()
+    //         if (useNotification && data && data.length) {
+    //           FRESH_READ()
+    //         }
+    //       }
+    //     })
+    // })
     getTopicList(nextData).then(res => {
       res
         .fail(err => { })
         .succeed(list => {
           let fixList = nextData.map(x => list.filter(y => y.id === x.topicId)[0])
           setTopicList(prevList => prevList.concat(fixList))
-          if (!flag) {
-            flag = true
-            return
-          } else {
-            func()
-            if (useNotification && data && data.length) {
-              FRESH_READ()
-            }
+          func()
+          if (useNotification && data && data.length) {
+            FRESH_READ()
           }
         })
     })
@@ -95,7 +89,6 @@ export default ({ data, func }: Props) => {
   return (
     <ReplyList
       data={data}
-      postList={postList}
       topicList={topicList}
     />
   )
