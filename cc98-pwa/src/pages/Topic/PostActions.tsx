@@ -65,9 +65,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
         handleClose()
       })
       .succeed(res => {
-        if (document.location) {
-          copy2Clipboard(`http://${document.location.host}/share/${res.token}`)
-        }
+        copy2Clipboard(`${res.url}`)
         snackbar.success('分享链接已经成功复制到剪切板')
         handleClose()
       })

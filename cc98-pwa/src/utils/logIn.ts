@@ -4,6 +4,10 @@ import { getLocalStorage, setLocalStorage, removeLocalStorage } from './storage'
 
 import host from '@/config/host'
 
+import AwaitLock from 'await-lock';
+
+let lock = new AwaitLock();
+
 /**
  * 访问令牌
  */
@@ -18,31 +22,36 @@ export interface Token {
  * 从本地取得 access_token，如果过期尝试刷新
  */
 export async function getAccessToken(): Promise<string> {
-  let accessToken = getLocalStorage('access_token')
+  await lock.acquireAsync();
+  try {
+    let accessToken = getLocalStorage('access_token')
 
-  if (!accessToken) {
-    const refreshToken = getLocalStorage('refresh_token') as string
+    if (!accessToken) {
+      const refreshToken = getLocalStorage('refresh_token') as string
 
-    if (!refreshToken) {
-      return ''
+      if (!refreshToken) {
+        return ''
+      }
+
+      const token = await getTokenByRefreshToken(refreshToken)
+      token
+        .fail(() => {
+          // TODO: 添加 refresh token 过期的处理
+        })
+        .succeed(token => {
+          const access_token = `${token.token_type} ${token.access_token}`
+          setLocalStorage('access_token', access_token, token.expires_in)
+          // refresh_token 有效期一个月
+          setLocalStorage('refresh_token', token.refresh_token, 2592000)
+
+          accessToken = access_token
+        })
     }
 
-    const token = await getTokenByRefreshToken(refreshToken)
-    token
-      .fail(() => {
-        // TODO: 添加 refresh token 过期的处理
-      })
-      .succeed(token => {
-        const access_token = `${token.token_type} ${token.access_token}`
-        setLocalStorage('access_token', access_token, token.expires_in)
-        // refresh_token 有效期一个月
-        setLocalStorage('refresh_token', token.refresh_token, 2592000)
-
-        accessToken = access_token
-      })
+    return accessToken as string
+  } finally {
+    lock.release();
   }
-
-  return accessToken as string
 }
 
 /**

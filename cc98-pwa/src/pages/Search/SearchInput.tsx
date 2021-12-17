@@ -27,7 +27,7 @@ const SearchInput: React.FC<Props> = ({ onSearch }) => {
     <SearchDiv>
       <TextField
         fullWidth
-        placeholder="搜索主题（限制10s一次）"
+        placeholder="搜索主题"
         value={value}
         onChange={onChange}
       />

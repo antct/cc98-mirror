@@ -35,7 +35,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput placeholder="搜索主题或用户（限制10s一次）" onSearch={onSearch} />
+        <SearchInput placeholder="搜索主题或用户" onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"

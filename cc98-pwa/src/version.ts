@@ -2,4 +2,4 @@
  * 版本号
  */
 
-export default 'v1.8.2'
+export default 'v1.8.3'
