@@ -7,6 +7,7 @@ import SwapVertIcon from '@material-ui/icons/SwapVert'
 import EditIcon from '@material-ui/icons/Edit'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
 
 import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
@@ -34,10 +35,10 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
     <>
       {expand && (
         <>
-          <FixFab order={4}>
+          <FixFab order={5}>
             <RotateRightIcon onClick={refreshFunc} />
           </FixFab>
-          <FixFab order={3}>
+          <FixFab order={4}>
             <SwapVertIcon
               onClick={() =>
                 isReverse
@@ -45,6 +46,9 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
                   : navigate(`/topic/${topicInfo.id}/reverse`)
               }
             />
+          </FixFab>
+          <FixFab order={3}>
+            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
           </FixFab>
           <FixFab order={2}>
             <EditIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.id}`)} />
