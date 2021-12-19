@@ -89,7 +89,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
 
       return
     }
-    navigate(`/editor/replyTopic/${postInfo.topicId}/quote/${postInfo.floor}`)
+    navigate(`/editor/replyTopic/${postInfo.boardId}/${postInfo.topicId}/quote/${postInfo.floor}`)
   }
 
   return (

@@ -51,7 +51,7 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
             <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
           </FixFab>
           <FixFab order={2}>
-            <EditIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.id}`)} />
+            <EditIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
           </FixFab>
         </>
       )}

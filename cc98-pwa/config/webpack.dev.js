@@ -23,7 +23,7 @@ module.exports = merge(common, {
     ],
     disableHostCheck: true,
     historyApiFallback: true,
-    port: 9898,
+    port: 9899,
     host: '0.0.0.0',
     // open: true,
     stats: 'errors-only',

@@ -1,9 +1,49 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-import { IconButton, CircularProgress } from '@material-ui/core'
+import { 
+  IconButton, 
+  CircularProgress,
+  Dialog,
+  List,
+  ListItem,
+  ListItemText
+} from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
 
 import { EditorModel } from '../EditorModel'
+
+interface DialogProps {
+  onClose: (value: string) => void
+  selectedValue: string
+  open: boolean
+  options: string[]
+}
+
+const postOptions = ['普通发帖', '匿名发帖']
+const replyOptions = ['普通回复', '匿名回复']
+
+function SimpleDialog({ onClose, selectedValue, open, options }: DialogProps) {
+
+  const handleClose = () => {
+    onClose(selectedValue)
+  }
+
+  const handleListItemClick = (value: string) => {
+    onClose(value)
+  }
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <List>
+        {options.map((option) => (
+          <ListItem button onClick={() => handleListItemClick(option)} key={option}>
+            <ListItemText primary={option} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
+  )
+}
 
 interface Props {
   editor: EditorModel
@@ -11,15 +51,38 @@ interface Props {
 }
 
 export default ({ editor, onSendCallback }: Props) => {
-  function clickHandler() {
-    editor.setState({ isSending: true })
+
+  const [open, setOpen] = useState(false)
+  const options = editor.state.anonymousAction == 1 ? replyOptions : (editor.state.anonymousAction == 2 ? postOptions : [''])
+  const [selectedValue, setSelectedValue] = useState(options[0])
+
+  const handleClose = (value: string) => {
+    setOpen(false)
+    editor.setState({ anonymousSend: value == options[1], isSending: true })
     onSendCallback()
   }
 
+  function clickHandler() {
+    if (editor.state.anonymousState == 2 && editor.state.anonymousAction !== 0) {
+      setOpen(true)
+    } else {
+      editor.setState({ isSending: true })
+      onSendCallback()
+    }
+  }
+
   return (
-    <IconButton onClick={clickHandler}>
-      {!editor.state.isSending && <SendIcon />}
-      {editor.state.isSending && <CircularProgress size={24} />}
-    </IconButton>
+    <>
+      <SimpleDialog
+        selectedValue={selectedValue}
+        open={open}
+        onClose={handleClose}
+        options={options}
+      />
+      <IconButton onClick={clickHandler}>
+        {!editor.state.isSending && <SendIcon />}
+        {editor.state.isSending && <CircularProgress size={24} />}
+      </IconButton>
+    </>
   )
 }

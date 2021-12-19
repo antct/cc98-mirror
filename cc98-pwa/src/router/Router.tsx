@@ -79,9 +79,9 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="info" component={Info} />
 
     <Route path="editor/postTopic/:boardId" component={Editor} />
-    <Route path="editor/replyTopic/:topicId/" component={Editor} />
-    <Route path="editor/replyTopic/:topicId/quote/:floor" component={Editor} />
-    <Route path="editor/edit/:postId" component={Editor} />
+    <Route path="editor/replyTopic/:boardId/:topicId/" component={Editor} />
+    <Route path="editor/replyTopic/:boardId/:topicId/quote/:floor" component={Editor} />
+    <Route path="editor/edit/:boardId/:postId" component={Editor} />
 
     <Route path="history" component={History} />
 

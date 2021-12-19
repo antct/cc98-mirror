@@ -56,6 +56,10 @@ declare module '@cc98/api' {
      * 是否能投票
      */
     canVote: boolean
+    /**
+     * 匿名状态
+     */
+    anonymousState: number
   }
 
   export type IBasicBoard = Pick<

@@ -148,7 +148,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
         {canEdit && (
           <MenuItem
             onClick={() => {
-              navigate(`/editor/edit/${postInfo.id}`)
+              navigate(`/editor/edit/${postInfo.boardId}/${postInfo.id}`)
               handleClose()
             }}
           >

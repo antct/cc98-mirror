@@ -56,7 +56,7 @@ export default function useInit(props: Props): Init | null {
   }
 
   // 发帖
-  if (boardId) {
+  if (boardId && !topicId && !postId) {
     setRetBoardId(parseInt(boardId, 10))
     setOk(true)
 

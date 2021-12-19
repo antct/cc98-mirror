@@ -39,6 +39,10 @@ export interface IPostParams {
    * 回帖格式
    */
   contentType: 0 | 1
+  /**
+   * 匿名回帖
+   */
+  isAnonymous?: boolean
 }
 
 export interface ITopicParams extends IPostParams {

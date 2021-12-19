@@ -10,6 +10,8 @@ import { ITopicParams, IPostParams, postTopic, replyTopic, editorPost } from '@/
 
 import { goback } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
+import useFetcher from '@/hooks/useFetcher'
+import { getBoardInfo } from '@/services/board'
 
 const WrapperDiv = styled.div`
   margin: 8px 12px;
@@ -26,7 +28,7 @@ export interface Props {
   /**
    * 版面 ID
    */
-  boardId?: string
+  boardId: string
   /**
    * 帖子 ID
    */
@@ -49,7 +51,9 @@ export default (props: Props) => {
   const editor = useRef<EditorModel | null>(null)
   const metaModel = useRef<MetaInfoModel | null>(null)
 
-  if (init === null) {
+  const [boardInfo] = useFetcher(() => getBoardInfo(props.boardId))
+
+  if (init === null || boardInfo === null) {
     // init 还在获取中
     return null
   }
@@ -57,9 +61,22 @@ export default (props: Props) => {
   if (!isModelInit.current) {
     editor.current = new EditorModel(init.editor.initContent)
     metaModel.current = new MetaInfoModel(init.metaInfo)
-
     isModelInit.current = true
   }
+
+  editor.current!.setState({ anonymousState: boardInfo.anonymousState })
+  // 本身就是匿名版块的，发送默认匿名，但实际上没用
+  if (boardInfo.anonymousState === 1) editor.current!.setState({ anonymousSend: true })
+  // 可选匿名版块
+  if (boardInfo.anonymousState === 2) {
+    // 编辑下不显示
+    if (props.postId) editor.current!.setState({ anonymousAction: 0 })
+    // 匿名回复
+    else if (props.topicId) editor.current!.setState({ anonymousAction: 1 })
+    // 匿名发帖
+    else editor.current!.setState({ anonymousAction: 2 })
+  }
+
 
   const onSendCallback = chooseSendCallback(
     editor.current!,
@@ -70,7 +87,7 @@ export default (props: Props) => {
 
   return (
     <WrapperDiv>
-      {init.boardId && <MetaInfo model={metaModel.current!} boardId={init.boardId} />}
+      {(init.boardId && !props.topicId && !props.postId) && <MetaInfo model={metaModel.current!} boardId={init.boardId} />}
       <Editor editor={editor.current!} onSendCallback={onSendCallback} />
     </WrapperDiv>
   )
@@ -108,18 +125,19 @@ function chooseSendCallback(
   // }
 
   // 发布帖子
-  if (boardId) {
+  if (boardId && !topicId && !postId) {
     return () => {
-      const topicParams: ITopicParams = {
+      let topicParams: ITopicParams = {
         ...metaInfo.state,
         content: editor.fullContent,
         contentType: 0,
       }
-
+      if (editor.state.anonymousState == 2 && editor.state.anonymousSend) topicParams.isAnonymous = true
       postTopic(boardId, topicParams).then(res =>
         res
-          .fail(() => {
-            snackbar.error('发布失败')
+          .fail((data) => {
+            if (data.msg == 'wealth_not_enough_for_anonymous_topic') snackbar.error('发布失败，财富值不足')
+            else snackbar.error('发布失败')
             failCallback()
           })
           .succeed(() => {
@@ -133,16 +151,19 @@ function chooseSendCallback(
   // 回复帖子
   if (topicId) {
     return () => {
-      const postParams: IPostParams = {
+      let postParams: IPostParams = {
         title: '',
         content: editor.fullContent,
-        contentType: 0,
+        contentType: 0
       }
-
+      // 可选匿名版块，匿名发帖
+      if (editor.state.anonymousState == 2 && editor.state.anonymousSend) postParams.isAnonymous = true
+      console.log(postParams)
       replyTopic(topicId, postParams).then(res =>
         res
-          .fail(() => {
-            snackbar.error('回复失败')
+          .fail((data) => {
+            if (data.msg == 'wealth_not_enough_for_anonymous_post') snackbar.error('财富值不足')
+            else snackbar.error('回复失败')
             failCallback()
           })
           .succeed(() => {
@@ -167,7 +188,6 @@ function chooseSendCallback(
             content: editor.fullContent,
             contentType: 0,
           }
-
       editorPost(postId, params).then(res =>
         res
           .fail(() => {

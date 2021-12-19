@@ -13,6 +13,18 @@ interface State {
    * 正在发布
    */
   isSending: boolean
+  /**
+   * 允许匿名
+   */
+  anonymousState: number
+  /**
+   * 是否发送匿名
+   */
+  anonymousSend: boolean
+  /**
+   * 是否发送匿名
+   */
+  anonymousAction: number
 }
 
 /**
@@ -26,6 +38,9 @@ export class EditorModel extends Model<State> {
       mainContent: initContent || '',
       attachments: [],
       isSending: false,
+      anonymousState: 0,
+      anonymousSend: false,
+      anonymousAction: 0
     }
   }
 
