@@ -2,32 +2,21 @@
 
 A simple way to forward cc98 service from intranet to extranet.
 
-## feature
+## TODO
 
-1. Menu option `notice`, provide notifications you received.
-2. Menu option `social`, abour your fans and followers.
-3. Advanced menu option `search`, add sub-option `search user`.
-4. Image compress option, make image transferring more faster.
-5. Timely notification, menu color will change automatically.
-6. Button `signin`, there's still a bug when someone never signin before.
-7. HTTP links redirect, include topic links and normal links.
-8. Modified infinite list, support multiple web requests.
-9. New `share` mode, support sharing topics without password.
-10. And so on.
+1. 帖子投票：当前只能查看。
+2. 指定版块支持匿名回帖。
 
-## prepare
+## ChangeLog
 
-1. Extranet server like AliYun.
-2. Intranet server who can connect to cc98 server.
+1. 菜单选项：通知，社交，搜索（无限制）。
+2. 图片压缩选项，加快网络传输。
+3. 登录签到按钮（从未签到情况有Bug）。
+4. HTTP链接自定义跳转。
+5. 分享模式，无需登录。
+6. 无线列表，支持同时发多个请求。
+7. 等等。
 
 ## cc98-pwa
 
-Refer to [cc98-pwa](https://github.com/ZJU-CC98/CC98-PWA), try to depoly this site in your extranet server as cc98 mirror site.
-
-## forward
-
-Use flask(requests) module to forward your request to real cc98 server.
-
-## diagram
-
-![](diagram.jpg)
+修改自开源项目 → [cc98-pwa](https://github.com/ZJU-CC98/CC98-PWA)

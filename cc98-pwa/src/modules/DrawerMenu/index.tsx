@@ -7,7 +7,7 @@ import userModel from '@/models/user'
 import stateModel from '@/models/state'
 import settingModel from '@/models/setting'
 
-import { Divider, Drawer, List, ListItem, ListItemIcon } from '@material-ui/core'
+import { Divider, Drawer, List, ListItem, ListItemIcon, Badge } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
 
 import WidgetsIcon from '@material-ui/icons/Widgets'
@@ -92,8 +92,8 @@ const DrawerMenu: React.FC = () => {
             {customHome !== 4 && (
               <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
             )}
-            <Item icon={<NotificationsIcon color={(useNotification && user.unRead && (user.unRead.atCount || user.unRead.replyCount || user.unRead.systemCount)) ? 'secondary' : 'inherit'} />} text="通知" onClick={jump('/notice')} />
-            <Item icon={<MailIcon color={(useNotification && user.unRead && (user.unRead.messageCount)) ? 'secondary' : 'inherit'} />} text="私信" onClick={jump('/messageList')} />
+            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount): 0} color="primary"><NotificationsIcon/></Badge>} text="通知" onClick={jump('/notice')} />
+            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount): 0} color="primary"><MailIcon/></Badge>} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
