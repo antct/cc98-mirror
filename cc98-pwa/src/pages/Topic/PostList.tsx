@@ -43,7 +43,7 @@ export type IVote = {
     isAvailable: boolean
     maxVoteCount: number
     canVote: boolean
-    myRecord: voteRecord;
+    myRecord: voteRecord
     needVote: boolean
     voteUserCount: number
 }
@@ -52,6 +52,7 @@ export function useUserMap() {
   const [userMap, setUserMap] = useState<IUserMap>({})
 
   const updateUserMap = async (list: IPost[]) => {
+    if (list.length == 0) return null
     const res = await getUsersInfoByIds(list.map(p => p.userId).filter(id => id))
     res.fail().succeed(users => {
       users.forEach(user => {

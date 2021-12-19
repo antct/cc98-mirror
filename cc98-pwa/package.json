@@ -36,6 +36,7 @@
     "lodash-es": "^4.17.11",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-showdown": "^2.3.1",
     "react-spring": "^8.0.19",
     "rehype-raw": "^6.1.0",
     "remark": "^10.0.1",

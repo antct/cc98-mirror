@@ -6,6 +6,7 @@ A simple way to forward cc98 service from intranet to extranet.
 
 1. 帖子投票：当前只能查看。
 2. 指定版块支持匿名回帖（待测试）。
+3. Markdown解析下图片不支持放大。
 
 ## ChangeLog
 

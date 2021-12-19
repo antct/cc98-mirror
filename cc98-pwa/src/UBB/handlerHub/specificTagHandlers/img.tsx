@@ -14,14 +14,14 @@ const handler: ITagHandler<React.ReactNode> = {
 
   render(node: TagNode, context: IContext) {
     const { useCompress } = useModel(settingModel, ['useCompress'])
-    return (
-      <PhotoProvider>
-        <PhotoConsumer src={`${node.innerText}!${useCompress}`}>
-          <img src={`${node.innerText}!${useCompress}`} alt="" />
-        </PhotoConsumer>
-      </PhotoProvider>
-    );
-    // return <img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} />
+    // return (
+    //   <PhotoProvider>
+    //     <PhotoConsumer src={`${node.innerText}!${useCompress}`}>
+    //       <img src={`${node.innerText}!${useCompress}`} alt="" />
+    //     </PhotoConsumer>
+    //   </PhotoProvider>
+    // );
+    return <img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} />
   },
 }
 

@@ -9,10 +9,16 @@ import { UBBReact } from '@/UBB'
 import remark from 'remark'
 import remark2react from 'remark-react'
 
+import MarkdownView from 'react-showdown'
+
 function Markdown(content: string) {
-  return remark()
-    .use(remark2react)
-    .processSync(content).contents
+  // return remark()
+    // .use(remark2react)
+    // .processSync(content).contents
+  return <MarkdownView
+    markdown={content}
+    options={{ tables: true, emoji: true }}
+  />
 }
 
 const TypographyS = muiStyled(Typography).attrs({
