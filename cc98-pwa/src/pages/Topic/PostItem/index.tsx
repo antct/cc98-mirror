@@ -18,6 +18,7 @@ import settingModel from '@/models/setting'
 
 import {IVote} from '../PostList'
 
+import dayjs from 'dayjs'
 import remark from 'remark'
 import remark2react from 'remark-react'
 
@@ -103,11 +104,13 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
         voteInfo &&
         (function () {
           let content = '```text\n'
-          content += `投票详情（共有${voteInfo.voteUserCount}人参与投票，暂不支持投票）：\n`
+          content += `投票详情（共有${voteInfo.voteUserCount}人参与投票）：\n`
           voteInfo.voteItems.map((item, index) => {
             content += `\t${index+1}. ${item.description}（${item.count}人/${(100 * item.count/(voteInfo.voteUserCount || 1)).toFixed(2)}%）`
             content += '\n'
           })
+          if (voteInfo.needVote && voteInfo.canVote) content += `投票截止时间：${dayjs(voteInfo.expiredTime).format('YYYY/MM/DD HH:mm')}，参与投票查看结果。\n`
+          if (!!voteInfo.myRecord) content += `投票截止时间：${dayjs(voteInfo.expiredTime).format('YYYY/MM/DD HH:mm')}，你的投票选项是${voteInfo.myRecord.items.join('，')}。\n`
           content += '```'
           content = Markdown(content)
           return <TypographyS>{content}</TypographyS>

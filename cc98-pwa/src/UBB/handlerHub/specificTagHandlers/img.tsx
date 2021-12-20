@@ -6,8 +6,10 @@ import settingModel from '@/models/setting'
 
 import React from 'react'
 
-import { PhotoProvider, PhotoConsumer } from 'react-photo-view';
-import 'react-photo-view/dist/index.css';
+import LazyLoad from 'react-lazyload'
+
+// import { PhotoProvider, PhotoConsumer } from 'react-photo-view'
+// import 'react-photo-view/dist/index.css'
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
@@ -21,7 +23,7 @@ const handler: ITagHandler<React.ReactNode> = {
     //     </PhotoConsumer>
     //   </PhotoProvider>
     // );
-    return <img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} />
+    return <LazyLoad height={200} offset={100}><img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} /></LazyLoad>
   },
 }
 

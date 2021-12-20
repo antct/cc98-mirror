@@ -25,7 +25,7 @@ type voteItem = {
     id: number
     description: string
     count: number
-};
+}
 
 type voteRecord = {
     userId: number

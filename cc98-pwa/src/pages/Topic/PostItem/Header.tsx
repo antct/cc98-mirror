@@ -8,6 +8,10 @@ import Whatshot from '@material-ui/icons/Whatshot'
 
 import { IPost, IUser } from '@cc98/api'
 
+import LazyLoad from 'react-lazyload'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
 import { navigate } from '@/utils/history'
 import dayjs from 'dayjs'
 
@@ -60,34 +64,39 @@ interface Props {
   isShare: boolean
 }
 
-export default ({ postInfo, userInfo, isHot, isShare }: Props) => (
-  <FlexDiv>
-    <AvatarArea>
-      <AvatarS
-        onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-        src={userInfo && userInfo.portraitUrl}
-      >
-        {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
-      </AvatarS>
-      <div>
-        {/* {isHot && <a href={`#${postInfo.floor}`} />} */}
-        <Title>
-          {postInfo.isDeleted
-            ? '98Deleter'
-            : postInfo.isAnonymous
-            ? `匿名${postInfo.userName.toUpperCase()}`
-            : postInfo.userName}
-        </Title>
-        <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
-        <SubTitle>
-          {postInfo.lastUpdateTime &&
-            `由 ${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
-              postInfo.lastUpdateTime
-            ).format('YYYY/MM/DD HH:mm')}`}
-        </SubTitle>
-      </div>
-    </AvatarArea>
+export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
+  const { useCompress } = useModel(settingModel, ['useCompress'])
+  return (
+    <FlexDiv>
+      <AvatarArea>
+        <LazyLoad height={'100%'} offset={100}>
+          <AvatarS
+            onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
+            src={userInfo && `${userInfo.portraitUrl}!${useCompress}`}
+          >
+            {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
+          </AvatarS>
+        </LazyLoad>
+        <div>
+          {/* {isHot && <a href={`#${postInfo.floor}`} />} */}
+          <Title>
+            {postInfo.isDeleted
+              ? '98Deleter'
+              : postInfo.isAnonymous
+              ? `匿名${postInfo.userName.toUpperCase()}`
+              : postInfo.userName}
+          </Title>
+          <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
+          <SubTitle>
+            {postInfo.lastUpdateTime &&
+              `由 ${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
+                postInfo.lastUpdateTime
+              ).format('YYYY/MM/DD HH:mm')}`}
+          </SubTitle>
+        </div>
+      </AvatarArea>
 
-    <Floor>{isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)}</Floor>
-  </FlexDiv>
-)
+      <Floor>{isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)}</Floor>
+    </FlexDiv>
+  )
+}
