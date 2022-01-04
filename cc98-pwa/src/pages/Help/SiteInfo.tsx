@@ -8,8 +8,8 @@ import LoadingCircle from '@/components/LoadingCircle'
 
 import { Table, TableRow, TableBody, TableCell, Divider, Typography } from '@material-ui/core'
 
-import { getSiteInfo } from '@/services/global'
-import { ISite } from '@cc98/api'
+import { getHomeInfo } from '@/services/global'
+import dayjs from 'dayjs'
 
 const Title = muiStyled(Typography).attrs({
   align: 'center',
@@ -28,14 +28,17 @@ export default () => {
 
   useEffect(() => {
     setIsLoading(true)
-    getSiteInfo().then(res =>
+    getHomeInfo().then(res =>
       res.fail().succeed(info => {
         setRows([
           { name: '今日帖数', data: info.todayCount },
-          { name: '论坛总主题数', data: info.maxPostCount },
+          { name: '今日主题数', data: info.todayTopicCount },
+          { name: '论坛总主题数', data: info.topicCount },
           { name: '论坛总回复数', data: info.postCount },
-          { name: '总用户数', data: info.userCount },
+          { name: '论坛总用户数', data: info.userCount },
+          { name: '在线用户数', data: info.onlineUserCount },
           { name: '最新加入用户', data: info.lastUserName },
+          { name: '更新时间', data: `${dayjs(info.lastUpdateTime).format('YYYY/MM/DD HH:mm')}` }
         ])
         setIsLoading(false)
       }

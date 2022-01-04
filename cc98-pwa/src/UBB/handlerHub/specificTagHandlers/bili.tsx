@@ -17,6 +17,8 @@ const handler: ITagHandler<React.ReactNode> = {
         className="ubb-tag-bili"
         src={`https://player.bilibili.com/player.html?bvid=${innerText}&page=${partNumber}`}
         allowFullScreen
+        height={"360"}
+        scrolling='no'
       />
     )
   },

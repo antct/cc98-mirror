@@ -57,8 +57,22 @@ export default ({ topicInfo, refreshFunc }: Props) => {
     setShowSetting(false)
   }
 
-  const handleShare = async () => {
-    const res = await getShareToken(topicInfo.id)
+  const handleShare2 = async () => {
+    const res = await getShareToken(topicInfo.id, 'false')
+    res
+      .fail(err => {
+        snackbar.success('分享链接获取失败')
+        handleClose()
+      })
+      .succeed(res => {
+        copy2Clipboard(`${res.long_url}`)
+        snackbar.success('分享链接已经成功复制到剪切板')
+        handleClose()
+      })
+  }
+
+  const handleShare3 = async () => {
+    const res = await getShareToken(topicInfo.id, 'true')
     res
       .fail(err => {
         snackbar.success('分享链接获取失败')
@@ -69,6 +83,14 @@ export default ({ topicInfo, refreshFunc }: Props) => {
         snackbar.success('分享链接已经成功复制到剪切板')
         handleClose()
       })
+  }
+
+  const handleShare1 = () => {
+    if (document.location) {
+      copy2Clipboard(`http://${document.location.host}/topic/${topicInfo.id}`)
+    }
+    snackbar.success('分享链接已经成功复制到剪切板')
+    handleClose()
   }
 
   const handleFavorite = async () => {
@@ -104,11 +126,23 @@ export default ({ topicInfo, refreshFunc }: Props) => {
           </ListItemIcon>
           <Typography>{isFavorite ? '取消收藏' : '收藏主题'}</Typography>
         </MenuItem>
-        <MenuItem onClick={() => handleShare()}>
+        <MenuItem onClick={() => handleShare1()}>
           <ListItemIcon>
             <ShareIcon />
           </ListItemIcon>
-          <Typography>分享链接</Typography>
+          <Typography>普通分享</Typography>
+        </MenuItem>
+        <MenuItem onClick={() => handleShare2()}>
+          <ListItemIcon>
+            <ShareIcon />
+          </ListItemIcon>
+          <Typography>免密分享</Typography>
+        </MenuItem>
+        <MenuItem onClick={() => handleShare3()}>
+          <ListItemIcon>
+            <ShareIcon />
+          </ListItemIcon>
+          <Typography>免密短链分享</Typography>
         </MenuItem>
         {canManage && (
           <MenuItem onClick={() => handleSetting()}>

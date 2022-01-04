@@ -22,6 +22,7 @@ declare module '@cc98/api' {
     hotTopic: IBasicTopic[]
     lastUpdateTime: string
     lastUpdateUser: string
+    lastUserName: string
     /**
      * 在线用户数
      */
@@ -60,6 +61,10 @@ declare module '@cc98/api' {
      */
     todayCount: number
     /**
+     * 今日主题数
+     */
+    todayTopicCount: number
+    /**
      * 总主题
      */
     topicCount: number
@@ -67,5 +72,6 @@ declare module '@cc98/api' {
      * 总用户
      */
     userCount: number
+
   }
 }

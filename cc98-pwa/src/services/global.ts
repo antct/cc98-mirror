@@ -22,8 +22,8 @@ export function getSignState() {
   return GET<ISignIn>('me/signin')
 }
 
-export function getShareToken(id: number) {
-  return GET<IShare>(`share?id=${id}`)
+export function getShareToken(id: number, short: string) {
+  return GET<IShare>(`share?id=${id}&short=${short}`)
 }
 
 
