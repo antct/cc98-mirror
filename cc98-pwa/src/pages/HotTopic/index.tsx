@@ -47,10 +47,10 @@ export function useUrlMap() {
 
 
 export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
-  const [topics] = useFetcher(service, {
-    fail: notificationHandler,
-  })
   const [urlMap, updateUrlMap] = useUrlMap()
+  const [topics] = useFetcher(service, {
+    fail: notificationHandler
+  })
   useEffect(() => {
     if (!!topics) updateUrlMap(topics)
   }, [topics])

@@ -78,18 +78,19 @@ interface ItemProps {
   subtitle: string
   info1: string
   info2: string
+  isAnonymous: boolean
   portraitUrl?: string
   portraitShow: boolean
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
   <ListItemS button divider onClick={onClick}>
     { portraitShow &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={100}>
           <AvatarS src={portraitUrl}>
-            {(!!!portraitUrl) && '匿'}
+            {isAnonymous && '匿'}
           </AvatarS>
         </LazyLoad>
       </AvatarArea>
@@ -133,12 +134,14 @@ export default ({ data, place, portraitUrl }: Props) => {
   switch (place) {
     case 'usercenter':
       subtitle = boardName
+      showPortrait = false
       break
     case 'hot':
       info1 = boardName
       break
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
+      showPortrait = true
     case 'follow':
     case 'search':
       // 搜索时使用发帖时间
@@ -148,10 +151,10 @@ export default ({ data, place, portraitUrl }: Props) => {
       break
     // case 'inboard':
   }
-
   return (
     <TopicItem
       onClick={() => navigate(`/topic/${data.id}`)}
+      isAnonymous={data.isAnonymous}
       portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
       portraitShow={showPortrait}
       title={title}

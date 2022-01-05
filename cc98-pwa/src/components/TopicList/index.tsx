@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import useInfList, { Service as InfService } from '@/hooks/useInfList'
@@ -14,7 +14,8 @@ import LoadingCircle from '@/components/LoadingCircle'
 
 import { navigateHandler } from '@/services/utils/errorHandler'
 
-import { ITopic } from '@cc98/api'
+import { ITopic, IUser } from '@cc98/api'
+import { getUsersBasicInfoByIds } from '@/services/user'
 
 const Img = styled.img`
   width: 60%;
@@ -36,14 +37,38 @@ const EmtpyList = () => (
   </CenterDiv>
 )
 
+
+interface IUrlMap {
+  [key: number]: string
+}
+
+export function useUrlMap() {
+  const [urlMap, setUrlMap] = useState<IUrlMap>({})
+  const updateUrlMap = async (list: ITopic[]) => {
+    if (list.length == 0) return null
+    let userIds = list.map(p => p.userId).filter(id => id)
+    if (userIds.length == 0) return null
+    const res = await getUsersBasicInfoByIds(userIds)
+    res.fail().succeed(users => {
+      users.forEach(user => {
+        urlMap[user.id] = user.portraitUrl
+      })
+      setUrlMap({ ...urlMap })
+    })
+  }
+  return [urlMap, updateUrlMap] as [typeof urlMap, typeof updateUrlMap]
+}
+
 interface InfProps {
   service: InfService<ITopic[]>
   place: Place
 }
 
 const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
+  const [urlMap, updateUrlMap] = useUrlMap()
   const [topics, state, callback] = useInfList(service, {
     fail: navigateHandler,
+    success: (place !== 'usercenter') ? updateUrlMap : undefined
   })
   const { isLoading, isEnd } = state
 
@@ -51,7 +76,7 @@ const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
     <>
       {isEnd && topics.length === 0 && <EmtpyList />}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
-        <TopicList topics={topics} place={place} />
+        <TopicList topics={topics} place={place} urlMap={urlMap} />
       </InfiniteList>
     </>
   )
@@ -65,14 +90,18 @@ interface FinProps {
 }
 
 const FinTopicList: React.FC<FinProps> = ({ service, noLoading, place, delay = 0 }) => {
-  const [topics] = useFetcher(service, { fail: navigateHandler })
+  const [urlMap, updateUrlMap] = useUrlMap()
+  const [topics] = useFetcher(service, { 
+    fail: navigateHandler,
+    success: (place !== 'usercenter') ? updateUrlMap : undefined
+  })
   const isResolve = useDelay(delay)
 
   if (topics === null || !isResolve) {
     return noLoading ? null : <LoadingCircle />
   }
 
-  return <TopicList topics={topics} place={place} />
+  return <TopicList topics={topics} place={place} urlMap={urlMap} />
 }
 
 export { InfTopicList, FinTopicList }

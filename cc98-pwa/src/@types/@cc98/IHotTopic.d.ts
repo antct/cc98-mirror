@@ -41,5 +41,9 @@ declare module '@cc98/api' {
      * 0 普通帖子  1 校园活动  2 学术信息
      */
     type: number
+    /**
+     * 是否匿名
+     */
+    isAnonymous: boolean
   }
 }
