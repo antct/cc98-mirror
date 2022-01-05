@@ -6,6 +6,9 @@ import { TopicItem } from '@/components/TopicList/TopicListItem'
 import { IHotTopic } from '@cc98/api'
 import { getBoardNameById } from '@/services/board'
 
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
 interface Props {
   /**
    * 帖子信息
@@ -16,6 +19,7 @@ interface Props {
 
 export default ({ data, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
+  const { useCompress, useAvatar } = useModel(settingModel, ['useCompress', 'useAvatar'])
 
   useEffect(() => {
     getBoardNameById(data.boardId).then(boardName => setBoardName(boardName))
@@ -24,8 +28,8 @@ export default ({ data, portraitUrl }: Props) => {
   return (
     <TopicItem
       isAnonymous={data.isAnonymous}
-      portraitShow={true}
-      portraitUrl={portraitUrl}
+      portraitShow={useAvatar}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}

@@ -117,7 +117,7 @@ interface Props {
 
 export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { useCompress, useAvatar } = useModel(settingModel, ['useCompress', 'useAvatar'])
   useEffect(() => {
     if (place === 'inboard') {
       return
@@ -156,7 +156,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       onClick={() => navigate(`/topic/${data.id}`)}
       isAnonymous={data.isAnonymous}
       portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
-      portraitShow={showPortrait}
+      portraitShow={useAvatar && showPortrait}
       title={title}
       subtitle={subtitle}
       info1={info1}

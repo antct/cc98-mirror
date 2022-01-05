@@ -8,6 +8,7 @@ import Mode from './Mode'
 import Cache from './Cache'
 import Compress from './Compress'
 import Signature from './Signature'
+import Avatar from './Avatar'
 import Notification from './Notification'
 import CustomHome from './Home'
 
@@ -17,6 +18,7 @@ const Setting: React.FC = () => (
     <Theme />
     <CustomHome />
     <Mode />
+    <Avatar />
     <Signature />
     <Notification />
     <Compress />

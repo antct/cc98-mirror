@@ -20,6 +20,7 @@ interface State {
   useNotification: boolean
   useSignature: boolean
   useCompress: boolean
+  useAvatar: boolean
   /**
    * 缓存页数
    */
@@ -50,6 +51,7 @@ class SettingModel extends Model<State> {
       useSignalr: false,
       useSignature: false,
       useNotification: true,
+      useAvatar: true,
       useCompress: true,
       cacheSize: 3,
       customHome: 1,
@@ -96,6 +98,13 @@ class SettingModel extends Model<State> {
   TOGGLE_SIGNATURE = () => {
     this.setState(state => ({
       useSignature: !state.useSignature,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_AVATAR = () => {
+    this.setState(state => ({
+      useAvatar: !state.useAvatar,
     }))
     this.SYNC_SETTING()
   }

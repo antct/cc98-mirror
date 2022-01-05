@@ -16,6 +16,8 @@ import { navigateHandler } from '@/services/utils/errorHandler'
 
 import { ITopic, IUser } from '@cc98/api'
 import { getUsersBasicInfoByIds } from '@/services/user'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 const Img = styled.img`
   width: 60%;
@@ -66,9 +68,10 @@ interface InfProps {
 
 const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
+  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics, state, callback] = useInfList(service, {
     fail: navigateHandler,
-    success: (place !== 'usercenter') ? updateUrlMap : undefined
+    success: (place !== 'usercenter' && useAvatar) ? updateUrlMap : undefined
   })
   const { isLoading, isEnd } = state
 
@@ -91,9 +94,10 @@ interface FinProps {
 
 const FinTopicList: React.FC<FinProps> = ({ service, noLoading, place, delay = 0 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
+  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics] = useFetcher(service, { 
     fail: navigateHandler,
-    success: (place !== 'usercenter') ? updateUrlMap : undefined
+    success: (place !== 'usercenter' && useAvatar) ? updateUrlMap : undefined
   })
   const isResolve = useDelay(delay)
 

@@ -18,6 +18,8 @@ import {
 } from '@/services/topic'
 import { getUsersBasicInfoByNames } from '@/services/user'
 import { notificationHandler } from '@/services/utils/errorHandler'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 interface Props {
   service: typeof getHotTopics
@@ -48,12 +50,11 @@ export function useUrlMap() {
 
 export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
+  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics] = useFetcher(service, {
-    fail: notificationHandler
+    fail: notificationHandler,
+    success: useAvatar ? updateUrlMap : undefined
   })
-  useEffect(() => {
-    if (!!topics) updateUrlMap(topics)
-  }, [topics])
   const isResolve = useDelay(delay)
 
   if (topics === null || !isResolve) {
