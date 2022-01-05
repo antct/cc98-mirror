@@ -8,9 +8,9 @@ import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction } from '@mate
 
 import ListItemText from '@/hotfix/ListItemText'
 
-import useFetcher from '@/hooks/useFetcher'
-
-import { getUserInfoById } from '@/services/user'
+import LazyLoad from 'react-lazyload'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 import { IUser } from '@cc98/api'
 
@@ -34,13 +34,16 @@ export default ({ data }: Props) => {
   //   return null
   // }
   const { name, portraitUrl, lastLogOnTime, signatureCode } = data
+  const { useCompress } = useModel(settingModel, ['useCompress'])
   let fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
-      <ListItemAvatar>
-        <Avatar src={portraitUrl} />
-      </ListItemAvatar>
+      <LazyLoad height={'100%'} offset={100}>
+        <ListItemAvatar>
+          <Avatar src={`${portraitUrl}!${useCompress}`} />
+        </ListItemAvatar>
+      </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>
       { <ListItemSecondaryAction>
         <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />

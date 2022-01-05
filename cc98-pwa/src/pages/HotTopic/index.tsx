@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import useFetcher from '@/hooks/useFetcher'
 import useDelay from '@/hooks/useDelay'
@@ -9,12 +9,14 @@ import { List, Tab, Tabs } from '@material-ui/core'
 import LoadingCircle from '@/components/LoadingCircle'
 import HotTopicItem from './HotTopicItem'
 
+import { IHotTopic } from '@cc98/api'
 import {
   getHotTopics,
   getWeeklyHotTopics,
   getMonthlyHotTopics,
   getHistoryHotTopics,
 } from '@/services/topic'
+import { getUsersBasicInfoByNames } from '@/services/user'
 import { notificationHandler } from '@/services/utils/errorHandler'
 
 interface Props {
@@ -22,10 +24,36 @@ interface Props {
   delay?: number
 }
 
+interface IUrlMap {
+  [key: string]: string
+}
+
+export function useUrlMap() {
+  const [urlMap, setUrlMap] = useState<IUrlMap>({})
+  const updateUrlMap = async (list: IHotTopic[]) => {
+    if (list.length == 0) return null
+    let userNames = list.map(p => p.authorName).filter(name => name)
+    if (userNames.length == 0) return null
+    const res = await getUsersBasicInfoByNames(userNames)
+    res.fail().succeed(users => {
+      users.forEach(user => {
+        urlMap[user.name] = user.portraitUrl
+      })
+      setUrlMap({ ...urlMap })
+    })
+  }
+  return [urlMap, updateUrlMap] as [typeof urlMap, typeof updateUrlMap]
+}
+
+
 export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
   const [topics] = useFetcher(service, {
     fail: notificationHandler,
   })
+  const [urlMap, updateUrlMap] = useUrlMap()
+  useEffect(() => {
+    if (!!topics) updateUrlMap(topics)
+  }, [topics])
   const isResolve = useDelay(delay)
 
   if (topics === null || !isResolve) {
@@ -35,7 +63,7 @@ export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
   return (
     <List>
       {topics.map(data => (
-        <HotTopicItem key={data.id} data={data} />
+        <HotTopicItem key={data.id} data={data} portraitUrl={urlMap[data.authorName]} />
       ))}
     </List>
   )

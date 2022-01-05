@@ -7,7 +7,8 @@ A simple way to forward cc98 service from intranet to extranet.
 1. 帖子投票：当前只能查看无法参与。
 2. 指定版块支持匿名回帖（待详细测试）。
 3. Markdown解析下图片不支持放大预览。
-4. 当前只支持账号密码登录，OIDC引入。
+4. 当前只支持账号密码登录，OIDC引入（需HTTPS）。
+5. Compress选项性能优化。
 
 ## ChangeLog
 

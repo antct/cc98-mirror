@@ -11,9 +11,10 @@ interface Props {
    * 帖子信息
    */
   data: IHotTopic
+  portraitUrl?: string
 }
 
-export default ({ data }: Props) => {
+export default ({ data, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
 
   useEffect(() => {
@@ -22,6 +23,8 @@ export default ({ data }: Props) => {
 
   return (
     <TopicItem
+      portraitShow={true}
+      portraitUrl={portraitUrl}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}

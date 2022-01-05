@@ -3,11 +3,14 @@ import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 
-import { ListItem, Typography } from '@material-ui/core'
+import { Avatar, ListItem, Typography } from '@material-ui/core'
 
 import { ITopic } from '@cc98/api'
 import { getBoardNameById } from '@/services/board'
 
+import LazyLoad from 'react-lazyload'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import dayjs from 'dayjs'
 
 const ListItemS = muiStyled(ListItem)({
@@ -15,6 +18,15 @@ const ListItemS = muiStyled(ListItem)({
   justifyContent: 'space-between',
   alignItems: 'stretch',
   width: '100%',
+})
+
+const AvatarArea = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const AvatarS = muiStyled(Avatar)({
+  marginRight: 12,
 })
 
 const TitleArea = styled.div`
@@ -66,11 +78,22 @@ interface ItemProps {
   subtitle: string
   info1: string
   info2: string
+  portraitUrl?: string
+  portraitShow: boolean
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
   <ListItemS button divider onClick={onClick}>
+    { portraitShow &&
+      <AvatarArea>
+        <LazyLoad height={'100%'} offset={100}>
+          <AvatarS src={portraitUrl}>
+            {(!!!portraitUrl) && '匿'}
+          </AvatarS>
+        </LazyLoad>
+      </AvatarArea>
+    }
     <TitleArea>
       <Title>{title}</Title>
       <SubTitle>{subtitle}</SubTitle>
@@ -88,10 +111,12 @@ export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' 
 interface Props {
   data: ITopic
   place: Place
+  portraitUrl: string
 }
 
-export default ({ data, place }: Props) => {
+export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
+  const { useCompress } = useModel(settingModel, ['useCompress'])
   useEffect(() => {
     if (place === 'inboard') {
       return
@@ -103,16 +128,15 @@ export default ({ data, place }: Props) => {
   let subtitle = data.userName || '[匿名]'
   let info1 = dayjs(data.lastPostTime).fromNow()
   let info2 = `回帖: ${data.replyCount}`
+  let showPortrait = true
 
   switch (place) {
     case 'usercenter':
       subtitle = boardName
       break
-
     case 'hot':
       info1 = boardName
       break
-
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
     case 'follow':
@@ -122,13 +146,14 @@ export default ({ data, place }: Props) => {
       info1 = dayjs(data.time).fromNow()
       info2 = boardName
       break
-
     // case 'inboard':
   }
 
   return (
     <TopicItem
       onClick={() => navigate(`/topic/${data.id}`)}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
+      portraitShow={showPortrait}
       title={title}
       subtitle={subtitle}
       info1={info1}

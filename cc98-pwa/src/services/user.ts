@@ -21,6 +21,26 @@ export function getUserInfoListByName(name: string, from: number) {
   return GET<IUser[]>(`user/name?name=${name}`)
 }
 
+
+/**
+ * @description 通过 用户姓名 批量获取用户信息
+ */
+export function getUsersInfoByNames(names: string[]) {
+  const query = names.map(name => `name=${name}`).join('&')
+
+  return GET<IUser[]>(`user/name?${query}`)
+}
+
+/**
+ * @description 通过 用户姓名 批量获取用户基本信息
+ */
+export function getUsersBasicInfoByNames(names: string[]) {
+  const query = names.map(name => `name=${name}`).join('&')
+
+  return GET<IUser[]>(`user/basic/name?${query}`)
+}
+
+
 /**
  * @description 通过 用户ID 批量获取用户信息
  */
@@ -28,6 +48,15 @@ export function getUsersInfoByIds(ids: number[]) {
   const query = ids.map(id => `id=${id}`).join('&')
 
   return GET<IUser[]>(`user?${query}`)
+}
+
+/**
+ * @description 通过 用户ID 批量获取用户基本信息
+ */
+export function getUsersBasicInfoByIds(ids: number[]) {
+  const query = ids.map(id => `id=${id}`).join('&')
+
+  return GET<IUser[]>(`user/basic?${query}`)
 }
 
 /**

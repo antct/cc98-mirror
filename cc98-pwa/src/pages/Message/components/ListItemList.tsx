@@ -7,7 +7,7 @@ import settingModel from '@/models/setting'
 
 import ListItem from './ListItem'
 import { IMessageContent, IRecentMessage, IUser } from '@cc98/api'
-import { getUsersInfoByIds } from '@/services/user'
+import { getUsersBasicInfoByIds } from '@/services/user'
 
 interface Props {
   data: IRecentMessage[]
@@ -26,7 +26,7 @@ export default ({ data, func }: Props) => {
     }
     let nextData = data.slice(fromPos)
     let ids = nextData.map(x => x.userId)
-    getUsersInfoByIds(ids).then(res => {
+    getUsersBasicInfoByIds(ids).then(res => {
       res
         .fail(err => { })
         .succeed(list => {

@@ -13,6 +13,10 @@ import useFetcher from '@/hooks/useFetcher'
 
 import { getUserInfoById } from '@/services/user'
 
+import LazyLoad from 'react-lazyload'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
 const Text = styled.span`
   display: block;
   max-width: 80%;
@@ -40,12 +44,15 @@ export default ({ message, user }: Props) => {
     return null
   }
   const { name, portraitUrl } = user
+  const { useCompress } = useModel(settingModel, ['useCompress'])
 
   return (
     <ListItem button onClick={() => navigateToDetail(message.userId)}>
-      <ListItemAvatar>
-        <Avatar src={portraitUrl} />
-      </ListItemAvatar>
+      <LazyLoad height={'100%'} offset={100}>
+        <ListItemAvatar>
+          <Avatar src={`${portraitUrl}!${useCompress}`} />
+        </ListItemAvatar>
+      </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{message.lastContent}</Text>} />
       <ListItemSecondaryAction>
         <ListItemText secondary={dayjs(message.time).fromNow()} />

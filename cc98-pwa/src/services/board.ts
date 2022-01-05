@@ -62,7 +62,7 @@ export async function getBoardNameById(boardId: number) {
     await buildBoardMap()
   }
 
-  return BOARD_MAP[boardId].name || '版面不存在'
+  return BOARD_MAP[boardId] ? BOARD_MAP[boardId].name : '版面失效'
 }
 
 /**
