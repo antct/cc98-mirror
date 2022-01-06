@@ -2,16 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
-
 import { ListItem, Typography } from '@material-ui/core'
-
-import { IReply, IPost, ITopic } from '@cc98/api'
-
-import useFetcher from '@/hooks/useFetcher'
-import { getPostInfoById } from '@/services/post'
-import { getTopicInfoById } from '@/services/topic'
-
-import { getBoardNameById } from '@/services/board'
+import { IReply, ITopic } from '@cc98/api'
 
 import dayjs from 'dayjs'
 

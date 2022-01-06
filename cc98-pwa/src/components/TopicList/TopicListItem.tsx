@@ -107,7 +107,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitU
   </ListItemS>
 )
 
-export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot'
+export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update'
 
 interface Props {
   data: ITopic
@@ -142,6 +142,11 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
       showPortrait = true
+      break
+    case 'follow-update':
+      info1 = dayjs(data.lastPostTime).fromNow()
+      info2 = boardName
+      break
     case 'follow':
     case 'search':
       // 搜索时使用发帖时间

@@ -23,7 +23,7 @@ import HelpIcon from '@material-ui/icons/Help'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import MailIcon from '@material-ui/icons/Mail'
 import PagesIcon from '@material-ui/icons/Pages'
-import InfoIcon from '@material-ui/icons/Info'
+import InfoIcon from '@material-ui/icons/Toc'
 
 import UserInfo from './UserInfo'
 

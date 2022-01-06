@@ -46,6 +46,13 @@ const LogInButton = muiStyled(Button).attrs({
   marginTop: 35,
 })
 
+const VisitorButton = muiStyled(Button).attrs({
+  variant: 'contained',
+  color: 'primary',
+})({
+  marginTop: 15,
+})
+
 const ButtonProgress = muiStyled(CircularProgress).attrs({
   size: 20,
   color: 'secondary',
@@ -141,6 +148,9 @@ const LogIn: React.FC = () => {
         {logInFail ? '重试' : '登录'}
         {loading && <ButtonProgress />}
       </LogInButton>
+      <VisitorButton onClick={() => navigate('/hotTopics')}>
+        游客
+      </VisitorButton>
     </WrapperDiv>
   )
 }

@@ -131,6 +131,20 @@ export function getFavoriteTopics(from: number) {
   })
 }
 
+
+/**
+ * 获取收藏的帖子，按最后回复排序
+ */
+export function getFavoriteTopicsOrderByUpdate(from: number) {
+  return GET<ITopic[]>('topic/me/favorite', {
+    params: {
+      from,
+      size: 20,
+      order: 1
+    },
+  })
+}
+
 /**
  * 搜索
  */

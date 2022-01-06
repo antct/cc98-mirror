@@ -10,14 +10,27 @@ import remark from 'remark'
 import remark2react from 'remark-react'
 
 import MarkdownView from 'react-showdown'
+import { ShowdownExtension } from 'react-showdown'
 
-function Markdown(content: string) {
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+
+const compressImageExtension: ShowdownExtension = {
+  type: 'output',
+  filter: (html: string, converter: any, options: any) => {
+    let regex = /src="(.*?)"/g
+    return html.replace(regex, `src="$1?compress=${options.useCompress}"`);
+  }
+}
+
+function Markdown(content: string, useCompress: boolean) {
   // return remark()
     // .use(remark2react)
     // .processSync(content).contents
   return <MarkdownView
     markdown={content}
-    options={{ tables: true, emoji: true }}
+    options={{ tables: true, emoji: true, useCompress: useCompress }}
+    extensions={compressImageExtension}
   />
 }
 
@@ -41,8 +54,8 @@ interface Props {
 }
 
 export default ({ postInfo }: Props) => {
-  const content =
-    postInfo.contentType === 0 ? UBBReact(postInfo.content) : Markdown(postInfo.content)
+  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const content = postInfo.contentType === 0 ? UBBReact(postInfo.content) : Markdown(postInfo.content, useCompress)
 
   return <TypographyS>{content}</TypographyS>
 }

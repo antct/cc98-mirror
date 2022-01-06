@@ -17,8 +17,9 @@ A simple way to forward cc98 service from intranet to extranet.
 3. 登录签到按钮（从未签到情况有Bug）。
 4. HTTP链接自定义跳转。
 5. 分享模式，无需登录。
-6. 无限列表，支持同时发多个请求。
-7. 一些其他小特性，等等。
+6. 无限头像列表，支持同时发多个请求。
+7. Markdown解析额外插件。
+8. 一些其他小特性，等等。
 
 ## cc98-pwa
 
