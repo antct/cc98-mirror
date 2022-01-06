@@ -39,9 +39,9 @@ export default ({ data }: Props) => {
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
-      <LazyLoad height={'100%'} offset={100}>
+      <LazyLoad height={'100%'} offset={200}>
         <ListItemAvatar>
-          <Avatar src={`${portraitUrl}!${useCompress}`} />
+          <Avatar src={`${portraitUrl}?compress=${useCompress}&width=50`} />
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>

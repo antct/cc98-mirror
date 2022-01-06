@@ -88,7 +88,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitU
   <ListItemS button divider onClick={onClick}>
     { portraitShow &&
       <AvatarArea>
-        <LazyLoad height={'100%'} offset={100}>
+        <LazyLoad height={'100%'} offset={200}>
           <AvatarS src={portraitUrl}>
             {isAnonymous && '匿'}
           </AvatarS>
@@ -155,7 +155,7 @@ export default ({ data, place, portraitUrl }: Props) => {
     <TopicItem
       onClick={() => navigate(`/topic/${data.id}`)}
       isAnonymous={data.isAnonymous}
-      portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
       portraitShow={useAvatar && showPortrait}
       title={title}
       subtitle={subtitle}

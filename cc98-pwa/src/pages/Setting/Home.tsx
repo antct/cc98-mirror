@@ -6,7 +6,7 @@ import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 
 const ranges = [
-  { label: '资讯', value: 1 },
+  { label: '聚合', value: 1 },
   { label: '热门', value: 2 },
   { label: '新帖', value: 3 },
   { label: '关注', value: 4 },

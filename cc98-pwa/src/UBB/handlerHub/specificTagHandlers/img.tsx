@@ -23,7 +23,7 @@ const handler: ITagHandler<React.ReactNode> = {
     //     </PhotoConsumer>
     //   </PhotoProvider>
     // );
-    return <LazyLoad height={200} offset={100}><img className="ubb-tag-img" src={`${node.innerText}!${useCompress}`} /></LazyLoad>
+    return <LazyLoad height={200} offset={200}><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} /></LazyLoad>
   },
 }
 

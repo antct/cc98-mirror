@@ -69,10 +69,10 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
   return (
     <FlexDiv>
       <AvatarArea>
-        <LazyLoad height={'100%'} offset={100}>
+        <LazyLoad height={'100%'} offset={200}>
           <AvatarS
             onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-            src={userInfo && `${userInfo.portraitUrl}!${useCompress}`}
+            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=50`}
           >
             {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
           </AvatarS>

@@ -79,8 +79,13 @@ const DrawerMenu: React.FC = () => {
         {user.isLogIn && (
           <>
             <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
-            {customHome !== 1 && (
-              <Item icon={<InfoIcon />} text="资讯" onClick={jump('/info')} />
+            <Item icon={<InfoIcon />} text="聚合" onClick={jump('/info')} />
+            <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
+            <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
+            <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
+            <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
+            {/* {customHome !== 1 && (
+              <Item icon={<InfoIcon />} text="聚合" onClick={jump('/info')} />
             )}
             {customHome !== 2 && (
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
@@ -91,7 +96,7 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
             {customHome !== 4 && (
               <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
-            )}
+            )} */}
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount): 0} color="primary"><NotificationsIcon/></Badge>} text="通知" onClick={jump('/notice')} />
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount): 0} color="primary"><MailIcon/></Badge>} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />

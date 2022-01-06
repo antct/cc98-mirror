@@ -29,7 +29,7 @@ export default ({ data, portraitUrl }: Props) => {
     <TopicItem
       isAnonymous={data.isAnonymous}
       portraitShow={useAvatar}
-      portraitUrl={!!portraitUrl ? `${portraitUrl}!${useCompress}` : portraitUrl}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}
