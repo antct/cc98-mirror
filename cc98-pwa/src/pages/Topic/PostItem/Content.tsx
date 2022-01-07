@@ -55,7 +55,17 @@ interface Props {
 
 export default ({ postInfo }: Props) => {
   const { useCompress } = useModel(settingModel, ['useCompress'])
-  const content = postInfo.contentType === 0 ? UBBReact(postInfo.content) : Markdown(postInfo.content, useCompress)
+
+  // 对那些未使用[url]或md标签的链接进行改造
+  let regex = /([^\[\]\(\)=])(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/ig
+  let regex_content = postInfo.content
+  if (postInfo.contentType === 0) {
+    regex_content = regex_content.replace(regex, `$1[url=$2]$2[/url]`)
+  } else {
+    regex_content = regex_content.replace(regex, `$1[$2]($2)`)
+  }
+  
+  const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content, useCompress)
 
   return <TypographyS>{content}</TypographyS>
 }
