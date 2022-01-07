@@ -8,6 +8,8 @@ import ListItemText from '@/hotfix/ListItemText'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import userModel from '@/models/user'
+import LazyLoad from 'react-lazyload'
+import settingModel from '@/models/setting'
 
 import { IMessageContent, IUser } from '@cc98/api'
 
@@ -15,6 +17,8 @@ import { getUserInfoById } from '@/services/user'
 
 import dayjs from 'dayjs'
 import { navigate } from '@/utils/history'
+
+
 
 const ListItemS = muiStyled(ListItem)({
   flexShrink: 0,
@@ -84,12 +88,14 @@ interface Props {
 }
 
 // TODO: 消息气泡
-const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean) =>
+const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean) =>
   !isCurrSend ? (
     <ListItemS button>
-      <ListItemAvatarS>
-        <Avatar src={userInfo.portraitUrl} onClick={() => navigate(`/user/${userInfo.id}`)} />
-      </ListItemAvatarS>
+      {/* <LazyLoad height={'100%'} offset={200} once> */}
+        <ListItemAvatarS>
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} onClick={() => navigate(`/user/${userInfo.id}`)} />
+        </ListItemAvatarS>
+      {/* </LazyLoad> */}
       <MessageRoot>
         <MessageContentLeft>{message.content}</MessageContentLeft>
         <MessageDate right>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
@@ -102,19 +108,22 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
         <MessageContentRight>{message.content}</MessageContentRight>
         <MessageDate>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
-      <ListItemAvatarS>
-        <Avatar src={userInfo.portraitUrl} />
-      </ListItemAvatarS>
+      {/* <LazyLoad height={'100%'} offset={200} once> */}
+        <ListItemAvatarS>
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} />
+        </ListItemAvatarS>
+      {/* </LazyLoad> */}
     </ListItemS>
   )
 
 export default ({ message }: Props) => {
   const { myInfo } = useModel(userModel)
+  const { useCompress } = useModel(settingModel, ['useCompress'])
 
   const [userInfo] = useFetcher(() => getUserInfoById(message.senderId))
   if (userInfo === null || myInfo === null) {
     return null
   }
 
-  return renderItem(message, userInfo, myInfo.id === message.senderId)
+  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress)
 }
