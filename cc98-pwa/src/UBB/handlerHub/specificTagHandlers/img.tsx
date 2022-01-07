@@ -23,7 +23,12 @@ const handler: ITagHandler<React.ReactNode> = {
     //     </PhotoConsumer>
     //   </PhotoProvider>
     // );
-    return <LazyLoad height={200} offset={200}><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} /></LazyLoad>
+    const imgClickedHandler = (event: React.MouseEvent<HTMLImageElement>) => {
+      event.stopPropagation()
+      const img = event.currentTarget
+      img.src = `${node.innerText}?compress=false`
+    }
+    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} title="双击显示原图" onDoubleClick={imgClickedHandler} /></LazyLoad>
   },
 }
 

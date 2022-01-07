@@ -48,7 +48,7 @@ export default ({ message, user }: Props) => {
 
   return (
     <ListItem button onClick={() => navigateToDetail(message.userId)}>
-      <LazyLoad height={'100%'} offset={200}>
+      <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
           <Avatar src={`${portraitUrl}?compress=${useCompress}&width=50`} />
         </ListItemAvatar>

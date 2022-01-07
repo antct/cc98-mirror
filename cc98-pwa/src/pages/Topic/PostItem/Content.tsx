@@ -15,11 +15,12 @@ import { ShowdownExtension } from 'react-showdown'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 
+// TODO LazyLoad
 const compressImageExtension: ShowdownExtension = {
   type: 'output',
   filter: (html: string, converter: any, options: any) => {
-    let regex = /src="(.*?)"/g
-    return html.replace(regex, `src="$1?compress=${options.useCompress}"`);
+    let regex = /<img.*?src="(.*?)".*?\/>/g
+    return html.replace(regex, `<img src="$1?compress=${options.useCompress}" title="双击查看原图" ondblclick="this.src='$1?compress=false'" />`)
   }
 }
 
@@ -29,6 +30,7 @@ function Markdown(content: string, useCompress: boolean) {
     // .processSync(content).contents
   return <MarkdownView
     markdown={content}
+    dangerouslySetInnerHTML={true} // 确保ondblclick生效
     options={{ tables: true, emoji: true, useCompress: useCompress }}
     extensions={compressImageExtension}
   />

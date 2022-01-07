@@ -88,7 +88,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitU
   <ListItemS button divider onClick={onClick}>
     { portraitShow &&
       <AvatarArea>
-        <LazyLoad height={'100%'} offset={200}>
+        <LazyLoad height={'100%'} offset={200} once>
           <AvatarS src={portraitUrl}>
             {isAnonymous && '匿'}
           </AvatarS>

@@ -13,7 +13,7 @@ A simple way to forward cc98 service from intranet to extranet.
 ## ChangeLog
 
 1. 菜单选项：通知，社交，搜索（无限制）。
-2. 图片压缩选项，节省网络带宽。
+2. 图片压缩选项，节省网络带宽，双击放大。
 3. 登录签到按钮（从未签到情况有Bug）。
 4. HTTP链接自定义跳转。
 5. 分享模式，无需登录。
