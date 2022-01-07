@@ -141,6 +141,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       break
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
+      info2 = boardName
       showPortrait = true
       break
     case 'follow-update':

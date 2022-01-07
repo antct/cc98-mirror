@@ -53,7 +53,9 @@ export function useUserMap() {
 
   const updateUserMap = async (list: IPost[]) => {
     if (list.length == 0) return null
-    const res = await getUsersInfoByIds(list.map(p => p.userId).filter(id => id))
+    let userIds = list.map(p => p.userId).filter(id => id)
+    if (userIds.length == 0) return null
+    const res = await getUsersInfoByIds(userIds)
     res.fail().succeed(users => {
       users.forEach(user => {
         userMap[user.id] = user
@@ -96,7 +98,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
       {posts.map(info =>
         info.floor === 1 ? (
           <React.Fragment key={info.id}>
-            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} voteInfo={topicInfo.isVote ? currentVote: undefined}/>
+            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={topicInfo.isVote ? currentVote: undefined} />
             {children /** <PostListHot /> */}
           </React.Fragment>
         ) : (

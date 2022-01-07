@@ -51,7 +51,10 @@ declare module '@cc98/api' {
      * 点击数
      */
     hitCount: number
-
+    /**
+     * 今日发帖数
+     */    
+    todayCount: number
     totalVoteUserCount: number
     /**
      * 最后回复用户用户名

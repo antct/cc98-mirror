@@ -36,9 +36,12 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
       {expand && (
         <>
           <FixFab order={5}>
-            <RotateRightIcon onClick={refreshFunc} />
+            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
           </FixFab>
           <FixFab order={4}>
+            <RotateRightIcon onClick={refreshFunc} />
+          </FixFab>
+          <FixFab order={3}>
             <SwapVertIcon
               onClick={() =>
                 isReverse
@@ -46,9 +49,6 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
                   : navigate(`/topic/${topicInfo.id}/reverse`)
               }
             />
-          </FixFab>
-          <FixFab order={3}>
-            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
           </FixFab>
           <FixFab order={2}>
             <EditIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />

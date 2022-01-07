@@ -25,7 +25,6 @@ import {
   getShareHotPost
 } from '@/services/post'
 import { navigateHandler } from '@/services/utils/errorHandler'
-import { getFollower } from '@/services/social'
 
 const EndPlaceholder = styled.div`
   height: 64px;

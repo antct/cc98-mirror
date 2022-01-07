@@ -73,11 +73,15 @@ interface Props {
    * 投票信息
    */
   voteInfo?: IVote | undefined
+  /**
+   * 帖子元信息
+   */
+  topicInfo?: ITopic | undefined
 }
 
 const DELETE_CONTENT = '该贴已被 my CC98, my home'
 
-export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=undefined }: Props) => {
+export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=undefined, topicInfo=undefined }: Props) => {
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
   const { useSignature } = useModel(settingModel, ['useSignature'])
   if (postInfo.isDeleted) {
@@ -101,8 +105,19 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
     <Wrapper>
       <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
       {
+        topicInfo && postInfo.floor === 1 &&
+        (() => {
+          console.log(postInfo)
+          let content = '```text\n'
+          content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
+          content += '```'
+          content = Markdown(content)
+          return <TypographyS>{content}</TypographyS>
+        })()
+      }
+      {
         voteInfo &&
-        (function () {
+        (() => {
           let content = '```text\n'
           content += `投票详情（共有${voteInfo.voteUserCount}人参与投票）：\n`
           voteInfo.voteItems.map((item, index) => {
