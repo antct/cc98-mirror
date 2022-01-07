@@ -159,6 +159,19 @@ export function searchTopics(keyword: string, from: number) {
 }
 
 /**
+ * 搜索收藏
+ */
+export function searchFavoriteTopics(keyword: string, from: number) {
+  return GET<ITopic[]>('topic/me/search-favorite', {
+    params: {
+      keyword: `${keyword}`,
+      from,
+      size: 20,
+    },
+  })
+}
+
+/**
  * 获取热门
  */
 export function getHotTopics() {

@@ -7,7 +7,7 @@ import StickyBar from '@/components/StickyBar'
 
 import useFetcher from '@/hooks/useFetcher'
 import { navigate } from '@/utils/history'
-import { searchTopics } from '@/services/topic'
+import { searchTopics, searchFavoriteTopics } from '@/services/topic'
 import { getUserInfoById, getUserInfoListByName } from '@/services/user'
 
 import InfUserList from './compoents'
@@ -35,7 +35,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput placeholder="搜索主题或用户" onSearch={onSearch} />
+        <SearchInput placeholder="搜索主题，收藏或用户" onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"
@@ -45,6 +45,7 @@ export default () => {
         onChange={handleChange}
       >
         <Tab value="topic" label="搜索主题" />
+        <Tab value="favorite" label="搜索收藏" />
         <Tab value="user" label="搜索用户" />
       </Tabs>
 
@@ -53,6 +54,15 @@ export default () => {
         <InfTopicList
           key={search}
           service={(from: number) => searchTopics(search, from)}
+          place="search"
+        />
+        )}
+      </>}
+      {current === 'favorite' && <>
+        {search && (
+        <InfTopicList
+          key={search}
+          service={(from: number) => searchFavoriteTopics(search, from)}
           place="search"
         />
         )}

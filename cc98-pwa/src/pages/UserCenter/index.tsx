@@ -19,6 +19,7 @@ import UserSignature from './UserSignature'
 import UserDetail from './UserDetail'
 import UserRecentTopics from './UserRecentTopics'
 import UserRecentPosts from './UserRecentPosts'
+import UserHotPosts from './UserHotPosts'
 
 const Img = styled.img`
   width: 60%;
@@ -53,6 +54,7 @@ const UserCenter: React.FC<Props> = ({ info, isUserCenter }) => (
     <UserSignature info={info} />
     <UserRecentTopics info={info} isUserCenter={isUserCenter} />
     {isUserCenter && <UserRecentPosts />}
+    {isUserCenter && <UserHotPosts />}
   </>
 )
 

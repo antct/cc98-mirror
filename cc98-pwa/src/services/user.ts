@@ -112,3 +112,17 @@ export function modifyMyAvatar(newAvatar: string) {
     .replace('http://101.42.106.165/cc98/files', 'http://file.cc98.org'),
   })
 }
+
+/**
+ * 转账
+ */
+export function transferWealth(userNames: string[], reason: string, wealth: number | string) {
+  return PUT<string[]>('me/transfer-wealth', {
+    params: {
+      userNames: userNames,
+      reason: reason,
+      wealth: wealth
+    }
+  })
+}
+

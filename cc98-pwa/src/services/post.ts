@@ -185,3 +185,14 @@ export function getMyRecentPosts(from: number) {
     },
   }).then(res => Promise.resolve(res.map(posts => posts.data)))
 }
+/**
+ * 获取用户近期热门回复
+ */
+export function getMyHotPosts(from: number) {
+  return GET<IMyPosts>('me/hot-post', {
+    params: {
+      from,
+      size: 20,
+    },
+  }).then(res => Promise.resolve(res.map(posts => posts.data)))
+}

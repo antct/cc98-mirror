@@ -12,11 +12,14 @@ import NatureIcon from '@material-ui/icons/NatureOutlined'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import CodeIcon from '@material-ui/icons/Code'
 import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
+import RecommendIcon from '@material-ui/icons/ThumbUpOutlined'
+import MoneyIcon from '@material-ui/icons/MonetizationOnOutlined'
 
 import { navigate } from '@/utils/history'
 
 import SiteInfo from './SiteInfo'
 import DevTeam from './DevTeam'
+import TransferWealth from './TransferWealth'
 
 interface ItemProps {
   icon: React.ReactElement<any>
@@ -36,8 +39,10 @@ const Index = () => (
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
     <Item icon={<CopyrightIcon />} text="开发组" url="/help/devTeam" />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" />
+    <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
+    <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<NotListedIcon />} text="论坛帮助" url="/topic/4970959" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />
   </List>
@@ -48,5 +53,6 @@ export default () => (
     <Route path="/" component={Index} />
     <Route path="siteInfo" component={SiteInfo} />
     <Route path="devTeam" component={DevTeam} />
+    <Route path="transferWealth" component={TransferWealth} />
   </Router>
 )

@@ -106,7 +106,7 @@ export default (props: Props) => {
             <SubTitle>{info.content}</SubTitle>
           </TitleArea>
           <InfoArea>
-            <Info1>{time}</Info1>
+            <Info1>{info.id}</Info1>
             <Info2>{boardName}</Info2>
           </InfoArea>
         </ListItemS>

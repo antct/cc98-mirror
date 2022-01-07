@@ -39,7 +39,7 @@ export default () => {
   const ids = [5298, 531603]
   const descriptions = [
     'CC98 PWA 团队',
-    '低级魔法改造师'
+    '梦想改造家'
   ]
 
   const [usersInfo, setUsersInfo] = useState<IUser[]>([])
@@ -56,7 +56,7 @@ export default () => {
 
             return user
           })
-
+          
           setUsersInfo(usersInfo)
           setIsLoading(false)
         }
