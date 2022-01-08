@@ -14,7 +14,8 @@ import { IUser } from '@cc98/api'
 import { Title } from './SiteInfo'
 
 const CardHeaderS = muiStyled(CardHeader)({
-  width: '48%',
+  width: 200,
+  margin: '0 auto'
 })
 
 interface Props {

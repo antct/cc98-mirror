@@ -20,6 +20,11 @@ const Title = muiStyled(Typography).attrs({
   marginBottom: 16,
 })
 
+const TableCellS = muiStyled(TableCell).attrs({
+  align: 'center',
+})({
+})
+
 export { Title }
 
 export default () => {
@@ -58,8 +63,8 @@ export default () => {
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.name}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.data}</TableCell>
+                <TableCellS>{row.name}</TableCellS>
+                <TableCellS>{row.data}</TableCellS>
               </TableRow>
             ))}
           </TableBody>

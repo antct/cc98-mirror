@@ -158,7 +158,6 @@ function chooseSendCallback(
       }
       // 可选匿名版块，匿名发帖
       if (editor.state.anonymousState == 2 && editor.state.anonymousSend) postParams.isAnonymous = true
-      console.log(postParams)
       replyTopic(topicId, postParams).then(res =>
         res
           .fail((data) => {

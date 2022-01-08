@@ -13,6 +13,7 @@ const FlexDiv = styled.div`
 
 const Img = styled.img`
   max-width: 50%;
+  width: 30%;
   padding: 5px;
 `
 

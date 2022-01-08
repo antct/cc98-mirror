@@ -107,7 +107,6 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
       {
         topicInfo && postInfo.floor === 1 &&
         (() => {
-          console.log(postInfo)
           let content = '```text\n'
           content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
           content += '```'

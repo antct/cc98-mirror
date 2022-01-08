@@ -3,7 +3,7 @@ import muiStyled from '@/muiStyled'
 
 import { WealthModel } from './WealthModel'
 
-import { InputBase } from '@material-ui/core'
+import { InputBase, Card, CardContent, Typography } from '@material-ui/core'
 
 const InputArea = muiStyled(InputBase).attrs({
   fullWidth: true,
@@ -34,6 +34,22 @@ export default ({ transferer }: Props) => {
 
   return (
     <>
+    <Card>
+      <CardContent>
+        <Typography>
+          1. 转账需要收取一定的手续费，手续费金额为10% 或者 10 中的较大值。
+        </Typography>
+        <Typography>
+          2. 转账手续费从转账金额中收取，因此对方实际收到的金额会少于您输入的金额。
+        </Typography>
+        <Typography>
+          3. 转账的最小金额不能小于10。
+        </Typography>
+        <Typography>
+          4. 可以对多人转账，请在收款人一栏用空格隔开每个用户。多人转账时每个用户都会收到您指定的金额并单独扣除手续费。您最多可以同时向 10 个用户进行转账。
+        </Typography>
+      </CardContent>
+    </Card>
     <InputArea
       value={transferer.state.userNames}
       placeholder="转账用户，多个用户以空格隔开"
