@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 
 import dayjs from 'dayjs'
 
-import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core'
+import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core'
 
 import ListItemText from '@/hotfix/ListItemText'
 
@@ -22,20 +23,36 @@ const Text = styled.span`
   text-overflow: ellipsis;
 `
 
+const InfoArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin-left: 1em;
+  text-align: right;
+`
+
+const Info1 = muiStyled(Typography).attrs({
+  variant: 'body2',
+  color: 'textSecondary',
+})({})
+
+const Info2 = Info1
+
 interface Props {
   data: IUser
+  place: Place
 }
+
+export type Place = 'follower' | 'followee'
 
 const navigateToDetail = (userId: number) => navigate(`/user/${userId}`)
 
-export default ({ data }: Props) => {
-  // const [userInfo] = useFetcher(() => getUserInfoById(data))
-  // if (userInfo === null) {
-  //   return null
-  // }
+export default ({ data, place }: Props) => {
   const { name, portraitUrl, lastLogOnTime, signatureCode } = data
   const { useCompress } = useModel(settingModel, ['useCompress'])
-  let fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
+  const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
@@ -45,9 +62,20 @@ export default ({ data }: Props) => {
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>
-      { <ListItemSecondaryAction>
-        <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
-      </ListItemSecondaryAction> }
+      {
+        place === 'follower' && data.isFollowing ?
+        <>
+          <InfoArea>
+            <Info1>{'互关'}</Info1>
+            <Info2>{dayjs(lastLogOnTime).fromNow()}</Info2>
+          </InfoArea>
+        </> :
+        <>
+          <ListItemSecondaryAction>
+            <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
+          </ListItemSecondaryAction>
+        </>
+      }
     </ListItem>
   )
 }

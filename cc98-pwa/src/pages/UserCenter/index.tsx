@@ -12,7 +12,7 @@ import img404 from '@/assets/error.png'
 import LoadingCircle from '@/components/LoadingCircle'
 
 import { IUser } from '@cc98/api'
-import { getUserInfoById, getUserInfoByName } from '@/services/user'
+import { getUserInfoListById, getUserInfoListByName } from '@/services/user'
 
 import UserAvatar from './UserAvatar'
 import UserSignature from './UserSignature'
@@ -71,17 +71,17 @@ const Wrapper: React.FC<WrapperProps> = props => {
   const isResolve = useDelay(300)
 
   if (props.id) {
-    const [userInfo] = useFetcher(props.id ? () => getUserInfoById(props.id as string) : null)
+    const [userInfo] = useFetcher(props.id ? () => getUserInfoListById(props.id as string) : null)
     if (userInfo === null || !isResolve) {
       return <LoadingCircle />
     }
-    return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
+    return userInfo && <UserCenter info={userInfo[0]} isUserCenter={false} />
   } else if (props.name) {
-    const [userInfo] = useFetcher(props.name ? () => getUserInfoByName(props.name as string) : null)
+    const [userInfo] = useFetcher(props.name ? () => getUserInfoListByName(props.name as string) : null)
     if (userInfo === null || !isResolve) {
       return <LoadingCircle />
     }
-    return userInfo && <UserCenter info={userInfo} isUserCenter={false} />
+    return userInfo && <UserCenter info={userInfo[0]} isUserCenter={false} />
   } else {
     if (myInfo === null || !isResolve) {
       return <LoadingCircle />

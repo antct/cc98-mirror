@@ -4,7 +4,6 @@ import muiStyled from '@/muiStyled'
 
 import { Avatar, Typography } from '@material-ui/core'
 import Whatshot from '@material-ui/icons/Whatshot'
-// import red from '@material-ui/core/colors/red'
 
 import { IPost, IUser } from '@cc98/api'
 

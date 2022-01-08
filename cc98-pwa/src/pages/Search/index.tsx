@@ -10,6 +10,7 @@ import { navigate } from '@/utils/history'
 import { searchTopics, searchFavoriteTopics } from '@/services/topic'
 import { getUserInfoById, getUserInfoListByName } from '@/services/user'
 
+// 这个地方重新写了一个InfUserList
 import InfUserList from './compoents'
 
 import { Tab, Tabs } from '@material-ui/core'
@@ -71,7 +72,7 @@ export default () => {
         {search && (
         <InfUserList
           key={search}
-          service={(from: number) => getUserInfoListByName(search, from)}
+          service={() => getUserInfoListByName(search) }
         />
         )}
       </>}

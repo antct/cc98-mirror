@@ -43,6 +43,10 @@ declare module '@cc98/api' {
      */
     qq: string
     /**
+     * phone
+     */
+    phoneNumber: string | null
+    /**
      * 发帖数
      */
     postCount: number
@@ -62,6 +66,10 @@ declare module '@cc98/api' {
      * 注册时间
      */
     registerTime: string
+    /**
+     * 最后登录时间
+     */
+    lastIpAddress: string
     /**
      * 最后登录时间
      */

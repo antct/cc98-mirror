@@ -3,7 +3,7 @@ import muiStyled from '@/muiStyled'
 
 import { List } from '@material-ui/core'
 
-import UserListItem from './UserListItem'
+import UserListItem, { Place } from './UserListItem'
 
 import { IUser } from '@cc98/api'
 import { getUsersInfoByIds } from '@/services/user'
@@ -14,10 +14,11 @@ const ListS = muiStyled(List)({
 
 interface Props {
   data: number[]
+  place: Place
   func: () => void
 }
 
-export default ({ data, func }: Props) => {
+export default ({ data, place, func }: Props) => {
   const [userList, setUserList] = useState<IUser[]>([])
   const size = 20
 
@@ -50,7 +51,7 @@ export default ({ data, func }: Props) => {
   return (
     <ListS>
       {userList.map(x => (
-        <UserListItem key={x.id} data={x} />
+        <UserListItem key={x.id} data={x} place={place} />
       ))}
     </ListS>
   )

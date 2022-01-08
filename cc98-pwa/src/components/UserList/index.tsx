@@ -6,6 +6,7 @@ import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
 import useDelay from '@/hooks/useDelay'
 
 import UserList from './UserList'
+import UserListItem, { Place } from './UserListItem'
 import img404 from '@/assets/error.png'
 
 import InfiniteList from '@/components/InfiniteList'
@@ -37,9 +38,10 @@ const EmtpyList = () => (
 
 interface InfProps {
   service: InfService<number[]>
+  place: Place
 }
 
-const InfUserList: React.FC<InfProps> = ({ service }) => {
+const InfUserList: React.FC<InfProps> = ({ service, place }) => {
   const [data, state, callback, loaded] = useInfListFix(service, {
     fail: navigateHandler,
   })
@@ -49,7 +51,7 @@ const InfUserList: React.FC<InfProps> = ({ service }) => {
     <>
       {isEnd && data.length === 0 && <EmtpyList />}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
-        <UserList data={data} func={loaded}/>
+        <UserList data={data} place={place} func={loaded}/>
       </InfiniteList>
     </>
   )

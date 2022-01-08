@@ -10,6 +10,13 @@ import { memoize } from 'lodash-es'
 export const getUserInfoById = memoize((id: string | number) => GET<IUser>(`user/${id}`))
 
 /**
+ * @description 通过用户id获取用户信息
+ * @param {number} id 用户id
+ */
+export const getUserInfoListById = memoize((id: string | number) => GET<IUser[]>(`user?id=${id}`))
+
+
+/**
  * @description 通过用户名获取用户信息
  * @param {string} name 用户名
  */
@@ -17,7 +24,8 @@ export function getUserInfoByName(name: string) {
   return GET<IUser>(`user/name/${name}`)
 }
 
-export function getUserInfoListByName(name: string, from: number) {
+
+export function getUserInfoListByName(name: string) {
   return GET<IUser[]>(`user/name?name=${name}`)
 }
 

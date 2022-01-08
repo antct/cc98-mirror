@@ -26,7 +26,7 @@ const UserSignature: React.FC<Props> = ({ info }) => {
     <ExpandPanel expanded={expand} title="签名档" onChange={onChange}>
       {expand && (
         <UBBDiv>
-          <UBB ubbText={info.signatureCode} />
+          <UBB ubbText={info.signatureCode || "这家伙很懒，什么都没留下。"} />
         </UBBDiv>
       )}
     </ExpandPanel>

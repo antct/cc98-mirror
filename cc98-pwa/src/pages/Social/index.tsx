@@ -26,8 +26,8 @@ export default () => {
         <Tab value="follower" label="粉丝" />
       </Tabs>
 
-      {current === 'followee' && <InfUserList service={getFollowee} />}
-      {current === 'follower' && <InfUserList service={getFollower} />}
+      {current === 'followee' && <InfUserList service={getFollowee} place='followee' />}
+      {current === 'follower' && <InfUserList service={getFollower} place='follower' />}
     </>
   )
 }
