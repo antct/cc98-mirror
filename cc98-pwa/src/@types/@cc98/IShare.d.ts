@@ -4,5 +4,6 @@ declare module '@cc98/api' {
     text: string
     url: string
     long_url: string
+    ex: number
   }
 }

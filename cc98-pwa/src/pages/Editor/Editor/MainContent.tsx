@@ -1,9 +1,8 @@
-import React from 'react'
 import muiStyled from '@/muiStyled'
-
+import { InputBase } from '@material-ui/core'
+import React from 'react'
 import { EditorModel } from './EditorModel'
 
-import { InputBase } from '@material-ui/core'
 
 const InputArea = muiStyled(InputBase).attrs({
   fullWidth: true,

@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from 'react'
-
-import { goback } from '@/utils/history'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
 import useModel from '@/hooks/useModel'
 import userModel from '@/models/user'
-
-import { IconButton, Typography, Button, TextField } from '@material-ui/core'
-
+import muiStyled from '@/muiStyled'
+import { modifyMyAvatar, modifyMyInfo } from '@/services/user'
+import { goback } from '@/utils/history'
+import snackbar from '@/utils/snackbar'
+import { Button, IconButton, TextField, Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
-
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import EditAvatar from './EditAvatar'
 
-import { modifyMyInfo, modifyMyAvatar } from '@/services/user'
-import snackbar from '@/utils/snackbar'
 
 const HeaderDiv = styled.div`
   display: flex;

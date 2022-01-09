@@ -1,12 +1,10 @@
+import { IUser } from '@cc98/api'
+import { Typography } from '@material-ui/core'
+import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
-
-import { Typography } from '@material-ui/core'
 import ExpandPanel from './ExpandPanel'
 
-import { IUser } from '@cc98/api'
-
-import dayjs from 'dayjs'
 
 interface ListItemProps {
   name: string
@@ -50,7 +48,7 @@ const RecentTopics: React.FC<Props> = ({ info }) => (
       <ListItem name="QQ" value={info.qq} />
       <ListItem name="邮箱" value={info.emailAddress || ''} />
       <ListItem name="IP" value={info.lastIpAddress || ''} />
-      <ListItem name="手机" value={info.phoneNumber || ''} />
+      <ListItem name="等级" value={info.levelTitle} />
       <ListItem name="注册时间" value={dayjs(info.registerTime).format('YYYY-MM-DD HH:mm')} />
       <ListItem name="最后登录" value={dayjs(info.lastLogOnTime).format('YYYY-MM-DD HH:mm')} />
     </ListDiv>

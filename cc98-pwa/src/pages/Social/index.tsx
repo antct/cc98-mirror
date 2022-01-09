@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
-
 import { InfUserList } from '@/components/UserList'
-
-import { Tab, Tabs } from '@material-ui/core'
-
 import { getFollowee, getFollower } from '@/services/social'
+import { Tab, Tabs } from '@material-ui/core'
+import React, { useState } from 'react'
 
 export default () => {
   const [current, setCurrent] = useState('followee')

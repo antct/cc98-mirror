@@ -1,7 +1,7 @@
-import { Try, Success, Failure } from './fp/Try'
+import host from '@/config/host'
+import { Failure, Success, Try } from './fp/Try'
 import { getAccessToken } from './logIn'
 
-import host from '@/config/host'
 
 export interface FetchError {
   /**

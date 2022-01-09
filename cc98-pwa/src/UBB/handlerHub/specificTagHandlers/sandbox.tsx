@@ -1,10 +1,8 @@
-import { ITagHandler, TagNode } from '@cc98/ubb-core'
-
 import { IContext } from '@cc98/context'
-
+import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import React from 'react'
-
 import { isSafe } from './url'
+
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,

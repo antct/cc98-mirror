@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react'
-
-import muiStyled from '@/muiStyled'
-import { InfTopicList } from '@/components/TopicList'
 import SearchInput from '@/components/SearchInput'
 import StickyBar from '@/components/StickyBar'
-
-import useFetcher from '@/hooks/useFetcher'
-import { navigate } from '@/utils/history'
-import { searchTopics, searchFavoriteTopics } from '@/services/topic'
-import { getUserInfoById, getUserInfoListByName } from '@/services/user'
-
+import { InfTopicList } from '@/components/TopicList'
+import muiStyled from '@/muiStyled'
+import { searchFavoriteTopics, searchTopics } from '@/services/topic'
+import { getUserInfoListByName } from '@/services/user'
+import { Tab, Tabs } from '@material-ui/core'
+import { throttle } from 'lodash-es'
+import React, { useState } from 'react'
 // 这个地方重新写了一个InfUserList
 import InfUserList from './compoents'
-
-import { Tab, Tabs } from '@material-ui/core'
-
-import { throttle } from 'lodash-es'
 
 const StickyBarS = muiStyled(StickyBar)({
 })

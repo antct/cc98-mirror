@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
 import muiStyled from '@/muiStyled'
-
+import { getUsersInfoByIds } from '@/services/user'
+import { IUser } from '@cc98/api'
 import { List } from '@material-ui/core'
-
+import React, { useEffect, useState } from 'react'
 import UserListItem, { Place } from './UserListItem'
 
-import { IUser } from '@cc98/api'
-import { getUsersInfoByIds } from '@/services/user'
 
 const ListS = muiStyled(List)({
   width: '100%',

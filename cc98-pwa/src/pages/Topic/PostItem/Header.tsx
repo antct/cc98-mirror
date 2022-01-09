@@ -1,18 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { Avatar, Typography } from '@material-ui/core'
-import Whatshot from '@material-ui/icons/Whatshot'
-
-import { IPost, IUser } from '@cc98/api'
-
-import LazyLoad from 'react-lazyload'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
-
+import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
+import { IPost, IUser } from '@cc98/api'
+import { Avatar, Typography } from '@material-ui/core'
+import Whatshot from '@material-ui/icons/Whatshot'
 import dayjs from 'dayjs'
+import React from 'react'
+import LazyLoad from 'react-lazyload'
+import styled from 'styled-components'
+
 
 const FlexDiv = styled.div`
   display: flex;

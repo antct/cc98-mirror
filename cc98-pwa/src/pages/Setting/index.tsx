@@ -1,16 +1,14 @@
-import React from 'react'
-
 import { List } from '@material-ui/core'
-
-// import Signalr from './Signalr'
-import Theme from './Theme'
-import Mode from './Mode'
+import React from 'react'
+import Avatar from './Avatar'
 import Cache from './Cache'
 import Compress from './Compress'
-import Signature from './Signature'
-import Avatar from './Avatar'
-import Notification from './Notification'
 import CustomHome from './Home'
+import Mode from './Mode'
+import Notification from './Notification'
+import Signature from './Signature'
+// import Signalr from './Signalr'
+import Theme from './Theme'
 
 const Setting: React.FC = () => (
   <List>

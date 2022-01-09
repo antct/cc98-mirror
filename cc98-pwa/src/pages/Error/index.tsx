@@ -1,13 +1,13 @@
-import React from 'react'
-import { Router } from '@reach/router'
 import { Route } from '@/router/Router'
-
+import { Router } from '@reach/router'
+import React from 'react'
 import Page400 from './400'
 import Page401 from './401'
 import Page403 from './403'
 import Page404 from './404'
 import Page410 from './410'
 import Page500 from './500'
+
 
 export default () => (
   <Router>

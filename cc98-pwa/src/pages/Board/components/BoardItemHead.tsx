@@ -1,9 +1,8 @@
+import StickyHeadBar from '@/components/StickyBar/StickyHeadBar'
+import { navigate } from '@/utils/history'
+import { IBoard } from '@cc98/api'
 import React from 'react'
 
-import StickyHeadBar from '@/components/StickyBar/StickyHeadBar'
-
-import { IBoard } from '@cc98/api'
-import { navigate } from '@/utils/history'
 
 interface Props {
   title: string

@@ -1,5 +1,4 @@
-import { GET, POST } from '@/utils/fetch'
-import { IUser } from '@cc98/api'
+import { GET } from '@/utils/fetch'
 
 export function getFollower(from: number) {
   return GET<number[]>('me/follower', {

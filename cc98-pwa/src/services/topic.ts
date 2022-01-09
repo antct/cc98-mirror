@@ -1,5 +1,5 @@
-import { GET, PUT, DELETE } from '@/utils/fetch'
-import { ITopic, IHotTopic, IReply } from '@cc98/api'
+import { DELETE, GET, PUT } from '@/utils/fetch'
+import { IHotTopic, IReply, ITopic } from '@cc98/api'
 
 /**
  * 根据id获取某个版面的置顶帖子

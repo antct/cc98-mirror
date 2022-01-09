@@ -1,7 +1,7 @@
+import { ITag } from '@cc98/api'
+import { MenuItem, Select } from '@material-ui/core'
 import React, { useEffect } from 'react'
 
-import { Select, MenuItem } from '@material-ui/core'
-import { ITag } from '@cc98/api'
 
 interface Props {
   tags: ITag[]

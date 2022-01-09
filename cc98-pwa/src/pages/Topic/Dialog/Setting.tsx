@@ -1,40 +1,22 @@
-import React, { useState } from 'react'
 import muiStyled from '@/muiStyled'
-
+import {
+  bestTopic,
+  deleteBestTopic, deleteNotHot, deleteTopic, deleteTopTopic, lockTopic, moveTopic, notHot, topTopic, unlockTopic, upTopic
+} from '@/services/manage'
+import { manageHandler } from '@/services/utils/errorHandler'
 import { navigate } from '@/utils/history'
-
+import snackbar from '@/utils/snackbar'
+import { ITopic } from '@cc98/api'
 import {
   Button,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  Select,
-  MenuItem,
-  TextField,
-  Input,
-  InputLabel,
-  FormControl,
+  DialogTitle, FormControl, Input,
+  InputLabel, MenuItem, Select, TextField
 } from '@material-ui/core'
-
-import { manageHandler } from '@/services/utils/errorHandler'
-import {
-  deleteTopic,
-  lockTopic,
-  unlockTopic,
-  notHot,
-  deleteNotHot,
-  upTopic,
-  topTopic,
-  deleteTopTopic,
-  bestTopic,
-  deleteBestTopic,
-  moveTopic,
-} from '@/services/manage'
-import { ITopic } from '@cc98/api'
-import snackbar from '@/utils/snackbar'
-
+import React, { useState } from 'react'
 import MoveTopic from './MoveTopic'
 
 const ButtonProgress = muiStyled(CircularProgress).attrs({

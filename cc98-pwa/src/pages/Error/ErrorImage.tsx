@@ -1,8 +1,8 @@
+import imgOnTouch from '@/assets/error-on-touch.png'
+import img from '@/assets/error.png'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import img from '@/assets/error.png'
-import imgOnTouch from '@/assets/error-on-touch.png'
 
 const Img = styled.img`
   width: 60%;

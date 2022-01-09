@@ -1,6 +1,6 @@
+import { MenuItem, Select } from '@material-ui/core'
 import React from 'react'
 
-import { MenuItem, Select } from '@material-ui/core'
 
 const PostType = [{ id: 0, name: '普通' }, { id: 1, name: '校园活动' }, { id: 2, name: '学术信息' }]
 

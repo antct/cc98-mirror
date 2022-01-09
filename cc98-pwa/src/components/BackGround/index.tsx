@@ -1,7 +1,7 @@
-import React from 'react'
 import muiStyled from '@/muiStyled'
-
 import { Paper } from '@material-ui/core'
+import React from 'react'
+
 
 const Background = muiStyled(Paper).attrs({
   square: true,

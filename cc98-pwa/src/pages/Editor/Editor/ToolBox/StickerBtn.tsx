@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-
-import { EditorModel } from '../EditorModel'
-
-import { IconButton, Dialog } from '@material-ui/core'
+import { Dialog, IconButton } from '@material-ui/core'
 import TagFacesIcon from '@material-ui/icons/TagFaces'
-
+import React, { useState } from 'react'
+import { EditorModel } from '../EditorModel'
 import StickerBox from './StickerBox'
+
 
 interface Props {
   editor: EditorModel

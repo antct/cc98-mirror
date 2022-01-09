@@ -1,16 +1,12 @@
+import InfiniteList from '@/components/InfiniteList'
+import { useInfListFix } from '@/hooks/useInfList'
+import muiStyled from '@/muiStyled'
+import { getMessageContent, sendMessage } from '@/services/message'
+import { List } from '@material-ui/core'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import useInfList, {useInfListFix} from '@/hooks/useInfList'
-import InfiniteList from '@/components/InfiniteList'
-
-import { List } from '@material-ui/core'
-
-import DetailItem from './components/DetailItem'
 import DetailItemList from './components/DetailItemList'
 import Editor from './Editor'
-import { getMessageContent, sendMessage } from '@/services/message'
 
 const ListS = muiStyled(List)({
   width: '100vw',

@@ -1,19 +1,11 @@
-import React from 'react'
-import muiStyled from '@/muiStyled'
-
-import { Typography } from '@material-ui/core'
-
-import { IPost } from '@cc98/api'
-
-import { UBBReact } from '@/UBB'
-import remark from 'remark'
-import remark2react from 'remark-react'
-
-import MarkdownView from 'react-showdown'
-import { ShowdownExtension } from 'react-showdown'
-
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
+import muiStyled from '@/muiStyled'
+import { UBBReact } from '@/UBB'
+import { IPost } from '@cc98/api'
+import { Typography } from '@material-ui/core'
+import React from 'react'
+import MarkdownView, { ShowdownExtension } from 'react-showdown'
 
 // TODO LazyLoad
 const compressImageExtension: ShowdownExtension = {

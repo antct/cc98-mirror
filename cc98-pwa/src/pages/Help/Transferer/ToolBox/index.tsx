@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { WealthModel } from '../WealthModel'
-
 import SendBtn from './SendBtn'
+
 
 const WrapperDiv = styled.div`
   display: flex;

@@ -1,13 +1,11 @@
+import useFetcher from '@/hooks/useFetcher'
+import { getBoardEvent, getBoardInfo } from '@/services/board'
+import { navigateHandler } from '@/services/utils/errorHandler'
 import React from 'react'
 import styled from 'styled-components'
-
-import useFetcher from '@/hooks/useFetcher'
-
 import BoardItemHead from '../components/BoardItemHead'
 import RecordList from './BoardRecordList'
 
-import { getBoardInfo, getBoardEvent } from '@/services/board'
-import { navigateHandler } from '@/services/utils/errorHandler'
 
 const WrapperDiv = styled.div`
   display: flex;

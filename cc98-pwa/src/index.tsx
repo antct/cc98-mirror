@@ -1,17 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-
 // config day.js
 import dayjs from 'dayjs'
 import zh from 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import 'typeface-roboto'
+import App from './App'
+// global style
+import './style.css'
+
 dayjs.locale(zh, null, false)
 dayjs.extend(relativeTime)
 
-// global style
-import './style.css'
-import 'typeface-roboto'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

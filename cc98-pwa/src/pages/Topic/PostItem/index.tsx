@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import muiStyled from '@/muiStyled'
-import styled from 'styled-components'
-
-import { Paper, Divider, Typography } from '@material-ui/core'
-
-import Header from './Header'
-import Content from './Content'
-import Actions from './Actions'
-import Awards from './Awards'
-import UBB from '@/UBB'
-
-import { getSinglePost } from '@/services/post'
-import { IPost, IUser, ITopic } from '@cc98/api'
-
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
-
-import {IVote} from '../PostList'
-
+import muiStyled from '@/muiStyled'
+import { getSinglePost } from '@/services/post'
+import UBB from '@/UBB'
+import { IPost, ITopic, IUser } from '@cc98/api'
+import { Divider, Paper, Typography } from '@material-ui/core'
 import dayjs from 'dayjs'
+import React, { useState } from 'react'
 import remark from 'remark'
 import remark2react from 'remark-react'
+import styled from 'styled-components'
+import { IVote } from '../PostList'
+import Actions from './Actions'
+import Awards from './Awards'
+import Content from './Content'
+import Header from './Header'
+
 
 function Markdown(content: string) {
   return remark()

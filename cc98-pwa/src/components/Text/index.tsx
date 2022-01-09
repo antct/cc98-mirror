@@ -1,5 +1,5 @@
-import React from 'react'
 import { Typography } from '@material-ui/core'
+import React from 'react'
 
 const TextPrimary: React.FC = ({ children }) => (
   <Typography variant="body2" color="textPrimary">

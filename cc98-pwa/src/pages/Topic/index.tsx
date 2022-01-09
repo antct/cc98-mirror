@@ -1,30 +1,19 @@
+import LoadingCircle from '@/components/LoadingCircle'
+import useFetcher from '@/hooks/useFetcher'
+import {
+  getAnonymousTracePost, getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost
+} from '@/services/post'
+import {
+  getShareTopicInfo, getTopicInfo
+} from '@/services/topic'
+import { navigateHandler } from '@/services/utils/errorHandler'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import useFetcher from '@/hooks/useFetcher'
-
-import LoadingCircle from '@/components/LoadingCircle'
-
-import PostHead from './PostHead'
-import PostListHot from './PostListHot'
-import PostList from './PostList'
 import FixButtons from './FixButtons'
+import PostHead from './PostHead'
+import PostList from './PostList'
+import PostListHot from './PostListHot'
 
-import { 
-  getTopicInfo, 
-  getShareTopicInfo 
-} from '@/services/topic'
-import {
-  getPost,
-  getFloor,
-  getReversePost,
-  getTracePost,
-  getAnonymousTracePost,
-  getHotPost,
-  getSharePost,
-  getShareHotPost
-} from '@/services/post'
-import { navigateHandler } from '@/services/utils/errorHandler'
 
 const EndPlaceholder = styled.div`
   height: 64px;

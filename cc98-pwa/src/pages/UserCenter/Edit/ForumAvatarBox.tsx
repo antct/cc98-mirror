@@ -1,9 +1,7 @@
+import { IMG_BASE_URL } from '@/config'
+import { DialogContent, DialogTitle } from '@material-ui/core'
 import React from 'react'
 import styled from 'styled-components'
-
-import { DialogTitle, DialogContent } from '@material-ui/core'
-
-import { IMG_BASE_URL } from '@/config'
 
 const FlexDiv = styled.div`
   display: flex;

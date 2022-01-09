@@ -1,14 +1,11 @@
+import { IMG_BASE_URL } from '@/config'
+import { Theme } from '@/muiStyled'
+import { navigate } from '@/utils/history'
+import { IBasicBoard } from '@cc98/api'
+import { CardMedia, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 
-import { makeStyles } from '@material-ui/styles'
-import { Theme } from '@/muiStyled'
-
-import { Typography, CardMedia } from '@material-ui/core'
-
-import { navigate } from '@/utils/history'
-
-import { IBasicBoard } from '@cc98/api'
-import { IMG_BASE_URL } from '@/config'
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {

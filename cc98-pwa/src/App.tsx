@@ -1,16 +1,13 @@
-import React from 'react'
-
+import BackGround from '@/components/BackGround'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
-
-import { ThemeProvider } from '@material-ui/styles'
-
-import { getTheme } from '@/theme'
-
-import TopBar from '@/modules/TopBar'
 import DrawerMenu from '@/modules/DrawerMenu'
-import BackGround from '@/components/BackGround'
+import TopBar from '@/modules/TopBar'
 import Router from '@/router'
+import { getTheme } from '@/theme'
+import { ThemeProvider } from '@material-ui/styles'
+import React from 'react'
+
 
 const App = () => (
   <BackGround>

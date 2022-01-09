@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
-
 import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import stateModel from '@/models/state'
 import settingModel from '@/models/setting'
-
-import DetailItem from './DetailItem'
+import userModel from '@/models/user'
 import { IMessageContent } from '@cc98/api'
+import React, { useEffect } from 'react'
+import DetailItem from './DetailItem'
 
 interface Props {
   data: IMessageContent[]

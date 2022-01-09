@@ -1,5 +1,5 @@
-import { navigate as reachNavigate, NavigateOptions } from '@reach/router'
 import { routerModel } from '@/router'
+import { navigate as reachNavigate, NavigateOptions } from '@reach/router'
 
 /**
  * 路由跳转到对应 URL

@@ -1,31 +1,28 @@
-import React from 'react'
-import { navigate } from '@/utils/history'
-import muiStyled from '@/muiStyled'
-
 import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import stateModel from '@/models/state'
-import settingModel from '@/models/setting'
-
-import { Divider, Drawer, List, ListItem, ListItemIcon, Badge } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
-
-import WidgetsIcon from '@material-ui/icons/Widgets'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+import settingModel from '@/models/setting'
+import stateModel from '@/models/state'
+import userModel from '@/models/user'
+import muiStyled from '@/muiStyled'
+import { navigate } from '@/utils/history'
+import { Badge, Divider, Drawer, List, ListItem, ListItemIcon } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel'
 import FiberNewIcon from '@material-ui/icons/FiberNew'
-import HomeIcon from '@material-ui/icons/Home'
-import PageviewIcon from '@material-ui/icons/Pageview'
 import GroupIcon from '@material-ui/icons/Group'
+import HelpIcon from '@material-ui/icons/Help'
+import HomeIcon from '@material-ui/icons/Home'
+import MailIcon from '@material-ui/icons/Mail'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import PagesIcon from '@material-ui/icons/Pages'
+import PageviewIcon from '@material-ui/icons/Pageview'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
-import HelpIcon from '@material-ui/icons/Help'
-import TrendingUpIcon from '@material-ui/icons/TrendingUp'
-import MailIcon from '@material-ui/icons/Mail'
-import PagesIcon from '@material-ui/icons/Pages'
 import InfoIcon from '@material-ui/icons/Toc'
-
+import TrendingUpIcon from '@material-ui/icons/TrendingUp'
+import WidgetsIcon from '@material-ui/icons/Widgets'
+import React from 'react'
 import UserInfo from './UserInfo'
+
 
 interface ItemProps {
   /**

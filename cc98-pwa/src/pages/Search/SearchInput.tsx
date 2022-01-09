@@ -1,9 +1,7 @@
+import { IconButton, TextField } from '@material-ui/core'
+import SearchIcon from '@material-ui/icons/Search'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import { TextField, IconButton } from '@material-ui/core'
-
-import SearchIcon from '@material-ui/icons/Search'
 
 const SearchDiv = styled.div`
   display: flex;

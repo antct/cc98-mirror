@@ -1,17 +1,14 @@
+import { IconButton, SnackbarContent } from '@material-ui/core'
+import green from '@material-ui/core/colors/green'
+import red from '@material-ui/core/colors/red'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+// import WarningIcon from '@material-ui/icons/Warning'
+import CloseIcon from '@material-ui/icons/Close'
+import ErrorIcon from '@material-ui/icons/Error'
+import InfoIcon from '@material-ui/icons/Info'
 import React from 'react'
 import styled from 'styled-components'
 
-import { IconButton, SnackbarContent } from '@material-ui/core'
-
-import InfoIcon from '@material-ui/icons/Info'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import ErrorIcon from '@material-ui/icons/Error'
-// import WarningIcon from '@material-ui/icons/Warning'
-
-import CloseIcon from '@material-ui/icons/Close'
-
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
 
 const IconMap = {
   info: InfoIcon,
@@ -40,7 +37,7 @@ const Message = styled.div`
   margin-left: 1rem;
 `
 
-const MySnackbarContent: React.FC<Props> = ({ variant, message, onClose }, ref) => {
+const MySnackbarContent: React.ForwardRefRenderFunction<unknown, Props> = ({ variant, message, onClose }, ref) => {
   const Icon = IconMap[variant]
 
   return (

@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react'
+import snackbar from '@/utils/snackbar'
+import { Button, Dialog } from '@material-ui/core'
+import React, { useRef, useState } from 'react'
 
-import { Dialog, Button } from '@material-ui/core'
 
 const LocalAvatarBox = React.lazy(() => import('./LocalAvatarBox'))
 
-import snackbar from '@/utils/snackbar'
 
 interface Props {
   handleAvatarSubmit: (avatarSrc: string) => void

@@ -1,14 +1,11 @@
-import React from 'react'
-import { ListItem, TextField, MenuItem } from '@material-ui/core'
-import ListItemText from '@/hotfix/ListItemText'
-
 import useModel from '@/hooks/useModel'
+import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
-
 import { ThemeEnum } from '@/theme'
+import { ListItem, MenuItem, TextField } from '@material-ui/core'
+import React from 'react'
 
 const ranges = [
-  { label: '自动', value: ThemeEnum.AUTO },
   { label: '默认', value: ThemeEnum.DEFAULT },
   { label: '春', value: ThemeEnum.SPRING },
   { label: '夏', value: ThemeEnum.SUMMER },

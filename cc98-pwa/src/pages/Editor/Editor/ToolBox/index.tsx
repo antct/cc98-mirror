@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { EditorModel } from '../EditorModel'
-
-import PictureBtn from './PictureBtn'
-import StickerBtn from './StickerBtn'
 import ClearBtn from './ClearBtn'
+import PictureBtn from './PictureBtn'
 import PreviewBtn from './PreviewBtn'
 import SendBtn from './SendBtn'
+import StickerBtn from './StickerBtn'
+
 
 const WrapperDiv = styled.div`
   display: flex;

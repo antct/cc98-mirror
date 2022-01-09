@@ -1,15 +1,12 @@
-import React, { useState, useMemo } from 'react'
-import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
-
-import { Typography, IconButton, Collapse } from '@material-ui/core'
-
+import { IBoardGroup } from '@cc98/api'
+import { Collapse, IconButton, Typography } from '@material-ui/core'
 import SwapVertIcon from '@material-ui/icons/SwapVert'
-
+import React, { useMemo, useState } from 'react'
+import styled from 'styled-components'
 import BoardItem from './BoardItem'
 import { NOT_EXPANDED_BOARDS } from './constants'
 
-import { IBoardGroup } from '@cc98/api'
 
 const WrapperDiv = styled.div`
   margin: 24px 8px;

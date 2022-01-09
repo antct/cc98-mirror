@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from 'react'
-
-import useFetcher from '@/hooks/useFetcher'
-import useDelay from '@/hooks/useDelay'
-import { FinTopicList } from '@/components/TopicList'
-
-import { List, Tab, Tabs } from '@material-ui/core'
-
 import LoadingCircle from '@/components/LoadingCircle'
-import HotTopicItem from './HotTopicItem'
-
-import { IHotTopic } from '@cc98/api'
+import { FinTopicList } from '@/components/TopicList'
+import useDelay from '@/hooks/useDelay'
+import useFetcher from '@/hooks/useFetcher'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import {
-  getHotTopics,
-  getWeeklyHotTopics,
-  getMonthlyHotTopics,
-  getHistoryHotTopics,
+  getHistoryHotTopics, getHotTopics, getMonthlyHotTopics, getWeeklyHotTopics
 } from '@/services/topic'
 import { getUsersBasicInfoByNames } from '@/services/user'
 import { notificationHandler } from '@/services/utils/errorHandler'
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
+import { IHotTopic } from '@cc98/api'
+import { List, Tab, Tabs } from '@material-ui/core'
+import React, { useState } from 'react'
+import HotTopicItem from './HotTopicItem'
+
 
 interface Props {
   service: typeof getHotTopics

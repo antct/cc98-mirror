@@ -1,13 +1,12 @@
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+import UBB from '@/UBB'
+import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import VolumeOffIcon from '@material-ui/icons/VolumeOff'
+import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import React from 'react'
 import styled from 'styled-components'
 
-import { ListItem, ListItemText, ListItemIcon, Divider } from '@material-ui/core'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import UBB from '@/UBB'
-
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
 
 const WrapperDiv = styled.div`
   margin: 8px 16px;

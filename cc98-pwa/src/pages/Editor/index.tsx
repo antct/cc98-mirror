@@ -1,17 +1,14 @@
-import React, { useRef } from 'react'
-import styled from 'styled-components'
-
-import MetaInfo, { MetaInfoModel } from './MetaInfo'
-import Editor, { EditorModel } from './Editor'
-
-import useInit from './useInit'
-
-import { ITopicParams, IPostParams, postTopic, replyTopic, editorPost } from '@/services/editor'
-
-import { goback } from '@/utils/history'
-import snackbar from '@/utils/snackbar'
 import useFetcher from '@/hooks/useFetcher'
 import { getBoardInfo } from '@/services/board'
+import { editorPost, IPostParams, ITopicParams, postTopic, replyTopic } from '@/services/editor'
+import { goback } from '@/utils/history'
+import snackbar from '@/utils/snackbar'
+import React, { useRef } from 'react'
+import styled from 'styled-components'
+import Editor, { EditorModel } from './Editor'
+import MetaInfo, { MetaInfoModel } from './MetaInfo'
+import useInit from './useInit'
+
 
 const WrapperDiv = styled.div`
   margin: 8px 12px;

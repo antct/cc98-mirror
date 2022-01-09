@@ -1,12 +1,10 @@
+import { navigate } from '@/utils/history'
+import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@material-ui/core'
+import BlockIcon from '@material-ui/icons/Block'
+import InfoIcon from '@material-ui/icons/Info'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 import React, { useState } from 'react'
 
-import { IconButton, Typography, Menu, MenuItem, ListItemIcon } from '@material-ui/core'
-
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import InfoIcon from '@material-ui/icons/Info'
-import BlockIcon from '@material-ui/icons/Block'
-
-import { navigate } from '@/utils/history'
 
 interface Props {
   boardId: string | number

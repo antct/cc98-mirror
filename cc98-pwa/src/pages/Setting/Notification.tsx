@@ -1,12 +1,8 @@
-import React from 'react'
-
 import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
-
-import { ListItem, Switch } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
-
-import { ModeEnum } from '@/theme'
+import settingModel from '@/models/setting'
+import { ListItem, Switch } from '@material-ui/core'
+import React from 'react'
 
 export default () => {
   const { useNotification} = useModel(settingModel, ['useNotification'])

@@ -1,14 +1,13 @@
-import React from 'react'
-
 import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
 import settingModel from '@/models/setting'
-
-import Info from '../Info'
+import userModel from '@/models/user'
+import React from 'react'
 import HotTopic from '../HotTopic'
-import NewTopic from '../NewTopic'
-import MyFollow from '../MyFollow'
+import Info from '../Info'
 import LogIn from '../LogIn'
+import MyFollow from '../MyFollow'
+import NewTopic from '../NewTopic'
+
 
 export default () => {
   const user = useModel(userModel)

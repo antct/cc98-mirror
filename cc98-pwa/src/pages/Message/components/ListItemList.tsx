@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react'
-
-import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import stateModel from '@/models/state'
-import settingModel from '@/models/setting'
-
-import ListItem from './ListItem'
-import { IMessageContent, IRecentMessage, IUser } from '@cc98/api'
 import { getUsersBasicInfoByIds } from '@/services/user'
+import { IRecentMessage, IUser } from '@cc98/api'
+import React, { useEffect, useState } from 'react'
+import ListItem from './ListItem'
 
 interface Props {
   data: IRecentMessage[]

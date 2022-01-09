@@ -1,16 +1,13 @@
-import React, {useState} from 'react'
-
-import { 
-  IconButton, 
+import {
   CircularProgress,
-  Dialog,
-  List,
+  Dialog, IconButton, List,
   ListItem,
   ListItemText
 } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
-
+import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
+
 
 interface DialogProps {
   onClose: (value: string) => void

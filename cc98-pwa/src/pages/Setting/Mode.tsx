@@ -1,12 +1,9 @@
-import React from 'react'
-
 import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
-
-import { ListItem, Switch } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
-
+import settingModel from '@/models/setting'
 import { ModeEnum } from '@/theme'
+import { ListItem, Switch } from '@material-ui/core'
+import React from 'react'
 
 const Theme = () => {
   const { mode } = useModel(settingModel, ['mode'])

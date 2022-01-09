@@ -1,14 +1,9 @@
-import React from 'react'
-
-import useInfList, {useInfListFix} from '@/hooks/useInfList'
 import InfiniteList from '@/components/InfiniteList'
-
-import { List } from '@material-ui/core'
-
-import ListItem from './components/ListItem'
-import ListItemList from './components/ListItemList'
-
+import { useInfListFix } from '@/hooks/useInfList'
 import { getRecentMessage } from '@/services/message'
+import { List } from '@material-ui/core'
+import React from 'react'
+import ListItemList from './components/ListItemList'
 
 /**
  * 私信-联系人列表

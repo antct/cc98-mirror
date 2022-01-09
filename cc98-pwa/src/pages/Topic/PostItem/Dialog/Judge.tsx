@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
 import muiStyled from '@/muiStyled'
-
+import { rate } from '@/services/post'
+import { rateHandler } from '@/services/utils/errorHandler'
+import { IPost } from '@cc98/api'
 import {
   Button,
   Dialog,
@@ -10,13 +11,9 @@ import {
   DialogTitle,
   Tab,
   Tabs,
-  TextField,
+  TextField
 } from '@material-ui/core'
-
-import { rateHandler } from '@/services/utils/errorHandler'
-
-import { rate } from '@/services/post'
-import { IPost } from '@cc98/api'
+import React, { useState } from 'react'
 
 const TabS = muiStyled(Tab)({
   flexGrow: 1,

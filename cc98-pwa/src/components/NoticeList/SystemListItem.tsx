@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
-import { navigate } from '@/utils/history'
-
-import { ListItem, Typography } from '@material-ui/core'
-
 import { ISystem } from '@cc98/api'
-import { getBoardNameById } from '@/services/board'
-
+import { ListItem, Typography } from '@material-ui/core'
 import dayjs from 'dayjs'
+import React from 'react'
+import styled from 'styled-components'
+
 
 const ListItemS = muiStyled(ListItem)({
   display: 'flex',

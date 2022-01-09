@@ -1,11 +1,9 @@
+import { InfTopicList } from '@/components/TopicList'
+import { getMyRecentTopics, getUsersRecentTopics } from '@/services/topic'
+import { IUser } from '@cc98/api'
 import React, { useState } from 'react'
-
 import ExpandPanel from './ExpandPanel'
 
-import { InfTopicList } from '@/components/TopicList'
-
-import { IUser } from '@cc98/api'
-import { getUsersRecentTopics, getMyRecentTopics } from '@/services/topic'
 
 interface Props {
   info: IUser

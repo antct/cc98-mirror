@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { Try } from '@/utils/fp/Try'
 import { FetchError } from '@/utils/fetch'
+import { Try } from '@/utils/fp/Try'
+import { useEffect, useState } from 'react'
 
 export type Service<T> = () => Promise<Try<T, FetchError>>
 

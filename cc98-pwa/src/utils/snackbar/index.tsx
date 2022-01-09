@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
 import { Snackbar } from '@material-ui/core'
 import { SnackbarProps } from '@material-ui/core/Snackbar'
-
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 import MySnackbarContent from './MySnackbarContent'
+
 
 // https://material-ui.com/demos/snackbars/#snackbars
 // Only one snackbar may be displayed at a time.

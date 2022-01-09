@@ -1,12 +1,10 @@
-import React, {useState} from 'react'
-
-import { 
-  IconButton, 
-  CircularProgress,
+import {
+  CircularProgress, IconButton
 } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
-
+import React from 'react'
 import { WealthModel } from '../WealthModel'
+
 
 interface Props {
   transferer: WealthModel

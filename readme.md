@@ -8,8 +8,8 @@ A simple way to forward cc98 service from intranet to extranet.
 2. 指定版块支持匿名回帖（待详细测试）。
 3. Markdown解析下图片不支持放大预览。
 4. 当前只支持账号密码登录，OIDC引入（需HTTPS）。
-5. Compress选项性能优化。
-6. 社交列表，互相关注显示。
+5. 签到功能完善，自动签到选项。
+6. 主题切换，对应PC端主题。
 
 ## ChangeLog
 
@@ -21,7 +21,8 @@ A simple way to forward cc98 service from intranet to extranet.
 6. 无限头像列表，支持同时发多个请求。
 7. Markdown解析额外插件。
 8. 转账系统。
-9. 一些其他小特性，等等。
+9. 社交列表，互相关注显示。
+10. 一些其他小特性，等等。
 
 ## cc98-pwa
 

@@ -1,19 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
+import useModel from '@/hooks/useModel'
+import ListItemText from '@/hotfix/ListItemText'
+import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
-
-import dayjs from 'dayjs'
-
-import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core'
-
-import ListItemText from '@/hotfix/ListItemText'
-
-import LazyLoad from 'react-lazyload'
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
-
 import { IUser } from '@cc98/api'
+import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core'
+import dayjs from 'dayjs'
+import React from 'react'
+import LazyLoad from 'react-lazyload'
+import styled from 'styled-components'
+
 
 const Text = styled.span`
   display: block;

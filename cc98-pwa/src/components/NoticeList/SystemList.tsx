@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
-
+import { ISystem } from '@cc98/api'
 import { List } from '@material-ui/core'
-
+import React, { useEffect } from 'react'
 import SystemListItem from './SystemListItem'
 
-import { ISystem } from '@cc98/api'
-
-import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import stateModel from '@/models/state'
-import settingModel from '@/models/setting'
 
 const ListS = muiStyled(List)({
   width: '100%',

@@ -1,16 +1,14 @@
-import React from 'react'
 import muiStyled from '@/muiStyled'
-
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Typography,
+  Typography
 } from '@material-ui/core'
-
 import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel'
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import React from 'react'
+
 
 const ExpansionPanelDetailsS = muiStyled(ExpansionPanelDetails)({
   width: '100%',

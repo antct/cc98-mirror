@@ -1,5 +1,5 @@
-import { GET, POST } from '@/utils/fetch'
-import { ISystem, IReply } from '@cc98/api'
+import { GET } from '@/utils/fetch'
+import { IReply, ISystem } from '@cc98/api'
 
 export function getSystem(from: number) {
   return GET<ISystem[]>('notification/system', {

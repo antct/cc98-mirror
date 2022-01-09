@@ -1,14 +1,11 @@
+import muiStyled from '@/muiStyled'
+import { goback } from '@/utils/history'
+import { IconButton, Typography } from '@material-ui/core'
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import React from 'react'
 import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { IconButton, Typography } from '@material-ui/core'
-
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
-
-import { goback } from '@/utils/history'
-
 import StickyBar from './index'
+
 
 const GobackIcon = muiStyled(IconButton).attrs({
   color: 'inherit',

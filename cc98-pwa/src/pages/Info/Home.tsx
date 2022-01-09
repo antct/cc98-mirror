@@ -1,18 +1,15 @@
-import React from 'react'
-import useDelay from '@/hooks/useDelay'
 import LoadingCircle from '@/components/LoadingCircle'
-
+import useDelay from '@/hooks/useDelay'
 import useFetcher from '@/hooks/useFetcher'
-
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+import { getHomeInfo } from '@/services/global'
+import { notificationHandler } from '@/services/utils/errorHandler'
+import React from 'react'
 import Announcement from './Announcement'
 import Board from './Board'
 import Recommend from './Recommend'
 
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
-
-import { getHomeInfo } from '@/services/global'
-import { notificationHandler } from '@/services/utils/errorHandler'
 
 const Home: React.FC = () => {
   const { showStudy, showAcademic, showEmotion, showFullTimeJob, showPartTimeJob, showHot, showSchoolEvent, showMarket } = useModel(settingModel, ['showStudy', 'showAcademic', 'showEmotion', 'showFullTimeJob', 'showPartTimeJob', 'showHot', 'showSchoolEvent', 'showMarket'])

@@ -1,10 +1,9 @@
-import React from 'react'
-
-import { IBoardStopPostUser } from '@cc98/api'
-import useInfList, { Service } from '@/hooks/useInfList'
 import InfiniteList from '@/components/InfiniteList'
-
+import useInfList, { Service } from '@/hooks/useInfList'
+import { IBoardStopPostUser } from '@cc98/api'
+import React from 'react'
 import QuietRoomItem from './QuietRoomItem'
+
 
 interface Props {
   service: Service<IBoardStopPostUser[]>

@@ -1,10 +1,10 @@
-import { useState } from 'react'
-
 import { getOriginalPost } from '@/services/editor'
-import { getTopicInfo } from '@/services/topic'
 import { getSinglePost } from '@/services/post'
-
+import { getTopicInfo } from '@/services/topic'
 import dayjs from 'dayjs'
+import { useState } from 'react'
+import { Props } from './index'
+
 
 interface Init {
   /**
@@ -29,7 +29,6 @@ interface Init {
   boardId: number | undefined
 }
 
-import { Props } from './index'
 
 /**
  * 获取 editor 和 metaInfo 的初始值，返回 null 意味着 loading 中

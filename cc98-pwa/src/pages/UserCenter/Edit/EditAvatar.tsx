@@ -1,13 +1,10 @@
+import muiStyled from '@/muiStyled'
+import { IUser } from '@cc98/api'
+import { Avatar, Typography } from '@material-ui/core'
 import React from 'react'
 import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { Avatar, Typography } from '@material-ui/core'
-
 import ForumAvatarButton from './ForumAvatarButton'
 import LocalAvatarButton from './LocalAvatarButton'
-
-import { IUser } from '@cc98/api'
 
 const WrapperDiv = styled.div`
   display: flex;

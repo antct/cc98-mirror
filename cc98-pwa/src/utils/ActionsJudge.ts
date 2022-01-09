@@ -1,4 +1,4 @@
-import { IUser, IPost } from '@cc98/api'
+import { IPost, IUser } from '@cc98/api'
 
 // 版主不能编辑管理员
 // 管理可以互相TP

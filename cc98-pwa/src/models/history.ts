@@ -1,7 +1,7 @@
 import { Model } from '@/hooks/useModel'
-
-import { ITopic } from '@cc98/api'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
+import { ITopic } from '@cc98/api'
+
 
 export type IHistoryItem = Pick<ITopic, 'id' | 'title'> & {
   lastViewTime: number

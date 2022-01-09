@@ -1,5 +1,5 @@
 import { GET, PUT } from '@/utils/fetch'
-import { IPost, IMyPosts, ILike, IReply } from '@cc98/api'
+import { ILike, IMyPosts, IPost, IReply } from '@cc98/api'
 
 /**
  * 获取一个帖子的10层楼

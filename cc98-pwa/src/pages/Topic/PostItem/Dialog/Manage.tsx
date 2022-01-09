@@ -1,29 +1,17 @@
-import React, { useState } from 'react'
 import muiStyled from '@/muiStyled'
-
 import {
-  Button,
-  Dialog,
+  cancelStopPost, deletePost, operatePrestige, operateWealth, stopPost
+} from '@/services/manage'
+import { manageHandler } from '@/services/utils/errorHandler'
+import snackbar from '@/utils/snackbar'
+import { IPost } from '@cc98/api'
+import {
+  Button, CircularProgress, Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  Select,
-  CircularProgress,
-  MenuItem,
-  TextField,
+  DialogTitle, MenuItem, Select, TextField
 } from '@material-ui/core'
-
-import { manageHandler } from '@/services/utils/errorHandler'
-import {
-  operateWealth,
-  deletePost,
-  stopPost,
-  cancelStopPost,
-  operatePrestige,
-} from '@/services/manage'
-
-import { IPost } from '@cc98/api'
-import snackbar from '@/utils/snackbar'
+import React, { useState } from 'react'
 
 const TextFieldS = muiStyled(TextField).attrs({
   fullWidth: true,

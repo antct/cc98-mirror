@@ -1,14 +1,10 @@
-import { createMuiTheme } from '@material-ui/core/styles'
-import { ThemeOptions, Theme } from '@material-ui/core/styles/createMuiTheme'
-
-import blue from '@material-ui/core/colors/blue'
 import pink from '@material-ui/core/colors/pink'
-import green from '@material-ui/core/colors/lightGreen'
+import { createTheme } from '@material-ui/core/styles'
+import { ThemeOptions } from '@material-ui/core/styles/createTheme'
 
 // https://material.io/tools/color/#!/?view.left=0&view.right=0
 
 export enum ThemeEnum {
-  AUTO,
   DEFAULT,
   SPRING,
   SUMMER,
@@ -21,31 +17,11 @@ export enum ModeEnum {
   DARK,
 }
 
-const autoLight: ThemeOptions = {
-  palette: {
-    primary: {
-      main: '#7A92C2',
-    },
-    secondary: pink,
-  },
-}
-
-const autoDark: ThemeOptions = {
-  palette: {
-    primary: {
-      main: '#7A92C2',
-    },
-    secondary: pink,
-    type: 'dark',
-  },
-}
-
-
 // default
 const defaultLight: ThemeOptions = {
   palette: {
     primary: {
-      main: blue[400],
+      main: '#7A92C2',
       contrastText: '#fff',
     },
     secondary: pink,
@@ -55,7 +31,7 @@ const defaultLight: ThemeOptions = {
 const defaultDark: ThemeOptions = {
   palette: {
     primary: {
-      main: blue[400],
+      main: '#7A92C2',
       contrastText: '#fff',
     },
     secondary: pink,
@@ -140,14 +116,12 @@ const winnerDark: ThemeOptions = {
   },
 }
 
-
 const themeMap: {
   [key: string]: {
     [key: string]: ThemeOptions
   }
 } = {
   [ModeEnum.LIGHT]: {
-    [ThemeEnum.AUTO]: autoLight,
     [ThemeEnum.DEFAULT]: defaultLight,
     [ThemeEnum.SPRING]: springLight,
     [ThemeEnum.SUMMER]: summerLight,
@@ -155,7 +129,6 @@ const themeMap: {
     [ThemeEnum.WINTER]: winnerLight
   },
   [ModeEnum.DARK]: {
-    [ThemeEnum.AUTO]: autoDark,
     [ThemeEnum.DEFAULT]: defaultDark,
     [ThemeEnum.SPRING]: springDark,
     [ThemeEnum.SUMMER]: summerDark,
@@ -182,5 +155,5 @@ export function getTheme(themeColor: ThemeEnum, mode: ModeEnum) {
     ..._getTheme(themeColor, mode),
   }
 
-  return createMuiTheme(theme)
+  return createTheme(theme)
 }

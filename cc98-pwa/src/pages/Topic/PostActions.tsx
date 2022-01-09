@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from 'react'
-
 import useFetcher from '@/hooks/useFetcher'
-
-import { IconButton, Menu, MenuItem, ListItemIcon, Typography } from '@material-ui/core'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
-import SettingIcon from '@material-ui/icons/Settings'
-
 import userInstace from '@/models/user'
-
-import snackbar from '@/utils/snackbar'
-import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
-
-import { ITopic } from '@cc98/api'
-
-import { getTopicFavorite, FavoriteTopic } from '@/services/topic'
-import { getShareToken } from '@/services/global'
 import { getBoardMastersById } from '@/services/board'
-
+import { getShareToken } from '@/services/global'
+import { FavoriteTopic, getTopicFavorite } from '@/services/topic'
 import { favoriteHandler } from '@/services/utils/errorHandler'
-
+import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
+import snackbar from '@/utils/snackbar'
+import { ITopic } from '@cc98/api'
+import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@material-ui/core'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import SettingIcon from '@material-ui/icons/Settings'
+import ShareIcon from '@material-ui/icons/Share'
+import copy2Clipboard from 'copy-to-clipboard'
+import React, { useEffect, useState } from 'react'
 import Setting from './Dialog/Setting'
 
-import copy2Clipboard from 'copy-to-clipboard'
 
 interface Props {
   /**
@@ -66,7 +58,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.long_url}`)
-        snackbar.success('分享链接已经成功复制到剪切板')
+        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex/3600)}小时`)
         handleClose()
       })
   }
@@ -80,7 +72,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.url}`)
-        snackbar.success('分享链接已经成功复制到剪切板')
+        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex/3600)}小时`)
         handleClose()
       })
   }

@@ -1,23 +1,20 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-
-import useInfList, { Service as InfService } from '@/hooks/useInfList'
-import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
-import useDelay from '@/hooks/useDelay'
-
-import TopicList from './TopicList'
-import { Place } from './TopicListItem'
 import img404 from '@/assets/error.png'
-
 import InfiniteList from '@/components/InfiniteList'
 import LoadingCircle from '@/components/LoadingCircle'
-
-import { navigateHandler } from '@/services/utils/errorHandler'
-
-import { ITopic, IUser } from '@cc98/api'
-import { getUsersBasicInfoByIds } from '@/services/user'
+import useDelay from '@/hooks/useDelay'
+import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
+import useInfList, { Service as InfService } from '@/hooks/useInfList'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
+import { getUsersBasicInfoByIds } from '@/services/user'
+import { navigateHandler } from '@/services/utils/errorHandler'
+import { ITopic } from '@cc98/api'
+import { Typography } from '@material-ui/core'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import TopicList from './TopicList'
+import { Place } from './TopicListItem'
+
 
 const Img = styled.img`
   width: 60%;
@@ -30,13 +27,24 @@ const CenterDiv = styled.div`
   align-items: center;
 `
 
+const UBBDiv = styled.div`
+  width: 100%;
+  margin: 0 20px;
+`
+
 /**
  * 空列表占位，表示 InfList 什么都没有
  */
-const EmtpyList = () => (
+const EmptyList = () => (
   <CenterDiv>
     <Img src={img404} />
   </CenterDiv>
+)
+
+const UserCenterEmptyList = () => (
+  <UBBDiv>
+    <Typography>{'这家伙很懒，什么都没留下。'}</Typography>
+  </UBBDiv>
 )
 
 
@@ -77,7 +85,7 @@ const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
 
   return (
     <>
-      {isEnd && topics.length === 0 && <EmtpyList />}
+      {isEnd && topics.length === 0 && (place === 'usercenter' ? <UserCenterEmptyList /> : <EmptyList />)}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
         <TopicList topics={topics} place={place} urlMap={urlMap} />
       </InfiniteList>

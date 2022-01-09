@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { IRecentMessage, IMessageContent } from '@cc98/api'
+import { IMessageContent, IRecentMessage } from '@cc98/api'
 
 /**
  * 获取近期私信列表

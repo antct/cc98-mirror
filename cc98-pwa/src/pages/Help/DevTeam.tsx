@@ -1,17 +1,13 @@
+import LoadingCircle from '@/components/LoadingCircle'
+import muiStyled from '@/muiStyled'
+import { getUsersInfoByIds } from '@/services/user'
+import { navigate } from '@/utils/history'
+import { IUser } from '@cc98/api'
+import { Avatar, CardHeader, Divider, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import LoadingCircle from '@/components/LoadingCircle'
-
-import { navigate } from '@/utils/history'
-
-import { Avatar, CardHeader, Divider, Typography } from '@material-ui/core'
-
-import { getUsersInfoByIds } from '@/services/user'
-import { IUser } from '@cc98/api'
-
 import { Title } from './SiteInfo'
+
 
 const CardHeaderS = muiStyled(CardHeader)({
   width: 200,

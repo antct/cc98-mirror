@@ -1,11 +1,10 @@
+import { IMG_BASE_URL } from '@/config'
+import muiStyled from '@/muiStyled'
+import { DialogContent, DialogTitle, Tab, Tabs } from '@material-ui/core'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { DialogTitle, DialogContent, Tabs, Tab } from '@material-ui/core'
 import { EditorModel } from '../EditorModel'
 
-import { IMG_BASE_URL } from '@/config'
 
 const DialogTitleS = muiStyled(DialogTitle)({
   padding: 12,

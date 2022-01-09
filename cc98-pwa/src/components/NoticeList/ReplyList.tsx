@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
+import { getTopicList } from '@/services/topic'
+import { IPost, IReply, ITopic } from '@cc98/api'
 import { List } from '@material-ui/core'
-import { IReply, IPost, ITopic } from '@cc98/api'
+import React, { useEffect, useState } from 'react'
 import ReplyListItem from './ReplyListItem'
 
-import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import stateModel from '@/models/state'
-import settingModel from '@/models/setting'
-
-import useFetcher from '@/hooks/useFetcher'
-import { getPostInfoById, getPostList } from '@/services/post'
-import { getTopicInfoById, getTopicList } from '@/services/topic'
 
 const ListS = muiStyled(List)({
   width: '100%',

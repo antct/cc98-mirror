@@ -1,31 +1,30 @@
-import React from 'react'
-// https://reach.tech/router/api/Router
-import { Router, RouteComponentProps, WindowLocation } from '@reach/router'
-
-import BoardList from '@/pages/BoardList'
 import Board from '@/pages/Board'
 import BoardRecord from '@/pages/Board/BoardRecord'
 import BoardQuietRoom from '@/pages/Board/QuietRoom'
+import BoardList from '@/pages/BoardList'
 import Editor from '@/pages/Editor'
+import Error from '@/pages/Error'
+import Help from '@/pages/Help'
+import History from '@/pages/History'
 import Home from '@/pages/Home'
 import HotTopic from '@/pages/HotTopic'
+import Info from '@/pages/Info'
+import LogIn from '@/pages/LogIn'
 import MessageDetail from '@/pages/Message/Detail'
 import MessageList from '@/pages/Message/List'
 import MyFollow from '@/pages/MyFollow'
-import Notice from '@/pages/Notice'
-import Social from '@/pages/Social'
-import Info from '@/pages/Info'
 import NewTopic from '@/pages/NewTopic'
+import Notice from '@/pages/Notice'
 import Search from '@/pages/Search'
 import Setting from '@/pages/Setting'
+import Social from '@/pages/Social'
 import Topic, { TopicReverse } from '@/pages/Topic'
 import UserCenter from '@/pages/UserCenter'
 import UserCenterEdit from '@/pages/UserCenter/Edit'
-import Help from '@/pages/Help'
-import History from '@/pages/History'
+// https://reach.tech/router/api/Router
+import { RouteComponentProps, Router, WindowLocation } from '@reach/router'
+import React from 'react'
 
-import LogIn from '@/pages/LogIn'
-import Error from '@/pages/Error'
 
 export const Route: React.FC<
   RouteComponentProps & {

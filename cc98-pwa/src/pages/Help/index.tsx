@@ -1,25 +1,23 @@
-import React from 'react'
-import { Router } from '@reach/router'
-import { Route } from '@/router/Router'
-
-import { List, ListItem, ListItemIcon } from '@material-ui/core'
 import ListItemText from '@/hotfix/ListItemText'
-
-import BarChartIcon from '@material-ui/icons/BarChart'
-import CopyrightIcon from '@material-ui/icons/Copyright'
-import SmartphoneIcon from '@material-ui/icons/Smartphone'
-import NatureIcon from '@material-ui/icons/NatureOutlined'
-import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined'
-import CodeIcon from '@material-ui/icons/Code'
-import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
-import RecommendIcon from '@material-ui/icons/ThumbUpOutlined'
-import MoneyIcon from '@material-ui/icons/MonetizationOnOutlined'
-
+import { Route } from '@/router/Router'
 import { navigate } from '@/utils/history'
-
-import SiteInfo from './SiteInfo'
+import { List, ListItem, ListItemIcon } from '@material-ui/core'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import CodeIcon from '@material-ui/icons/Code'
+import CopyrightIcon from '@material-ui/icons/Copyright'
+import EventIcon from '@material-ui/icons/EmojiEventsOutlined'
+import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined'
+import MoneyIcon from '@material-ui/icons/MonetizationOnOutlined'
+import NatureIcon from '@material-ui/icons/NatureOutlined'
+import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
+import SmartphoneIcon from '@material-ui/icons/Smartphone'
+import RecommendIcon from '@material-ui/icons/ThumbUpOutlined'
+import { Router } from '@reach/router'
+import React from 'react'
 import DevTeam from './DevTeam'
+import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
+
 
 interface ItemProps {
   icon: React.ReactElement<any>
@@ -42,6 +40,7 @@ const Index = () => (
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
+    <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/" />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<NotListedIcon />} text="论坛帮助" url="/topic/4970959" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />

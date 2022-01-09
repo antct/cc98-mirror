@@ -1,22 +1,19 @@
-import React, { useState } from 'react'
-import { navigate } from '@/utils/history'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { Avatar, IconButton, Typography, CircularProgress } from '@material-ui/core'
-
-import ExpandPanel from './ExpandPanel'
-
 import useFetcher from '@/hooks/useFetcher'
-
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FingerprintIcon from '@material-ui/icons/Fingerprint'
-import EditIcon from '@material-ui/icons/Edit'
-import ChatIcon from '@material-ui/icons/Chat'
-
+import muiStyled from '@/muiStyled'
 import { getSignState, signIn } from '@/services/global'
 import { followUser, unFollowUser } from '@/services/user'
-import { IUser, ISignIn } from '@cc98/api'
+import { navigate } from '@/utils/history'
+import snackbar from '@/utils/snackbar'
+import { IUser } from '@cc98/api'
+import { Avatar, CircularProgress, IconButton, Typography } from '@material-ui/core'
+import ChatIcon from '@material-ui/icons/Chat'
+import EditIcon from '@material-ui/icons/Edit'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FingerprintIcon from '@material-ui/icons/Fingerprint'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import ExpandPanel from './ExpandPanel'
+
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -58,27 +55,33 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   // situation2: signState null
   const toggleSign = async () => {
     // if signState exists, sign yesterday, else not
-    if (isSign) {
-        return
-    }
-    if ((signState && !signState.hasSignedInToday) || (!signState && !isSign)) {
-      if (isLoadingSign) {
+    if (isSign) return
+    if ((signState) || (!signState && !isSign)) {
+      if (signState && signState.hasSignedInToday) {
+        snackbar.success('今天已签到')
         return
       }
+      if (isLoadingSign) return
       setIsLoadingSign(true)
 
       const res = await signIn()
       res
-        .fail(() => setIsLoadingSign(false))
+        .fail(() => {
+          setIsLoadingSign(false)
+          // 失败情况处理
+          snackbar.success('签到失败')
+        })
         .succeed((newSignState) => {
           setSignState(newSignState)
           setIsSign(true)
           setIsLoadingSign(false)
+          snackbar.success('签到成功')
         })
     } else {
       return
     }
   }
+
   const toggleFunc = async () => {
     if (isLoading) {
       return

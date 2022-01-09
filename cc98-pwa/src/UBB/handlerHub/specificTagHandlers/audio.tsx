@@ -1,11 +1,10 @@
-import { ITagHandler, TagNode } from '@cc98/ubb-core'
-import { IContext } from '@cc98/context'
-
-import React, { useRef, useEffect } from 'react'
-import { globalHistory, HistoryUnsubscribe } from '@reach/router'
 import { IMG_BASE_URL } from '@/config'
-
+import { IContext } from '@cc98/context'
+import { ITagHandler, TagNode } from '@cc98/ubb-core'
+import { globalHistory, HistoryUnsubscribe } from '@reach/router'
 import 'aplayer/dist/APlayer.min.css'
+import React, { useEffect, useRef } from 'react'
+
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,

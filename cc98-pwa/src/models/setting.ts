@@ -1,8 +1,7 @@
 import { Model } from '@/hooks/useModel'
-
+import { ModeEnum, ThemeEnum } from '@/theme'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
 
-import { ThemeEnum, ModeEnum } from '@/theme'
 
 interface State {
   /**
@@ -46,7 +45,7 @@ class SettingModel extends Model<State> {
     super()
 
     this.state = {
-      theme: ThemeEnum.AUTO,
+      theme: ThemeEnum.DEFAULT,
       mode: ModeEnum.LIGHT,
       useSignalr: false,
       useSignature: false,

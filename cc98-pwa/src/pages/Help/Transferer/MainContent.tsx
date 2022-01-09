@@ -1,9 +1,8 @@
-import React from 'react'
 import muiStyled from '@/muiStyled'
-
+import { Card, CardContent, InputBase, Typography } from '@material-ui/core'
+import React from 'react'
 import { WealthModel } from './WealthModel'
 
-import { InputBase, Card, CardContent, Typography } from '@material-ui/core'
 
 const InputArea = muiStyled(InputBase).attrs({
   fullWidth: true,

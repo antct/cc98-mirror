@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
 import useFetcher from '@/hooks/useFetcher'
-
-import { Select, MenuItem, Input, InputLabel, FormControl } from '@material-ui/core'
-
+import muiStyled from '@/muiStyled'
 import { getBoardsInfo } from '@/services/board'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { IBasicBoard } from '@cc98/api'
+import { FormControl, Input, InputLabel, MenuItem, Select } from '@material-ui/core'
+import React, { useState } from 'react'
+import styled from 'styled-components'
 
 const FormDiv = styled.div`
   display: flex;

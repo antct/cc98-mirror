@@ -1,24 +1,16 @@
-import React from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { Avatar, ListItem, ListItemAvatar } from '@material-ui/core'
-import ListItemText from '@/hotfix/ListItemText'
-
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
-import userModel from '@/models/user'
-import LazyLoad from 'react-lazyload'
+import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
-
-import { IMessageContent, IUser } from '@cc98/api'
-
+import userModel from '@/models/user'
+import muiStyled from '@/muiStyled'
 import { getUserInfoById } from '@/services/user'
-
-import dayjs from 'dayjs'
 import { navigate } from '@/utils/history'
-
-
+import { IMessageContent, IUser } from '@cc98/api'
+import { Avatar, ListItem, ListItemAvatar } from '@material-ui/core'
+import dayjs from 'dayjs'
+import React from 'react'
+import styled from 'styled-components'
 
 const ListItemS = muiStyled(ListItem)({
   flexShrink: 0,

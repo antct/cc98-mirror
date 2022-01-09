@@ -1,7 +1,7 @@
-import React from 'react'
-
 import { ListItemText, Typography } from '@material-ui/core'
 import { ListItemTextProps } from '@material-ui/core/ListItemText'
+import React from 'react'
+
 
 const ListItemText_FixedThemeBug: React.FC<ListItemTextProps> = props => (
   <ListItemText

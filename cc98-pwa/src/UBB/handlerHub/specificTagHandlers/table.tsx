@@ -1,8 +1,7 @@
-import { ITagHandler, TagNode } from '@cc98/ubb-core'
-
 import { IContext } from '@cc98/context'
-
+import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import React from 'react'
+
 
 // table相关标签说明: https://www.cc98.org/topic/4070950
 const handler: ITagHandler<React.ReactNode> = {

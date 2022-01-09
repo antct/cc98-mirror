@@ -1,16 +1,13 @@
+import useFetcher from '@/hooks/useFetcher'
+import userModel from '@/models/user'
+import { getBoardInfo, getBoardStopPostUser } from '@/services/board'
+import { navigateHandler } from '@/services/utils/errorHandler'
+import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import useFetcher from '@/hooks/useFetcher'
-
-import { navigateHandler } from '@/services/utils/errorHandler'
-import { getBoardInfo, getBoardStopPostUser } from '@/services/board'
-
-import userModel from '@/models/user'
-
-import QuietRoomList from './QuietRoomList'
 import BoardItemHead from '../components/BoardItemHead'
-import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
+import QuietRoomList from './QuietRoomList'
+
 
 const WrapperDiv = styled.div`
   display: flex;

@@ -1,10 +1,9 @@
-import React from 'react'
-
 import useFetcher, { Service } from '@/hooks/useFetcher'
+import { IPost } from '@cc98/api'
+import React from 'react'
 import PostItem from './PostItem'
 import { useUserMap } from './PostList'
 
-import { IPost } from '@cc98/api'
 
 interface Props {
   service: Service<IPost[]>

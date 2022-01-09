@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { navigate } from '@/utils/history'
-
 import { TopicItem } from '@/components/TopicList/TopicListItem'
-
-import { IHotTopic } from '@cc98/api'
-import { getBoardNameById } from '@/services/board'
-
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
+import { getBoardNameById } from '@/services/board'
+import { navigate } from '@/utils/history'
+import { IHotTopic } from '@cc98/api'
+import React, { useEffect, useState } from 'react'
+
 
 interface Props {
   /**

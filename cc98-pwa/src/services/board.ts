@@ -1,15 +1,10 @@
-import { GET, PUT, DELETE } from '@/utils/fetch'
-
+import { DELETE, GET, PUT } from '@/utils/fetch'
 import {
-  IBoardGroup,
-  IBoard,
-  IBasicBoard,
-  ITagGroup,
-  IBoardRecord,
-  IBoardStopPostUser,
+  IBasicBoard, IBoard, IBoardGroup, IBoardRecord,
+  IBoardStopPostUser, ITagGroup
 } from '@cc98/api'
-
 import { cacheService } from './utils'
+
 
 /**
  * 获取所有版面信息

@@ -1,23 +1,18 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
-
+import { customBoard } from '@/services/board'
+import { IBoard } from '@cc98/api'
 import {
-  Typography,
-  ExpansionPanel,
+  CircularProgress, ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  IconButton,
-  CircularProgress,
+  IconButton, Typography
 } from '@material-ui/core'
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-
-import { IBoard } from '@cc98/api'
-import { customBoard } from '@/services/board'
-
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import BoardMenu from './components/BoardMenu'
+
 
 interface Props {
   data: IBoard

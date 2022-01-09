@@ -1,11 +1,9 @@
 import { Model } from '@/hooks/useModel'
-import { navigate } from '@/utils/history'
 import { GET } from '@/utils/fetch'
-import { logIn, logOut, isLogIn } from '@/utils/logIn'
-import { IUser, IUnRead } from '@cc98/api'
+import { navigate } from '@/utils/history'
+import { isLogIn, logIn, logOut } from '@/utils/logIn'
+import { IUnRead, IUser } from '@cc98/api'
 
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
 
 interface State {
   /**

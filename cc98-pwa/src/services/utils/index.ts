@@ -1,7 +1,7 @@
-import { Try, Success } from '@/utils/fp/Try'
 import { FetchError } from '@/utils/fetch'
-
+import { Success, Try } from '@/utils/fp/Try'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
+
 
 type Service<T> = () => Promise<Try<T, FetchError>>
 

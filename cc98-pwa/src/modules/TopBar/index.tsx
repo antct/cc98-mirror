@@ -1,13 +1,10 @@
-import React from 'react'
-import muiStyled from '@/muiStyled'
-
 import stateModel from '@/models/state'
-
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
-
-import MenuIcon from '@material-ui/icons/Menu'
-
+import muiStyled from '@/muiStyled'
 import version from '@/version'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
+import React from 'react'
+
 
 const AppBarS = muiStyled(AppBar)({
   maxWidth: 600,

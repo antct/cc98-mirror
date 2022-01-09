@@ -1,6 +1,6 @@
 import { GET, POST, PUT } from '@/utils/fetch'
-
 import { IPost } from '@cc98/api'
+
 
 /**
  * 获取帖子内容

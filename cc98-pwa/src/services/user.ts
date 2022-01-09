@@ -1,7 +1,7 @@
+import { DELETE, GET, POST, PUT } from '@/utils/fetch'
 import { IUser } from '@cc98/api'
-import { GET, PUT, DELETE, POST } from '@/utils/fetch'
-
 import { memoize } from 'lodash-es'
+
 
 /**
  * @description 通过用户id获取用户信息

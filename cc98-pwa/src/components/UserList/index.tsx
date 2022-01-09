@@ -1,20 +1,12 @@
+import img404 from '@/assets/error.png'
+import InfiniteList from '@/components/InfiniteList'
+import { Service as InfService, useInfListFix } from '@/hooks/useInfList'
+import { navigateHandler } from '@/services/utils/errorHandler'
 import React from 'react'
 import styled from 'styled-components'
-
-import useInfList, { Service as InfService, useInfListFix } from '@/hooks/useInfList'
-import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
-import useDelay from '@/hooks/useDelay'
-
 import UserList from './UserList'
-import UserListItem, { Place } from './UserListItem'
-import img404 from '@/assets/error.png'
+import { Place } from './UserListItem'
 
-import InfiniteList from '@/components/InfiniteList'
-import LoadingCircle from '@/components/LoadingCircle'
-
-import { navigateHandler } from '@/services/utils/errorHandler'
-
-import { IUser } from '@cc98/api'
 
 const Img = styled.img`
   width: 60%;

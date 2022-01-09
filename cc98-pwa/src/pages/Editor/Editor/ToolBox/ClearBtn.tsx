@@ -1,16 +1,12 @@
-import React, { useState } from 'react'
-
-import { EditorModel } from '../EditorModel'
-
 import {
-  IconButton,
   Button,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
+  Dialog, DialogActions, DialogContent,
+  DialogContentText, IconButton
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import React, { useState } from 'react'
+import { EditorModel } from '../EditorModel'
+
 
 interface Props {
   editor: EditorModel

@@ -1,20 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { IconButton, Typography } from '@material-ui/core'
-
-import ThumbUpIcon from '@material-ui/icons/ThumbUp'
-import ThumbDownIcon from '@material-ui/icons/ThumbDown'
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote'
-
-import { IPost, ILikeState } from '@cc98/api'
-import { putLike, putDislike } from '@/services/post'
-
 import userModel from '@/models/user'
-
+import muiStyled from '@/muiStyled'
+import { putDislike, putLike } from '@/services/post'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
+import { ILikeState, IPost } from '@cc98/api'
+import { IconButton, Typography } from '@material-ui/core'
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote'
+import ThumbDownIcon from '@material-ui/icons/ThumbDown'
+import ThumbUpIcon from '@material-ui/icons/ThumbUp'
+import React from 'react'
+import styled from 'styled-components'
 
 // @babel/plugin-transform-typescript does not support const enums
 enum LikeState {

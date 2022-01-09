@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
 import StickyHeadBar from '@/components/StickyBar/StickyHeadBar'
+import historyModel from '@/models/history'
+import { getBoardNameById } from '@/services/board'
+import { navigate } from '@/utils/history'
+import { ITopic } from '@cc98/api'
+import React, { useEffect, useState } from 'react'
 import PostActions from './PostActions'
 
-import historyModel from '@/models/history'
-
-import { ITopic } from '@cc98/api'
-import { getBoardNameById } from '@/services/board'
-
-import { navigate } from '@/utils/history'
 
 interface Props {
   topicInfo: ITopic

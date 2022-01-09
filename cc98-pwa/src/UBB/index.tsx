@@ -1,10 +1,9 @@
-import React from 'react'
-
-import { Typography } from '@material-ui/core'
 import settingModel from '@/models/setting'
-
-import ubbReact from './ubbReact'
 import { IContext } from '@cc98/context'
+import { Typography } from '@material-ui/core'
+import React from 'react'
+import ubbReact from './ubbReact'
+
 
 const context: Partial<IContext> = {
   mode: settingModel.state.mode,

@@ -7,6 +7,7 @@ import { IBoardStopPostUser } from '@cc98/api'
 
 import dayjs from 'dayjs'
 import Actions from './Actions'
+import { navigate } from '@/utils/history'
 
 const Wrapper = muiStyled(Paper).attrs({
   square: true,
@@ -53,9 +54,9 @@ export default ({ info, boardId, refreshFunc, canManage }: Props) => (
   <Wrapper>
     <FlexDiv>
       <div>
-        <Typography>{info.userName}</Typography>
-        <SubTitle>{`天数：${info.days}`}</SubTitle>
-        <SubTitle>{`到期时间：${dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}`}</SubTitle>
+        <Typography onClick={info.userId === -1 ? undefined : () => navigate(`/user/${info.userId}`)}>{info.userId === -1 ? '匿名' : info.userName}</Typography>
+        <SubTitle>{`TP：${dayjs(info.expiredTime).subtract(info.days, 'day').format('YYYY/MM/DD HH:mm')} — ${dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}`}</SubTitle>
+        {/* <SubTitle>{`到期时间：${dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}`}</SubTitle> */}
       </div>
       <RightDiv>
         <Typography>{`操作人：${info.operatorUserName}`}</Typography>

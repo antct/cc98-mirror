@@ -1,14 +1,12 @@
 import { IHandlerHub } from '@cc98/ubb-core'
-
 import React from 'react'
-
 import align from './align'
 import audio from './audio'
 import b from './b'
 import bili from './bili'
 import center from './center'
-import color from './color'
 import code from './code'
+import color from './color'
 import cursor from './cursor'
 import del from './del'
 import english from './english'
@@ -29,6 +27,7 @@ import u from './u'
 import upload from './upload'
 import url from './url'
 import video from './video'
+
 
 /*
  * TODO: glow?, md, pm, topic, user

@@ -1,9 +1,8 @@
+import { ITagGroup } from '@cc98/api'
+import { MenuItem, Select } from '@material-ui/core'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { MenuItem, Select } from '@material-ui/core'
-
-import { ITagGroup } from '@cc98/api'
 
 const WrapperDiv = styled.div`
   margin-left: 24px;

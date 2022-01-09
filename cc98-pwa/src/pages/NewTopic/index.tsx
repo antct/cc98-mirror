@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-
 import FixFab from '@/components/FixFab'
 import { InfTopicList } from '@/components/TopicList'
-
-import RotateRightIcon from '@material-ui/icons/RotateRight'
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-
 import { getNewTopics } from '@/services/topic'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import RotateRightIcon from '@material-ui/icons/RotateRight'
+import React, { useState } from 'react'
 
 export default () => {
   const [topicListKey, setTopicListKey] = useState(0)

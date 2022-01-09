@@ -1,12 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
-
-import { EditorModel } from './EditorModel'
-
+import UBB from '@/UBB'
 import { Badge } from '@material-ui/core'
 import ClearIcon from '@material-ui/icons/Clear'
+import React from 'react'
+import styled from 'styled-components'
+import { EditorModel } from './EditorModel'
 
-import UBB from '@/UBB'
 
 const WrapperDiv = styled.div`
   display: flex;

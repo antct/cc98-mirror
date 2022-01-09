@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-
 import { Button, Dialog } from '@material-ui/core'
-
+import React, { useState } from 'react'
 import ForumAvatarBox from './ForumAvatarBox'
+
 
 interface Props {
   handleAvatarSubmit: (AvatarSrc: string) => void

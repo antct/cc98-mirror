@@ -1,10 +1,8 @@
+import { IPost, IUser } from '@cc98/api'
 import React from 'react'
 import styled from 'styled-components'
-
 import IconActions from './Actions/IconActions'
 import MemuActions from './Actions/MemuActions'
-
-import { IPost, IUser } from '@cc98/api'
 
 const FlexDiv = styled.div`
   display: flex;

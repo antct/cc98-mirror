@@ -1,11 +1,9 @@
-import React, { useRef } from 'react'
-
-import { EditorModel } from '../EditorModel'
-
+import { uploadPicture } from '@/services/editor'
 import { IconButton } from '@material-ui/core'
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate'
+import React, { useRef } from 'react'
+import { EditorModel } from '../EditorModel'
 
-import { uploadPicture } from '@/services/editor'
 
 interface Props {
   editor: EditorModel

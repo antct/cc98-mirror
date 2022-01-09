@@ -1,18 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
 import muiStyled from '@/muiStyled'
-
+import { navigate } from '@/utils/history'
+import { IBoardEvent } from '@cc98/api'
 import {
-  Typography,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  ExpansionPanelSummary, 
+  Typography,
 } from '@material-ui/core'
-
-import { IBoardEvent } from '@cc98/api'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
 import dayjs from 'dayjs'
+import React from 'react'
+import styled from 'styled-components'
+
 
 const FlexDiv = styled.div`
   display: flex;
@@ -36,17 +35,17 @@ export default ({ eventInfo }: Props) => (
     <ExpansionPanelS>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <FlexDiv>
+          <Typography onClick={() => navigate(`/topic/${eventInfo.topicId}`)}>{eventInfo.content}</Typography>
+          <Typography>操作人：{eventInfo.operatorUserName}</Typography>
+        </FlexDiv>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <FlexDiv>
           <Typography>
             对象：
             {eventInfo.boardId === 182 ? '匿名用户' : eventInfo.targetUserName}
           </Typography>
           <Typography>时间：{dayjs(eventInfo.time).format('YYYY/MM/DD HH:mm')}</Typography>
-        </FlexDiv>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <FlexDiv>
-          <Typography>{eventInfo.content}</Typography>
-          <Typography>操作人：{eventInfo.operatorUserName}</Typography>
         </FlexDiv>
       </ExpansionPanelDetails>
     </ExpansionPanelS>

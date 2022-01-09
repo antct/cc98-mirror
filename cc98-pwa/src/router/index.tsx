@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react'
-// https://reach.tech/router/api/Router
-import { Location, WindowLocation } from '@reach/router'
-import Router, { ILocation } from './Router'
-
 import useModel, { Model } from '@/hooks/useModel'
 import settingModel from '@/models/setting'
-
+// https://reach.tech/router/api/Router
+import { Location, WindowLocation } from '@reach/router'
+import React, { useEffect, useRef } from 'react'
+import { animated, config, useSpring } from 'react-spring'
 import './gesture'
+import Router, { ILocation } from './Router'
+
 
 interface LocationState {
   href: string
@@ -74,7 +74,6 @@ export const routerModel = new RouterModel()
 // https://majido.github.io/scroll-restoration-proposal/history-based-api.html#web-idl
 history.scrollRestoration = 'manual'
 
-import { useSpring, animated, config } from 'react-spring'
 
 interface ScrollDivProps {
   show: boolean

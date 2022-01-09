@@ -1,11 +1,10 @@
+import useModel from '@/hooks/useModel'
 import React from 'react'
 import styled from 'styled-components'
-
-import useModel from '@/hooks/useModel'
-import { WealthModel } from './WealthModel'
-
 import MainContent from './MainContent'
 import ToolBox from './ToolBox'
+import { WealthModel } from './WealthModel'
+
 
 const FixBottomDiv = styled.div`
   position: fixed;

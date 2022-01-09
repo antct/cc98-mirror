@@ -1,11 +1,7 @@
-import { ITagHandler, TagNode } from '@cc98/ubb-core'
-
 import { IContext } from '@cc98/context'
-
-import React, { useEffect, useRef } from 'react'
-
+import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import { globalHistory, HistoryUnsubscribe } from '@reach/router'
-
+import React, { useEffect, useRef } from 'react'
 // import 'dplayer/dist/DPlayer.min.css'
 
 const handler: ITagHandler<React.ReactNode> = {

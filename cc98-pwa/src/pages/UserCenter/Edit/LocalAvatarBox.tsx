@@ -1,19 +1,14 @@
-import React, { useState, useRef } from 'react'
-
-import styled from 'styled-components'
-import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  CircularProgress,
-} from '@material-ui/core'
-
-import ReactCropper, { Cropper } from './ReactCropper'
-import 'cropperjs/dist/cropper.css'
-
 import { updateMyAvatar } from '@/services/user'
 import snackbar from '@/utils/snackbar'
+import {
+  Button,
+  CircularProgress, DialogActions, DialogContent, DialogTitle
+} from '@material-ui/core'
+import 'cropperjs/dist/cropper.css'
+import React, { useRef, useState } from 'react'
+import styled from 'styled-components'
+import ReactCropper, { Cropper } from './ReactCropper'
+
 
 const FlexDiv = styled.div`
   display: flex;

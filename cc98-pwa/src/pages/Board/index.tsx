@@ -1,20 +1,15 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { navigate } from '@/utils/history'
-
-import useFetcher from '@/hooks/useFetcher'
-
-import EditIcon from '@material-ui/icons/Edit'
-
-import { InfTopicList, FinTopicList } from '@/components/TopicList'
 import FixFab from '@/components/FixFab'
-
-import BoardHead from './BoardHead'
-import BoardTags from './BoardTags'
-
-import { getBoardInfo, getBoardTags } from '@/services/board'
+import { FinTopicList, InfTopicList } from '@/components/TopicList'
+import useFetcher from '@/hooks/useFetcher'
+import { getBoardInfo } from '@/services/board'
 import { getTopicsInBoard, getTopTopics } from '@/services/topic'
 import { navigateHandler } from '@/services/utils/errorHandler'
+import { navigate } from '@/utils/history'
+import EditIcon from '@material-ui/icons/Edit'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import BoardHead from './BoardHead'
+
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -35,7 +30,7 @@ export default ({ id }: Props) => {
     fail: navigateHandler,
   })
 
-  const [boardTags] = useFetcher(() => getBoardTags(id))
+  // const [boardTags] = useFetcher(() => getBoardTags(id))
   const [tagIDs, setTagIDs] = useState<[number, number]>([-1, -1])
 
   const onTagChange = (tagID: number, index: number) => {
@@ -57,7 +52,7 @@ export default ({ id }: Props) => {
         </>
       )}
 
-      <BoardTags boardTags={boardTags} onChange={onTagChange} />
+      {/* <BoardTags boardTags={boardTags} onChange={onTagChange} /> */}
 
       <FinTopicList service={() => getTopTopics(id)} place="inboard" noLoading />
 

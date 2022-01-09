@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
-
-import { InfSystemList, InfReplyList } from '@/components/NoticeList'
-
+import { InfReplyList, InfSystemList } from '@/components/NoticeList'
+import { getAt, getReply, getSystem } from '@/services/notice'
 import { Tab, Tabs } from '@material-ui/core'
-
-import { getSystem, getReply, getAt } from '@/services/notice'
+import React, { useState } from 'react'
 
 export default () => {
   const [current, setCurrent] = useState('system')

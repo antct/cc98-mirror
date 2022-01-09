@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
-
 import { InfTopicList } from '@/components/TopicList'
-
+import { getFavoriteTopics, getFavoriteTopicsOrderByUpdate, getFollowBoardsTopics, getFollowUsersTopics } from '@/services/topic'
 import { Tab, Tabs } from '@material-ui/core'
-
-import { getFollowBoardsTopics, getFollowUsersTopics, getFavoriteTopics, getFavoriteTopicsOrderByUpdate } from '@/services/topic'
+import React, { useState } from 'react'
 
 export default () => {
   const [current, setCurrent] = useState('board')

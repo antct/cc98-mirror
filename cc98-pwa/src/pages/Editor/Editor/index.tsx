@@ -1,12 +1,11 @@
+import useModel from '@/hooks/useModel'
 import React from 'react'
 import styled from 'styled-components'
-
-import useModel from '@/hooks/useModel'
-import { EditorModel } from './EditorModel'
-
-import MainContent from './MainContent'
 import Attachments from './Attachments'
+import { EditorModel } from './EditorModel'
+import MainContent from './MainContent'
 import ToolBox from './ToolBox'
+
 
 const FixBottomDiv = styled.div`
   position: fixed;

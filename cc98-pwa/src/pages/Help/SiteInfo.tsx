@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import muiStyled from '@/muiStyled'
-
-import useFetcher from '@/hooks/useFetcher'
-import useDelay from '@/hooks/useDelay'
-
 import LoadingCircle from '@/components/LoadingCircle'
-
-import { Table, TableRow, TableBody, TableCell, Divider, Typography } from '@material-ui/core'
-
+import muiStyled from '@/muiStyled'
 import { getHomeInfo } from '@/services/global'
+import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core'
 import dayjs from 'dayjs'
+import React, { useEffect, useState } from 'react'
+
 
 const Title = muiStyled(Typography).attrs({
   align: 'center',
@@ -27,8 +22,13 @@ const TableCellS = muiStyled(TableCell).attrs({
 
 export { Title }
 
+interface RowType {
+  name: string,
+  data: number | string
+}
+
 export default () => {
-  const [rows, setRows] = useState([])
+  const [rows, setRows] = useState<RowType[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {

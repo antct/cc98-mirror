@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
-
-import useInfList, { Service } from '@/hooks/useInfList'
-
 import InfiniteList from '@/components/InfiniteList'
+import useInfList, { Service } from '@/hooks/useInfList'
+import { getUsersInfoByIds } from '@/services/user'
+import { GET } from '@/utils/fetch'
+import { IPost, ITopic, IUser } from '@cc98/api'
+import React, { useEffect, useState } from 'react'
 import PostItem from './PostItem'
 
-import { IPost, IUser, ITopic } from '@cc98/api'
-import { getUsersInfoByIds } from '@/services/user'
-
-import { GET } from '@/utils/fetch'
 
 interface IUserMap {
   [key: number]: IUser

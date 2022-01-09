@@ -1,19 +1,14 @@
+import InfiniteList from '@/components/InfiniteList'
+import { TopicItem } from '@/components/TopicList/TopicListItem'
+import useInfList from '@/hooks/useInfList'
+import { getMyRecentPosts } from '@/services/post'
+import { navigateHandler } from '@/services/utils/errorHandler'
+import { navigate } from '@/utils/history'
+import { IPost } from '@cc98/api'
+import dayjs from 'dayjs'
 import React, { useState } from 'react'
-
 import ExpandPanel from './ExpandPanel'
 
-import InfiniteList from '@/components/InfiniteList'
-import useInfList from '@/hooks/useInfList'
-
-import { TopicItem } from '@/components/TopicList/TopicListItem'
-
-import { IPost } from '@cc98/api'
-import { navigateHandler } from '@/services/utils/errorHandler'
-
-import { navigate } from '@/utils/history'
-import dayjs from 'dayjs'
-
-import { getMyRecentPosts } from '@/services/post'
 
 const UserRecentPostsItem: React.FC<{
   post: IPost

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { navigate } from '@/utils/history'
-import styled from 'styled-components'
+import snowball from '@/assets/snowball.png'
+import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
-
+import { loginHandler } from '@/services/utils/errorHandler'
+import { navigate } from '@/utils/history'
 import {
   Button,
   CircularProgress,
@@ -10,14 +10,10 @@ import {
   // FormHelperText,
   Input,
   InputLabel,
-  Typography,
+  Typography
 } from '@material-ui/core'
-
-import userModel from '@/models/user'
-
-import { loginHandler } from '@/services/utils/errorHandler'
-
-import snowball from '@/assets/snowball.png'
+import React, { useState } from 'react'
+import styled from 'styled-components'
 
 const WrapperDiv = styled.div`
   display: flex;

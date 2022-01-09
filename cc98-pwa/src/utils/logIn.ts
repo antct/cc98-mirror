@@ -1,11 +1,10 @@
-import { Try, Success, Failure } from './fp/Try'
-import { FetchError, encodeParams } from './fetch'
-import { getLocalStorage, setLocalStorage, removeLocalStorage } from './storage'
-
 import host from '@/config/host'
 import snackbar from '@/utils/snackbar'
+import AwaitLock from 'await-lock'
+import { encodeParams, FetchError } from './fetch'
+import { Failure, Success, Try } from './fp/Try'
+import { getLocalStorage, removeLocalStorage, setLocalStorage } from './storage'
 
-import AwaitLock from 'await-lock';
 
 let lock = new AwaitLock();
 
@@ -31,14 +30,15 @@ export async function getAccessToken(): Promise<string> {
       const refreshToken = getLocalStorage('refresh_token') as string
 
       if (!refreshToken) {
-        snackbar.error('登录凭证已失效，请重新登录')
+        // 分享模式不显示
+        if (!window.location.pathname.startsWith('/share')) snackbar.error('登录凭证失效，请重新登录')
         return ''
       }
 
       const token = await getTokenByRefreshToken(refreshToken)
       token
         .fail(() => {
-          snackbar.error('登录凭证已失效，请重新登录')
+          snackbar.error('登录凭证失效，请重新登录')
           // TODO: 添加 refresh token 过期的处理
         })
         .succeed(token => {

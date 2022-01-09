@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import muiStyled from '@/muiStyled'
-
+import { ITopic } from '@cc98/api'
 import { List } from '@material-ui/core'
-
+import React from 'react'
 import TopicListItem, { Place } from './TopicListItem'
 
-import { ITopic } from '@cc98/api'
 
 const ListS = muiStyled(List)({
   width: '100%',

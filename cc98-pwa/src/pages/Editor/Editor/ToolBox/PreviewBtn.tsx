@@ -1,20 +1,13 @@
-import React, { useState } from 'react'
 import muiStyled from '@/muiStyled'
-
+import UBB from '@/UBB'
+import {
+  Button, Dialog, DialogActions, DialogContent,
+  DialogContentText, IconButton
+} from '@material-ui/core'
+import TransformIcon from '@material-ui/icons/Transform'
+import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 
-import {
-  IconButton,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from '@material-ui/core'
-
-import TransformIcon from '@material-ui/icons/Transform'
-
-import UBB from '@/UBB'
 
 const DialogContentTextS = muiStyled(DialogContentText)({
   minHeight: 160,

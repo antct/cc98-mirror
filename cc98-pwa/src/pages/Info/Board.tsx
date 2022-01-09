@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { navigate } from '@/utils/history'
+import ListItemText from '@/hotfix/ListItemText'
 import muiStyled from '@/muiStyled'
+import { getBoardNameById } from '@/services/board'
+import { navigate } from '@/utils/history'
+import { IBasicTopic } from '@cc98/api'
+import { Divider, List, ListItem, ListItemIcon, Typography } from '@material-ui/core'
+import VolumeOffIcon from '@material-ui/icons/VolumeOff'
+import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import {
-  List, ListItem, ListItemIcon, Divider, Typography
-} from '@material-ui/core'
-import ListItemText from '@/hotfix/ListItemText'
-
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-
-import { getBoardNameById } from '@/services/board'
-
-import { IBasicTopic } from '@cc98/api'
 
 const ListS = muiStyled(List)({
   paddingTop: '0px',

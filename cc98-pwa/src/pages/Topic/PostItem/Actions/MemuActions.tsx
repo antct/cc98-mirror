@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react'
-
-import { IconButton, Menu, MenuItem } from '@material-ui/core'
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
-import { IPost, IUser } from '@cc98/api'
-
 import userModel from '@/models/user'
-
+import { getBoardMastersById } from '@/services/board'
+import { judgeEdit, judgeManager, judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
-import { judgeEdit, judgeManager, judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
-
-import copy2Clipboard from 'copy-to-clipboard'
-
+import { IPost, IUser } from '@cc98/api'
+import { IconButton, Menu, MenuItem } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import React, { useEffect, useState } from 'react'
 // TODO: fix
 import Judge from '../Dialog/Judge'
 import Manage from '../Dialog/Manage'
-import { getBoardMastersById } from '@/services/board'
 
 interface Props {
   /**

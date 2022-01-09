@@ -1,11 +1,10 @@
-import React, { useRef } from 'react'
-import styled from 'styled-components'
-
-import Transferer, { WealthModel } from './Transferer'
-
-import snackbar from '@/utils/snackbar'
 import userModel from '@/models/user'
 import { transferWealth } from '@/services/user'
+import snackbar from '@/utils/snackbar'
+import React, { useRef } from 'react'
+import styled from 'styled-components'
+import Transferer, { WealthModel } from './Transferer'
+
 
 const WrapperDiv = styled.div`
   margin: 8px 12px;

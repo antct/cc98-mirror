@@ -1,17 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
+import muiStyled from '@/muiStyled'
+import { getBoardTags } from '@/services/board'
+import { FormLabel, InputBase } from '@material-ui/core'
+import React from 'react'
+import styled from 'styled-components'
 import { MetaInfoModel } from './MetaInfoModel'
-
-import { InputBase, FormLabel } from '@material-ui/core'
-
 import ScrollTag from './ScrollTag'
 import SelectType from './SelectType'
 
-import { getBoardTags } from '@/services/board'
 
 const InputArea = muiStyled(InputBase).attrs({
   fullWidth: true,

@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { ISignIn, ISite, IConfig, IShare } from '@cc98/api'
+import { IConfig, IShare, ISignIn, ISite } from '@cc98/api'
 
 /**
  * 获取全站基本信息

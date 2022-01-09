@@ -21,10 +21,10 @@ const UserSignature: React.FC<Props> = ({ info }) => {
   }
 
   return (
-    <ExpandPanel expanded={expand} title="签名档" onChange={onChange}>
+    <ExpandPanel expanded={expand} title="介绍" onChange={onChange}>
       {expand && (
         <UBBDiv>
-          <UBB ubbText={info.signatureCode || "这家伙很懒，什么都没留下。"} />
+          <UBB ubbText={info.introduction || "这家伙很懒，什么都没留下。"} />
         </UBBDiv>
       )}
     </ExpandPanel>

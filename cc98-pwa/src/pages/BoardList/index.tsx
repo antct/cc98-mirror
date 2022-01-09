@@ -1,20 +1,15 @@
+import SearchInput from '@/components/SearchInput'
+import StickyBar from '@/components/StickyBar'
+import useFetcher from '@/hooks/useFetcher'
+import { getBoardsInfo } from '@/services/board'
+import { navigateHandler } from '@/services/utils/errorHandler'
+import { IBasicBoard } from '@cc98/api'
+import { throttle } from 'lodash-es'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-import useFetcher from '@/hooks/useFetcher'
-
 import BoardGroup from './BoardGroup'
 import BoardItem from './BoardItem'
 
-import { getBoardsInfo } from '@/services/board'
-import { navigateHandler } from '@/services/utils/errorHandler'
-
-import { throttle } from 'lodash-es'
-
-import SearchInput from '@/components/SearchInput'
-import StickyBar from '@/components/StickyBar'
-
-import { IBasicBoard } from '@cc98/api'
 
 const SearchDiv = styled.div`
   margin: 24px 10px;
