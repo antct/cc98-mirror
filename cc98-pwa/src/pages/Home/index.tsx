@@ -3,7 +3,7 @@ import settingModel from '@/models/setting'
 import userModel from '@/models/user'
 import React from 'react'
 import HotTopic from '../HotTopic'
-import Info from '../Info'
+import Index from '../Index'
 import LogIn from '../LogIn'
 import MyFollow from '../MyFollow'
 import NewTopic from '../NewTopic'
@@ -17,7 +17,7 @@ export default () => {
     <>
       {user.isLogIn && (
         <>
-          {customHome === 1 && <Info />}
+          {customHome === 1 && <Index />}
           {customHome === 2 && <HotTopic />}
           {customHome === 3 && <NewTopic />}
           {customHome === 4 && <MyFollow />}

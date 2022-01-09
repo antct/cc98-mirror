@@ -8,7 +8,7 @@ import Help from '@/pages/Help'
 import History from '@/pages/History'
 import Home from '@/pages/Home'
 import HotTopic from '@/pages/HotTopic'
-import Info from '@/pages/Info'
+import Index from '@/pages/Index'
 import LogIn from '@/pages/LogIn'
 import MessageDetail from '@/pages/Message/Detail'
 import MessageList from '@/pages/Message/List'
@@ -17,7 +17,7 @@ import NewTopic from '@/pages/NewTopic'
 import Notice from '@/pages/Notice'
 import Search from '@/pages/Search'
 import Setting from '@/pages/Setting'
-import Social from '@/pages/Social'
+import Friend from '@/pages/Friend'
 import Topic, { TopicReverse } from '@/pages/Topic'
 import UserCenter from '@/pages/UserCenter'
 import UserCenterEdit from '@/pages/UserCenter/Edit'
@@ -62,7 +62,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
 
     <Route path="myFollow" component={MyFollow} />
     <Route path="notice" component={Notice} />
-    <Route path="social" component={Social} />
+    <Route path="friend" component={Friend} />
     <Route path="search" component={Search} />
 
     <Route path="boardList" component={BoardList} />
@@ -75,7 +75,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="user/:id" component={UserCenter} />
     <Route path="user/name/:name" component={UserCenter} />
 
-    <Route path="info" component={Info} />
+    <Route path="index" component={Index} />
 
     <Route path="editor/postTopic/:boardId" component={Editor} />
     <Route path="editor/replyTopic/:boardId/:topicId/" component={Editor} />

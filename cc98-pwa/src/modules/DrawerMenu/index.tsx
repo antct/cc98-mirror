@@ -13,11 +13,11 @@ import HelpIcon from '@material-ui/icons/Help'
 import HomeIcon from '@material-ui/icons/Home'
 import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import PagesIcon from '@material-ui/icons/Pages'
+import CollectionsIcon from '@material-ui/icons/Category'
 import PageviewIcon from '@material-ui/icons/Pageview'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
-import InfoIcon from '@material-ui/icons/Toc'
+import IndexIcon from '@material-ui/icons/Camera'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import WidgetsIcon from '@material-ui/icons/Widgets'
 import React from 'react'
@@ -76,13 +76,13 @@ const DrawerMenu: React.FC = () => {
         {user.isLogIn && (
           <>
             <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
-            <Item icon={<InfoIcon />} text="聚合" onClick={jump('/info')} />
+            <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
             <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
             <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
             <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
-            <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
+            <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
             {/* {customHome !== 1 && (
-              <Item icon={<InfoIcon />} text="聚合" onClick={jump('/info')} />
+              <Item icon={<InfoIcon />} text="首页" onClick={jump('/info')} />
             )}
             {customHome !== 2 && (
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
@@ -96,7 +96,7 @@ const DrawerMenu: React.FC = () => {
             )} */}
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount): 0} color="primary"><NotificationsIcon/></Badge>} text="通知" onClick={jump('/notice')} />
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount): 0} color="primary"><MailIcon/></Badge>} text="私信" onClick={jump('/messageList')} />
-            <Item icon={<GroupIcon />} text="社交" onClick={jump('/social')} />
+            <Item icon={<GroupIcon />} text="好友" onClick={jump('/friend')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />

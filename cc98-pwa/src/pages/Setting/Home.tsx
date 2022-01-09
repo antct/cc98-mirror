@@ -5,7 +5,7 @@ import { ListItem, MenuItem, TextField } from '@material-ui/core'
 import React from 'react'
 
 const ranges = [
-  { label: '聚合', value: 1 },
+  { label: '首页', value: 1 },
   { label: '热门', value: 2 },
   { label: '新帖', value: 3 },
   { label: '关注', value: 4 },
