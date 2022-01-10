@@ -7,8 +7,7 @@ import { IPost, ITopic, IUser } from '@cc98/api'
 import { Divider, Paper, Typography } from '@material-ui/core'
 import dayjs from 'dayjs'
 import React, { useState } from 'react'
-import remark from 'remark'
-import remark2react from 'remark-react'
+import MarkdownView from 'react-showdown'
 import styled from 'styled-components'
 import { IVote } from '../PostList'
 import Actions from './Actions'
@@ -16,12 +15,6 @@ import Awards from './Awards'
 import Content from './Content'
 import Header from './Header'
 
-
-function Markdown(content: string) {
-  return remark()
-    .use(remark2react)
-    .processSync(content).contents
-}
 
 const Wrapper = muiStyled(Paper).attrs({
   square: true,
@@ -35,7 +28,7 @@ const WrapperDiv = styled.div`
 `
 
 const TypographyS = muiStyled(Typography).attrs({
-  component: 'div',
+  // component: 'div',
 })({
   margin: '12px 16px',
   marginBottom: 4,
@@ -100,13 +93,12 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
     <Wrapper>
       <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
       {
-        topicInfo && postInfo.floor === 1 &&
+        topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
         (() => {
           let content = '```text\n'
           content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
           content += '```'
-          content = Markdown(content)
-          return <TypographyS>{content}</TypographyS>
+          return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
         })()
       }
       {
@@ -121,8 +113,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
           if (voteInfo.needVote && voteInfo.canVote) content += `投票截止时间：${dayjs(voteInfo.expiredTime).format('YYYY/MM/DD HH:mm')}，参与投票查看结果。\n`
           if (!!voteInfo.myRecord) content += `投票截止时间：${dayjs(voteInfo.expiredTime).format('YYYY/MM/DD HH:mm')}，你的投票选项是${voteInfo.myRecord.items.join('，')}。\n`
           content += '```'
-          content = Markdown(content)
-          return <TypographyS>{content}</TypographyS>
+          return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
         })()
       }
       <Content postInfo={currentPost} />

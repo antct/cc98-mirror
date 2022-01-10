@@ -61,10 +61,13 @@ export default ({ data, place }: Props) => {
       {
         place === 'follower' && data.isFollowing ?
         <>
-          <InfoArea>
+          {/* <InfoArea>
             <Info1>{'互关'}</Info1>
             <Info2>{dayjs(lastLogOnTime).fromNow()}</Info2>
-          </InfoArea>
+          </InfoArea> */}
+          <ListItemSecondaryAction>
+            <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
+          </ListItemSecondaryAction>
         </> :
         <>
           <ListItemSecondaryAction>

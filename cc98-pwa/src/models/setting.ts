@@ -38,6 +38,7 @@ interface State {
   showMarket: boolean
   showAcademic: boolean
   showSchoolEvent: boolean
+  customWords: string[]
 }
 
 class SettingModel extends Model<State> {
@@ -54,6 +55,7 @@ class SettingModel extends Model<State> {
       useCompress: true,
       cacheSize: 3,
       customHome: 1,
+      customWords: [],
 
       showAnnouncement: true,
       showRecommend: true,
@@ -104,6 +106,20 @@ class SettingModel extends Model<State> {
   TOGGLE_AVATAR = () => {
     this.setState(state => ({
       useAvatar: !state.useAvatar,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  ADD_CUSTOMWORD = (word: string) => {
+    this.setState(state => ({
+      customWords: state.customWords.concat([word]),
+    }))
+    this.SYNC_SETTING()
+  }
+
+  DELETE_CUSTOMWORD = (id: number) => {
+    this.setState(state => ({
+      customWords: state.customWords.filter((value, index) => index !== id),
     }))
     this.SYNC_SETTING()
   }

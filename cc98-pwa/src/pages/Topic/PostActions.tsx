@@ -5,10 +5,12 @@ import { getShareToken } from '@/services/global'
 import { FavoriteTopic, getTopicFavorite } from '@/services/topic'
 import { favoriteHandler } from '@/services/utils/errorHandler'
 import { judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
+import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { ITopic } from '@cc98/api'
 import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import LinkIcon from '@material-ui/icons/Link'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import SettingIcon from '@material-ui/icons/Settings'
 import ShareIcon from '@material-ui/icons/Share'
@@ -58,7 +60,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.long_url}`)
-        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex/3600)}小时`)
+        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex / 3600)}小时`)
         handleClose()
       })
   }
@@ -72,7 +74,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.url}`)
-        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex/3600)}小时`)
+        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex / 3600)}小时`)
         handleClose()
       })
   }
@@ -117,6 +119,17 @@ export default ({ topicInfo, refreshFunc }: Props) => {
             <FavoriteIcon color={isFavorite ? 'secondary' : 'disabled'} />
           </ListItemIcon>
           <Typography>{isFavorite ? '取消收藏' : '收藏主题'}</Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            window.open(`https://www.cc98.org/topic/${topicInfo.id}`)
+            handleClose()
+          }}
+        >
+          <ListItemIcon>
+            <LinkIcon />
+          </ListItemIcon>
+          <Typography>官方页面</Typography>
         </MenuItem>
         <MenuItem onClick={() => handleShare1()}>
           <ListItemIcon>

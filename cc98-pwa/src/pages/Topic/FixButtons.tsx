@@ -3,8 +3,8 @@ import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
 import AddIcon from '@material-ui/icons/Add'
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import EditIcon from '@material-ui/icons/Edit'
 import RemoveIcon from '@material-ui/icons/Remove'
+import ReplyIcon from '@material-ui/icons/Reply'
 import RotateRightIcon from '@material-ui/icons/RotateRight'
 import SwapVertIcon from '@material-ui/icons/SwapVert'
 import React, { useState } from 'react'
@@ -34,12 +34,6 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
       {expand && (
         <>
           <FixFab order={5}>
-            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
-          </FixFab>
-          <FixFab order={4}>
-            <RotateRightIcon onClick={refreshFunc} />
-          </FixFab>
-          <FixFab order={3}>
             <SwapVertIcon
               onClick={() =>
                 isReverse
@@ -48,8 +42,14 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
               }
             />
           </FixFab>
+          <FixFab order={4}>
+            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
+          </FixFab>
+          <FixFab order={3}>
+            <RotateRightIcon onClick={refreshFunc} />
+          </FixFab>
           <FixFab order={2}>
-            <EditIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+            <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
           </FixFab>
         </>
       )}

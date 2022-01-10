@@ -23,10 +23,11 @@ interface ItemProps {
   icon: React.ReactElement<any>
   text: string
   url: string
+  external?: boolean
 }
 
-const Item: React.FC<ItemProps> = ({ icon, text, url }) => (
-  <ListItem button onClick={() => navigate(url)}>
+const Item: React.FC<ItemProps> = ({ icon, text, url, external=false }) => (
+  <ListItem button onClick={external ? () => window.open(url) : () => navigate(url)}>
     <ListItemIcon>{icon}</ListItemIcon>
     <ListItemText primary={text} />
   </ListItem>
@@ -36,11 +37,11 @@ const Index = () => (
   <List>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
     <Item icon={<CopyrightIcon />} text="开发组" url="/help/devTeam" />
-    <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" />
+    <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
-    <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/" />
+    <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/User/Wealth" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<NotListedIcon />} text="论坛帮助" url="/topic/4970959" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />

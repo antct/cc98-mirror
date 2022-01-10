@@ -13,7 +13,7 @@ A simple way to forward cc98 service from intranet to extranet.
 
 ## ChangeLog
 
-1. 菜单选项：通知，社交，搜索（无限制）。
+1. 菜单选项：通知，好友，搜索（无限制）。
 2. 图片压缩选项，节省网络带宽，双击放大。
 3. 登录签到按钮（从未签到情况有Bug）。
 4. HTTP链接自定义跳转。
@@ -22,6 +22,7 @@ A simple way to forward cc98 service from intranet to extranet.
 7. Markdown解析额外插件。
 8. 转账系统。
 9. 社交列表，互相关注显示。
+10. 关键词订阅，高亮显示。
 10. 一些其他小特性，等等。
 
 ## cc98-pwa

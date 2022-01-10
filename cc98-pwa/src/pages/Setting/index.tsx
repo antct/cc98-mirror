@@ -9,6 +9,7 @@ import Notification from './Notification'
 import Signature from './Signature'
 // import Signalr from './Signalr'
 import Theme from './Theme'
+import CustomWords from './CustomWords'
 
 const Setting: React.FC = () => (
   <List>
@@ -21,6 +22,7 @@ const Setting: React.FC = () => (
     <Notification />
     <Compress />
     <Cache />
+    <CustomWords />
   </List>
 )
 

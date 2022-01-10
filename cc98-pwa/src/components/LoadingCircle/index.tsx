@@ -11,6 +11,7 @@ const WrapperDiv = styled.div`
 
 const LoadingCircle: React.FC = () => (
   <WrapperDiv>
+    {/* <CircularProgress disableShrink /> */}
     <CircularProgress />
   </WrapperDiv>
 )

@@ -24,7 +24,7 @@ const handler: ITagHandler<React.ReactNode> = {
       const img = event.currentTarget
       img.src = `${node.innerText}?compress=false`
     }
-    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} title="双击显示原图" onDoubleClick={imgClickedHandler} /></LazyLoad>
+    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} onDoubleClick={imgClickedHandler} /></LazyLoad>
   },
 }
 

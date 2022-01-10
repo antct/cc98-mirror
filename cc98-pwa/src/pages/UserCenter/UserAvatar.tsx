@@ -1,4 +1,6 @@
 import useFetcher from '@/hooks/useFetcher'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { getSignState, signIn } from '@/services/global'
 import { followUser, unFollowUser } from '@/services/user'
@@ -11,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import React, { useState } from 'react'
+import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 import ExpandPanel from './ExpandPanel'
 
@@ -50,6 +53,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingSign, setIsLoadingSign] = useState(false)
+  const { useCompress } = useModel(settingModel, ['useCompress'])
 
   // situation1: signState, false or true, signState
   // situation2: signState null
@@ -138,7 +142,9 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
     <ExpandPanel expanded>
       <WrapperDiv>
         <AvatarDiv>
-          <AvatarS src={info.portraitUrl} />
+          <LazyLoad height={'100%'} offset={200} once>
+          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=100`} />
+          </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>
         <ButtonDiv>{buttonsJSX}</ButtonDiv>

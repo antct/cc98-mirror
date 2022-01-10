@@ -77,12 +77,13 @@ interface ItemProps {
   info1: string
   info2: string
   isAnonymous: boolean
+  isHighlight?: boolean
   portraitUrl?: string
   portraitShow: boolean
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight=false, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
   <ListItemS button divider onClick={onClick}>
     { portraitShow &&
       <AvatarArea>
@@ -94,7 +95,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, portraitU
       </AvatarArea>
     }
     <TitleArea>
-      <Title>{title}</Title>
+      <Title color={isHighlight ? 'secondary' : 'textPrimary'}>{title}</Title>
       <SubTitle>{subtitle}</SubTitle>
     </TitleArea>
 
@@ -115,7 +116,7 @@ interface Props {
 
 export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useCompress, useAvatar } = useModel(settingModel, ['useCompress', 'useAvatar'])
+  const { useCompress, useAvatar, customWords } = useModel(settingModel, ['useCompress', 'useAvatar', 'customWords'])
   useEffect(() => {
     if (place === 'inboard') {
       return
@@ -128,6 +129,15 @@ export default ({ data, place, portraitUrl }: Props) => {
   let info1 = dayjs(data.lastPostTime).fromNow()
   let info2 = `回帖: ${data.replyCount}`
   let showPortrait = true
+
+  let showHighlight = false
+  for (let i in customWords) {
+    const word = customWords[i]
+    if (title.indexOf(word) >= 0) {
+      showHighlight = true
+      break
+    }
+  }
 
   switch (place) {
     case 'usercenter':
@@ -159,6 +169,7 @@ export default ({ data, place, portraitUrl }: Props) => {
     <TopicItem
       onClick={() => navigate(`/topic/${data.id}`)}
       isAnonymous={data.isAnonymous}
+      isHighlight={showHighlight}
       portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
       portraitShow={useAvatar && showPortrait}
       title={title}

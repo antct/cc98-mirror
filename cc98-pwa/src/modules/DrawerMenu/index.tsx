@@ -13,13 +13,13 @@ import HelpIcon from '@material-ui/icons/Help'
 import HomeIcon from '@material-ui/icons/Home'
 import MailIcon from '@material-ui/icons/Mail'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import CollectionsIcon from '@material-ui/icons/Category'
+import CollectionsIcon from '@material-ui/icons/Photo'
 import PageviewIcon from '@material-ui/icons/Pageview'
 import PetsIcon from '@material-ui/icons/Pets'
 import SettingsIcon from '@material-ui/icons/Settings'
-import IndexIcon from '@material-ui/icons/Camera'
+import IndexIcon from '@material-ui/icons/List'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
-import WidgetsIcon from '@material-ui/icons/Widgets'
+import BoardIcon from '@material-ui/icons/Dashboard'
 import React from 'react'
 import UserInfo from './UserInfo'
 
@@ -79,7 +79,7 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
             <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
             <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
-            <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
+            <Item icon={<BoardIcon />} text="版面" onClick={jump('/boardList')} />
             <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
             {/* {customHome !== 1 && (
               <Item icon={<InfoIcon />} text="首页" onClick={jump('/info')} />
@@ -105,7 +105,7 @@ const DrawerMenu: React.FC = () => {
         )}
         {!user.isLogIn && (
           <>
-            <Item icon={<HelpIcon />} text="联系" onClick={jump('https://github.com/ttcqaq')} />
+            <Item icon={<HelpIcon />} text="联系" onClick={() => window.open('https://github.com/ttcqaq')} />
           </>
         )}
         {user.isLogIn && (
