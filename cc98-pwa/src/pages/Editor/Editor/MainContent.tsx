@@ -28,8 +28,13 @@ export default ({ editor }: Props) => {
   return (
     <InputArea
       value={editor.state.mainContent}
-      placeholder="CC98 干杯~ (￣ε(#￣) Σ"
+      // placeholder="CC98 干杯~ (￣ε(#￣) Σ"
       onChange={handlerChange}
+      onFocus={(e) =>
+        e.currentTarget.setSelectionRange(
+        e.currentTarget.value.length,
+        e.currentTarget.value.length
+      )}
     />
   )
 }

@@ -57,8 +57,8 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
 
   const toggleSign = async () => {
     // 签到了，或者未签到签到状态还没获取到，直接返回
-    if (isSign || signState === null || isLoadingSign) return
-    if (signState && signState.hasSignedInToday) {
+    if (signState === null || isLoadingSign) return
+    if (isSign || (signState && signState.hasSignedInToday)) {
       snackbar.success('今天已签到')
       return
     }
