@@ -21,7 +21,7 @@ const UserRecentPostsItem: React.FC<{
   return (
     <TopicItem
       isAnonymous={post.isAnonymous}
-      portraitShow={false}
+      showAvatar={false}
       title={post.content}
       subtitle={`赞 ${post.likeCount} 踩 ${post.dislikeCount}`}
       info1={`${post.floor} L`}

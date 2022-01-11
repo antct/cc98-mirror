@@ -79,13 +79,13 @@ interface ItemProps {
   isAnonymous: boolean
   isHighlight?: boolean
   portraitUrl?: string
-  portraitShow: boolean
+  showAvatar: boolean
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight=false, portraitUrl, portraitShow, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight=false, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
   <ListItemS button divider onClick={onClick}>
-    { portraitShow &&
+    { showAvatar &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={200} once>
           <AvatarS src={portraitUrl}>
@@ -128,9 +128,9 @@ export default ({ data, place, portraitUrl }: Props) => {
   let subtitle = data.userName || '[匿名]'
   let info1 = dayjs(data.lastPostTime).fromNow()
   let info2 = `回帖: ${data.replyCount}`
-  let showPortrait = true
-
+  let showAvatar = true
   let showHighlight = false
+
   for (let i in customWords) {
     const word = customWords[i]
     if (title.indexOf(word) >= 0) {
@@ -142,7 +142,7 @@ export default ({ data, place, portraitUrl }: Props) => {
   switch (place) {
     case 'usercenter':
       subtitle = boardName
-      showPortrait = false
+      showAvatar = false
       break
     case 'hot':
       info1 = boardName
@@ -150,7 +150,7 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
       info2 = boardName
-      showPortrait = true
+      showAvatar = true
       break
     case 'follow-update':
       info1 = dayjs(data.lastPostTime).fromNow()
@@ -171,7 +171,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       isAnonymous={data.isAnonymous}
       isHighlight={showHighlight}
       portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
-      portraitShow={useAvatar && showPortrait}
+      showAvatar={useAvatar && showAvatar}
       title={title}
       subtitle={subtitle}
       info1={info1}

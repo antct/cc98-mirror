@@ -31,5 +31,5 @@ export function getShareToken(id: number, short: string) {
  * 签到
  */
 export function signIn() {
-  return POST<ISignIn>('me/signin')
+  return POST<string>('me/signin')
 }

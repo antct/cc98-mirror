@@ -55,35 +55,26 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [isLoadingSign, setIsLoadingSign] = useState(false)
   const { useCompress } = useModel(settingModel, ['useCompress'])
 
-  // situation1: signState, false or true, signState
-  // situation2: signState null
   const toggleSign = async () => {
-    // if signState exists, sign yesterday, else not
-    if (isSign) return
-    if ((signState) || (!signState && !isSign)) {
-      if (signState && signState.hasSignedInToday) {
-        snackbar.success('今天已签到')
-        return
-      }
-      if (isLoadingSign) return
-      setIsLoadingSign(true)
-
-      const res = await signIn()
-      res
-        .fail(() => {
-          setIsLoadingSign(false)
-          // 失败情况处理
-          snackbar.success('签到失败')
-        })
-        .succeed((newSignState) => {
-          setSignState(newSignState)
-          setIsSign(true)
-          setIsLoadingSign(false)
-          snackbar.success('签到成功')
-        })
-    } else {
+    // 签到了，或者未签到签到状态还没获取到，直接返回
+    if (isSign || signState === null || isLoadingSign) return
+    if (signState && signState.hasSignedInToday) {
+      snackbar.success('今天已签到')
       return
     }
+    setIsLoadingSign(true)
+
+    const res = await signIn()
+    res
+      .fail(() => {
+        setIsLoadingSign(false)
+        snackbar.success('签到失败')
+      })
+      .succeed((msg) => {
+        setIsSign(true)
+        setIsLoadingSign(false)
+        snackbar.success(`签到成功，获得${msg}财富值`)
+      })
   }
 
   const toggleFunc = async () => {
@@ -116,7 +107,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
         {isLoadingSign ? (
           <CircularProgress size={20} />
         ) : (
-            <FingerprintIcon color={((signState && signState.hasSignedInToday) || (!signState && isSign)) ? 'secondary' : 'disabled'} />
+            <FingerprintIcon color={(isSign || (signState && signState.hasSignedInToday)) ? 'secondary' : 'disabled'} />
           )}
       </IconButton>
       <IconButton onClick={() => navigate('/userCenter/edit')}>
