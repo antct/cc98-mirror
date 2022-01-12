@@ -32,9 +32,9 @@ export default ({ editor }: Props) => {
       onChange={handlerChange}
       onFocus={(e) =>
         e.currentTarget.setSelectionRange(
-        e.currentTarget.value.length,
-        e.currentTarget.value.length
-      )}
+          e.currentTarget.value.length,
+          e.currentTarget.value.length
+        )}
     />
   )
 }

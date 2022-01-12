@@ -83,11 +83,11 @@ interface Props {
 const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean) =>
   !isCurrSend ? (
     <ListItemS button>
-      {/* <LazyLoad height={'100%'} offset={200} once> */}
+      <LazyLoad height={'100%'} offset={100} once>
         <ListItemAvatarS>
           <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} onClick={() => navigate(`/user/${userInfo.id}`)} />
         </ListItemAvatarS>
-      {/* </LazyLoad> */}
+      </LazyLoad>
       <MessageRoot>
         <MessageContentLeft>{message.content}</MessageContentLeft>
         <MessageDate right>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
@@ -100,11 +100,11 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
         <MessageContentRight>{message.content}</MessageContentRight>
         <MessageDate>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
-      {/* <LazyLoad height={'100%'} offset={200} once> */}
+      <LazyLoad height={'100%'} offset={100} once>
         <ListItemAvatarS>
           <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} />
         </ListItemAvatarS>
-      {/* </LazyLoad> */}
+      </LazyLoad>
     </ListItemS>
   )
 

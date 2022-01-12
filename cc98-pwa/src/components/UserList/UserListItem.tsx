@@ -52,7 +52,7 @@ export default ({ data, place }: Props) => {
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad height={'100%'} offset={100} once>
         <ListItemAvatar>
           <Avatar src={`${portraitUrl}?compress=${useCompress}&width=50`} />
         </ListItemAvatar>

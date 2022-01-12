@@ -43,7 +43,7 @@ const EmptyList = () => (
 
 const UserCenterEmptyList = () => (
   <UBBDiv>
-    <Typography>{'这家伙很懒，什么都没留下。'}</Typography>
+    <Typography>'这家伙很懒，什么都没留下。'</Typography>
   </UBBDiv>
 )
 

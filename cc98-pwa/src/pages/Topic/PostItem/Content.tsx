@@ -17,9 +17,6 @@ const compressImageExtension: ShowdownExtension = {
 }
 
 function Markdown(content: string, useCompress: boolean) {
-  // return remark()
-    // .use(remark2react)
-    // .processSync(content).contents
   return <MarkdownView
     markdown={content}
     dangerouslySetInnerHTML={true} // 确保ondblclick生效
@@ -65,7 +62,6 @@ export default ({ postInfo }: Props) => {
     else regex_content = regex_content.replace(markdown_regex, `$1[分享模式禁止跳转](${window.location.href})`)
   }
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content, useCompress)
-
 
   return <TypographyS>{content}</TypographyS>
 }

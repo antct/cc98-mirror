@@ -10,6 +10,7 @@ A simple way to forward cc98 service from intranet to extranet.
 4. 当前只支持账号密码登录，OIDC引入（需HTTPS）。
 5. 签到功能完善，自动签到选项。
 6. 主题切换，对应PC端主题。
+7. react-virtualized，无限列表优化。
 
 ## ChangeLog
 
