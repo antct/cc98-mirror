@@ -4,12 +4,13 @@ import { IHotTopic, IReply, ITopic } from '@cc98/api'
 /**
  * 根据id获取某个版面的置顶帖子
  */
-export function getTopTopics(id: string) {
-  return GET<ITopic[]>('topic/toptopics', {
+export async function getTopTopics(id: string) {
+  const res = await GET<ITopic[]>('topic/toptopics', {
     params: {
       boardid: id,
     },
-  }).then(res => Promise.resolve(res.map(topics => topics.reverse())))
+  })
+  return await Promise.resolve(res.map(topics => topics.reverse()))
 }
 
 /**
@@ -20,7 +21,7 @@ export function getTopTopics(id: string) {
  * @param tag1 默认 -1
  * @param tag2 默认 -1
  */
-export function getTopicsInBoard(id: string, from: number, size: number, tag1 = -1, tag2 = -1) {
+export async function getTopicsInBoard(id: string, from: number, size: number, tag1 = -1, tag2 = -1) {
   if (tag1 === -1 && tag2 === -1) {
     return GET<ITopic[]>(`board/${id}/topic`, {
       params: {
@@ -46,9 +47,10 @@ export function getTopicsInBoard(id: string, from: number, size: number, tag1 = 
     topics: ITopic[]
   }
 
-  return GET<Topics>(`topic/search/board/${id}/tag`, {
+  const res = await GET<Topics>(`topic/search/board/${id}/tag`, {
     params,
-  }).then(res => Promise.resolve(res.map(topics => topics.topics)))
+  })
+  return await Promise.resolve(res.map(topics => topics.topics))
 }
 
 /**
@@ -74,12 +76,13 @@ export function getTopicList(data: IReply[]) {
 }
 
 
-export function getTopicInfoById(id: number) {
-  return GET<ITopic[]>(`topic/basic`, {
+export async function getTopicInfoById(id: number) {
+  const res = await GET<ITopic[]>(`topic/basic`, {
     params: {
       id
     }
-  }).then(res => Promise.resolve(res.map(Infos => Infos[0])))
+  })
+  return await Promise.resolve(res.map(Infos => Infos[0]))
 }
 
 

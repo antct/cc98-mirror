@@ -30,18 +30,19 @@ export function getPostList(data: IReply[]) {
   return GET<IPost[]>(`post/basic?${id}`)
 }
 
-export function getPostInfoById(id: number) {
-  return GET<IPost[]>(`post/basic`, {
+export async function getPostInfoById(id: number) {
+  const res = await GET<IPost[]>(`post/basic`, {
     params: {
       id
     }
-  }).then(res => Promise.resolve(res.map(postIds => postIds[0])))
+  })
+  return await Promise.resolve(res.map(postIds => postIds[0]))
 }
 
 /**
  * 逆向获取帖子
  */
-export function getReversePost(id: number, from: number, total: number) {
+export async function getReversePost(id: number, from: number, total: number) {
   const floor = total + 1
   /**
    * case ex 34L  floor = 34 from = 0
@@ -63,24 +64,26 @@ export function getReversePost(id: number, from: number, total: number) {
     realSize = floor - from
   }
 
-  return GET<IPost[]>(`topic/${id}/post`, {
+  const res = await GET<IPost[]>(`topic/${id}/post`, {
     params: {
       from: realFrom,
       size: realSize,
     },
-  }).then(res => Promise.resolve(res.map(data => data.reverse())))
+  })
+  return await Promise.resolve(res.map(data => data.reverse()))
 }
 
 /**
  * 获取一个帖子的单独一层
  */
-export function getSinglePost(topicId: number | string, floor: number) {
-  return GET<IPost[]>(`topic/${topicId}/post`, {
+export async function getSinglePost(topicId: number | string, floor: number) {
+  const res = await GET<IPost[]>(`topic/${topicId}/post`, {
     params: {
       from: floor - 1,
       size: 1,
     },
-  }).then(res => Promise.resolve(res.map(posts => posts[0])))
+  })
+  return await Promise.resolve(res.map(posts => posts[0]))
 }
 
 export function getFloor(topicId: number | string, floor: number) {
@@ -177,22 +180,24 @@ export function rate(id: number, value: 1 | -1, reason: string) {
 /**
  * 获取用户近期发的回复
  */
-export function getMyRecentPosts(from: number) {
-  return GET<IMyPosts>('me/recent-post', {
+export async function getMyRecentPosts(from: number) {
+  const res = await GET<IMyPosts>('me/recent-post', {
     params: {
       from,
       size: 20,
     },
-  }).then(res => Promise.resolve(res.map(posts => posts.data)))
+  })
+  return await Promise.resolve(res.map(posts => posts.data))
 }
 /**
  * 获取用户近期热门回复
  */
-export function getMyHotPosts(from: number) {
-  return GET<IMyPosts>('me/hot-post', {
+export async function getMyHotPosts(from: number) {
+  const res = await GET<IMyPosts>('me/hot-post', {
     params: {
       from,
       size: 20,
     },
-  }).then(res => Promise.resolve(res.map(posts => posts.data)))
+  })
+  return await Promise.resolve(res.map(posts => posts.data))
 }
