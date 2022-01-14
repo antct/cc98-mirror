@@ -1,1 +1,1 @@
-export const IMG_BASE_URL = 'http://101.42.106.165/cc98/images'
+export const IMG_BASE_URL = 'https://api.ttxixi.cc/cc98/images'
