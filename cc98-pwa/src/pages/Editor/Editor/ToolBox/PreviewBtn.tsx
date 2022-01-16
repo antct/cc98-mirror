@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core'
 import TransformIcon from '@material-ui/icons/Transform'
 import React, { useState } from 'react'
+import MarkdownView from 'react-showdown'
 import { EditorModel } from '../EditorModel'
 
 
@@ -15,14 +16,15 @@ const DialogContentTextS = muiStyled(DialogContentText)({
 
 interface PreviewProps {
   content: string
+  contentType: number
   handleClose: () => void
 }
 
-const Preview = ({ content, handleClose }: PreviewProps) => (
+const Preview = ({ content, contentType, handleClose }: PreviewProps) => (
   <>
     <DialogContent>
       <DialogContentTextS>
-        <UBB ubbText={content || '[ 没有内容 ]'} />
+        { contentType === 0 ? <UBB ubbText={content} /> : <MarkdownView markdown={content} /> }
       </DialogContentTextS>
     </DialogContent>
     <DialogActions>
@@ -51,7 +53,7 @@ export default ({ editor }: Props) => {
         <TransformIcon />
       </IconButton>
       <Dialog open={open} fullWidth scroll="paper">
-        <Preview content={editor.fullContent} handleClose={handleClose} />
+        <Preview content={editor.fullContent} contentType={editor.state.contentType} handleClose={handleClose} />
       </Dialog>
     </>
   )

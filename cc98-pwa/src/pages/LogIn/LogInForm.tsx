@@ -46,7 +46,7 @@ const VisitorButton = muiStyled(Button).attrs({
   variant: 'contained',
   color: 'primary',
 })({
-  marginTop: 15,
+  marginTop: 20,
 })
 
 const ButtonProgress = muiStyled(CircularProgress).attrs({
@@ -145,7 +145,7 @@ const LogIn: React.FC = () => {
         {loading && <ButtonProgress />}
       </LogInButton>
       <VisitorButton onClick={() => navigate('/hotTopics')}>
-        游客
+        我是游客
       </VisitorButton>
     </WrapperDiv>
   )

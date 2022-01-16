@@ -25,7 +25,8 @@ export default ({ editor }: Props) => {
     for (const file of files) {
       const res = await uploadPicture(file)
       res.fail().succeed(data => {
-        editor.attachAttachment(`[img]${data[0]}[/img]`)
+        if (editor.state.contentType === 0) editor.appendMainContent(`\n[img]${data[0]}[/img]\n`)
+        else editor.appendMainContent(`\n\n![](${data[0]})\n\n`)
       })
     }
   }

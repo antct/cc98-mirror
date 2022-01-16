@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { EditorModel } from '../EditorModel'
 import ClearBtn from './ClearBtn'
+import MarkdownBtn from './MarkdownBtn'
 import PictureBtn from './PictureBtn'
 import PreviewBtn from './PreviewBtn'
 import SendBtn from './SendBtn'
@@ -27,6 +28,7 @@ export default ({ editor, onSendCallback }: Props) => (
       <div>
         <PictureBtn editor={editor} />
         <StickerBtn editor={editor} />
+        <MarkdownBtn editor={editor} />
       </div>
       <div>
         <ClearBtn editor={editor} />
