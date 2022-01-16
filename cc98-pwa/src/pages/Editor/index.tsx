@@ -56,7 +56,7 @@ export default (props: Props) => {
   }
 
   if (!isModelInit.current) {
-    editor.current = new EditorModel(init.editor.initContent)
+    editor.current = new EditorModel(init.editor.initContent, init.editor.initContentType)
     metaModel.current = new MetaInfoModel(init.metaInfo)
     isModelInit.current = true
   }
@@ -127,7 +127,7 @@ function chooseSendCallback(
       let topicParams: ITopicParams = {
         ...metaInfo.state,
         content: editor.fullContent,
-        contentType: 0,
+        contentType: editor.state.contentType,
       }
       if (editor.state.anonymousState == 2 && editor.state.anonymousSend) topicParams.isAnonymous = true
       postTopic(boardId, topicParams).then(res =>
@@ -151,7 +151,7 @@ function chooseSendCallback(
       let postParams: IPostParams = {
         title: '',
         content: editor.fullContent,
-        contentType: 0
+        contentType: editor.state.contentType
       }
       // 可选匿名版块，匿名发帖
       if (editor.state.anonymousState == 2 && editor.state.anonymousSend) postParams.isAnonymous = true
@@ -177,17 +177,18 @@ function chooseSendCallback(
         ? {
             ...metaInfo.state,
             content: editor.fullContent,
-            contentType: 0,
+            contentType: editor.state.contentType,
           }
         : {
             title: '',
             content: editor.fullContent,
-            contentType: 0,
+            contentType: editor.state.contentType,
           }
       editorPost(postId, params).then(res =>
         res
           .fail((data) => {
             if (data.msg === 'topic_is_locked') snackbar.error('编辑失败，主题已锁沉')
+            else if (data.msg === 'content_is_empty') snackbar.error('编辑失败，内容为空')
             else snackbar.error('编辑失败')
             failCallback()
           })

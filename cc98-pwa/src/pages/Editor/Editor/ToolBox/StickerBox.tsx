@@ -54,7 +54,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function) {
         : `${type}-mini/${type}${number}`
 
     stickerArr.push(
-      <Img src={`${IMG_BASE_URL}/${url}.${suffix}`} onClick={handleFunc(`${type}${number}`)} />
+      <Img src={`${IMG_BASE_URL}/${url}.${suffix}?compress=true&width=50`} onClick={handleFunc(`${type}${number}`)} />
     )
   }
 

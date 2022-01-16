@@ -21,6 +21,7 @@ interface Init {
    */
   editor: {
     initContent: string
+    initContentType: 0 | 1
   }
   /**
    * MetaInfo 的 props 之一
@@ -38,6 +39,8 @@ export default function useInit(props: Props): Init | null {
   const [ok, setOk] = useState(false)
 
   const [initContent, setInitContent] = useState('')
+  const [initContentType, setInitContentType] = useState<0|1>(0)
+  const [isGetPost, setIsGetPost] = useState<boolean>(false)
   const [metaInfo, setMetaInfo] = useState<Init['metaInfo']>({
     title: '',
     type: 0,
@@ -49,6 +52,7 @@ export default function useInit(props: Props): Init | null {
       metaInfo,
       editor: {
         initContent,
+        initContentType
       },
       boardId: retBoardId,
     }
@@ -63,7 +67,8 @@ export default function useInit(props: Props): Init | null {
   }
 
   // 引用某楼层
-  if (topicId && floor) {
+  if (topicId && floor && !isGetPost) {
+    setIsGetPost(true)
     getSinglePost(topicId, parseInt(floor, 10)).then(res =>
       res.fail().succeed(postInfo => {
         const { floor, userName, time, topicId, content } = postInfo
@@ -71,6 +76,7 @@ export default function useInit(props: Props): Init | null {
         setInitContent(
           `[quote][b]以下是引用${floor}楼：用户${userName}在${formatTime}的发言：[color=blue][url=/topic/${topicId}#${floor}]>>查看原帖<<[/url][/color][/b]\n${content}[/quote]\n`
         )
+        setIsGetPost(false)
         setOk(true)
       })
     )
@@ -81,21 +87,21 @@ export default function useInit(props: Props): Init | null {
   // 回复帖子
   if (topicId) {
     setOk(true)
-
     return null
   }
 
   // 编辑自己的帖子
-  if (postId) {
+  if (postId && !isGetPost) {
+    setIsGetPost(true)
     getOriginalPost(postId).then(res =>
       res.fail().succeed(postInfo => {
         setInitContent(postInfo.content)
+        setInitContentType(postInfo.contentType)
         if (postInfo.floor !== 1) {
           setOk(true)
-
+          setIsGetPost(false)
           return
         }
-
         // 编辑主题
         setRetBoardId(postInfo.boardId)
         getTopicInfo(postInfo.topicId).then(res =>
@@ -106,8 +112,8 @@ export default function useInit(props: Props): Init | null {
               tag1: topicInfo.tag1,
               tag2: topicInfo.tag2,
             })
-
             setOk(true)
+            setIsGetPost(false)
           })
         )
       })

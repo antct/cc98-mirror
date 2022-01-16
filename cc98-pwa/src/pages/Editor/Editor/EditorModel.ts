@@ -25,13 +25,17 @@ interface State {
    * 是否发送匿名
    */
   anonymousAction: number
+  /**
+   * 文本类型
+   */
+  contentType: 0 | 1
 }
 
 /**
  * 编辑器句柄
  */
 export class EditorModel extends Model<State> {
-  constructor(initContent?: string) {
+  constructor(initContent?: string, initContentType?: 0|1) {
     super()
 
     this.state = {
@@ -40,7 +44,8 @@ export class EditorModel extends Model<State> {
       isSending: false,
       anonymousState: 0,
       anonymousSend: false,
-      anonymousAction: 0
+      anonymousAction: 0,
+      contentType: initContentType || 0
     }
   }
 
@@ -80,6 +85,12 @@ export class EditorModel extends Model<State> {
   attachAttachment(content: string) {
     this.setState(prev => ({
       attachments: prev.attachments.concat(content),
+    }))
+  }
+
+  setContentType(type: 0 | 1) {
+    this.setState(prev => ({
+      contentType: type
     }))
   }
 
