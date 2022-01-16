@@ -1,7 +1,9 @@
 import { Model } from '@/hooks/useModel'
+import { signIn } from '@/services/global'
 import { GET } from '@/utils/fetch'
 import { navigate } from '@/utils/history'
 import { isLogIn, logIn, logOut } from '@/utils/logIn'
+import snackbar from '@/utils/snackbar'
 import { IUnRead, IUser } from '@cc98/api'
 
 
@@ -78,6 +80,15 @@ class UserModel extends Model<State> {
         unRead,
       })
     })
+
+    // 偷懒做法，直接请求。可能会签到失败。
+    const res = await signIn()
+    res
+      .fail(() => {
+      })
+      .succeed((msg) => {
+        snackbar.success(`自动签到成功，获得${msg}财富值`)
+      })
   }
 
   FRESH_READ = async () => {

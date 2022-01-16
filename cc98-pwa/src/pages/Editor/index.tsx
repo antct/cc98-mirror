@@ -186,8 +186,9 @@ function chooseSendCallback(
           }
       editorPost(postId, params).then(res =>
         res
-          .fail(() => {
-            snackbar.error('编辑失败')
+          .fail((data) => {
+            if (data.msg === 'topic_is_locked') snackbar.error('编辑失败，主题已锁沉')
+            else snackbar.error('编辑失败')
             failCallback()
           })
           .succeed(() => {
