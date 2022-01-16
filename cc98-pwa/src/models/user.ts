@@ -4,7 +4,7 @@ import { GET } from '@/utils/fetch'
 import { navigate } from '@/utils/history'
 import { isLogIn, logIn, logOut } from '@/utils/logIn'
 import snackbar from '@/utils/snackbar'
-import { IUnRead, IUser } from '@cc98/api'
+import { ISignIn, IUnRead, IUser } from '@cc98/api'
 
 
 interface State {
@@ -81,14 +81,18 @@ class UserModel extends Model<State> {
       })
     })
 
-    // 偷懒做法，直接请求。可能会签到失败。
-    const res = await signIn()
-    res
-      .fail(() => {
-      })
-      .succeed((msg) => {
-        snackbar.success(`自动签到成功，获得${msg}财富值`)
-      })
+    const signState = await GET<ISignIn>('me/signin')
+    signState.fail().succeed(async state => {
+      if (!state.hasSignedInToday) {
+        const res = await signIn()
+        res
+          .fail(() => {
+          })
+          .succeed((msg) => {
+            snackbar.success(`自动签到成功，获得${msg}财富值`)
+          })
+      }
+    })
   }
 
   FRESH_READ = async () => {
