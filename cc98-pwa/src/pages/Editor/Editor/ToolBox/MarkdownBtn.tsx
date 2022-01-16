@@ -1,3 +1,4 @@
+import muiStyled from '@/muiStyled'
 import {
   Button,
   Dialog, DialogActions, DialogContent,
@@ -7,6 +8,10 @@ import WrapTextIcon from '@material-ui/icons/WrapText'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 
+const DialogActionsS = muiStyled(DialogActions)({
+  display: 'flex',
+  flexDirection: 'column'
+})
 
 interface Props {
   editor: EditorModel
@@ -19,13 +24,13 @@ export default ({ editor }: Props) => {
   }
 
   const handleUBB = () => {
-    editor.setContentType(0)
     handleClose()
+    editor.setContentType(0)
   }
 
   const handleMarkdown = () => {
-    editor.setContentType(1)
     handleClose()
+    editor.setContentType(1)
   }
 
   function clickHandler() {
@@ -39,16 +44,16 @@ export default ({ editor }: Props) => {
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
-          <DialogContentText>{`切换文本类型，当前为${editor.state.contentType === 0 ? 'UBB' : 'Markdown'}类型`}</DialogContentText>
+          <DialogContentText>{`切换富文本类型`}</DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActionsS>
           <Button onClick={handleUBB} color="primary">
             UBB
           </Button>
           <Button onClick={handleMarkdown} color="primary">
             Markdown
           </Button>
-        </DialogActions>
+        </DialogActionsS>
       </Dialog>
     </>
   )

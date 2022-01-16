@@ -2,7 +2,7 @@ import { getOriginalPost } from '@/services/editor'
 import { getSinglePost } from '@/services/post'
 import { getTopicInfo } from '@/services/topic'
 import dayjs from 'dayjs'
-import { useState } from 'react'
+import { useState, useEffect, useReducer, useRef, Reducer } from 'react'
 import { Props } from './index'
 
 
@@ -30,6 +30,28 @@ interface Init {
   boardId: number | undefined
 }
 
+function useStateCallback<S>(initialState: S) {
+  const [state, setState] = useReducer<Reducer<S, Partial<S>>>(
+    (state, newState) => ({ ...state, ...newState }),
+    initialState
+  )
+  const cbRef = useRef<((state: S) => void) | null>(null)
+
+  function setStateCallback(state: Partial<S>, cb: (state: S) => void) {
+    cbRef.current = cb
+    setState(state)
+  }
+
+  useEffect(() => {
+    if (cbRef.current) {
+      cbRef.current(state)
+      cbRef.current = null
+    }
+  }, [state])
+
+  return [state, setStateCallback] as const
+}
+
 
 /**
  * 获取 editor 和 metaInfo 的初始值，返回 null 意味着 loading 中
@@ -37,50 +59,55 @@ interface Init {
 export default function useInit(props: Props): Init | null {
   const { boardId, topicId, postId, floor } = props
   const [ok, setOk] = useState(false)
-
-  const [initContent, setInitContent] = useState('')
-  const [initContentType, setInitContentType] = useState<0|1>(0)
-  const [isGetPost, setIsGetPost] = useState<boolean>(false)
-  const [metaInfo, setMetaInfo] = useState<Init['metaInfo']>({
-    title: '',
-    type: 0,
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [state, setState] = useStateCallback({
+    initContent: '',
+    initContentType: <0 | 1>0,
+    metaInfo: {
+      title: '',
+      type: 0,
+      tag1: <number | undefined>undefined,
+      tag2: <number | undefined>undefined
+    },
+    boardId: <number | undefined>undefined
   })
-  const [retBoardId, setRetBoardId] = useState<number | undefined>(undefined)
 
   if (ok) {
     return {
-      metaInfo,
+      metaInfo: state.metaInfo,
       editor: {
-        initContent,
-        initContentType
+        initContent: state.initContent,
+        initContentType: state.initContentType
       },
-      boardId: retBoardId,
+      boardId: state.boardId,
     }
   }
 
   // 发帖
-  if (boardId && !topicId && !postId) {
-    setRetBoardId(parseInt(boardId, 10))
-    setOk(true)
-
+  if (!isLoading && boardId && !topicId && !postId) {
+    setIsLoading(true)
+    setState({
+      boardId: parseInt(boardId, 10),
+    }, () => {
+      setOk(true)
+    })
     return null
   }
 
   // 引用某楼层
-  if (topicId && floor && !isGetPost) {
-    setIsGetPost(true)
+  if (!isLoading && topicId && floor) {
+    setIsLoading(true)
     getSinglePost(topicId, parseInt(floor, 10)).then(res =>
       res.fail().succeed(postInfo => {
         const { floor, userName, time, topicId, content } = postInfo
         const formatTime = dayjs(time).format('YYYY-MM-DD HH:mm')
-        setInitContent(
-          `[quote][b]以下是引用${floor}楼：用户${userName}在${formatTime}的发言：[color=blue][url=/topic/${topicId}#${floor}]>>查看原帖<<[/url][/color][/b]\n${content}[/quote]\n`
-        )
-        setIsGetPost(false)
-        setOk(true)
+        setState({
+          initContent: `[quote][b]以下是引用${floor}楼：用户${userName}在${formatTime}的发言：[color=blue][url=/topic/${topicId}#${floor}]>>查看原帖<<[/url][/color][/b]\n${content}[/quote]\n`
+        }, () => {
+          setOk(true)
+        })
       })
     )
-
     return null
   }
 
@@ -91,34 +118,39 @@ export default function useInit(props: Props): Init | null {
   }
 
   // 编辑自己的帖子
-  if (postId && !isGetPost) {
-    setIsGetPost(true)
+  if (!isLoading && postId) {
+    setIsLoading(true)
     getOriginalPost(postId).then(res =>
       res.fail().succeed(postInfo => {
-        setInitContent(postInfo.content)
-        setInitContentType(postInfo.contentType)
         if (postInfo.floor !== 1) {
-          setOk(true)
-          setIsGetPost(false)
+          setState({
+            initContent: postInfo.content,
+            initContentType: postInfo.contentType
+          }, () => {
+            setOk(true)
+          })
           return
         }
         // 编辑主题
-        setRetBoardId(postInfo.boardId)
         getTopicInfo(postInfo.topicId).then(res =>
           res.fail().succeed(topicInfo => {
-            setMetaInfo({
-              title: topicInfo.title,
-              type: topicInfo.type,
-              tag1: topicInfo.tag1,
-              tag2: topicInfo.tag2,
+            setState({
+              initContent: postInfo.content,
+              initContentType: postInfo.contentType,
+              boardId: postInfo.boardId,
+              metaInfo: {
+                title: topicInfo.title,
+                type: topicInfo.type,
+                tag1: topicInfo.tag1,
+                tag2: topicInfo.tag2,
+              }
+            }, () => {
+              setOk(true)
             })
-            setOk(true)
-            setIsGetPost(false)
           })
         )
       })
     )
-
     return null
   }
 

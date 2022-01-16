@@ -28,10 +28,10 @@ export default ({ editor, onSendCallback }: Props) => (
       <div>
         <PictureBtn editor={editor} />
         <StickerBtn editor={editor} />
-        <MarkdownBtn editor={editor} />
+        <ClearBtn editor={editor} />
       </div>
       <div>
-        <ClearBtn editor={editor} />
+        <MarkdownBtn editor={editor} />
         <PreviewBtn editor={editor} />
         <SendBtn editor={editor} onSendCallback={onSendCallback} />
       </div>
