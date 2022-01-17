@@ -23,21 +23,10 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-@media screen and (max-width: 600px){
-  #root{
-    height: 100%;
-    margin: auto;
-    max-width: 600px;
-  }
-}
-
-@media screen and (min-width: 600px){
-  #root{
-    height: 100%;
-    margin: auto;
-    max-width: 100%;
-    margin-left: 180px;
-  }
+#root{
+  height: 100%;
+  margin: auto;
+  max-width: 600px;
 }
 
 /* https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */

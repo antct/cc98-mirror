@@ -1,4 +1,4 @@
-import { IS_PC, MAX_WIDTH } from '@/config'
+import { MAX_WIDTH } from '@/config'
 import stateModel from '@/models/state'
 import muiStyled from '@/muiStyled'
 import version from '@/version'
@@ -8,22 +8,13 @@ import React from 'react'
 
 
 const AppBarS = muiStyled(AppBar)({
-  '@media screen and (max-width: 600px)': {
-    maxWidth: `${MAX_WIDTH}px`,
-    left: 'auto',
-    right: 'auto',
-  },
-  '@media screen and (min-width: 600px)': {
-    maxWidth: 'calc(100% - 180px)',
-    left: 180,
-    right: 'auto',
-  }
+  maxWidth: `${MAX_WIDTH}px`,
+  left: 'auto',
+  right: 'auto',
 })
 
 const ToolbarS = muiStyled(Toolbar)({
-  '@media (min-width: 600px)': {
-    minHeight: 56,
-  },
+  minHeight: 56
 })
 
 const IconButtonS = muiStyled(IconButton).attrs({
@@ -50,12 +41,9 @@ const Version = muiStyled(Button).attrs({
 const TopBar: React.FC = () => (
   <AppBarS elevation={0}>
     <ToolbarS>
-      { !IS_PC && 
       <IconButtonS onClick={stateModel.OPEN_DRAWER}>
         <MenuIcon />
       </IconButtonS>
-      }
-
       <MainText>CC98 ©TT</MainText>
       <Version>{version}</Version>
     </ToolbarS>
