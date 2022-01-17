@@ -90,9 +90,15 @@ interface Props {
   message: IMessageContent
 }
 
-// TODO: 消息气泡
-const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean, AVATAR_COMPRESS_WIDTH: number) =>
-  !isCurrSend ? (
+export default ({ message }: Props) => {
+  const { myInfo } = useModel(userModel)
+  const { useCompress } = useModel(settingModel, ['useCompress'])
+
+  const [userInfo] = useFetcher(() => getUserInfoById(message.senderId))
+  if (userInfo === null || myInfo === null) {
+    return null
+  }
+  return !(myInfo.id === message.senderId) ? (
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
@@ -118,15 +124,4 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
       </LazyLoad>
     </ListItemS>
   )
-
-export default ({ message }: Props) => {
-  const { myInfo } = useModel(userModel)
-  const { useCompress } = useModel(settingModel, ['useCompress'])
-
-  const [userInfo] = useFetcher(() => getUserInfoById(message.senderId))
-  if (userInfo === null || myInfo === null) {
-    return null
-  }
-
-  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress, AVATAR_COMPRESS_WIDTH)
 }

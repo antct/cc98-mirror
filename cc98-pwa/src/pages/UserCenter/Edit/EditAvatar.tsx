@@ -11,7 +11,7 @@ const WrapperDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 36px 24px;
+  padding: 36px 16px;
   padding-top: 0;
 `
 

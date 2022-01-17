@@ -36,9 +36,9 @@ const RecentTopics: React.FC<Props> = ({ info }) => (
   <ExpandPanel defaultExpanded title="用户资料">
     <ListDiv>
       <ListItem name="性别" value={info.gender === 1 ? '男' : '女'} />
-      <ListItem name="发帖" value={info.postCount} />
       <ListItem name="财富值" value={info.wealth} />
-      <ListItem name="被删贴数" value={-1*info.deleteCount} />
+      <ListItem name="发帖" value={info.postCount} />
+      <ListItem name="删贴" value={-1*info.deleteCount} />
       <ListItem name="关注" value={info.followCount} />
       <ListItem name="粉丝" value={info.fanCount} />
       <ListItem name="威望" value={info.prestige} />
@@ -47,8 +47,8 @@ const RecentTopics: React.FC<Props> = ({ info }) => (
       <ListItem name="生日" value={info.birthday && dayjs(info.birthday).format('YYYY/MM/DD')} />
       <ListItem name="QQ" value={info.qq} />
       <ListItem name="邮箱" value={info.emailAddress || ''} />
-      <ListItem name="IP" value={info.lastIpAddress || ''} />
       <ListItem name="等级" value={info.levelTitle} />
+      <ListItem name="IP" value={info.lastIpAddress || ''} />
       <ListItem name="注册时间" value={dayjs(info.registerTime).format('YYYY-MM-DD HH:mm')} />
       <ListItem name="最后登录" value={dayjs(info.lastLogOnTime).format('YYYY-MM-DD HH:mm')} />
     </ListDiv>

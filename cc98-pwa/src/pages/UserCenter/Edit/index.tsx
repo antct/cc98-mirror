@@ -82,7 +82,6 @@ const FormBody = () => {
       })
     )
   }
-
   const handleAvatarSubmit = (AvatarSrc: string) => {
     modifyMyAvatar(AvatarSrc).then(res =>
       res.fail().succeed(_ => {
@@ -113,6 +112,12 @@ const FormBody = () => {
             label="邮箱"
             value={info.emailAddress || ''}
             onChange={handleChange('emailAddress')}
+          />
+          <FormItem
+            label="介绍"
+            multiline
+            value={info.introduction}
+            onChange={handleChange('introduction')}
           />
           <FormItem
             label="签名档"
