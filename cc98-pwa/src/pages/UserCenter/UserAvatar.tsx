@@ -1,3 +1,4 @@
+import { USER_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
@@ -134,7 +135,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
       <WrapperDiv>
         <AvatarDiv>
           <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=100`} />
+          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=${USER_COMPRESS_WIDTH}`} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>

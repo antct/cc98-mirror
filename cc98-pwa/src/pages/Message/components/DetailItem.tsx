@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
@@ -95,7 +96,7 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} onClick={() => navigate(`/user/${userInfo.id}`)} />
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} onClick={() => navigate(`/user/${userInfo.id}`)} />
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
@@ -112,7 +113,7 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
       </MessageRoot>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} />
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} />
         </ListItemAvatarS>
       </LazyLoad>
     </ListItemS>

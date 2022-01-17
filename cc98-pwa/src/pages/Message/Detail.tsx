@@ -1,4 +1,5 @@
 import InfiniteList from '@/components/InfiniteList'
+import { MAX_WIDTH } from '@/config'
 import { useInfListFix } from '@/hooks/useInfList'
 import muiStyled from '@/muiStyled'
 import { getMessageContent, sendMessage } from '@/services/message'
@@ -10,7 +11,7 @@ import Editor from './Editor'
 
 const ListS = muiStyled(List)({
   width: '100vw',
-  maxWidth: 600,
+  maxWidth: `${MAX_WIDTH}px`,
   position: 'absolute',
   top: 56,
   bottom: 80,
@@ -20,7 +21,7 @@ const ListS = muiStyled(List)({
 const FixBottomDiv = styled.div`
   position: fixed;
   width: 100vw;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
   left: auto;
   right: auto;
   bottom: 0px;

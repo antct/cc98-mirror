@@ -1,5 +1,6 @@
 import img404 from '@/assets/error.png'
 import InfiniteList from '@/components/InfiniteList'
+import { MAX_WIDTH } from '@/config'
 import { Service as InfService, useInfListFix } from '@/hooks/useInfList'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import React from 'react'
@@ -10,7 +11,7 @@ import { Place } from './UserListItem'
 
 const Img = styled.img`
   width: 60%;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
 `
 const CenterDiv = styled.div`
   display: flex;

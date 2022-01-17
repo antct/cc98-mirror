@@ -1,4 +1,4 @@
-import { IMG_BASE_URL } from '@/config'
+import { AVATAR_COMPRESS_WIDTH, IMG_BASE_URL } from '@/config'
 import muiStyled from '@/muiStyled'
 import { DialogContent, DialogTitle, Tab, Tabs } from '@material-ui/core'
 import React, { useState } from 'react'
@@ -54,7 +54,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function) {
         : `${type}-mini/${type}${number}`
 
     stickerArr.push(
-      <Img src={`${IMG_BASE_URL}/${url}.${suffix}?compress=true&width=50`} onClick={handleFunc(`${type}${number}`)} />
+      <Img src={`${IMG_BASE_URL}/${url}.${suffix}?width=${AVATAR_COMPRESS_WIDTH}`} onClick={handleFunc(`${type}${number}`)} />
     )
   }
 

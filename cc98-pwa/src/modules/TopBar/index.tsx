@@ -1,3 +1,4 @@
+import { MAX_WIDTH } from '@/config'
 import stateModel from '@/models/state'
 import muiStyled from '@/muiStyled'
 import version from '@/version'
@@ -7,7 +8,7 @@ import React from 'react'
 
 
 const AppBarS = muiStyled(AppBar)({
-  maxWidth: 600,
+  maxWidth: `${MAX_WIDTH}px`,
   left: 'auto',
   right: 'auto',
 })

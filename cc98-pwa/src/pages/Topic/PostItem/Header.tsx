@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -68,7 +69,7 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
         <LazyLoad height={'100%'} offset={200} once>
           <AvatarS
             onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=50`}
+            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`}
           >
             {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
           </AvatarS>
