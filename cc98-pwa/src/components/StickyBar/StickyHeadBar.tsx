@@ -27,6 +27,8 @@ const Title = muiStyled(Typography).attrs({
 const AcitonDiv = styled.div`
   margin-left: -10px;
   margin-right: -16px;
+  width: 48px;
+  height: 48px;
 `
 
 const SubTitle = muiStyled(Typography).attrs({

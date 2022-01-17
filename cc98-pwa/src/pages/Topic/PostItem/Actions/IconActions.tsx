@@ -32,7 +32,7 @@ interface Props {
 const ActionDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 4px;
 `
 
 const Count = muiStyled(Typography).attrs({

@@ -91,7 +91,7 @@ interface Props {
 }
 
 // TODO: 消息气泡
-const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean) =>
+const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean, AVATAR_COMPRESS_WIDTH: number) =>
   !isCurrSend ? (
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
@@ -128,5 +128,5 @@ export default ({ message }: Props) => {
     return null
   }
 
-  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress)
+  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress, AVATAR_COMPRESS_WIDTH)
 }

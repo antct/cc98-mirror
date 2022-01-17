@@ -6,8 +6,6 @@
 
 引入react-virtualized，无限列表优化。
 
-签到功能完善，自动签到选项。
-
 帖子投票：当前只能查看内容无法参与投票。
 
 Markdown模式下尚未添加Lazyload支持。
@@ -19,6 +17,8 @@ Markdown模式下尚未添加Lazyload支持。
 主题切换，对应PC端主题。
 
 ## ChangeLog
+
+20220117: 调整了一些样式。
 
 20220116: 增加了自动签到功能，编辑器支持Markdown，修复了编辑器的若干BUG。
 

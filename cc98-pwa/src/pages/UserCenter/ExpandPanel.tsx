@@ -10,10 +10,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import React from 'react'
 
 
+const ExpansionPanelSummaryS = muiStyled(ExpansionPanelSummary)({
+  paddingRight: 12
+})
+
 const ExpansionPanelDetailsS = muiStyled(ExpansionPanelDetails)({
   width: '100%',
-  padding: '0 4px 24px 4px',
+  padding: '0 0px 24px 0px',
 })
+
 
 type Props = Pick<ExpansionPanelProps, 'expanded' | 'defaultExpanded' | 'onChange'> & {
   /**
@@ -29,9 +34,9 @@ const ExpandPanel: React.FC<Props> = props => (
     onChange={props.onChange}
   >
     {props.title && (
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <ExpansionPanelSummaryS expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1">{props.title}</Typography>
-      </ExpansionPanelSummary>
+      </ExpansionPanelSummaryS>
     )}
     <ExpansionPanelDetailsS>{props.children || <></>}</ExpansionPanelDetailsS>
   </ExpansionPanel>

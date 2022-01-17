@@ -60,12 +60,9 @@ const jump = (link: string) => () => navigate(link)
 const DrawerMenu: React.FC = () => {
   const user = useModel(userModel)
   const { LOG_OUT } = userModel
-
-  const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
   const { CLOSE_DRAWER } = stateModel
-
-  const { useNotification} = useModel(settingModel, ['useNotification'])
-  const { customHome } = useModel(settingModel, ['customHome'])
+  const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
+  const { useNotification } = useModel(settingModel, ['useNotification'])
 
   return (
     <Drawer open={isDrawerOpen} onClose={CLOSE_DRAWER}>
@@ -81,21 +78,8 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
             <Item icon={<BoardIcon />} text="版面" onClick={jump('/boardList')} />
             <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
-            {/* {customHome !== 1 && (
-              <Item icon={<InfoIcon />} text="首页" onClick={jump('/info')} />
-            )}
-            {customHome !== 2 && (
-              <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
-            )}
-            {customHome !== 3 && (
-              <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
-            )}
-            <Item icon={<WidgetsIcon />} text="版面" onClick={jump('/boardList')} />
-            {customHome !== 4 && (
-              <Item icon={<PagesIcon />} text="关注" onClick={jump('/myFollow')} />
-            )} */}
-            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount): 0} color="primary"><NotificationsIcon/></Badge>} text="通知" onClick={jump('/notice')} />
-            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount): 0} color="primary"><MailIcon/></Badge>} text="私信" onClick={jump('/messageList')} />
+            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount) : 0} color="primary"><NotificationsIcon /></Badge>} text="通知" onClick={jump('/notice')} />
+            <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount) : 0} color="primary"><MailIcon /></Badge>} text="私信" onClick={jump('/messageList')} />
             <Item icon={<GroupIcon />} text="好友" onClick={jump('/friend')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />

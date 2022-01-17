@@ -9,6 +9,25 @@ import React from 'react'
 import styled from 'styled-components'
 
 
+const ListS = muiStyled(List).attrs({
+})({
+  paddingTop: 0,
+  paddingBottom: 0
+})
+
+const ListItemS = muiStyled(ListItem).attrs({
+  button: true
+})({
+  paddingRight: 0
+})
+
+const ListItemSecondaryActionS = muiStyled(ListItemSecondaryAction).attrs({
+})({
+  right: 0,
+  width: 48,
+  height: 48
+})
+
 const TitleArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,21 +57,21 @@ const History: React.FC = () => {
   }
 
   return (
-    <List>
+    <ListS>
       {historyList.map(item => (
-        <ListItem key={item.id} button onClick={() => navigate(`/topic/${item.id}`)}>
+        <ListItemS key={item.id} button onClick={() => navigate(`/topic/${item.id}`)}>
           <TitleArea>
             <Title>{clamp(item.title)}</Title>
             <SubTitle>{`${dayjs(item.lastViewTime).fromNow()}`}</SubTitle>
           </TitleArea>
-          <ListItemSecondaryAction>
+          <ListItemSecondaryActionS>
             <IconButton onClick={() => historyModel.DELETE(item.id)}>
               <DeleteIcon fontSize="small" />
             </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+          </ListItemSecondaryActionS>
+        </ListItemS>
       ))}
-    </List>
+    </ListS>
   )
 }
 

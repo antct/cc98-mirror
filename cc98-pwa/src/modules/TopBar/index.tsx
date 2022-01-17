@@ -22,8 +22,8 @@ const ToolbarS = muiStyled(Toolbar)({
 const IconButtonS = muiStyled(IconButton).attrs({
   color: 'inherit',
 })({
-  marginLeft: -12,
-  marginRight: 5,
+  marginLeft: -20,
+  marginRight: 0,
 })
 
 const MainText = muiStyled(Typography).attrs({
@@ -36,7 +36,8 @@ const Version = muiStyled(Button).attrs({
   color: 'inherit',
   size: 'small',
 })({
-  marginRight: -12,
+  marginRight: -8,
+  paddingRight: 0,
 })
 
 const TopBar: React.FC = () => (

@@ -17,6 +17,7 @@ const FlexDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 8px 16px;
+  margin-right: 0px;
 `
 
 const AvatarArea = styled.div`
@@ -37,7 +38,11 @@ const SubTitle = muiStyled(Typography).attrs({
 const Floor = muiStyled(Typography).attrs({
   variant: 'button',
   color: 'textSecondary',
-})({})
+  align: 'center'
+})({
+  width: 48,
+  height: 48
+})
 
 // const HotIcon = muiStyled(Whatshot)({
 //   color: red[400],
@@ -80,8 +85,8 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
             {postInfo.isDeleted
               ? '98Deleter'
               : postInfo.isAnonymous
-              ? `匿名${postInfo.userName.toUpperCase()}`
-              : postInfo.userName}
+                ? `匿名${postInfo.userName.toUpperCase()}`
+                : postInfo.userName}
           </Title>
           <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
           <SubTitle>

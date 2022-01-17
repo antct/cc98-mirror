@@ -4,7 +4,7 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IRecommendationReading } from '@cc98/api'
-import { Avatar, Divider, List, ListItem, ListItemIcon, Typography } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemIcon, Typography } from '@material-ui/core'
 import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import dayjs from 'dayjs'
@@ -14,14 +14,6 @@ import styled from 'styled-components'
 const ListS = muiStyled(List)({
   paddingTop: '0px',
   paddingBottom: '0px',
-})
-
-const AvatarS = muiStyled(Avatar)({
-  backgroundColor: '#999',
-})
-
-const ListItemTextS = muiStyled(ListItemText)({
-  padding: 0,
 })
 
 const ListItemS = muiStyled(ListItem)({
@@ -76,38 +68,38 @@ interface Props {
 export default (props: Props) => {
   const { showRecommend } = useModel(settingModel, ['showRecommend'])
   const { TOGGLE_RECOMMEND } = settingModel
-  
+
   return (
-  <ListS>
-    <ListItem>
-      <ListItemIcon onClick={TOGGLE_RECOMMEND}>
-        {
-          showRecommend ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
-        }
-      </ListItemIcon>
-      <ListItemText primary="推荐阅读" />
-    </ListItem>
-    <Divider />
+    <ListS>
+      <ListItem>
+        <ListItemIcon onClick={TOGGLE_RECOMMEND}>
+          {
+            showRecommend ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
+          }
+        </ListItemIcon>
+        <ListItemText primary="推荐阅读" />
+      </ListItem>
+      <Divider />
 
-    {showRecommend && props.recommendationReading.map((info: IRecommendationReading) => {
-      let url = info.imageUrl
-      let name = url.slice(url.lastIndexOf('/') + 2, url.lastIndexOf('.'))
-      let boardName = decodeURI(name)
-      let time = dayjs(info.time).fromNow()
-      return (
+      {showRecommend && props.recommendationReading.map((info: IRecommendationReading) => {
+        let url = info.imageUrl
+        let name = url.slice(url.lastIndexOf('/') + 2, url.lastIndexOf('.'))
+        let boardName = decodeURI(name)
+        let time = dayjs(info.time).fromNow()
+        return (
 
-        <ListItemS button divider onClick={() => navigate(info.url)}>
-          <TitleArea>
-            <Title>{info.title}</Title>
-            <SubTitle>{info.content}</SubTitle>
-          </TitleArea>
-          <InfoArea>
-            <Info1>{info.id}</Info1>
-            <Info2>{boardName}</Info2>
-          </InfoArea>
-        </ListItemS>
-      )
-    })}
-  </ListS>
+          <ListItemS button divider onClick={() => navigate(info.url)}>
+            <TitleArea>
+              <Title>{info.title}</Title>
+              <SubTitle>{info.content}</SubTitle>
+            </TitleArea>
+            <InfoArea>
+              <Info1>{info.id}</Info1>
+              <Info2>{boardName}</Info2>
+            </InfoArea>
+          </ListItemS>
+        )
+      })}
+    </ListS>
   )
 }

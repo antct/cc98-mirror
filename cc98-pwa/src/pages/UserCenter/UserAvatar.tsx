@@ -24,8 +24,7 @@ const WrapperDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 24px;
-  margin-bottom: 0;
+  margin: 20px 12px 0px 16px;
 `
 
 const AvatarDiv = styled.div`
@@ -34,7 +33,7 @@ const AvatarDiv = styled.div`
 `
 
 const ButtonDiv = styled.div`
-  margin-right: -10px;
+  margin-right: -12px;
 `
 
 const AvatarS = muiStyled(Avatar)({

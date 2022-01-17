@@ -28,6 +28,10 @@ interface State {
    * 自定义主页
    */
   customHome: number
+  customWords: string[]
+  /**
+   * 首页订制按钮
+   */
   showAnnouncement: boolean
   showRecommend: boolean
   showHot: boolean
@@ -38,7 +42,6 @@ interface State {
   showMarket: boolean
   showAcademic: boolean
   showSchoolEvent: boolean
-  customWords: string[]
 }
 
 class SettingModel extends Model<State> {

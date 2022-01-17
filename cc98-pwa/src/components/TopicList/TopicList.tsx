@@ -7,6 +7,8 @@ import TopicListItem, { Place } from './TopicListItem'
 
 const ListS = muiStyled(List)({
   width: '100%',
+  paddingTop: 0,
+  paddingBottom: 0
 })
 
 interface IUrlMap {
