@@ -1,8 +1,9 @@
+import { useStateCallback } from '@/hooks/useStateCallback'
 import { getOriginalPost } from '@/services/editor'
 import { getSinglePost } from '@/services/post'
 import { getTopicInfo } from '@/services/topic'
 import dayjs from 'dayjs'
-import { useState, useEffect, useReducer, useRef, Reducer } from 'react'
+import { useState } from 'react'
 import { Props } from './index'
 
 
@@ -29,29 +30,6 @@ interface Init {
    */
   boardId: number | undefined
 }
-
-function useStateCallback<S>(initialState: S) {
-  const [state, setState] = useReducer<Reducer<S, Partial<S>>>(
-    (state, newState) => ({ ...state, ...newState }),
-    initialState
-  )
-  const cbRef = useRef<((state: S) => void) | null>(null)
-
-  function setStateCallback(state: Partial<S>, cb: (state: S) => void) {
-    cbRef.current = cb
-    setState(state)
-  }
-
-  useEffect(() => {
-    if (cbRef.current) {
-      cbRef.current(state)
-      cbRef.current = null
-    }
-  }, [state])
-
-  return [state, setStateCallback] as const
-}
-
 
 /**
  * 获取 editor 和 metaInfo 的初始值，返回 null 意味着 loading 中

@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
@@ -10,6 +11,7 @@ import { IMessageContent, IUser } from '@cc98/api'
 import { Avatar, ListItem, ListItemAvatar } from '@material-ui/core'
 import dayjs from 'dayjs'
 import React from 'react'
+import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 
 const ListItemS = muiStyled(ListItem)({
@@ -18,6 +20,7 @@ const ListItemS = muiStyled(ListItem)({
 
 const ListItemAvatarS = muiStyled(ListItemAvatar)({
   alignSelf: 'flex-start',
+  minWidth: 40,
 })
 
 const MessageRoot = styled.div`
@@ -29,7 +32,7 @@ const MessageRoot = styled.div`
   padding: 0 1em;
 `
 
-const MessageContent = styled.div`
+const MessageContentLeft = styled.div`
   background-color: #eee;
   line-height: 2em;
   padding: 0.25em 0.5em;
@@ -41,9 +44,6 @@ const MessageContent = styled.div`
   align-items: center;
   white-space: pre-wrap;
   word-break: break-all;
-`
-
-const MessageContentLeft = styled(MessageContent)`
   &::before {
     content: '';
     border-style: solid;
@@ -56,7 +56,18 @@ const MessageContentLeft = styled(MessageContent)`
   }
 `
 
-const MessageContentRight = styled(MessageContent)`
+const MessageContentRight = styled.div`
+  background-color: #eee;
+  line-height: 2em;
+  padding: 0.25em 0.5em;
+  position: relative;
+  font-size: 0.85em;
+  border-radius: 3px;
+  min-height: 3em;
+  display: flex;
+  align-items: center;
+  white-space: pre-wrap;
+  word-break: break-all;
   &::after {
     content: '';
     border-style: solid;
@@ -80,12 +91,12 @@ interface Props {
 }
 
 // TODO: 消息气泡
-const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean) =>
+const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boolean, useCompress: boolean, AVATAR_COMPRESS_WIDTH: number) =>
   !isCurrSend ? (
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} onClick={() => navigate(`/user/${userInfo.id}`)} />
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} onClick={() => navigate(`/user/${userInfo.id}`)} />
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
@@ -102,7 +113,7 @@ const renderItem = (message: IMessageContent, userInfo: IUser, isCurrSend: boole
       </MessageRoot>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=50`} />
+          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} />
         </ListItemAvatarS>
       </LazyLoad>
     </ListItemS>
@@ -117,5 +128,5 @@ export default ({ message }: Props) => {
     return null
   }
 
-  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress)
+  return renderItem(message, userInfo, myInfo.id === message.senderId, useCompress, AVATAR_COMPRESS_WIDTH)
 }

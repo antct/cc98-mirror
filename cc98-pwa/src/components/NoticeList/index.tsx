@@ -1,5 +1,6 @@
 import img404 from '@/assets/error.png'
 import InfiniteList from '@/components/InfiniteList'
+import { MAX_WIDTH } from '@/config'
 import useInfList, { Service as InfService, useInfListFix } from '@/hooks/useInfList'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { IReply, ISystem } from '@cc98/api'
@@ -11,7 +12,7 @@ import SystemList from './SystemList'
 
 const Img = styled.img`
   width: 60%;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
 `
 const CenterDiv = styled.div`
   display: flex;
@@ -63,7 +64,7 @@ const InfReplyList: React.FC<InfReplyProps> = ({ service }) => {
     <>
       {isEnd && data.length === 0 && <EmtpyList />}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
-        <ReplyList data={data} func={loaded}/>
+        <ReplyList data={data} func={loaded} />
       </InfiniteList>
     </>
   )

@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -83,9 +84,9 @@ interface ItemProps {
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight=false, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
   <ListItemS button divider onClick={onClick}>
-    { showAvatar &&
+    {showAvatar &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={200} once>
           <AvatarS src={portraitUrl}>
@@ -170,7 +171,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       onClick={() => navigate(`/topic/${data.id}`)}
       isAnonymous={data.isAnonymous}
       isHighlight={showHighlight}
-      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : portraitUrl}
       showAvatar={useAvatar && showAvatar}
       title={title}
       subtitle={subtitle}

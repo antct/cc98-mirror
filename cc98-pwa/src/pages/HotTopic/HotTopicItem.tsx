@@ -1,4 +1,5 @@
 import { TopicItem } from '@/components/TopicList/TopicListItem'
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { getBoardNameById } from '@/services/board'
@@ -27,7 +28,7 @@ export default ({ data, portraitUrl }: Props) => {
     <TopicItem
       isAnonymous={data.isAnonymous}
       showAvatar={useAvatar}
-      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=50` : portraitUrl}
+      portraitUrl={!!portraitUrl ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : portraitUrl}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}

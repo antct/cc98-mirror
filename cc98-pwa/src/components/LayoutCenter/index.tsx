@@ -1,10 +1,11 @@
 // import React from 'react'
+import { MAX_WIDTH } from '@/config'
 import styled from 'styled-components'
 
 const LayoutCenter = styled.div`
   position: absolute;
   width: 100%;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
   top: 0;
   left: auto;
   right: auto;

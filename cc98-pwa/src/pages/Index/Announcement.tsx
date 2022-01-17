@@ -7,7 +7,6 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import React from 'react'
 import styled from 'styled-components'
 
-
 const WrapperDiv = styled.div`
   margin: 8px 16px;
 `
@@ -15,7 +14,6 @@ const WrapperDiv = styled.div`
 interface Props {
   content: string
 }
-
 
 export default ({ content }: Props) => {
   const { showAnnouncement } = useModel(settingModel, ['showAnnouncement'])

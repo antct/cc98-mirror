@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -16,6 +17,7 @@ const FlexDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 8px 16px;
+  margin-right: 0px;
 `
 
 const AvatarArea = styled.div`
@@ -36,7 +38,11 @@ const SubTitle = muiStyled(Typography).attrs({
 const Floor = muiStyled(Typography).attrs({
   variant: 'button',
   color: 'textSecondary',
-})({})
+  align: 'center'
+})({
+  width: 48,
+  height: 48
+})
 
 // const HotIcon = muiStyled(Whatshot)({
 //   color: red[400],
@@ -68,7 +74,7 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
         <LazyLoad height={'100%'} offset={200} once>
           <AvatarS
             onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=50`}
+            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`}
           >
             {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
           </AvatarS>
@@ -79,8 +85,8 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
             {postInfo.isDeleted
               ? '98Deleter'
               : postInfo.isAnonymous
-              ? `匿名${postInfo.userName.toUpperCase()}`
-              : postInfo.userName}
+                ? `匿名${postInfo.userName.toUpperCase()}`
+                : postInfo.userName}
           </Title>
           <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
           <SubTitle>

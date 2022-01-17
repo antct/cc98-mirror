@@ -7,7 +7,7 @@ import ExpandPanel from './ExpandPanel'
 
 const UBBDiv = styled.div`
   width: 100%;
-  margin: 0 20px;
+  margin: 0 16px;
 `
 
 interface Props {

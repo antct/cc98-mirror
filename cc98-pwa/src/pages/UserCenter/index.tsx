@@ -1,5 +1,6 @@
 import img404 from '@/assets/error.png'
 import LoadingCircle from '@/components/LoadingCircle'
+import { MAX_WIDTH } from '@/config'
 import useDelay from '@/hooks/useDelay'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
@@ -19,7 +20,7 @@ import UserSignature from './UserSignature'
 
 const Img = styled.img`
   width: 60%;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
 `
 const CenterDiv = styled.div`
   display: flex;

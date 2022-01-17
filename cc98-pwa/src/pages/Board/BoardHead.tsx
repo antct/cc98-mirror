@@ -28,7 +28,7 @@ const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 10px 10px 24px;
+  padding: 16px 0px 10px 16px;
 `
 
 const ExpansionPanelS = muiStyled(ExpansionPanel)({
@@ -38,6 +38,11 @@ const ExpansionPanelS = muiStyled(ExpansionPanel)({
     0px 2px 1px -1px rgba(0,0,0,0.12)
   `,
 })
+
+const ExpansionPanelSummaryS = muiStyled(ExpansionPanelSummary)({
+  paddingRight: 12
+})
+
 
 export default ({ data }: Props) => {
   const [state, setState] = useState({
@@ -91,11 +96,11 @@ export default ({ data }: Props) => {
       </HeaderDiv>
 
       <ExpansionPanelS>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <ExpansionPanelSummaryS expandIcon={<ExpandMoreIcon />}>
           <Typography variant="subtitle2" color="primary">
             版面描述
           </Typography>
-        </ExpansionPanelSummary>
+        </ExpansionPanelSummaryS>
         <ExpansionPanelDetails>
           <Typography variant="body2">{data.description}</Typography>
         </ExpansionPanelDetails>

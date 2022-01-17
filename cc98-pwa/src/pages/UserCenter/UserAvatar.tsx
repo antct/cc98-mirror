@@ -1,3 +1,4 @@
+import { USER_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
@@ -23,8 +24,7 @@ const WrapperDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 24px;
-  margin-bottom: 0;
+  margin: 20px 12px 0px 16px;
 `
 
 const AvatarDiv = styled.div`
@@ -33,7 +33,7 @@ const AvatarDiv = styled.div`
 `
 
 const ButtonDiv = styled.div`
-  margin-right: -10px;
+  margin-right: -12px;
 `
 
 const AvatarS = muiStyled(Avatar)({
@@ -134,7 +134,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
       <WrapperDiv>
         <AvatarDiv>
           <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=100`} />
+          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=${USER_COMPRESS_WIDTH}`} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>

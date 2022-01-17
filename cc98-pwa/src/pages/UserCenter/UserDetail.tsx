@@ -12,7 +12,7 @@ interface ListItemProps {
 }
 
 const ItemDiv = styled.div`
-  padding: 10px 20px;
+  padding: 10px 16px;
   width: 50%;
 `
 

@@ -1,3 +1,4 @@
+import { IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
@@ -15,7 +16,7 @@ const handler: ITagHandler<React.ReactNode> = {
       const img = event.currentTarget
       img.src = `${node.innerText}?compress=false`
     }
-    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}`} onDoubleClick={imgClickedHandler} /></LazyLoad>
+    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}&width=${IMG_COMPRESS_WIDTH}`} onDoubleClick={imgClickedHandler} /></LazyLoad>
   },
 }
 

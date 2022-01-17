@@ -1,3 +1,4 @@
+import { IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -12,7 +13,7 @@ const compressImageExtension: ShowdownExtension = {
   type: 'output',
   filter: (html: string, converter: any, options: any) => {
     let regex = /<img.*?src="(.*?)".*?\/>/g
-    return html.replace(regex, `<img src="$1?compress=${options.useCompress}" ondblclick="this.src='$1?compress=false'" />`)
+    return html.replace(regex, `<img src="$1?compress=${options.useCompress}&width=${IMG_COMPRESS_WIDTH}" ondblclick="this.src='$1?compress=false'" />`)
   }
 }
 

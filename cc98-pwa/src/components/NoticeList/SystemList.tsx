@@ -10,6 +10,8 @@ import SystemListItem from './SystemListItem'
 
 const ListS = muiStyled(List)({
   width: '100%',
+  paddingTop: 0,
+  paddingBottom: 0
 })
 
 interface Props {

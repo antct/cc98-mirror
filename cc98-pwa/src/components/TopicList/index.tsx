@@ -1,6 +1,7 @@
 import img404 from '@/assets/error.png'
 import InfiniteList from '@/components/InfiniteList'
 import LoadingCircle from '@/components/LoadingCircle'
+import { MAX_WIDTH } from '@/config'
 import useDelay from '@/hooks/useDelay'
 import useFetcher, { Service as FinService } from '@/hooks/useFetcher'
 import useInfList, { Service as InfService } from '@/hooks/useInfList'
@@ -18,7 +19,7 @@ import { Place } from './TopicListItem'
 
 const Img = styled.img`
   width: 60%;
-  max-width: 600px;
+  max-width: ${MAX_WIDTH}px;
 `
 const CenterDiv = styled.div`
   display: flex;
