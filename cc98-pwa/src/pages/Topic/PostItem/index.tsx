@@ -131,7 +131,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
           <>
             <Divider />
             <WrapperDiv>
-              <UBB ubbText={userInfo.signatureCode} />
+              <UBB ubbText={userInfo.signatureCode.trim()} />
             </WrapperDiv>
           </>
         )

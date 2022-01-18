@@ -5,6 +5,8 @@ import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
+import { PhotoConsumer } from 'react-photo-view'
+import 'react-photo-view/dist/index.css'
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
@@ -16,7 +18,17 @@ const handler: ITagHandler<React.ReactNode> = {
       const img = event.currentTarget
       img.src = `${node.innerText}?compress=false`
     }
-    return <LazyLoad height={200} offset={200} once><img className="ubb-tag-img" src={`${node.innerText}?compress=${useCompress}&width=${IMG_COMPRESS_WIDTH}`} onDoubleClick={imgClickedHandler} /></LazyLoad>
+    return (
+      <LazyLoad height={200} offset={200} once>
+        <PhotoConsumer src={`${node.innerText}`} >
+          {useCompress ?
+            <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
+            :
+            <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />
+          }
+        </PhotoConsumer>
+      </LazyLoad>
+    )
   },
 }
 

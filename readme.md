@@ -7,13 +7,13 @@
 - 自适应样式，手机端和PC端。
 - 引入react-virtualized，无限列表优化。
 - 帖子投票：当前只能查看内容无法参与投票。
-- Markdown模式下尚未添加Lazyload支持。
-- 普通模式和Markdown模式下图片放大预览Lightbox支持。
 - 当前只支持账号密码登录，OIDC引入（需HTTPS）。
 - 主题切换，对应PC端主题。
 - 图片压缩优化，首次压缩冷启较慢。
 
 ## ChangeLog
+
+20220118: 图片增加了Lightbox支持，包含普通文本和Markdown。
 
 20220117: 调整了一些样式。
 
