@@ -29,14 +29,15 @@ const AcitonDiv = styled.div`
   margin-right: -16px;
   width: 48px;
   height: 48px;
+  text-align: center;
 `
 
 const SubTitle = muiStyled(Typography).attrs({
   variant: 'body2',
   color: 'inherit',
 })({
-  minWidth: '4rem',
-  maxWidth: '6rem',
+  // minWidth: '4rem',
+  // maxWidth: '6rem',
   textAlign: 'center',
   flexShrink: 2,
   opacity: 0.75,

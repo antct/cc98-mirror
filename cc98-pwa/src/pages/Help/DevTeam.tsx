@@ -63,7 +63,7 @@ export default () => {
 
   return (
     <>
-      <Title>开发组</Title>
+      <Title>开发人员</Title>
       <Divider />
       {isLoading && <LoadingCircle />}
 

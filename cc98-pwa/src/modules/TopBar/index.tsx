@@ -14,13 +14,17 @@ const AppBarS = muiStyled(AppBar)({
 })
 
 const ToolbarS = muiStyled(Toolbar)({
-  minHeight: 56
+  '@media (min-width: 600px)': {
+    paddingLeft: 16,
+    paddingRight: 16,
+    minHeight: 56,
+  }
 })
 
 const IconButtonS = muiStyled(IconButton).attrs({
   color: 'inherit',
 })({
-  marginLeft: -20,
+  marginLeft: -12,
   marginRight: 0,
 })
 
@@ -34,7 +38,7 @@ const Version = muiStyled(Button).attrs({
   color: 'inherit',
   size: 'small',
 })({
-  marginRight: -8,
+  marginRight: 0,
   paddingRight: 0,
 })
 

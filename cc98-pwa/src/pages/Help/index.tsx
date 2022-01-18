@@ -1,8 +1,10 @@
 import ListItemText from '@/hotfix/ListItemText'
+import muiStyled from '@/muiStyled'
 import { Route } from '@/router/Router'
 import { navigate } from '@/utils/history'
 import { List, ListItem, ListItemIcon } from '@material-ui/core'
 import BarChartIcon from '@material-ui/icons/BarChart'
+import RecommendIcon from '@material-ui/icons/BookOutlined'
 import BugReportIcon from '@material-ui/icons/BugReportOutlined'
 import CodeIcon from '@material-ui/icons/Code'
 import CopyrightIcon from '@material-ui/icons/Copyright'
@@ -13,13 +15,17 @@ import MusicIcon from '@material-ui/icons/MusicNote'
 import NatureIcon from '@material-ui/icons/NatureOutlined'
 import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
 import SmartphoneIcon from '@material-ui/icons/Smartphone'
-import RecommendIcon from '@material-ui/icons/BookOutlined'
 import { Router } from '@reach/router'
 import React from 'react'
 import DevTeam from './DevTeam'
 import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
 
+const ListS = muiStyled(List)({
+  width: '100%',
+  paddingTop: 0,
+  paddingBottom: 0
+})
 
 interface ItemProps {
   icon: React.ReactElement<any>
@@ -36,9 +42,9 @@ const Item: React.FC<ItemProps> = ({ icon, text, url, external = false }) => (
 )
 
 const Index = () => (
-  <List>
+  <ListS>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
-    <Item icon={<CopyrightIcon />} text="开发组" url="/help/devTeam" />
+    <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
     <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/User/Wealth" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
@@ -49,7 +55,7 @@ const Index = () => (
     <Item icon={<BugReportIcon />} text="新手代码测试楼" url="/topic/4759491" />
     <Item icon={<NotListedIcon />} text="论坛帮助" url="/topic/4970959" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />
-  </List>
+  </ListS>
 )
 
 export default () => (
