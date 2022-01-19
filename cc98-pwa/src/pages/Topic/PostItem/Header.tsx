@@ -5,6 +5,8 @@ import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
 import { Avatar, Typography } from '@material-ui/core'
+import Lock from '@material-ui/icons/Lock'
+import LockOpen from '@material-ui/icons/LockOpen'
 import Whatshot from '@material-ui/icons/Whatshot'
 import dayjs from 'dayjs'
 import React from 'react'
@@ -49,6 +51,8 @@ const Floor = muiStyled(Typography).attrs({
 // })
 
 const HotIcon = <Whatshot color="error" />
+const LockIcon = <Lock color="error" />
+const LockOpenIcon = <LockOpen color="primary" />
 
 interface Props {
   /**
@@ -63,10 +67,17 @@ interface Props {
    * 是否热帖
    */
   isHot?: boolean
+  /**
+   * 是否锁沉
+   */
+  isLock?: boolean
+  /**
+   * 是否分享模式
+   */
   isShare: boolean
 }
 
-export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
+export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
   const { useCompress } = useModel(settingModel, ['useCompress'])
   return (
     <FlexDiv>
@@ -98,7 +109,7 @@ export default ({ postInfo, userInfo, isHot, isShare }: Props) => {
         </div>
       </AvatarArea>
 
-      <Floor>{isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)}</Floor>
+      <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon: LockOpenIcon) : (isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`))}</Floor>
     </FlexDiv>
   )
 }

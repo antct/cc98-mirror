@@ -11,8 +11,8 @@ import styled from 'styled-components'
 
 const ListS = muiStyled(List).attrs({
 })({
-  paddingTop: 0,
-  paddingBottom: 0
+  // paddingTop: 0,
+  // paddingBottom: 0
 })
 
 const ListItemS = muiStyled(ListItem).attrs({

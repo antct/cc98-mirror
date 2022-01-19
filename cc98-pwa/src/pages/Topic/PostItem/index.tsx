@@ -91,7 +91,12 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, voteInfo=
 
   return (
     <Wrapper>
-      <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
+      {
+        topicInfo && postInfo.floor === 1 ?
+        <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
+        :
+        <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
+      }
       {
         topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
         (() => {

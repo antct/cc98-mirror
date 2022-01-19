@@ -20,12 +20,16 @@ interface Props {
    */
   isReverse?: boolean
   /**
+   * 是否是分享模式
+   */
+  isShare?: boolean
+  /**
    * 刷新帖子的回调
    */
   refreshFunc: () => void
 }
 
-export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
+export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
   // 控制按钮是否展开
   const [expand, setExpand] = useState(false)
 
@@ -33,24 +37,48 @@ export default ({ topicInfo, isReverse, refreshFunc }: Props) => {
     <>
       {expand && (
         <>
-          <FixFab order={5}>
-            <SwapVertIcon
-              onClick={() =>
-                isReverse
-                  ? navigate(`/topic/${topicInfo.id}`)
-                  : navigate(`/topic/${topicInfo.id}/reverse`)
-              }
-            />
-          </FixFab>
-          <FixFab order={4}>
-            <ArrowUpwardIcon onClick={() => {window.scrollTo({left: 0, top: 0, behavior: 'smooth'})}} />
-          </FixFab>
-          <FixFab order={3}>
-            <RotateRightIcon onClick={refreshFunc} />
-          </FixFab>
-          <FixFab order={2}>
-            <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
-          </FixFab>
+          {isShare ? (
+              <>
+                <FixFab order={4}>
+                  <SwapVertIcon
+                    onClick={() =>
+                      isReverse
+                        ? navigate(`/topic/${topicInfo.id}`)
+                        : navigate(`/topic/${topicInfo.id}/reverse`)
+                    }
+                  />
+                </FixFab>
+                <FixFab order={3}>
+                  <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                </FixFab>
+                <FixFab order={2}>
+                  <RotateRightIcon onClick={refreshFunc} />
+                </FixFab>
+              </>
+            )
+            : (
+              <>
+                <FixFab order={5}>
+                  <SwapVertIcon
+                    onClick={() =>
+                      isReverse
+                        ? navigate(`/topic/${topicInfo.id}`)
+                        : navigate(`/topic/${topicInfo.id}/reverse`)
+                    }
+                  />
+                </FixFab>
+                <FixFab order={4}>
+                  <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                </FixFab>
+                <FixFab order={3}>
+                  <RotateRightIcon onClick={refreshFunc} />
+                </FixFab>
+                <FixFab order={2}>
+                  <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                </FixFab>
+              </>
+            )
+          }
         </>
       )}
       <FixFab>

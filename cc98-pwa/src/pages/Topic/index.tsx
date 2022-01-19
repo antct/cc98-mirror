@@ -84,7 +84,7 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
       <PostList key={postListKey} topicInfo={topicInfo} service={postService} isTrace={isTrace} isShare={isShare}>
         {!isTrace && !page && !floor && <PostListHot service={hotPostService} isShare={isShare} />}
       </PostList>
-      {!isShare && <FixButtons topicInfo={topicInfo} isReverse={isReverse} refreshFunc={refreshFunc} />}
+        <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />
       <EndPlaceholder />
     </>
   )
