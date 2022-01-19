@@ -21,6 +21,7 @@ import CollectionsIcon from '@material-ui/icons/Photo'
 import SettingsIcon from '@material-ui/icons/Settings'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import React from 'react'
+import { useAuth } from "react-oidc-context"
 import UserInfo from './UserInfo'
 
 
@@ -59,6 +60,7 @@ const jump = (link: string) => () => navigate(link)
 
 const DrawerMenu: React.FC = () => {
   const user = useModel(userModel)
+  const auth = useAuth()
   const { LOG_OUT } = userModel
   const { CLOSE_DRAWER } = stateModel
   const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
@@ -93,7 +95,10 @@ const DrawerMenu: React.FC = () => {
         )}
         {user.isLogIn && (
           <>
-            <Item icon={<CancelIcon />} text="退出" onClick={LOG_OUT} />
+            <Item icon={<CancelIcon />} text="退出" onClick={() => {
+              if (auth.isAuthenticated) auth.removeUser().then(() => LOG_OUT())
+              else LOG_OUT()
+            }} />
           </>
         )}
       </ListS>

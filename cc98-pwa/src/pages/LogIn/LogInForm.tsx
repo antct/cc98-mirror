@@ -3,6 +3,8 @@ import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { loginHandler } from '@/services/utils/errorHandler'
 import { navigate } from '@/utils/history'
+import snackbar from '@/utils/snackbar'
+import { setLocalStorage } from '@/utils/storage'
 import {
   Button,
   CircularProgress,
@@ -13,6 +15,7 @@ import {
   Typography
 } from '@material-ui/core'
 import React, { useState } from 'react'
+import { useAuth } from "react-oidc-context"
 import styled from 'styled-components'
 
 const WrapperDiv = styled.div`
@@ -84,6 +87,15 @@ const LogIn: React.FC = () => {
     })
   }
 
+  const auth = useAuth()
+  if (auth.isAuthenticated) {
+    userModel.LOG_IN_OIDC()
+    const access_token = `${auth.user?.token_type} ${auth.user?.access_token}`
+    setLocalStorage('access_token', access_token, auth.user?.expires_in)
+    setLocalStorage('refresh_token', `${auth.user?.refresh_token}`, 2592000)
+    navigate('/')
+  }
+
   const logIn = async () => {
     const { username, password } = formField
 
@@ -146,6 +158,9 @@ const LogIn: React.FC = () => {
       </LogInButton>
       <VisitorButton onClick={() => navigate('/hotTopics')}>
         我是游客
+      </VisitorButton>
+      <VisitorButton onClick={auth.signinRedirect}>
+        CC98授权(内网)
       </VisitorButton>
     </WrapperDiv>
   )

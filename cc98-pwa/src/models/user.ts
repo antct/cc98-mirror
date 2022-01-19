@@ -46,6 +46,13 @@ class UserModel extends Model<State> {
     return token
   }
 
+  LOG_IN_OIDC = async () => {
+    this.setState({
+      isLogIn: true,
+    })
+    this.FRESH_INFO()
+  }
+
   LOG_OUT = () => {
     logOut()
 
