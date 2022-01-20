@@ -50,25 +50,41 @@ interface Props {
 
 export default ({ postInfo }: Props) => {
   const { useCompress } = useModel(settingModel, ['useCompress'])
-
-  // 对那些未使用[url]或md标签的链接进行改造
-  const regex = /([^\[\]\(\)=]|^)(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/ig
   let regex_content = postInfo.content.trim()
-  if (postInfo.contentType === 0) {
-    regex_content = regex_content.replace(regex, `$1[url=$2]$2[/url]`)
+  // 规范化，去除多余的空格
+  if (postInfo.contentType == 0) {
+    const ubb_link_regex = /\[url\]\s*(.*?)\s*\[\/url\]/ig
+    regex_content = regex_content.replace(ubb_link_regex, `[url]$1[/url]`)
+    const ubb_image_regex = /\[img\]\s*(.*?)\s*\[\/img\]/ig
+    regex_content = regex_content.replace(ubb_image_regex, `[img]$1[/img]`)
   } else {
-    regex_content = regex_content.replace(regex, `$1[$2]($2)`)
+    const markdown_link_regex = /([^!])\[.*?\]\(\s*(.*?)\s*\)/ig
+    regex_content = regex_content.replace(markdown_link_regex, `$1[]($2)`)
+    const markdown_image_regex = /!\[.*?\]\(\s*(.*?)\s*\)/ig
+    regex_content = regex_content.replace(markdown_image_regex, `![]($1)`)
   }
-  const ubb_regex = /\[url.*?\].*?\[\/url\]/ig
-  const markdown_regex = /([^!])\[.*?\]\(.*?\)/ig
+  // 对那些未使用[url]或md标签的链接进行改造
+  const http_regex = /([^\[\]\(\)=]|^)(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/ig
+  if (postInfo.contentType === 0) {
+    regex_content = regex_content.replace(http_regex, `$1[url=$2]$2[/url]`)
+  } else {
+    regex_content = regex_content.replace(http_regex, `$1[$2]($2)`)
+  }
+
+  // markdown下的图片进行改造
   const markdown_image_regex = /!\[.*?\]\((.*?)\)/ig
   if (postInfo.contentType === 1) {
     regex_content = regex_content.replace(markdown_image_regex, `<CustomImageComponent originalSrc="$1" compressSrc="${useCompress ? `$1?compress=true&width=${IMG_COMPRESS_WIDTH}` : '$1?compress=false'}" />`)
   }
+
+  // 分享模式禁止跳转
   if (window.location.pathname.startsWith('/share')) {
-    if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_regex, '[url]分享模式禁止跳转[/url]')
-    else regex_content = regex_content.replace(markdown_regex, `$1[分享模式禁止跳转](${window.location.href})`)
+    const ubb_link_regex = /\[url.*?\].*?\[\/url\]/ig
+    const markdown_link_regex = /([^!])\[.*?\]\(.*?\)/ig
+    if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式禁止跳转[/url]')
+    else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式禁止跳转](${window.location.href})`)
   }
+
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content)
 
   return (
