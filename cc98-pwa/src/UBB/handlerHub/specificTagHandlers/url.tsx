@@ -25,7 +25,7 @@ const handler: ITagHandler<React.ReactNode> = {
     const safeURL = isSafe(fixUrl) ? fixUrl : undefined
 
     // return <a href={safeURL} style={{textDecoration: 'none'}}>{children}</a>
-    return <a href={safeURL}>{children}</a>
+    return <a href={safeURL} target={'_blank'}>{children}</a>
   },
 }
 

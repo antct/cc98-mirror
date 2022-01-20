@@ -13,12 +13,12 @@ import Recommend from './Recommend'
 const Home: React.FC = () => {
   const { showStudy, showAcademic, showEmotion, showFullTimeJob, showPartTimeJob, showHot, showSchoolEvent, showMarket } = useModel(settingModel, ['showStudy', 'showAcademic', 'showEmotion', 'showFullTimeJob', 'showPartTimeJob', 'showHot', 'showSchoolEvent', 'showMarket'])
   const { TOGGLE_STUDY, TOGGLE_ACADEMIC, TOGGLE_EMOTION, TOGGLE_FULLTIMEJOB, TOGGLE_PARTTIMEJOB, TOGGLE_HOT, TOGGLE_SCHOOLEVENT, TOGGLE_MARKET } = settingModel
-  const [homeInfo] = useFetcher(getHomeInfo, {
+  const [homeInfo] = useFetcher(() => getHomeInfo(), {
     fail: notificationHandler,
   })
-  const isResolve = useDelay(300)
+  // const isResolve = useDelay(300)
 
-  if (homeInfo === null || !isResolve) {
+  if (homeInfo === null) {
     return <LoadingCircle />
   }
 
