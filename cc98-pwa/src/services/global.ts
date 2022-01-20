@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { IConfig, IShare, ISignIn, ISite } from '@cc98/api'
+import { IConfig, IShare, ISignIn, ISite, ITheme } from '@cc98/api'
 
 /**
  * 获取全站基本信息
@@ -32,4 +32,12 @@ export function getShareToken(id: number, short: string) {
  */
 export function signIn() {
   return POST<string>('me/signin')
+}
+
+
+/**
+ * 获取全站背景
+ */
+export function getTheme() {
+  return GET<ITheme>('theme')
 }

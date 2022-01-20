@@ -9,6 +9,7 @@ import React from 'react'
 import Announcement from './Announcement'
 import Board from './Board'
 import Recommend from './Recommend'
+import Theme from './Theme'
 
 const Home: React.FC = () => {
   const { showStudy, showAcademic, showEmotion, showFullTimeJob, showPartTimeJob, showHot, showSchoolEvent, showMarket } = useModel(settingModel, ['showStudy', 'showAcademic', 'showEmotion', 'showFullTimeJob', 'showPartTimeJob', 'showHot', 'showSchoolEvent', 'showMarket'])
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <Theme />
       <Announcement content={homeInfo.announcement} />
       <Recommend recommendationReading={homeInfo.recommendationReading} />
       <Board name='热门话题' data={homeInfo.hotTopic} status={showHot} func={TOGGLE_HOT} />

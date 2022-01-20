@@ -32,6 +32,7 @@ interface State {
   /**
    * 首页订制按钮
    */
+  showTheme: boolean
   showAnnouncement: boolean
   showRecommend: boolean
   showHot: boolean
@@ -60,6 +61,7 @@ class SettingModel extends Model<State> {
       customHome: 1,
       customWords: [],
 
+      showTheme: true,
       showAnnouncement: true,
       showRecommend: true,
       showHot: true,
@@ -152,6 +154,13 @@ class SettingModel extends Model<State> {
     this.setState({
       customHome: value,
     })
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_THEME = () => {
+    this.setState(state => ({
+      showTheme: !state.showTheme,
+    }))
     this.SYNC_SETTING()
   }
 

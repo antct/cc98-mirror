@@ -1,4 +1,4 @@
-import { IMG_BASE_URL } from '@/config'
+import { BOARD_COMPRESS_WIDTH, IMG_BASE_URL } from '@/config'
 import { Theme } from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IBasicBoard } from '@cc98/api'
@@ -62,7 +62,7 @@ export default ({ boardInfo, hasCover }: Props) => {
 
       {hasCover && (
         <div className={classes.mediaGround}>
-          <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${boardInfo.name}.png`} />
+          <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${boardInfo.name}.png?width=${BOARD_COMPRESS_WIDTH}`} />
         </div>
       )}
     </div>
