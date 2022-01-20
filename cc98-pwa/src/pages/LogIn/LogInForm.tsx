@@ -80,6 +80,11 @@ const LogIn: React.FC = () => {
     logInFail: false,
   })
 
+  const [authInState, setAuthInState] = useState<LogInState>({
+    loading: false,
+    logInFail: false,
+  })
+
   const handleChange = (field: keyof FormField) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormField({
       ...formField,
@@ -128,13 +133,13 @@ const LogIn: React.FC = () => {
       })
   }
 
-  const { logInFail, loading } = logInState
+  // const { logInFail, loading } = logInState
 
   return (
     <WrapperDiv>
       <SnowballImg src={snowball} />
 
-      <Typography variant="h6">登录</Typography>
+      {/* <Typography variant="h6">登录</Typography> */}
 
       <FormDiv>
         <FormControl fullWidth>
@@ -152,15 +157,22 @@ const LogIn: React.FC = () => {
         </FormControl>
       </FormDiv>
 
-      <LogInButton disabled={loading} onClick={logIn}>
-        {logInFail ? '重试' : '登录'}
-        {loading && <ButtonProgress />}
+      <LogInButton disabled={logInState.loading} onClick={logIn}>
+        {logInState.logInFail ? '重试' : '登录'}
+        {logInState.loading && <ButtonProgress />}
       </LogInButton>
-      <VisitorButton onClick={() => navigate('/hotTopics')}>
+      <VisitorButton onClick={() => navigate('/index')}>
         我是游客
       </VisitorButton>
-      <VisitorButton onClick={auth.signinRedirect}>
+      <VisitorButton disabled={authInState.loading} onClick={() => {
+        auth.signinRedirect()
+        setAuthInState({
+          loading: true,
+          logInFail: false,
+        })
+      }}>
         CC98授权(内网)
+        {authInState.loading && <ButtonProgress />}
       </VisitorButton>
     </WrapperDiv>
   )
