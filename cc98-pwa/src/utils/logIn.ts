@@ -5,7 +5,6 @@ import { encodeParams, FetchError } from './fetch'
 import { Failure, Success, Try } from './fp/Try'
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from './storage'
 
-
 let lock = new AwaitLock();
 
 /**
@@ -28,6 +27,7 @@ export async function getAccessToken(): Promise<string> {
 
     if (!accessToken) {
       const refreshToken = getLocalStorage('refresh_token') as string
+      const accessType = getLocalStorage('access_type') as string
 
       if (!refreshToken) {
         // 分享模式不显示
@@ -35,7 +35,7 @@ export async function getAccessToken(): Promise<string> {
         return ''
       }
 
-      const token = await getTokenByRefreshToken(refreshToken)
+      const token = await getTokenByRefreshToken(refreshToken, accessType)
       token
         .fail(() => {
           snackbar.error('登录凭证失效，请重新登录')
@@ -46,7 +46,7 @@ export async function getAccessToken(): Promise<string> {
           setLocalStorage('access_token', access_token, token.expires_in)
           // refresh_token 有效期一个月
           setLocalStorage('refresh_token', token.refresh_token, 2592000)
-
+          setLocalStorage('access_type', accessType, 2592000)
           accessToken = access_token
         })
     }
@@ -60,10 +60,10 @@ export async function getAccessToken(): Promise<string> {
 /**
  * 使用refresh_token获取token
  */
-async function getTokenByRefreshToken(refreshToken: string) {
+async function getTokenByRefreshToken(refreshToken: string, accessType: string) {
   const requestBody = {
-    client_id: '9a1fd200-8687-44b1-4c20-08d50a96e5cd',
-    client_secret: '8b53f727-08e2-4509-8857-e34bf92b27f2',
+    client_id: accessType === 'authorization' ? '9390a1f2-9348-4b18-2e9f-08d9db5a8c00' : '9a1fd200-8687-44b1-4c20-08d50a96e5cd',
+    client_secret: accessType === 'authorization' ? '3065abdb-8c4f-486c-b677-4537ddc67297' : '8b53f727-08e2-4509-8857-e34bf92b27f2',
     grant_type: 'refresh_token',
     refresh_token: refreshToken,
   }
@@ -132,6 +132,7 @@ export async function logIn(username: string, password: string) {
   setLocalStorage('access_token', access_token, token.expires_in)
   // refresh_token 有效期一个月
   setLocalStorage('refresh_token', token.refresh_token, 2592000)
+  setLocalStorage('access_type', 'password', 2592000)
 
   return Try.of<Token, FetchError>(Success.of(token))
 }
@@ -141,6 +142,7 @@ export async function logIn(username: string, password: string) {
  */
 export function logOut() {
   removeLocalStorage('access_token')
+  removeLocalStorage('access_type')
   removeLocalStorage('refresh_token')
 }
 
@@ -148,5 +150,5 @@ export function logOut() {
  * 判断是否登录
  */
 export function isLogIn() {
-  return !!getLocalStorage('refresh_token')
+  return !!getLocalStorage('refresh_token') && !!getLocalStorage('access_type')
 }

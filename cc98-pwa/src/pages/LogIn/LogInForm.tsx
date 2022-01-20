@@ -93,6 +93,7 @@ const LogIn: React.FC = () => {
     const access_token = `${auth.user?.token_type} ${auth.user?.access_token}`
     setLocalStorage('access_token', access_token, auth.user?.expires_in)
     setLocalStorage('refresh_token', `${auth.user?.refresh_token}`, 2592000)
+    setLocalStorage('access_type', 'authorization', 2592000)
     navigate('/')
   }
 
