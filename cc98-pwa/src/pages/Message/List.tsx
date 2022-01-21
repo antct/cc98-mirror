@@ -8,8 +8,8 @@ import ListItemList from './components/ListItemList'
 
 
 const ListS = muiStyled(List)({
-  paddingTop: 0,
-  paddingBottom: 0
+  // paddingTop: 0,
+  // paddingBottom: 0
 })
 
 /**

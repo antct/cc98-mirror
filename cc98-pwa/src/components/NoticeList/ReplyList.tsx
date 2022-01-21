@@ -11,8 +11,8 @@ import ReplyListItem from './ReplyListItem'
 
 const ListS = muiStyled(List)({
   width: '100%',
-  paddingTop: 0,
-  paddingBottom: 0
+  // paddingTop: 0,
+  // paddingBottom: 0
 })
 
 interface ItemProps {

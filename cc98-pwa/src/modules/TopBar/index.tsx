@@ -48,7 +48,7 @@ const TopBar: React.FC = () => (
       <IconButtonS onClick={stateModel.OPEN_DRAWER}>
         <MenuIcon />
       </IconButtonS>
-      <MainText>CC98 ©TT</MainText>
+      <MainText>CC98</MainText>
       <Version>{version}</Version>
     </ToolbarS>
   </AppBarS>

@@ -96,7 +96,7 @@ class UserModel extends Model<State> {
           .fail(() => {
           })
           .succeed((msg) => {
-            snackbar.success(`自动签到成功，获得${msg}财富值`)
+            snackbar.success(`签到${state.lastSignInCount+1}天，获得${msg}财富值`)
           })
       }
     })

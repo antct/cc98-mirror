@@ -39,7 +39,7 @@ const SubTitle = muiStyled(Typography).attrs({
   // minWidth: '4rem',
   // maxWidth: '6rem',
   textAlign: 'center',
-  flexShrink: 2,
+  flexShrink: 1,
   opacity: 0.75,
 })
 

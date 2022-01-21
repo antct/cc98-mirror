@@ -4,10 +4,11 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
-import { Avatar, Typography } from '@material-ui/core'
+import { Avatar, Typography, Chip, Divider } from '@material-ui/core'
 import Lock from '@material-ui/icons/Lock'
 import LockOpen from '@material-ui/icons/LockOpen'
 import Whatshot from '@material-ui/icons/Whatshot'
+import FaceIcon from '@material-ui/icons/Face'
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
@@ -20,6 +21,15 @@ const FlexDiv = styled.div`
   align-items: center;
   margin: 8px 16px;
   margin-right: 0px;
+`
+
+const ChipS = muiStyled(Chip)({
+  marginRight: 5,
+  height: 16
+})
+
+const Div = styled.div`
+  margin: -8px 16px 8px 16px;
 `
 
 const AvatarArea = styled.div`
@@ -80,36 +90,52 @@ interface Props {
 export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
   const { useCompress } = useModel(settingModel, ['useCompress'])
   return (
-    <FlexDiv>
-      <AvatarArea>
-        <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS
-            onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-            src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`}
-          >
-            {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
-          </AvatarS>
-        </LazyLoad>
-        <div>
-          {/* {isHot && <a href={`#${postInfo.floor}`} />} */}
-          <Title>
-            {postInfo.isDeleted
-              ? '98Deleter'
-              : postInfo.isAnonymous
-                ? `匿名${postInfo.userName.toUpperCase()}`
-                : postInfo.userName}
-          </Title>
-          <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
-          <SubTitle>
-            {postInfo.lastUpdateTime &&
-              `由 ${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
-                postInfo.lastUpdateTime
-              ).format('YYYY/MM/DD HH:mm')}`}
-          </SubTitle>
-        </div>
-      </AvatarArea>
+    <>
+      <FlexDiv>
+        <AvatarArea>
+          <LazyLoad height={'100%'} offset={200} once>
+            <AvatarS
+              onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
+              src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`}
+            >
+              {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
+            </AvatarS>
+          </LazyLoad>
+          <div>
+            {/* {isHot && <a href={`#${postInfo.floor}`} />} */}
+            <Title>
+              {postInfo.isDeleted
+                ? '98Deleter'
+                : postInfo.isAnonymous
+                  ? `匿名${postInfo.userName.toUpperCase()}`
+                  : postInfo.userName}
+            </Title>
+            <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
+            <SubTitle>
+              {postInfo.lastUpdateTime &&
+                `由 ${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
+                  postInfo.lastUpdateTime
+                ).format('YYYY/MM/DD HH:mm')}`}
+            </SubTitle>
+          </div>
+        </AvatarArea>
 
-      <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon: LockOpenIcon) : (isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`))}</Floor>
-    </FlexDiv>
+        <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon : 'LZ') : (isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`))}</Floor>
+      </FlexDiv>
+      {/* <Div>
+        {
+          userInfo && <>
+            <ChipS size="small" label={userInfo.gender === 1 ? '男' : '女'} />
+            <ChipS size="small" label={`帖 ${userInfo.postCount}`} />
+            <ChipS size="small" label={`赞 ${userInfo.receivedLikeCount}`} />
+            <ChipS size="small" label={`粉丝 ${userInfo.fanCount}`} />
+            <ChipS size="small" label={`风评 ${userInfo.popularity}`} />
+            <ChipS size="small" label={`威望 ${userInfo.prestige}`} />
+            {userInfo.isFollowing && <ChipS color='secondary' size="small" label={`你的关注`} />}
+          </>
+        }
+      </Div> */}
+      {/* <Divider /> */}
+    </>
   )
 }

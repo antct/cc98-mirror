@@ -104,6 +104,11 @@ const LogIn: React.FC = () => {
   const logIn = async () => {
     const { username, password } = formField
 
+    if (username === '' || password === '') {
+      snackbar.error('请输入账号或密码')
+      return
+    }
+
     setLogInState({
       loading: true,
       logInFail: false,

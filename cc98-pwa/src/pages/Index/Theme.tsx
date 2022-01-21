@@ -1,8 +1,8 @@
-import LoadingCircle from '@/components/LoadingCircle'
 import { MAX_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
+import muiStyled from '@/muiStyled'
 import { getTheme } from '@/services/global'
 import { notificationHandler } from '@/services/utils/errorHandler'
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
@@ -18,6 +18,10 @@ const WrapperDiv = styled.div`
   height: 70px;
 `
 
+const ListItemS = muiStyled(ListItem)({
+  paddingTop: 16
+})
+
 interface Props {
 }
 
@@ -31,14 +35,14 @@ export default ({ }: Props) => {
 
   return (
     <>
-      <ListItem>
+      <ListItemS button>
         <ListItemIcon onClick={TOGGLE_THEME}>
           {
             showTheme ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
           }
         </ListItemIcon>
         <ListItemText primary="全站背景" />
-      </ListItem>
+      </ListItemS>
       <Divider />
       {
         showTheme &&
