@@ -1,4 +1,4 @@
-import { AVATAR_COMPRESS_WIDTH } from '@/config'
+import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -88,7 +88,7 @@ interface Props {
 }
 
 export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
   return (
     <>
       <FlexDiv>
@@ -96,7 +96,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
           <LazyLoad height={'100%'} offset={200} once>
             <AvatarS
               onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-              src={userInfo && `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`}
+              src={userInfo && `${!useCDN ? `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : CDN(userInfo.portraitUrl, true)}`}
             >
               {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
             </AvatarS>

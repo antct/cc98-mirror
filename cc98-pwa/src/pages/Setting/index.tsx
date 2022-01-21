@@ -3,6 +3,7 @@ import React from 'react'
 import Avatar from './Avatar'
 import Cache from './Cache'
 import Compress from './Compress'
+import CDN from './CDN'
 import CustomHome from './Home'
 import Mode from './Mode'
 import Notification from './Notification'
@@ -21,6 +22,7 @@ const Setting: React.FC = () => (
     <Signature />
     <Notification />
     <Compress />
+    <CDN />
     <Cache />
     <CustomWords />
   </List>

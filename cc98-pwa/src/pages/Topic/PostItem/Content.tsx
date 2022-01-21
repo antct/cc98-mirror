@@ -1,4 +1,4 @@
-import { IMG_COMPRESS_WIDTH } from '@/config'
+import { CDN_FILE_URL, CDN_IMG_URL, FILE_BASE_URL, IMG_BASE_URL, IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -49,41 +49,50 @@ interface Props {
 }
 
 export default ({ postInfo }: Props) => {
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
   let regex_content = postInfo.content.trim()
   // 规范化，去除多余的空格
   if (postInfo.contentType == 0) {
-    const ubb_link_regex = /\[url\]\s*(.*?)\s*\[\/url\]/ig
+    const ubb_link_regex = /\[url.*?\]\s*(.*?)\s*\[\/url\]/g
     regex_content = regex_content.replace(ubb_link_regex, `[url]$1[/url]`)
-    const ubb_image_regex = /\[img\]\s*(.*?)\s*\[\/img\]/ig
+    const ubb_image_regex = /\[img.*?\]\s*(.*?)\s*\[\/img\]/g
     regex_content = regex_content.replace(ubb_image_regex, `[img]$1[/img]`)
   } else {
-    const markdown_link_regex = /([^!])\[.*?\]\(\s*(.*?)\s*\)/ig
-    regex_content = regex_content.replace(markdown_link_regex, `$1[]($2)`)
-    const markdown_image_regex = /!\[.*?\]\(\s*(.*?)\s*\)/ig
+    const markdown_link_regex = /(?<!!)\[.*?\]\(\s*(.*?)\s*\)/g
+    regex_content = regex_content.replace(markdown_link_regex, `[]($1)`)
+    const markdown_image_regex = /!\[.*?\]\(\s*(.*?)\s*\)/g
     regex_content = regex_content.replace(markdown_image_regex, `![]($1)`)
   }
   // 对那些未使用[url]或md标签的链接进行改造
-  const http_regex = /([^\[\]\(\)=]|^)(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/ig
+  const http_regex = /(?<!\[url\]|\[img\]|\[\]\()(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
   if (postInfo.contentType === 0) {
-    regex_content = regex_content.replace(http_regex, `$1[url=$2]$2[/url]`)
+    regex_content = regex_content.replace(http_regex, `[url=$1]$1[/url]`)
   } else {
-    regex_content = regex_content.replace(http_regex, `$1[$2]($2)`)
+    regex_content = regex_content.replace(http_regex, `[]($1)`)
   }
-
-  // markdown下的图片进行改造
-  const markdown_image_regex = /!\[.*?\]\((.*?)\)/ig
-  if (postInfo.contentType === 1) {
-    regex_content = regex_content.replace(markdown_image_regex, `<CustomImageComponent originalSrc="$1" compressSrc="${useCompress ? `$1?compress=true&width=${IMG_COMPRESS_WIDTH}` : '$1?compress=false'}" />`)
+  if (useCDN) {
+    regex_content = regex_content.replace(RegExp(FILE_BASE_URL,'g'), CDN_FILE_URL)
+    regex_content = regex_content.replace(RegExp(IMG_BASE_URL, 'g'), CDN_IMG_URL)
+    if (postInfo.contentType === 1) {
+      const markdown_image_regex = /!\[.*?\]\((.*?)\)/g
+      regex_content = regex_content.replace(markdown_image_regex, `<CustomImageComponent originalSrc="$1" compressSrc="$1" />`)
+    }
+  } else {
+    // markdown下的图片进行改造
+    if (postInfo.contentType === 1) {
+      const markdown_image_regex = /!\[.*?\]\((.*?)\)/g
+      regex_content = regex_content.replace(markdown_image_regex, `<CustomImageComponent originalSrc="$1" compressSrc="${useCompress ? `$1?compress=true&width=${IMG_COMPRESS_WIDTH}` : '$1?compress=false'}" />`)
+    }
   }
-
   // 分享模式禁止跳转
   if (window.location.pathname.startsWith('/share')) {
-    const ubb_link_regex = /\[url.*?\].*?\[\/url\]/ig
-    const markdown_link_regex = /([^!])\[.*?\]\(.*?\)/ig
+    const ubb_link_regex = /\[url.*?\].*?\[\/url\]/g
+    const markdown_link_regex = /(?<!!)\[.*?\]\(.*?\)/g
     if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式禁止跳转[/url]')
-    else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式禁止跳转](${window.location.href})`)
+    else regex_content = regex_content.replace(markdown_link_regex, `[分享模式禁止跳转](${window.location.href})`)
   }
+
+
 
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content)
 

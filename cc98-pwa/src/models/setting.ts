@@ -19,6 +19,10 @@ interface State {
   useNotification: boolean
   useSignature: boolean
   useCompress: boolean
+  /**
+   * 是否使用官方图床加速
+   */
+  useCDN: boolean
   useAvatar: boolean
   /**
    * 缓存页数
@@ -57,6 +61,7 @@ class SettingModel extends Model<State> {
       useNotification: true,
       useAvatar: true,
       useCompress: true,
+      useCDN: true,
       cacheSize: 3,
       customHome: 1,
       customWords: [],
@@ -139,6 +144,13 @@ class SettingModel extends Model<State> {
   TOGGLE_COMPRESS = () => {
     this.setState(state => ({
       useCompress: !state.useCompress,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_CDN = () => {
+    this.setState(state => ({
+      useCDN: !state.useCDN,
     }))
     this.SYNC_SETTING()
   }
