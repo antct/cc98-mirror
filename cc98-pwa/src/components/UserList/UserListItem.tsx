@@ -1,4 +1,4 @@
-import { AVATAR_COMPRESS_WIDTH } from '@/config'
+import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
@@ -48,14 +48,14 @@ const navigateToDetail = (userId: number) => navigate(`/user/${userId}`)
 
 export default ({ data, place }: Props) => {
   const { name, portraitUrl, lastLogOnTime, signatureCode } = data
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
   const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={`${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} />
+          <Avatar src={`${!useCDN ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`: CDN(portraitUrl, true)}`} />
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>
