@@ -10,7 +10,7 @@ export default () => {
 
   return (
     <ListItem button>
-      <ListItemText primary="官方图床混合加速" secondary="使用98官方图片CDN" />
+      <ListItemText primary="图床混合加速" secondary="CC98官方图片CDN" />
       <Switch checked={useCDN} onChange={TOGGLE_CDN} />
     </ListItem>
   )

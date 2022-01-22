@@ -14,9 +14,11 @@ import MoneyIcon from '@material-ui/icons/MonetizationOnOutlined'
 import MusicIcon from '@material-ui/icons/MusicNote'
 import NatureIcon from '@material-ui/icons/NatureOutlined'
 import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
+import ScoreIcon from '@material-ui/icons/ScoreOutlined'
 import SmartphoneIcon from '@material-ui/icons/Smartphone'
 import { Router } from '@reach/router'
 import React from 'react'
+import ActivityPoint from './ActivityPoint'
 import DevTeam from './DevTeam'
 import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
@@ -46,6 +48,7 @@ const Index = () => (
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
     <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
+    <Item icon={<ScoreIcon />} text="活跃度" url="/help/activityPoint" />
     <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/User/Wealth" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
@@ -63,6 +66,7 @@ export default () => (
     <Route path="/" component={Index} />
     <Route path="siteInfo" component={SiteInfo} />
     <Route path="devTeam" component={DevTeam} />
+    <Route path="activityPoint" component={ActivityPoint} />
     <Route path="transferWealth" component={TransferWealth} />
   </Router>
 )

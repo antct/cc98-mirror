@@ -134,5 +134,9 @@ declare module '@cc98/api' {
      * 获得的赞
      */
     receivedLikeCount: number
+    /**
+     * 活跃分
+     */
+    activityPoint: IActivityPoint
   }
 }

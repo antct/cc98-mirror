@@ -39,15 +39,6 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
         <>
           {isShare ? (
               <>
-                <FixFab order={4}>
-                  <SwapVertIcon
-                    onClick={() =>
-                      isReverse
-                        ? navigate(`/topic/${topicInfo.id}`)
-                        : navigate(`/topic/${topicInfo.id}/reverse`)
-                    }
-                  />
-                </FixFab>
                 <FixFab order={3}>
                   <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
                 </FixFab>

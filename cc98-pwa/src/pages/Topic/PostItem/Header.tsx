@@ -113,7 +113,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
             <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
             <SubTitle>
               {postInfo.lastUpdateTime &&
-                `由 ${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
+                `${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
                   postInfo.lastUpdateTime
                 ).format('YYYY/MM/DD HH:mm')}`}
             </SubTitle>

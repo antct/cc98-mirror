@@ -1,4 +1,4 @@
-import { IMG_COMPRESS_WIDTH } from '@/config'
+import { CDN, IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
@@ -12,19 +12,17 @@ const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
 
   render(node: TagNode, context: IContext) {
-    const { useCompress } = useModel(settingModel, ['useCompress'])
-    const imgClickedHandler = (event: React.MouseEvent<HTMLImageElement>) => {
-      event.stopPropagation()
-      const img = event.currentTarget
-      img.src = `${node.innerText}?compress=false`
-    }
+    const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     return (
       <LazyLoad height={200} offset={200} once>
-        <PhotoConsumer src={`${node.innerText}`} >
-          {useCompress ?
-            <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
+        <PhotoConsumer src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)} >
+          {!useCDN ? (
+            useCompress ?
+              <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
+              :
+              <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />)
             :
-            <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />
+            <img className="ubb-tag-img" src={CDN(node.innerText, false)} />
           }
         </PhotoConsumer>
       </LazyLoad>
