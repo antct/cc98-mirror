@@ -15,6 +15,10 @@ interface IUrlMap {
   [key: number]: string
 }
 
+interface IHash {
+  [key: number]: boolean
+}
+
 interface Props {
   topics: ITopic[]
   place: Place
@@ -22,9 +26,16 @@ interface Props {
 }
 
 const TopicList: React.FC<Props> = ({ topics, place, urlMap }) => {
+  const hash: IHash = {}
+  const uniqueTopics = topics.filter((item) => {
+    if (!hash[item.id]) {
+      hash[item.id] = true
+      return true
+    }
+  })
   return (
     <ListS>
-      {topics.map(info => (
+      {uniqueTopics.map(info => (
         <TopicListItem key={info.id} data={info} place={place} portraitUrl={urlMap[info.userId]} />
       ))}
     </ListS>

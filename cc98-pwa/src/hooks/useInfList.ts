@@ -96,6 +96,7 @@ export default function useInfList<T>(service: Service<T[]>, options: Options<T>
         })
         .succeed(list => {
           setList(prevList => prevList.concat(list))
+          
 
           setState({
             isLoading: false,

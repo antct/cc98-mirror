@@ -1,4 +1,6 @@
-import { IMG_BASE_URL } from '@/config'
+import { CDN, IMG_BASE_URL } from '@/config'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import { globalHistory, HistoryUnsubscribe } from '@reach/router'
@@ -25,6 +27,7 @@ interface Props {
 }
 
 const Audio: React.FC<Props> = ({ src, title, author }) => {
+  const { useCDN } = useModel(settingModel, ['useCDN'])
   const divRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -37,8 +40,8 @@ const Audio: React.FC<Props> = ({ src, title, author }) => {
         autoplay: false,
         preload: 'metadata',
         audio: {
-          url: encodeURI(src),
-          name: title ? title : encodeURI(src),
+          url: encodeURI(!useCDN ? src : CDN(src, false)),
+          name: title ? title : encodeURI(!useCDN ? src : CDN(src, false)),
           author: author ? author : null,
           cover: `${IMG_BASE_URL}/audio_cover.png`,
         },

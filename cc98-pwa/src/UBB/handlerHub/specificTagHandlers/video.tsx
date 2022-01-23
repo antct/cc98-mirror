@@ -1,8 +1,11 @@
+// import 'dplayer/dist/DPlayer.min.css'
+import { CDN } from '@/config'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import { globalHistory, HistoryUnsubscribe } from '@reach/router'
 import React, { useEffect, useRef } from 'react'
-// import 'dplayer/dist/DPlayer.min.css'
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
@@ -20,6 +23,7 @@ interface Props {
 }
 
 const Video: React.FC<Props> = ({ src }) => {
+  const { useCDN } = useModel(settingModel, ['useCDN'])
   const divRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Video: React.FC<Props> = ({ src }) => {
         autoplay: false,
         preload: 'metadata',
         video: {
-          url: encodeURI(src),
+          url: encodeURI(!useCDN ? src : CDN(src, false)),
           type: 'auto',
         },
       })
