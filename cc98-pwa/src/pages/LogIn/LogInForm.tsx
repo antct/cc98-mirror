@@ -99,6 +99,7 @@ const LogIn: React.FC = () => {
     setLocalStorage('access_token', access_token, auth.user?.expires_in)
     setLocalStorage('refresh_token', `${auth.user?.refresh_token}`, 2592000)
     setLocalStorage('access_type', 'authorization', 2592000)
+    if (window.location.pathname !== '/') navigate('/')
   }
 
   const logIn = async () => {
@@ -133,7 +134,7 @@ const LogIn: React.FC = () => {
             loading: false,
             logInFail: false,
           })
-          // navigate('/')
+          if (window.location.pathname !== '/') navigate('/')
         }, 1000)
       })
   }

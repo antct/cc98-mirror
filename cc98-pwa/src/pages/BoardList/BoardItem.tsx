@@ -1,11 +1,12 @@
-import { BOARD_COMPRESS_WIDTH, IMG_BASE_URL } from '@/config'
+import { BOARD_COMPRESS_WIDTH, CDN, IMG_BASE_URL } from '@/config'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import { Theme } from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IBasicBoard } from '@cc98/api'
 import { CardMedia, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
-
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -48,6 +49,12 @@ interface Props {
 
 export default ({ boardInfo, hasCover }: Props) => {
   const classes = useStyles()
+  const { useCDN } = useModel(settingModel, ['useCDN'])
+  const transName = (name: string) => {
+    const idx = name.indexOf('·')
+    if (idx === -1) return name
+    else return name.substring(0, idx)
+  }
 
   return (
     <div className={classes.card} onClick={() => navigate(`board/${boardInfo.id}`)}>
@@ -62,7 +69,7 @@ export default ({ boardInfo, hasCover }: Props) => {
 
       {hasCover && (
         <div className={classes.mediaGround}>
-          <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${boardInfo.name}.png?width=${BOARD_COMPRESS_WIDTH}`} />
+          <CardMedia className={classes.media} image={!useCDN ? `${IMG_BASE_URL}/_${transName(boardInfo.name)}.png?width=${BOARD_COMPRESS_WIDTH}` : CDN(`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`, false)} />
         </div>
       )}
     </div>

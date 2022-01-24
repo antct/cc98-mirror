@@ -1,7 +1,7 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import useFetcher from '@/hooks/useFetcher'
 import {
-  getAnonymousTracePost, getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost
+  getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost
 } from '@/services/post'
 import {
   getShareTopicInfo, getTopicInfo
@@ -56,13 +56,11 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
   // 根据 URL 参数选择获取 post 的 service
   const postService = isReverse
     ? (from: number) => getReversePost(topicInfo.id, from, topicInfo.replyCount)
-    : userId
-      ? (from: number) => getTracePost(topicInfo.id, userId, from)
-      : postId
-        ? (from: number) => getAnonymousTracePost(topicInfo.id, postId, from)
-        : floor
-          ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page) - 1) + parseInt(floor) : parseInt(floor))
-          : (from: number) => isShare ? getSharePost(realId, from) : getPost(topicInfo.id, from)
+    : postId
+      ? (from: number) => getTracePost(topicInfo.id, postId, from)
+      : floor
+        ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page) - 1) + parseInt(floor) : parseInt(floor))
+        : (from: number) => isShare ? getSharePost(realId, from) : getPost(topicInfo.id, from)
 
   const hotPostService = () => isShare ? getShareHotPost(realId) : getHotPost(topicInfo.id)
 
@@ -84,7 +82,7 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
       <PostList key={postListKey} topicInfo={topicInfo} service={postService} isTrace={isTrace} isShare={isShare}>
         {!isTrace && !page && !floor && <PostListHot service={hotPostService} isShare={isShare} />}
       </PostList>
-        <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />
+      <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />
       <EndPlaceholder />
     </>
   )

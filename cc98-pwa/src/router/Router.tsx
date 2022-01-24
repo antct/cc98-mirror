@@ -4,6 +4,7 @@ import BoardQuietRoom from '@/pages/Board/QuietRoom'
 import BoardList from '@/pages/BoardList'
 import Editor from '@/pages/Editor'
 import Error from '@/pages/Error'
+import Friend from '@/pages/Friend'
 import Help from '@/pages/Help'
 import History from '@/pages/History'
 import Home from '@/pages/Home'
@@ -17,7 +18,6 @@ import NewTopic from '@/pages/NewTopic'
 import Notice from '@/pages/Notice'
 import Search from '@/pages/Search'
 import Setting from '@/pages/Setting'
-import Friend from '@/pages/Friend'
 import Topic, { TopicReverse } from '@/pages/Topic'
 import UserCenter from '@/pages/UserCenter'
 import UserCenterEdit from '@/pages/UserCenter/Edit'
@@ -55,8 +55,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="topic/:topicId/:page/:floor" component={Topic} />
     <Route path="topic/:topicId/:floor" component={Topic} />
     <Route path="topic/:topicId/reverse" component={TopicReverse} />
-    <Route path="topic/:topicId/anonymous/trace/:postId" component={Topic} />
-    <Route path="topic/:topicId/trace/:userId" component={Topic} />
+    <Route path="topic/:topicId/trace/:postId" component={Topic} />
 
     <Route path="share/:shareId" component={Topic} />
 

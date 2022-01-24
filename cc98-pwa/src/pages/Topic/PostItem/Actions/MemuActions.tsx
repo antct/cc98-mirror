@@ -58,11 +58,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
     if (isTrace) {
       navigate(`/topic/${postInfo.topicId}`)
     } else {
-      if (postInfo.isAnonymous) {
-        navigate(`/topic/${postInfo.topicId}/anonymous/trace/${postInfo.id}`)
-      } else {
-        navigate(`/topic/${postInfo.topicId}/trace/${postInfo.userId}`)
-      }
+      navigate(`/topic/${postInfo.topicId}/trace/${postInfo.id}`)
     }
     handleClose()
   }

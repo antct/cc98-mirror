@@ -96,27 +96,13 @@ export function getFloor(topicId: number | string, floor: number) {
 }
 
 /**
- * 追踪非匿名版块的用户
+ * 追踪用户
  */
-export function getTracePost(topicId: number, userId: number | string, from: number) {
-  return GET<IPost[]>('post/topic/user', {
+export function getTracePost(topicid: number, postid: number | string, from: number) {
+  return GET<IPost[]>('post/topic/specific-user', {
     params: {
-      topicId,
-      userId,
-      from,
-      size: 10,
-    },
-  })
-}
-
-/**
- * 追踪匿名版块用户
- */
-export function getAnonymousTracePost(topicId: number, postId: number | string, from: number) {
-  return GET<IPost[]>('post/topic/anonymous/user', {
-    params: {
-      topicId,
-      postId,
+      topicid,
+      postid,
       from,
       size: 10,
     },
