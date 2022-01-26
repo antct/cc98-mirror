@@ -11,7 +11,8 @@ export function judgeEdit(
   postInfo: IPost,
   boardMasters: string[]
 ) {
-  if ((myInfo && myInfo.id) === (userInfo && userInfo.id) || postInfo.isAnonymous) return true
+  // if ((myInfo && myInfo.id) === (userInfo && userInfo.id) || postInfo.isAnonymous) return true
+  if (postInfo.isMe) return true
   // 本人是管理员允许修改任何帖子
   if (myInfo && (myInfo.privilege === '管理员' || myInfo.privilege === '超级版主')) return true
   // 不是管理员包括版主不允许修改管理员的帖子

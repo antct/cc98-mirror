@@ -1,6 +1,4 @@
-import { BOARD_COMPRESS_WIDTH, CDN, IMG_BASE_URL } from '@/config'
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
+import { IMG_BASE_URL } from '@/config'
 import { Theme } from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IBasicBoard } from '@cc98/api'
@@ -49,7 +47,6 @@ interface Props {
 
 export default ({ boardInfo, hasCover }: Props) => {
   const classes = useStyles()
-  const { useCDN } = useModel(settingModel, ['useCDN'])
   const transName = (name: string) => {
     const idx = name.indexOf('·')
     if (idx === -1) return name
@@ -69,7 +66,7 @@ export default ({ boardInfo, hasCover }: Props) => {
 
       {hasCover && (
         <div className={classes.mediaGround}>
-          <CardMedia className={classes.media} image={!useCDN ? `${IMG_BASE_URL}/_${transName(boardInfo.name)}.png?width=${BOARD_COMPRESS_WIDTH}` : CDN(`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`, false)} />
+          <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`} />
         </div>
       )}
     </div>

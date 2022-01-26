@@ -1,9 +1,10 @@
-import { AVATAR_COMPRESS_WIDTH, IMG_BASE_URL } from '@/config'
+import { IMG_BASE_URL } from '@/config'
 import muiStyled from '@/muiStyled'
 import { DialogContent, DialogTitle, Tab, Tabs } from '@material-ui/core'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { EditorModel } from '../EditorModel'
+
 
 
 const DialogTitleS = muiStyled(DialogTitle)({
@@ -12,7 +13,7 @@ const DialogTitleS = muiStyled(DialogTitle)({
 })
 
 const Img = styled.img`
-  max-width: 25%;
+  width: 50px;
   padding: 5px;
 `
 
@@ -50,11 +51,11 @@ function getStickerReactNode(type: StickerType, handleFunc: Function) {
       type === 'ac'
         ? `${type}-mini/${number}`
         : type === 'em'
-        ? `${type}/${type}${number}`
-        : `${type}-mini/${type}${number}`
+          ? `${type}/${type}${number}`
+          : `${type}-mini/${type}${number}`
 
     stickerArr.push(
-      <Img src={`${IMG_BASE_URL}/${url}.${suffix}?width=${AVATAR_COMPRESS_WIDTH}`} onClick={handleFunc(`${type}${number}`)} />
+      <Img src={`${IMG_BASE_URL}/${url}.${suffix}`} onClick={handleFunc(`${type}${number}`)} />
     )
   }
 

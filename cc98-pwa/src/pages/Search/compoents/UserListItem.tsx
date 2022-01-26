@@ -1,5 +1,3 @@
-import { AVATAR_COMPRESS_WIDTH } from '@/config'
-import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import { navigate } from '@/utils/history'
@@ -24,20 +22,20 @@ interface Props {
 
 export default ({ data }: Props) => {
   const { id, name, portraitUrl, lastLogOnTime, signatureCode } = data
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { TRANS_IMG } = settingModel
   const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
     <ListItem button divider onClick={() => navigate(`/user/${id}`)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={`${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} />
+          <Avatar src={TRANS_IMG(portraitUrl, true)} />
         </ListItemAvatar>
       </LazyLoad>
-      <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>
-      { <ListItemSecondaryAction>
+      <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>} />
+      {<ListItemSecondaryAction>
         <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
-      </ListItemSecondaryAction> }
+      </ListItemSecondaryAction>}
     </ListItem>
   )
 }

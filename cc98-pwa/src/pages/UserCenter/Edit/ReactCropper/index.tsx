@@ -8,7 +8,7 @@ interface Props {
   src: string
 }
 
-const ReactCropper: React.FC<Props> = (props, ref) => {
+const ReactCropper: React.ForwardRefRenderFunction<unknown, Props> = (props, ref) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const cropper = useRef<Cropper>()
 

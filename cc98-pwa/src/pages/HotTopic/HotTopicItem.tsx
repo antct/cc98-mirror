@@ -1,5 +1,4 @@
 import { TopicItem } from '@/components/TopicList/TopicListItem'
-import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { getBoardNameById } from '@/services/board'
@@ -18,7 +17,8 @@ interface Props {
 
 export default ({ data, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useCompress, useAvatar, useCDN } = useModel(settingModel, ['useCompress', 'useAvatar', 'useCDN'])
+  const { useAvatar } = useModel(settingModel, ['useAvatar'])
+  const { TRANS_IMG } = settingModel
 
   useEffect(() => {
     getBoardNameById(data.boardId).then(boardName => setBoardName(boardName))
@@ -28,7 +28,7 @@ export default ({ data, portraitUrl }: Props) => {
     <TopicItem
       isAnonymous={data.isAnonymous}
       showAvatar={useAvatar}
-      portraitUrl={!!portraitUrl ? `${!useCDN ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : CDN(portraitUrl, true)}` : portraitUrl}
+      portraitUrl={TRANS_IMG(portraitUrl, true)}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}

@@ -1,4 +1,3 @@
-import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -117,7 +116,8 @@ interface Props {
 
 export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useCompress, useCDN, useAvatar, customWords } = useModel(settingModel, ['useCompress', 'useCDN', 'useAvatar', 'customWords'])
+  const { useAvatar, customWords } = useModel(settingModel, ['useAvatar', 'customWords'])
+  const { TRANS_IMG } = settingModel
   useEffect(() => {
     if (place === 'inboard') {
       return
@@ -172,7 +172,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       onClick={() => navigate(`/topic/${data.id}`)}
       isAnonymous={data.isAnonymous}
       isHighlight={showHighlight}
-      portraitUrl={!!portraitUrl ? `${!useCDN ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : CDN(portraitUrl, true)}` : portraitUrl}
+      portraitUrl={TRANS_IMG(portraitUrl, true)}
       showAvatar={useAvatar && showAvatar}
       title={title}
       subtitle={subtitle}

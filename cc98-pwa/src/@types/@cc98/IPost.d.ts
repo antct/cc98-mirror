@@ -46,6 +46,10 @@ declare module '@cc98/api' {
      */
     isLZ: boolean
     /**
+     * 是否是本人
+     */
+    isMe: boolean
+    /**
      * 最后更新作者
      */
     lastUpdateAuthor: any

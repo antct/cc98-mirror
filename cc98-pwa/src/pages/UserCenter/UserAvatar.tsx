@@ -1,7 +1,4 @@
-import { USER_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { getSignState, signIn } from '@/services/global'
 import { followUser, unFollowUser } from '@/services/user'
@@ -53,7 +50,6 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingSign, setIsLoadingSign] = useState(false)
-  const { useCompress } = useModel(settingModel, ['useCompress'])
 
   const toggleSign = async () => {
     // 签到了，或者未签到签到状态还没获取到，直接返回
@@ -107,34 +103,34 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
         {isLoadingSign ? (
           <CircularProgress size={20} />
         ) : (
-            <FingerprintIcon color={(isSign || (signState && signState.hasSignedInToday)) ? 'secondary' : 'disabled'} />
-          )}
+          <FingerprintIcon color={(isSign || (signState && signState.hasSignedInToday)) ? 'secondary' : 'disabled'} />
+        )}
       </IconButton>
       <IconButton onClick={() => navigate('/userCenter/edit')}>
         <EditIcon />
       </IconButton>
     </>
   ) : (
-      <>
-        <IconButton onClick={toggleFunc}>
-          {isLoading ? (
-            <CircularProgress size={20} />
-          ) : (
-              <FavoriteIcon color={isFollowing ? 'secondary' : 'disabled'} />
-            )}
-        </IconButton>
-        <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)}>
-          <ChatIcon />
-        </IconButton>
-      </>
-    )
+    <>
+      <IconButton onClick={toggleFunc}>
+        {isLoading ? (
+          <CircularProgress size={20} />
+        ) : (
+          <FavoriteIcon color={isFollowing ? 'secondary' : 'disabled'} />
+        )}
+      </IconButton>
+      <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)}>
+        <ChatIcon />
+      </IconButton>
+    </>
+  )
 
   return (
     <ExpandPanel expanded>
       <WrapperDiv>
         <AvatarDiv>
           <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={`${info.portraitUrl}?compress=${useCompress}&width=${USER_COMPRESS_WIDTH}`} />
+            <AvatarS src={info.portraitUrl} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>

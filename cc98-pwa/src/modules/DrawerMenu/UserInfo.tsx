@@ -45,14 +45,14 @@ interface Props {
   info: IUser | null
 }
 
-const UserInfo: React.FC<Props> = ({ isLogIn, info }) => (
-  <WrapperDiv>
+const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
+  return (<WrapperDiv>
     {isLogIn && (
       <AvatarS src={info ? info.portraitUrl : undefined} onClick={() => navigate('/userCenter')} />
     )}
     {!isLogIn && <UnLogInAvatar onClick={() => navigate('/logIn')} />}
     <Username>{isLogIn ? info && info.name : '未登录'}</Username>
-  </WrapperDiv>
-)
+  </WrapperDiv>)
+}
 
 export default UserInfo

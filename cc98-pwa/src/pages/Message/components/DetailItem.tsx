@@ -1,4 +1,3 @@
-import { AVATAR_COMPRESS_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
@@ -7,7 +6,7 @@ import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { getUserInfoById } from '@/services/user'
 import { navigate } from '@/utils/history'
-import { IMessageContent, IUser } from '@cc98/api'
+import { IMessageContent } from '@cc98/api'
 import { Avatar, ListItem, ListItemAvatar } from '@material-ui/core'
 import dayjs from 'dayjs'
 import React from 'react'
@@ -92,7 +91,7 @@ interface Props {
 
 export default ({ message }: Props) => {
   const { myInfo } = useModel(userModel)
-  const { useCompress } = useModel(settingModel, ['useCompress'])
+  const { TRANS_IMG } = settingModel
 
   const [userInfo] = useFetcher(() => getUserInfoById(message.senderId))
   if (userInfo === null || myInfo === null) {
@@ -102,7 +101,7 @@ export default ({ message }: Props) => {
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} onClick={() => navigate(`/user/${userInfo.id}`)} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} />
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
@@ -119,7 +118,7 @@ export default ({ message }: Props) => {
       </MessageRoot>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={`${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} />
         </ListItemAvatarS>
       </LazyLoad>
     </ListItemS>

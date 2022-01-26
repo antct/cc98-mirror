@@ -4,8 +4,6 @@ export const CDN_AVATAR_URL = 'https://cdn.img.cc98.top'
 export const CDN_IMG_URL = 'https://cdn.img.cc98.top/static/images'
 export const CDN_FILE_URL = 'https://cdn.img.cc98.top'
 export const AVATAR_COMPRESS_WIDTH = 50
-export const USER_COMPRESS_WIDTH = 100
-export const BOARD_COMPRESS_WIDTH = 100
 export const IMG_COMPRESS_WIDTH = 300
 export const MAX_WIDTH = 600
 export const IS_PC = document.body.clientWidth >= MAX_WIDTH

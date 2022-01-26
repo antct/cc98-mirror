@@ -1,5 +1,3 @@
-import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
-import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import { navigate } from '@/utils/history'
@@ -37,13 +35,13 @@ export default ({ message, user }: Props) => {
     return null
   }
   const { name, portraitUrl } = user
-  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
+  const { TRANS_IMG } = settingModel
 
   return (
     <ListItem button onClick={() => navigateToDetail(message.userId)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={`${!useCDN ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : CDN(portraitUrl, true)}`} />
+          <Avatar src={TRANS_IMG(portraitUrl, true)} />
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{message.lastContent}</Text>} />

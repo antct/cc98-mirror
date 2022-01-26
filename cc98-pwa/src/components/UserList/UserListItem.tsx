@@ -1,5 +1,3 @@
-import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
-import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -48,33 +46,33 @@ const navigateToDetail = (userId: number) => navigate(`/user/${userId}`)
 
 export default ({ data, place }: Props) => {
   const { name, portraitUrl, lastLogOnTime, signatureCode } = data
-  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
+  const { TRANS_IMG } = settingModel
   const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={`${!useCDN ? `${portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}`: CDN(portraitUrl, true)}`} />
+          <Avatar src={TRANS_IMG(portraitUrl, true)} />
         </ListItemAvatar>
       </LazyLoad>
-      <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>}/>
+      <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>} />
       {
         place === 'follower' && data.isFollowing ?
-        <>
-          {/* <InfoArea>
+          <>
+            {/* <InfoArea>
             <Info1>{'互关'}</Info1>
             <Info2>{dayjs(lastLogOnTime).fromNow()}</Info2>
           </InfoArea> */}
-          <ListItemSecondaryAction>
-            <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
-          </ListItemSecondaryAction>
-        </> :
-        <>
-          <ListItemSecondaryAction>
-            <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
-          </ListItemSecondaryAction>
-        </>
+            <ListItemSecondaryAction>
+              <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
+            </ListItemSecondaryAction>
+          </> :
+          <>
+            <ListItemSecondaryAction>
+              <ListItemText secondary={dayjs(lastLogOnTime).fromNow()} />
+            </ListItemSecondaryAction>
+          </>
       }
     </ListItem>
   )

@@ -1,14 +1,11 @@
-import { AVATAR_COMPRESS_WIDTH, CDN } from '@/config'
-import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
-import { Avatar, Typography, Chip, Divider } from '@material-ui/core'
+import { Avatar, Chip, Typography } from '@material-ui/core'
 import Lock from '@material-ui/icons/Lock'
 import LockOpen from '@material-ui/icons/LockOpen'
 import Whatshot from '@material-ui/icons/Whatshot'
-import FaceIcon from '@material-ui/icons/Face'
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
@@ -88,7 +85,7 @@ interface Props {
 }
 
 export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
-  const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
+  const { TRANS_IMG } = settingModel
   return (
     <>
       <FlexDiv>
@@ -96,7 +93,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
           <LazyLoad height={'100%'} offset={200} once>
             <AvatarS
               onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-              src={userInfo && `${!useCDN ? `${userInfo.portraitUrl}?compress=${useCompress}&width=${AVATAR_COMPRESS_WIDTH}` : CDN(userInfo.portraitUrl, true)}`}
+              src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
             >
               {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
             </AvatarS>
@@ -120,7 +117,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
           </div>
         </AvatarArea>
 
-        <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon : 'LZ') : (isHot ? HotIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`))}</Floor>
+        <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon : (postInfo.isMe ? 'ME' : 'LZ')) : (isHot ? HotIcon : (postInfo.isMe ? 'ME' : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)))}</Floor>
       </FlexDiv>
       {/* <Div>
         {

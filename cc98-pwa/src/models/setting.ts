@@ -1,3 +1,4 @@
+import { AVATAR_COMPRESS_WIDTH, CDN, IMG_COMPRESS_WIDTH } from '@/config'
 import { Model } from '@/hooks/useModel'
 import { ModeEnum, ThemeEnum } from '@/theme'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
@@ -85,6 +86,15 @@ class SettingModel extends Model<State> {
 
   SYNC_SETTING = () => {
     setLocalStorage('setting', this.state)
+  }
+
+  TRANS_IMG = (url?: string, isAvatar?: boolean) => {
+    if (url === undefined) return url
+    if (this.state.useCDN) return CDN(url, !!isAvatar)
+    if (this.state.useCompress) {
+      if (!!isAvatar) return `${url}?compress=true&width=${AVATAR_COMPRESS_WIDTH}`
+      else return `${url}?compress=true&width=${IMG_COMPRESS_WIDTH}`
+    } else return `${url}?compress=false`
   }
 
   TOGGLE_MODE = () => {
