@@ -1,3 +1,4 @@
+import { FILE_BASE_URL, IMG_BASE_URL } from '@/config'
 import { DELETE, GET, POST, PUT } from '@/utils/fetch'
 import { IUser } from '@cc98/api'
 import { memoize } from 'lodash-es'
@@ -116,8 +117,8 @@ export function updateMyAvatar(file: File) {
 export function modifyMyAvatar(newAvatar: string) {
   return PUT('me/portrait', {
     params: newAvatar
-    .replace('https://api.ttxixi.cc/cc98/images', 'http://www.cc98.org/static/images')
-    .replace('https://api.ttxixi.cc/cc98/files', 'http://file.cc98.org'),
+    .replace(IMG_BASE_URL, 'https://www.cc98.org/static/images')
+    .replace(FILE_BASE_URL, 'https://file.cc98.org'),
   })
 }
 

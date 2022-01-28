@@ -7,12 +7,12 @@ const FlexDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  padding: 8px 16px;
 `
 
 const Img = styled.img`
-  max-width: 50%;
-  width: 30%;
-  padding: 5px;
+  width: 15%;
+  margin: auto;
 `
 
 const ForumAvatarsUrl = [
@@ -41,10 +41,7 @@ export default ({ handleClose, handleAvatarSubmit }: Props) => {
 
   return (
     <>
-      <DialogTitle>论坛头像</DialogTitle>
-      <DialogContent>
-        <FlexDiv>{ForumAvatarArr}</FlexDiv>
-      </DialogContent>
+      <FlexDiv>{ForumAvatarArr}</FlexDiv>
     </>
   )
 }
