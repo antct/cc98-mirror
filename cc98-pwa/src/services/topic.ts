@@ -175,6 +175,19 @@ export function searchFavoriteTopics(keyword: string, from: number) {
 }
 
 /**
+ * 搜索版面主题
+ */
+export function searchBoardTopics(keyword: string, from: number, boardid: number) {
+  return GET<ITopic[]>(`topic/search/board/${boardid}`, {
+    params: {
+      keyword: `${keyword}`,
+      from,
+      size: 20,
+    },
+  })
+}
+
+/**
  * 获取热门
  */
 export function getHotTopics() {
