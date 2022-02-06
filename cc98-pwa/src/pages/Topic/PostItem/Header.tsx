@@ -3,6 +3,8 @@ import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
 import { Avatar, Chip, Typography } from '@material-ui/core'
+import Badge from '@material-ui/core/Badge'
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles'
 import Lock from '@material-ui/icons/Lock'
 import LockOpen from '@material-ui/icons/LockOpen'
 import Whatshot from '@material-ui/icons/Whatshot'
@@ -11,6 +13,37 @@ import React from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 
+const StyledBadge = withStyles((theme: Theme) =>
+  createStyles({
+    badge: {
+      marginRight: 12,
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '75%',
+        height: '75%',
+        borderRadius: '50%',
+        animation: '$ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }),
+)(Badge)
 
 const FlexDiv = styled.div`
   display: flex;
@@ -91,12 +124,30 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
       <FlexDiv>
         <AvatarArea>
           <LazyLoad height={'100%'} offset={200} once>
-            <AvatarS
-              onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-              src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
-            >
-              {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
-            </AvatarS>
+            {userInfo && userInfo.isOnline ?
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                variant="dot"
+              >
+                <AvatarS
+                  onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
+                  src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
+                >
+                  {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
+                </AvatarS>
+              </StyledBadge>
+              :
+              <AvatarS
+                onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
+                src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
+              >
+                {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
+              </AvatarS>
+            }
           </LazyLoad>
           <div>
             {/* {isHot && <a href={`#${postInfo.floor}`} />} */}

@@ -4,11 +4,43 @@ import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IUser } from '@cc98/api'
 import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core'
+import Badge from '@material-ui/core/Badge'
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles'
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 
+const StyledBadge = withStyles((theme: Theme) =>
+  createStyles({
+    badge: {
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '75%',
+        height: '75%',
+        borderRadius: '50%',
+        animation: '$ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }),
+)(Badge)
 
 const Text = styled.span`
   display: block;
@@ -45,7 +77,7 @@ export type Place = 'follower' | 'followee'
 const navigateToDetail = (userId: number) => navigate(`/user/${userId}`)
 
 export default ({ data, place }: Props) => {
-  const { name, portraitUrl, lastLogOnTime, signatureCode } = data
+  const { name, portraitUrl, lastLogOnTime, signatureCode, isOnline } = data
   const { TRANS_IMG } = settingModel
   const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
@@ -53,7 +85,20 @@ export default ({ data, place }: Props) => {
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={TRANS_IMG(portraitUrl, true)} />
+          {isOnline ?
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              variant="dot"
+            >
+              <Avatar src={TRANS_IMG(portraitUrl, true)} />
+            </StyledBadge>
+            :
+            <Avatar src={TRANS_IMG(portraitUrl, true)} />
+          }
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{`${fixSignatureCode}`}</Text>} />

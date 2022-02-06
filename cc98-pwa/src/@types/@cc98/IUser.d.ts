@@ -138,5 +138,9 @@ declare module '@cc98/api' {
      * 活跃分
      */
     activityPoint: IActivityPoint
+    /**
+     * 是否在线
+     */
+    isOnline: boolean
   }
 }
