@@ -1,5 +1,6 @@
 import LayoutCenter from '@/components/LayoutCenter'
-import { Typography } from '@material-ui/core'
+import muiStyled from '@/muiStyled'
+import { Button, Typography } from '@material-ui/core'
 import React from 'react'
 import styled from 'styled-components'
 import ErrorImage from './ErrorImage'
@@ -12,6 +13,13 @@ const FlexDiv = styled.div`
   align-items: center;
   width: 100%;
 `
+
+const ButtonS = muiStyled(Button).attrs({
+  variant: 'contained',
+  color: 'primary',
+})({
+  marginTop: 20,
+})
 
 interface Props {
   /**
@@ -35,6 +43,11 @@ export default ({ errMessage, secondMessage }: Props) => (
         <Typography variant="subtitle1" color="textPrimary">
           {secondMessage}
         </Typography>
+      )}
+      {window.history.length > 1 && (
+        <ButtonS onClick={() => window.history.back()}>
+          回到前页
+        </ButtonS>
       )}
     </FlexDiv>
   </LayoutCenter>

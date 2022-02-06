@@ -179,6 +179,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
             <ChipS size="small" label={`粉丝 ${userInfo.fanCount}`} />
             <ChipS size="small" label={`风评 ${userInfo.popularity}`} />
             <ChipS size="small" label={`威望 ${userInfo.prestige}`} />
+            <ChipS size="small" label={`IP ${userInfo.lastIpAddress}`} />
             {userInfo.isFollowing && <ChipS color='secondary' size="small" label={`你的关注`} />}
           </>
         }
