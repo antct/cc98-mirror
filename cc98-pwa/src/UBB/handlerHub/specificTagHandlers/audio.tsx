@@ -59,7 +59,7 @@ const Audio: React.FC<Props> = ({ src, title, author }) => {
     }
   }, [])
 
-  return <div className="aplayer" style={{ whiteSpace: 'normal' }} ref={divRef} />
+  return <div className="aplayer ubb-aplayer" style={{ whiteSpace: 'normal' }} ref={divRef} />
 }
 
 export default handler

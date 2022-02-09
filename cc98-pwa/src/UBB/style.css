@@ -11,8 +11,7 @@
 
 
 .ubb-tag-bili {
-  width: 90%;
-  margin-left: 5%;
+  width: 100%;
   border: none;
 }
 
@@ -145,4 +144,8 @@
 
 .ubb-tag-tb {
   width: 30px;
+}
+
+.ubb-aplayer {
+  margin: 5px 0px;
 }

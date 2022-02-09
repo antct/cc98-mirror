@@ -1,3 +1,4 @@
+import { DRAWER_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
@@ -48,7 +49,7 @@ const Item: React.FC<ItemProps> = ({ icon, text, onClick }) => (
 )
 
 const ListS = muiStyled(List)({
-  width: 180,
+  width: DRAWER_WIDTH,
 })
 
 const DividerS = muiStyled(Divider)({

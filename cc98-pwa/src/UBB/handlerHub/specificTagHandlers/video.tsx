@@ -1,10 +1,10 @@
-// import 'dplayer/dist/DPlayer.min.css'
 import { CDN } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import { globalHistory, HistoryUnsubscribe } from '@reach/router'
+// import 'dplayer/dist/DPlayer.min.css'
 import React, { useEffect, useRef } from 'react'
 
 const handler: ITagHandler<React.ReactNode> = {

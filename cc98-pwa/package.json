@@ -33,7 +33,7 @@
     "copy-to-clipboard": "^3.1.0",
     "cropperjs": "^1.5.1",
     "dayjs": "^1.8.13",
-    "dplayer": "^1.25.0",
+    "dplayer": "^1.26.0",
     "lodash-es": "^4.17.11",
     "oidc-client": "^1.11.5",
     "react": "16.8.6",

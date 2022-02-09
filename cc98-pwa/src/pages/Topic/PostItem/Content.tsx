@@ -34,11 +34,6 @@ const TypographyS = muiStyled(Typography).attrs({
 })({
   margin: '12px 16px',
   marginBottom: 4,
-
-  /* for markdown */
-  '& img': {
-    maxWidth: '100%',
-  },
 })
 
 interface Props {

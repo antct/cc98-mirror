@@ -75,7 +75,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
   })
   const { isLoading, isEnd } = state
 
-  function getVote(id: number) {
+  const getVote = (id: number) => {
     return GET<IVote>(`topic/${id}/vote`)
   }
 
@@ -95,7 +95,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
       {posts.map(info =>
         info.floor === 1 ? (
           <React.Fragment key={info.id}>
-            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={topicInfo.isVote ? currentVote: undefined} />
+            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={topicInfo.isVote ? currentVote: undefined} setVote={setVote}/>
             {children /** <PostListHot /> */}
           </React.Fragment>
         ) : (

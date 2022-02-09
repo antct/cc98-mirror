@@ -14,7 +14,7 @@ const AppBarS = muiStyled(AppBar)({
 })
 
 const ToolbarS = muiStyled(Toolbar)({
-  '@media (min-width: 600px)': {
+  '@media (min-width: 700px)': {
     paddingLeft: 16,
     paddingRight: 16,
     minHeight: 56,

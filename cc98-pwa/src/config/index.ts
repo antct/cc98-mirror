@@ -5,8 +5,9 @@ export const CDN_IMG_URL = 'https://cdn.img.cc98.top/static/images'
 export const CDN_FILE_URL = 'https://cdn.img.cc98.top'
 export const AVATAR_COMPRESS_WIDTH = 50
 export const IMG_COMPRESS_WIDTH = 300
-export const MAX_WIDTH = 600
-export const IS_PC = document.body.clientWidth >= 780
+export const MAX_WIDTH = 700
+export const DRAWER_WIDTH = 180
+export const IS_PC = document.body.clientWidth >= MAX_WIDTH + DRAWER_WIDTH
 export const CDN = (url: string, isAvatar: boolean) => {
     if (url.indexOf('files') !== -1) {
         if (isAvatar) return `${url.replace(FILE_BASE_URL, CDN_AVATAR_URL)}!avatar`
