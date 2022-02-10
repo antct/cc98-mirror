@@ -62,38 +62,32 @@ const Info1 = muiStyled(Typography).attrs({
 const Info2 = Info1
 
 interface Props {
-  recommendationReading: IRecommendationReading[]
+  schoolNews: IRecommendationReading[]
 }
 export default (props: Props) => {
-  const { showRecommend } = useModel(settingModel, ['showRecommend'])
-  const { TOGGLE_RECOMMEND } = settingModel
+  const { showSchoolNews } = useModel(settingModel, ['showSchoolNews'])
+  const { TOGGLE_SCHOOLNEWS } = settingModel
 
   return (
     <ListS>
-      <ListItem button onClick={TOGGLE_RECOMMEND}>
+      <ListItem button onClick={TOGGLE_SCHOOLNEWS}>
         <ListItemIcon>
           {
-            showRecommend ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
+            showSchoolNews ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
           }
         </ListItemIcon>
-        <ListItemText primary="推荐阅读" />
+        <ListItemText primary="校园新闻" />
       </ListItem>
       <Divider />
 
-      {showRecommend && props.recommendationReading.map((info: IRecommendationReading) => {
-        const url = info.imageUrl
-        const name = url.slice(url.lastIndexOf('/') + 2, url.lastIndexOf('.'))
-        const boardName = decodeURI(name)
+      {showSchoolNews && props.schoolNews.map((info: IRecommendationReading) => {
         return (
-
           <ListItemS button divider onClick={() => navigate(info.url)}>
             <TitleArea>
               <Title>{info.title}</Title>
-              <SubTitle>{info.content}</SubTitle>
             </TitleArea>
             <InfoArea>
-              <Info1>{info.id}</Info1>
-              <Info2>{boardName}</Info2>
+              <Info1>{dayjs(info.time).fromNow()}</Info1>
             </InfoArea>
           </ListItemS>
         )

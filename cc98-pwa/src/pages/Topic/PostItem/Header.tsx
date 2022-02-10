@@ -1,3 +1,4 @@
+import { ONLINE_TIME } from '@/config'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
@@ -124,7 +125,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
       <FlexDiv>
         <AvatarArea>
           <LazyLoad height={'100%'} offset={200} once>
-            {userInfo && userInfo.isOnline ?
+            {userInfo && dayjs().diff(dayjs(userInfo.lastLogOnTime), 'minute') <= ONLINE_TIME ?
               <StyledBadge
                 overlap="circular"
                 anchorOrigin={{

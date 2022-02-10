@@ -48,6 +48,7 @@ interface State {
   showMarket: boolean
   showAcademic: boolean
   showSchoolEvent: boolean
+  showSchoolNews: boolean
 }
 
 class SettingModel extends Model<State> {
@@ -77,7 +78,8 @@ class SettingModel extends Model<State> {
       showFullTimeJob: true,
       showMarket: true,
       showAcademic: true,
-      showSchoolEvent: true
+      showSchoolEvent: true,
+      showSchoolNews: true
     }
 
     const setting = getLocalStorage('setting') as State | null
@@ -245,6 +247,13 @@ class SettingModel extends Model<State> {
   TOGGLE_SCHOOLEVENT = () => {
     this.setState(state => ({
       showSchoolEvent: !state.showSchoolEvent,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_SCHOOLNEWS = () => {
+    this.setState(state => ({
+      showSchoolNews: !state.showSchoolNewss,
     }))
     this.SYNC_SETTING()
   }

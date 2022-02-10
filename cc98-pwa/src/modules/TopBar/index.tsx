@@ -38,6 +38,7 @@ const Version = muiStyled(Button).attrs({
   color: 'inherit',
   size: 'small',
 })({
+  minWidth: 40,
   marginRight: 0,
   paddingRight: 0,
 })

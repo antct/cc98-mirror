@@ -35,8 +35,8 @@ export default ({ }: Props) => {
 
   return (
     <>
-      <ListItemS button>
-        <ListItemIcon onClick={TOGGLE_THEME}>
+      <ListItemS button onClick={TOGGLE_THEME}>
+        <ListItemIcon>
           {
             showTheme ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
           }

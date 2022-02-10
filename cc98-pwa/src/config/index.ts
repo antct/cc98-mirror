@@ -8,6 +8,7 @@ export const IMG_COMPRESS_WIDTH = 300
 export const MAX_WIDTH = 700
 export const DRAWER_WIDTH = 180
 export const IS_PC = document.body.clientWidth >= MAX_WIDTH + DRAWER_WIDTH
+export const ONLINE_TIME = 30
 export const CDN = (url: string, isAvatar: boolean) => {
     if (url.indexOf('files') !== -1) {
         if (isAvatar) return `${url.replace(FILE_BASE_URL, CDN_AVATAR_URL)}!avatar`

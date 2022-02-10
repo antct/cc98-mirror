@@ -21,8 +21,8 @@ export default ({ content }: Props) => {
   
   return (
     <>
-      <ListItem>
-        <ListItemIcon onClick={TOGGLE_ANNOUNCEMENT}>
+      <ListItem button onClick={TOGGLE_ANNOUNCEMENT}>
+        <ListItemIcon>
           {
             showAnnouncement ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
           }

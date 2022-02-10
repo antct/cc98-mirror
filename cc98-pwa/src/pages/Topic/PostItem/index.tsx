@@ -6,8 +6,9 @@ import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
 import { IPost, ITopic, IUser } from '@cc98/api'
-import { Card, CardContent, CardHeader, Checkbox, Divider, IconButton, Paper, Typography } from '@material-ui/core'
+import { Card, CardContent, CardHeader, Checkbox, Divider, IconButton, Paper, Typography, Chip } from '@material-ui/core'
 import DoneIcon from '@material-ui/icons/Done'
+import TagIcon from '@material-ui/icons/LocalOffer'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import MarkdownView from 'react-showdown'
@@ -63,6 +64,20 @@ const CheckboxS = muiStyled(Checkbox).attrs({
   paddingLeft: 0,
   paddingBottom: 0
 })
+
+const ChipS = muiStyled(Chip)({
+  marginRight: 8,
+  height: 16
+})
+
+const TagIconS = muiStyled(TagIcon)({
+  height: 16,
+  width: 16
+})
+
+const ChipDiv = styled.div`
+  margin: -8px 16px 8px 16px;
+`
 
 
 interface Props {
@@ -147,7 +162,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
   const handleSubmit = async () => {
     const submitOption = []
     for (var i = 0; i < voteOption.length; i++) {
-      if (voteOption[i]) submitOption.push(i+1)
+      if (voteOption[i]) submitOption.push(i + 1)
     }
     if (topicInfo && setVote && voteInfo) {
       if (submitOption.length > voteInfo.maxVoteCount) {
@@ -170,6 +185,16 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
           <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
           :
           <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
+      }
+      {
+        postInfo.floor === 1 && !!postInfo.tags &&
+        <ChipDiv>
+          {
+            postInfo.tags.map((value, index) => (
+              <ChipS icon={<TagIconS />} size="small" label={value} />
+            ))
+          }
+        </ChipDiv>
       }
       {
         topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
@@ -213,7 +238,6 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
       }
       <Content postInfo={currentPost} />
       {
-        // !isShare &&
         <Actions
           postInfo={currentPost}
           userInfo={userInfo}

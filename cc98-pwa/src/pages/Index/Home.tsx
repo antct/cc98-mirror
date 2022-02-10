@@ -8,6 +8,7 @@ import { notificationHandler } from '@/services/utils/errorHandler'
 import React from 'react'
 import Announcement from './Announcement'
 import Board from './Board'
+import News from './News'
 import Recommend from './Recommend'
 import Theme from './Theme'
 
@@ -36,6 +37,7 @@ const Home: React.FC = () => {
       <Board name='跳蚤市场' data={homeInfo.fleaMarket} status={showMarket} func={TOGGLE_MARKET} />
       <Board name='求职广场' data={homeInfo.fullTimeJob} status={showFullTimeJob} func={TOGGLE_FULLTIMEJOB} />
       <Board name='实习兼职' data={homeInfo.partTimeJob} status={showPartTimeJob} func={TOGGLE_PARTTIMEJOB} />
+      <News schoolNews={homeInfo.schoolNews} />
     </>
   )
 }

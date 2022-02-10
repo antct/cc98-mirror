@@ -51,7 +51,7 @@ declare module '@cc98/api' {
     /**
      * 校园新闻
      */
-    schoolNews: IBasicTopic[]
+    schoolNews: IRecommendationReading[]
     /**
      * 学习天地
      */

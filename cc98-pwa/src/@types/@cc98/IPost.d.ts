@@ -101,5 +101,9 @@ declare module '@cc98/api' {
      * 用户名
      */
     userName: string
+    /**
+     * 关键词
+     */
+    tags: string []
   }
 }

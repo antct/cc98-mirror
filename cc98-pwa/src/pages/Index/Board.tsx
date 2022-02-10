@@ -1,9 +1,8 @@
-import ListItemText from '@/hotfix/ListItemText'
 import muiStyled from '@/muiStyled'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { IBasicTopic } from '@cc98/api'
-import { Divider, List, ListItem, ListItemIcon, Typography } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
 import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import React, { useEffect, useState } from 'react'
@@ -62,8 +61,8 @@ interface Props {
 export default (props: Props) => {
   return (
   <ListS>
-    <ListItem>
-      <ListItemIcon onClick={props.func}>
+    <ListItem button onClick={props.func}>
+      <ListItemIcon>
         {
           props.status ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
         }
