@@ -1,13 +1,15 @@
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
-import { getSinglePost } from '@/services/post'
+import { getPostSummary, getSinglePost } from '@/services/post'
 import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
 import { IPost, ITopic, IUser } from '@cc98/api'
-import { Card, CardContent, CardHeader, Checkbox, Divider, IconButton, Paper, Typography, Chip } from '@material-ui/core'
+import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import DoneIcon from '@material-ui/icons/Done'
+import SummaryIcon from '@material-ui/icons/FormatQuote'
 import TagIcon from '@material-ui/icons/LocalOffer'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
@@ -70,7 +72,25 @@ const ChipS = muiStyled(Chip)({
   height: 16
 })
 
+const SummaryS = withStyles(theme => ({
+  root: {
+    height: 'auto',
+    marginTop: 8,
+    maxWidth: '100%',
+    alignItems: "normal",
+    borderRadius: 0
+  },
+  label: {
+    whiteSpace: "normal",
+  }
+}))(Chip)
+
 const TagIconS = muiStyled(TagIcon)({
+  height: 16,
+  width: 16
+})
+
+const SummaryIconS = muiStyled(SummaryIcon)({
   height: 16,
   width: 16
 })
@@ -78,7 +98,6 @@ const TagIconS = muiStyled(TagIcon)({
 const ChipDiv = styled.div`
   margin: -8px 16px 8px 16px;
 `
-
 
 interface Props {
   /**
@@ -118,6 +137,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(voteInfo)
   const [voteOption, setVoteOption] = useState<boolean[]>([])
+  const [currentSummary, setCurrentSummary] = useState<string>('')
 
   const { useSignature } = useModel(settingModel, ['useSignature'])
   if (postInfo.isDeleted) {
@@ -136,6 +156,20 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
       setCurrentPost(post)
     })
   }
+
+  const getSummary = async () => {
+    const res = await getPostSummary(postInfo.topicId)
+    res.fail().succeed(summary => {
+      setCurrentSummary(summary)
+    })
+  }
+
+  useEffect(() => {
+    if (postInfo && postInfo.floor === 1) {
+      getSummary()
+    }
+  }, [postInfo])
+
 
   useEffect(() => {
     if (voteInfo) {
@@ -193,6 +227,16 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
             postInfo.tags.map((value, index) => (
               <ChipS icon={<TagIconS />} size="small" label={value} />
             ))
+          }
+        </ChipDiv>
+      }
+      {
+        postInfo.floor === 1 &&
+        <ChipDiv>
+          {currentSummary ?
+            <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
+            :
+            <SummaryS icon={<SummaryIconS />} size="small" label={'摘要生成中...'} />
           }
         </ChipDiv>
       }
