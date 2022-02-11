@@ -190,10 +190,10 @@ export async function getMyHotPosts(from: number) {
 /**
  * 获取摘要
  */
-export async function getPostSummary(topicId: number) {
+export async function getPostSummary(id: number) {
   const res = await GET<ISummary>('summary', {
     params: {
-      topicId
+      id
     },
   })
   return await Promise.resolve(res.map(post => post.summary))

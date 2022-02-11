@@ -34,6 +34,8 @@ export default ({ data, portraitUrl }: Props) => {
       subtitle={data.authorName ? data.authorName : '[匿名]'}
       info1={boardName}
       info2={`回贴:${data.replyCount}`}
+      hitCount={data.hitCount}
+      replyCount={data.replyCount}
     />
   )
 }

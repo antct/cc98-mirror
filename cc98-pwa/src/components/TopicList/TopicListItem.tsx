@@ -5,11 +5,15 @@ import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
 import { Avatar, ListItem, Typography } from '@material-ui/core'
+import PersonIcon from '@material-ui/icons/Person'
+import ReplyIcon from '@material-ui/icons/Reply'
+import ThumbDownIcon from '@material-ui/icons/ThumbDown'
+import ThumbUpIcon from '@material-ui/icons/ThumbUp'
+import VisibilityIcon from '@material-ui/icons/Visibility'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
-
 
 const ListItemS = muiStyled(ListItem)({
   display: 'flex',
@@ -66,6 +70,36 @@ const Info1 = muiStyled(Typography).attrs({
 
 const Info2 = Info1
 
+
+const VisibilityIconS = muiStyled(VisibilityIcon).attrs({
+})({
+  fontSize: "medium",
+  verticalAlign: 'text-top'
+})
+
+const ReplyIconS = muiStyled(ReplyIcon).attrs({
+})({
+  fontSize: "medium",
+  verticalAlign: 'text-top'
+})
+
+const PersonIconS = muiStyled(PersonIcon).attrs({
+})({
+  fontSize: "medium",
+  verticalAlign: 'text-top'
+})
+
+const ThumbUpIconS = muiStyled(ThumbUpIcon).attrs({
+})({
+  fontSize: "medium",
+  verticalAlign: 'text-top'
+})
+
+const ThumbDownIconS = muiStyled(ThumbDownIcon).attrs({
+})({
+  fontSize: "medium",
+  verticalAlign: 'text-top'
+})
 /**
  * 布局：
  * title           info1
@@ -76,6 +110,11 @@ interface ItemProps {
   subtitle: string
   info1: string
   info2: string
+  hitCount?: number
+  lastPostUser?: string
+  replyCount?: number
+  likeCount?: number
+  disLikeCount?: number
   isAnonymous: boolean
   isHighlight?: boolean
   portraitUrl?: string
@@ -83,7 +122,7 @@ interface ItemProps {
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, disLikeCount = undefined }) => (
   <ListItemS button divider onClick={onClick}>
     {showAvatar &&
       <AvatarArea>
@@ -96,7 +135,49 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
     }
     <TitleArea>
       <Title color={isHighlight ? 'secondary' : 'textPrimary'}>{title}</Title>
-      <SubTitle>{subtitle}</SubTitle>
+      <SubTitle>
+        {subtitle}
+        {hitCount !== undefined &&
+          (<>
+            &nbsp;&nbsp;
+            <VisibilityIconS />
+            &nbsp;
+            {hitCount}
+          </>)
+        }
+        {replyCount !== undefined &&
+          (<>
+            &nbsp;&nbsp;
+            <ReplyIconS />
+            &nbsp;
+            {replyCount}
+          </>)
+        }
+        {lastPostUser !== undefined &&
+          (<>
+            &nbsp;&nbsp;
+            <PersonIconS />
+            &nbsp;
+            {lastPostUser}
+          </>)
+        }
+        {likeCount !== undefined &&
+          (<>
+            &nbsp;&nbsp;
+            <ThumbUpIconS />
+            &nbsp;
+            {likeCount}
+          </>)
+        }
+        {disLikeCount !== undefined &&
+          (<>
+            &nbsp;&nbsp;
+            <ThumbDownIconS />
+            &nbsp;
+            {disLikeCount}
+          </>)
+        }
+      </SubTitle>
     </TitleArea>
 
     <InfoArea>
@@ -129,6 +210,9 @@ export default ({ data, place, portraitUrl }: Props) => {
   let subtitle = data.userName || '[匿名]'
   let info1 = dayjs(data.lastPostTime).fromNow()
   let info2 = `回帖: ${data.replyCount}`
+  let hitCount: number | undefined = data.hitCount
+  let lastPostUser: string | undefined = data.lastPostUser
+  let replyCount: number | undefined = data.replyCount
   let showAvatar = true
   let showHighlight = false
 
@@ -144,9 +228,13 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'usercenter':
       subtitle = boardName
       showAvatar = false
+      hitCount = undefined
+      replyCount = undefined
+      lastPostUser = undefined
       break
     case 'hot':
       info1 = boardName
+      lastPostUser = undefined
       break
     case 'newtopic':
       info1 = dayjs(data.time).fromNow()
@@ -156,6 +244,9 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'follow-update':
       info1 = dayjs(data.lastPostTime).fromNow()
       info2 = boardName
+      hitCount = undefined
+      replyCount = undefined
+      lastPostUser = undefined
       break
     case 'follow':
     case 'search':
@@ -163,8 +254,12 @@ export default ({ data, place, portraitUrl }: Props) => {
       // https://github.com/ZJU-CC98/CC98-PWA/issues/35
       info1 = dayjs(data.time).fromNow()
       info2 = boardName
+      hitCount = undefined
+      replyCount = undefined
+      lastPostUser = undefined
       break
-    // case 'inboard':
+    case 'inboard':
+      break
   }
 
   return (
@@ -178,6 +273,9 @@ export default ({ data, place, portraitUrl }: Props) => {
       subtitle={subtitle}
       info1={info1}
       info2={info2}
+      hitCount={hitCount}
+      replyCount={replyCount}
+      lastPostUser={lastPostUser}
     />
   )
 }
