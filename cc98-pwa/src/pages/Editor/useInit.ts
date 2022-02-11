@@ -90,7 +90,7 @@ export default function useInit(props: Props): Init | null {
   }
 
   // 回复帖子
-  if (topicId) {
+  if (!isLoading && topicId) {
     setOk(true)
     return null
   }
