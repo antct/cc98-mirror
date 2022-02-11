@@ -1,19 +1,16 @@
 import useModel from '@/hooks/useModel'
+import ListS from '@/hotfix/List'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IRecommendationReading } from '@cc98/api'
-import { Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
+import { Divider, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
 import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
-const ListS = muiStyled(List)({
-  paddingTop: 0,
-  paddingBottom: 0,
-})
 
 const ListItemS = muiStyled(ListItem)({
   display: 'flex',

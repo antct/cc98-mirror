@@ -18,10 +18,6 @@ const WrapperDiv = styled.div`
   height: 70px;
 `
 
-const ListItemS = muiStyled(ListItem)({
-  paddingTop: 16
-})
-
 interface Props {
 }
 
@@ -35,14 +31,14 @@ export default ({ }: Props) => {
 
   return (
     <>
-      <ListItemS button onClick={TOGGLE_THEME}>
+      <ListItem button onClick={TOGGLE_THEME}>
         <ListItemIcon>
           {
             showTheme ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
           }
         </ListItemIcon>
         <ListItemText primary="全站背景" />
-      </ListItemS>
+      </ListItem>
       <Divider />
       {
         showTheme &&

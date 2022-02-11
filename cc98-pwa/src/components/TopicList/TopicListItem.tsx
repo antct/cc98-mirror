@@ -114,7 +114,7 @@ interface ItemProps {
   lastPostUser?: string
   replyCount?: number
   likeCount?: number
-  disLikeCount?: number
+  dislikeCount?: number
   isAnonymous: boolean
   isHighlight?: boolean
   portraitUrl?: string
@@ -122,7 +122,7 @@ interface ItemProps {
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, disLikeCount = undefined }) => (
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, dislikeCount = undefined }) => (
   <ListItemS button divider onClick={onClick}>
     {showAvatar &&
       <AvatarArea>
@@ -163,18 +163,17 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
         }
         {likeCount !== undefined &&
           (<>
-            &nbsp;&nbsp;
             <ThumbUpIconS />
             &nbsp;
             {likeCount}
           </>)
         }
-        {disLikeCount !== undefined &&
+        {dislikeCount !== undefined &&
           (<>
             &nbsp;&nbsp;
             <ThumbDownIconS />
             &nbsp;
-            {disLikeCount}
+            {dislikeCount}
           </>)
         }
       </SubTitle>
@@ -208,11 +207,13 @@ export default ({ data, place, portraitUrl }: Props) => {
 
   const title = data.title
   let subtitle = data.userName || '[匿名]'
-  let info1 = dayjs(data.lastPostTime).fromNow()
-  let info2 = `回帖: ${data.replyCount}`
+  let info1 = boardName
+  let info2 = dayjs(data.lastPostTime).fromNow()
   let hitCount: number | undefined = data.hitCount
   let lastPostUser: string | undefined = data.lastPostUser
   let replyCount: number | undefined = data.replyCount
+  let likeCount: number | undefined = data.likeCount
+  let dislikeCount: number | undefined = data.dislikeCount
   let showAvatar = true
   let showHighlight = false
 
@@ -226,39 +227,42 @@ export default ({ data, place, portraitUrl }: Props) => {
 
   switch (place) {
     case 'usercenter':
-      subtitle = boardName
+      subtitle = ''
       showAvatar = false
       hitCount = undefined
       replyCount = undefined
       lastPostUser = undefined
       break
     case 'hot':
-      info1 = boardName
       lastPostUser = undefined
+      likeCount = undefined
+      dislikeCount = undefined
       break
     case 'newtopic':
-      info1 = dayjs(data.time).fromNow()
-      info2 = boardName
       showAvatar = true
+      likeCount = undefined
+      dislikeCount = undefined
       break
     case 'follow-update':
-      info1 = dayjs(data.lastPostTime).fromNow()
-      info2 = boardName
       hitCount = undefined
       replyCount = undefined
       lastPostUser = undefined
+      likeCount = undefined
+      dislikeCount = undefined
       break
     case 'follow':
     case 'search':
       // 搜索时使用发帖时间
       // https://github.com/ZJU-CC98/CC98-PWA/issues/35
-      info1 = dayjs(data.time).fromNow()
-      info2 = boardName
       hitCount = undefined
       replyCount = undefined
       lastPostUser = undefined
+      likeCount = undefined
+      dislikeCount = undefined
       break
     case 'inboard':
+      likeCount = undefined
+      dislikeCount = undefined
       break
   }
 
@@ -275,6 +279,8 @@ export default ({ data, place, portraitUrl }: Props) => {
       info2={info2}
       hitCount={hitCount}
       replyCount={replyCount}
+      likeCount={likeCount}
+      dislikeCount={dislikeCount}
       lastPostUser={lastPostUser}
     />
   )

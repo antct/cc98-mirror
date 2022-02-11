@@ -30,10 +30,9 @@ function Markdown(content: string) {
 }
 
 const TypographyS = muiStyled(Typography).attrs({
-  // component: 'div',
 })({
   margin: '12px 16px',
-  marginBottom: 4,
+  marginBottom: 0
 })
 
 interface Props {

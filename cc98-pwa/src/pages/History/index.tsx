@@ -1,19 +1,14 @@
 import useModel from '@/hooks/useModel'
+import ListS from '@/hotfix/List'
 import historyModel from '@/models/history'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
-import { IconButton, List, ListItem, ListItemSecondaryAction, Typography } from '@material-ui/core'
+import { IconButton, ListItem, ListItemSecondaryAction, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
-
-const ListS = muiStyled(List).attrs({
-})({
-  // paddingTop: 0,
-  // paddingBottom: 0
-})
 
 const ListItemS = muiStyled(ListItem).attrs({
   button: true

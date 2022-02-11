@@ -23,9 +23,11 @@ const UserRecentPostsItem: React.FC<{
       isAnonymous={post.isAnonymous}
       showAvatar={false}
       title={post.content}
-      subtitle={`赞 ${post.likeCount} 踩 ${post.dislikeCount}`}
-      info1={`${post.floor} L`}
+      subtitle={''}
+      info1={`${post.floor}L`}
       info2={dayjs(post.time).fromNow()}
+      likeCount={post.likeCount}
+      dislikeCount={post.dislikeCount}
       onClick={() => navigate(`/topic/${post.topicId}/${post.floor}`)}
     />
   )

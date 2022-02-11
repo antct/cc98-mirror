@@ -20,11 +20,6 @@ const WrapperDiv = styled.div`
   align-items: center;
   width: 100%;
 `
-const AdjustDiv = styled.div`
-  margin-top: -16px;
-  width: 100%;
-`
-
 interface Props {
   /**
    * 版面 ID
@@ -86,13 +81,11 @@ export default ({ id }: Props) => {
 
             <FinTopicList service={() => getTopTopics(id)} place="inboard" noLoading />
 
-            <AdjustDiv>
-              <InfTopicList
-                key={`${tagIDs[0]}-${tagIDs[1]}`}
-                service={(from: number) => getTopicsInBoard(id, from, 20, tagIDs[0], tagIDs[1])}
-                place="inboard"
-              />
-            </AdjustDiv>
+            <InfTopicList
+              key={`${tagIDs[0]}-${tagIDs[1]}`}
+              service={(from: number) => getTopicsInBoard(id, from, 20, tagIDs[0], tagIDs[1])}
+              place="inboard"
+            />
           </>
       }
     </WrapperDiv>

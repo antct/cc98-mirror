@@ -1,8 +1,8 @@
+import ListS from '@/hotfix/List'
 import ListItemText from '@/hotfix/ListItemText'
-import muiStyled from '@/muiStyled'
 import { Route } from '@/router/Router'
 import { navigate } from '@/utils/history'
-import { List, ListItem, ListItemIcon } from '@material-ui/core'
+import { ListItem, ListItemIcon } from '@material-ui/core'
 import BarChartIcon from '@material-ui/icons/BarChart'
 import RecommendIcon from '@material-ui/icons/BookOutlined'
 import BugReportIcon from '@material-ui/icons/BugReportOutlined'
@@ -22,12 +22,6 @@ import ActivityPoint from './ActivityPoint'
 import DevTeam from './DevTeam'
 import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
-
-const ListS = muiStyled(List)({
-  width: '100%',
-  // paddingTop: 0,
-  // paddingBottom: 0
-})
 
 interface ItemProps {
   icon: React.ReactElement<any>

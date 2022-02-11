@@ -1,12 +1,8 @@
-import muiStyled from '@/muiStyled'
+import ListS from '@/hotfix/List'
 import { IUser } from '@cc98/api'
-import { List } from '@material-ui/core'
 import React from 'react'
 import UserListItem from './UserListItem'
 
-const ListS = muiStyled(List)({
-  width: '100%',
-})
 
 interface Props {
   data: IUser[]

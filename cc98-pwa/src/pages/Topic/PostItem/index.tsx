@@ -25,9 +25,7 @@ import Header from './Header'
 const Wrapper = muiStyled(Paper).attrs({
   square: true,
   elevation: 0,
-})({
-  marginTop: 6,
-})
+})({})
 
 const WrapperDiv = styled.div`
   margin: 8px 16px;

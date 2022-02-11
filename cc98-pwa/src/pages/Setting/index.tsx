@@ -1,19 +1,19 @@
-import { List } from '@material-ui/core'
+import ListS from '@/hotfix/List'
 import React from 'react'
 import Avatar from './Avatar'
 import Cache from './Cache'
-import Compress from './Compress'
 import CDN from './CDN'
+import Compress from './Compress'
+import CustomWords from './CustomWords'
 import CustomHome from './Home'
 import Mode from './Mode'
 import Notification from './Notification'
 import Signature from './Signature'
 // import Signalr from './Signalr'
 import Theme from './Theme'
-import CustomWords from './CustomWords'
 
 const Setting: React.FC = () => (
-  <List>
+  <ListS>
     {/* <Signalr /> */}
     <Theme />
     <CustomHome />
@@ -25,7 +25,7 @@ const Setting: React.FC = () => (
     <CDN />
     <Cache />
     <CustomWords />
-  </List>
+  </ListS>
 )
 
 export default Setting

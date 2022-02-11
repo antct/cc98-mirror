@@ -1,19 +1,11 @@
 import useModel from '@/hooks/useModel'
+import ListS from '@/hotfix/List'
 import settingModel from '@/models/setting'
 import userModel from '@/models/user'
-import muiStyled from '@/muiStyled'
 import { getTopicList } from '@/services/topic'
 import { IPost, IReply, ITopic } from '@cc98/api'
-import { List } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import ReplyListItem from './ReplyListItem'
-
-
-const ListS = muiStyled(List)({
-  width: '100%',
-  // paddingTop: 0,
-  // paddingBottom: 0
-})
 
 interface ItemProps {
   data: IReply[]

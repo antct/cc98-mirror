@@ -1,15 +1,7 @@
-import muiStyled from '@/muiStyled'
+import ListS from '@/hotfix/List'
 import { ITopic } from '@cc98/api'
-import { List } from '@material-ui/core'
 import React from 'react'
 import TopicListItem, { Place } from './TopicListItem'
-
-
-const ListS = muiStyled(List)({
-  width: '100%',
-  // paddingTop: 0,
-  // paddingBottom: 0
-})
 
 interface IUrlMap {
   [key: number]: string

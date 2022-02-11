@@ -1,16 +1,9 @@
-import muiStyled from '@/muiStyled'
+import ListS from '@/hotfix/List'
 import { getUsersInfoByIds } from '@/services/user'
 import { IUser } from '@cc98/api'
-import { List } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import UserListItem, { Place } from './UserListItem'
 
-
-const ListS = muiStyled(List)({
-  width: '100%',
-  // paddingTop: 0,
-  // paddingBottom: 0
-})
 
 interface Props {
   data: number[]

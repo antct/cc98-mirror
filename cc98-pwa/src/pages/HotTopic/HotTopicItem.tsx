@@ -4,6 +4,7 @@ import settingModel from '@/models/setting'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { IHotTopic } from '@cc98/api'
+import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
 
@@ -33,7 +34,7 @@ export default ({ data, portraitUrl }: Props) => {
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}
       info1={boardName}
-      info2={`回贴:${data.replyCount}`}
+      info2={dayjs(data.createTime).fromNow()}
       hitCount={data.hitCount}
       replyCount={data.replyCount}
     />

@@ -1,18 +1,13 @@
+import ListS from '@/hotfix/List'
 import muiStyled from '@/muiStyled'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { IBasicTopic } from '@cc98/api'
-import { Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
+import { Divider, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
 import VolumeOffIcon from '@material-ui/icons/VolumeOff'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
-
-const ListS = muiStyled(List)({
-  paddingTop: 0,
-  paddingBottom: 0
-})
 
 const ListItemS = muiStyled(ListItem)({
   display: 'flex',
@@ -60,34 +55,34 @@ interface Props {
 
 export default (props: Props) => {
   return (
-  <ListS>
-    <ListItem button onClick={props.func}>
-      <ListItemIcon>
-        {
-          props.status ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
-        }
-      </ListItemIcon>
-      <ListItemText primary={props.name} />
-    </ListItem>
-    <Divider />
-    {props.status && props.data.map((info: IBasicTopic) => {
-      const [boardName, setBoardName] = useState('')
-      useEffect(() => {
-        getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
-      }, [])
-      return (
-        <ListItemS button divider onClick={() => navigate(`/topic/${info.id}`)}>
-          <TitleArea>
-            <Title>{info.title}</Title>
-          </TitleArea>
+    <ListS>
+      <ListItem button onClick={props.func}>
+        <ListItemIcon>
+          {
+            props.status ? (<VolumeUpIcon />) : (<VolumeOffIcon />)
+          }
+        </ListItemIcon>
+        <ListItemText primary={props.name} />
+      </ListItem>
+      <Divider />
+      {props.status && props.data.map((info: IBasicTopic) => {
+        const [boardName, setBoardName] = useState('')
+        useEffect(() => {
+          getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
+        }, [])
+        return (
+          <ListItemS button divider onClick={() => navigate(`/topic/${info.id}`)}>
+            <TitleArea>
+              <Title>{info.title}</Title>
+            </TitleArea>
 
-          <InfoArea>
-            <Info1>{boardName}</Info1>
-          </InfoArea>
-        </ListItemS>
-      )
-    })}
+            <InfoArea>
+              <Info1>{boardName}</Info1>
+            </InfoArea>
+          </ListItemS>
+        )
+      })}
 
-  </ListS>
+    </ListS>
   )
 }

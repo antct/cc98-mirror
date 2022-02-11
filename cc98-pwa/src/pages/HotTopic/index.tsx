@@ -3,6 +3,7 @@ import { FinTopicList } from '@/components/TopicList'
 import useDelay from '@/hooks/useDelay'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
+import ListS from '@/hotfix/List'
 import settingModel from '@/models/setting'
 import {
   getHistoryHotTopics, getHotTopics, getMonthlyHotTopics, getWeeklyHotTopics
@@ -56,11 +57,11 @@ export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
   }
 
   return (
-    <List>
+    <ListS>
       {topics.map(data => (
         <HotTopicItem key={data.id} data={data} portraitUrl={urlMap[data.authorName]} />
       ))}
-    </List>
+    </ListS>
   )
 }
 
