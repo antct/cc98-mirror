@@ -1,7 +1,7 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import useFetcher from '@/hooks/useFetcher'
 import {
-  getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost
+  getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost, getPostSummary, getSharePostSummary
 } from '@/services/post'
 import {
   getShareTopicInfo, getTopicInfo
@@ -63,12 +63,13 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
         : (from: number) => isShare ? getSharePost(realId, from) : getPost(topicInfo.id, from)
 
   const hotPostService = () => isShare ? getShareHotPost(realId) : getHotPost(topicInfo.id)
-
+  
   // 是否处于追踪状态
   const isTrace = !!userId || !!postId
 
   const refreshFunc = () => {
-    getTopicInfo(realId).then(res =>
+    const func = isShare ? getShareTopicInfo : getTopicInfo
+    func(realId).then(res =>
       res.fail(navigateHandler).succeed(newTopicInfo => {
         setTopicInfo(newTopicInfo)
         setPostListKey(prevKey => prevKey + 1)
@@ -79,7 +80,7 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
   return (
     <>
       <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />
-      <PostList key={postListKey} topicInfo={topicInfo} service={postService} isTrace={isTrace} isShare={isShare}>
+      <PostList key={postListKey} topicInfo={topicInfo} service={postService} isTrace={isTrace} isShare={isShare} realId={realId} >
         {!isTrace && !page && !floor && <PostListHot service={hotPostService} isShare={isShare} />}
       </PostList>
       <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />

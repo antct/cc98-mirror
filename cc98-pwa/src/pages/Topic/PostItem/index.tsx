@@ -1,7 +1,7 @@
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
-import { getPostSummary, getSinglePost } from '@/services/post'
+import { getPostSummary, getSharePostSummary, getSinglePost } from '@/services/post'
 import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
@@ -37,6 +37,12 @@ const TypographyS = muiStyled(Typography).attrs({
   marginBottom: 4
 })
 
+const RightTypography = muiStyled(Typography).attrs({
+})({
+  display: "inline-block",
+  float: "right"
+})
+
 const CardS = muiStyled(Card).attrs({
 })({
   margin: '12px 16px',
@@ -44,11 +50,15 @@ const CardS = muiStyled(Card).attrs({
   borderRadius: 0,
 })
 
-const CardHeaderS = muiStyled(CardHeader).attrs({
-})({
-  paddingTop: 8,
-  paddingBottom: 0
-})
+const CardHeaderS = withStyles(theme => ({
+  root: {
+    paddingTop: 8,
+    paddingBottom: 0
+  },
+  action: {
+    marginRight: -12
+  }
+}))(CardHeader)
 
 const CardContentS = muiStyled(CardContent).attrs({
 })({
@@ -62,7 +72,8 @@ const CheckboxS = muiStyled(Checkbox).attrs({
 })({
   paddingTop: 0,
   paddingLeft: 0,
-  paddingBottom: 0
+  paddingBottom: 0,
+  verticalAlign: 'sub'
 })
 
 const ChipS = muiStyled(Chip)({
@@ -105,7 +116,7 @@ interface Props {
   /**
    * 用户信息
    */
-  userInfo: IUser | undefined
+  userInfo?: IUser
   /**
    * 是否热帖
    */
@@ -118,7 +129,7 @@ interface Props {
   /**
    * 帖子元信息
    */
-  topicInfo?: ITopic | undefined
+  topicInfo?: ITopic
   /**
    * 获取投票信息函数
    */
@@ -126,16 +137,20 @@ interface Props {
   /**
    * 投票信息
    */
-  voteInfo?: IVote | undefined
+  voteInfo?: IVote
+  /**
+ * 分享状态下的ID信息
+ */
+  realId?: string
 }
 
 const DELETE_CONTENT = '该贴已被 my CC98, my home'
 
-export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo = undefined, voteInfo = undefined, setVote = undefined }: Props) => {
+export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo = undefined, voteInfo = undefined, setVote = undefined, realId = undefined }: Props) => {
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(voteInfo)
   const [voteOption, setVoteOption] = useState<boolean[]>([])
-  const [currentSummary, setCurrentSummary] = useState<string>('')
+  const [currentSummary, setCurrentSummary] = useState<string | undefined>(undefined)
 
   const { useSignature } = useModel(settingModel, ['useSignature'])
   if (postInfo.isDeleted) {
@@ -156,7 +171,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
   }
 
   const getSummary = async () => {
-    const res = await getPostSummary(postInfo.topicId)
+    const res = await ((isShare && realId !== undefined) ? getSharePostSummary(realId) : getPostSummary(postInfo.topicId))
     res.fail().succeed(summary => {
       setCurrentSummary(summary)
     })
@@ -198,7 +213,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
     }
     if (topicInfo && setVote && voteInfo) {
       if (submitOption.length > voteInfo.maxVoteCount) {
-        snackbar.error(`最大投票数为${voteInfo.maxVoteCount}`)
+        snackbar.error(`投票最多选择${voteInfo.maxVoteCount}项`)
         return
       }
       const res = await submitVote(topicInfo.id, submitOption)
@@ -231,10 +246,10 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
       {
         postInfo.floor === 1 &&
         <ChipDiv>
-          {currentSummary ?
+          {currentSummary !== undefined ?
             <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
             :
-            <SummaryS icon={<SummaryIconS />} size="small" label={'摘要生成中...'} />
+            <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
           }
         </ChipDiv>
       }
@@ -248,35 +263,60 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
         })()
       }
       {
-        currentVote &&
-        <CardS variant="outlined">
-          <CardHeaderS
-            action={
-              currentVote.needVote && currentVote.canVote &&
-              <IconButton onClick={handleSubmit}>
-                <DoneIcon />
-              </IconButton>
-            }
-            title={
-              <>
-                {!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你的选项是 ${currentVote.myRecord.items.join('，')}`}</Typography>}
-                {!!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你尚未投票`}</Typography>}
-              </>
-            }
-            subheader={`截止时间：${dayjs(currentVote.expiredTime).format('YYYY/MM/DD HH:mm')}`}
-          />
-          <CardContentS>
-            {!!currentVote.myRecord ?
-              currentVote.voteItems.map((item, index) => (
-                <Typography variant="body2"><CheckboxS disabled={!(currentVote.needVote && currentVote.canVote)} checked={!!currentVote.myRecord && currentVote.myRecord.items.indexOf(index + 1) !== -1} />{`${index + 1}. ${item.description}（${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%）`}</Typography>
-              ))
-              :
-              currentVote.voteItems.map((item, index) => (
-                <Typography variant="body2"><CheckboxS onChange={(event, checked) => handleChange(event, checked, index)} disabled={!(currentVote.needVote && currentVote.canVote)} />{`${index + 1}. ${item.description}（${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%）`}</Typography>
-              ))
-            }
-          </CardContentS>
-        </CardS>
+        topicInfo && topicInfo.isVote && (isShare ?
+          <TypographyS>分享模式禁止投票</TypographyS>
+          :
+          (currentVote &&
+            <CardS variant="outlined">
+              <CardHeaderS
+                action={
+                  currentVote.needVote && currentVote.canVote &&
+                  <IconButton onClick={handleSubmit}>
+                    <DoneIcon />
+                  </IconButton>
+                }
+                title={
+                  <>
+                    {!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你的选项是 ${currentVote.myRecord.items.join('，')}`}</Typography>}
+                    {!!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你尚未投票`}</Typography>}
+                  </>
+                }
+                subheader={<Typography variant="body2">{`截止时间：${dayjs(currentVote.expiredTime).format('YYYY/MM/DD HH:mm')}`}</Typography>}
+              />
+              <CardContentS>
+                {!!currentVote.myRecord ?
+                  currentVote.voteItems.map((item, index) => (
+                    <Typography>
+                      <CheckboxS
+                        size='small'
+                        disabled={!(currentVote.needVote && currentVote.canVote)}
+                        checked={!!currentVote.myRecord && currentVote.myRecord.items.indexOf(index + 1) !== -1}
+                      />
+                      {`${index + 1}. ${item.description}`}
+                      <RightTypography>
+                        {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
+                      </RightTypography>
+                    </Typography>
+                  ))
+                  :
+                  currentVote.voteItems.map((item, index) => (
+                    <Typography>
+                      <CheckboxS
+                        size='small'
+                        onChange={(event, checked) => handleChange(event, checked, index)}
+                        disabled={!(currentVote.needVote && currentVote.canVote)}
+                      />
+                      {`${index + 1}. ${item.description}`}
+                      <RightTypography>
+                        {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
+                      </RightTypography>
+                    </Typography>
+                  ))
+                }
+              </CardContentS>
+            </CardS>
+          )
+        )
       }
       <Content postInfo={currentPost} />
       {

@@ -1,3 +1,4 @@
+import { IS_PC } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -158,7 +159,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
             &nbsp;&nbsp;
           </>)
         }
-        {lastPostUser !== undefined &&
+        {IS_PC && lastPostUser !== undefined &&
           (<>
             <PersonIconS />
             &nbsp;

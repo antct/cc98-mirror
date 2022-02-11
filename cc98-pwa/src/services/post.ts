@@ -117,8 +117,8 @@ export function getHotPost(topicId: number) {
 }
 
 export function getShareHotPost(shareId: string) {
-  let id = shareId.slice(0, shareId.indexOf('+'))
-  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
+  const id = shareId.slice(0, shareId.indexOf('+'))
+  const share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
   return GET<IPost[]>(`topic/${id}/hot-post`, {
     params: {
       share_token
@@ -194,6 +194,20 @@ export async function getPostSummary(id: number) {
   const res = await GET<ISummary>('summary', {
     params: {
       id
+    },
+  })
+  return await Promise.resolve(res.map(post => post.summary))
+}
+/**
+ * 分享模式下获取摘要
+ */
+export async function getSharePostSummary(shareId: string) {
+  const id = shareId.slice(0, shareId.indexOf('+'))
+  const share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
+  const res = await GET<ISummary>('summary', {
+    params: {
+      id,
+      share_token
     },
   })
   return await Promise.resolve(res.map(post => post.summary))

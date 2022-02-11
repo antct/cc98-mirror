@@ -16,6 +16,7 @@ interface Props {
   topicInfo: ITopic
   isTrace: boolean
   isShare: boolean
+  realId: string
 }
 
 type voteItem = {
@@ -66,9 +67,9 @@ export function useUserMap() {
   return [userMap, updateUserMap] as [typeof userMap, typeof updateUserMap]
 }
 
-const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicInfo }) => {
+const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicInfo, realId }) => {
   const [userMap, updateUserMap] = useUserMap()
-  const [currentVote, setCurrentVote] = useState<IVote>()
+  const [currentVote, setCurrentVote] = useState<IVote | undefined>(undefined)
   const [posts, state, callback] = useInfList(service, {
     step: 10,
     success: updateUserMap,
@@ -86,8 +87,9 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
     })
   }
 
+  // 分享模式下不获取投票
   useEffect(() => {
-    if (topicInfo.isVote) setVote()
+    if (!isShare && topicInfo.isVote) setVote()
   }, [topicInfo])
 
   return (
@@ -95,7 +97,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
       {posts.map(info =>
         info.floor === 1 ? (
           <React.Fragment key={info.id}>
-            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={topicInfo.isVote ? currentVote: undefined} setVote={setVote}/>
+            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={currentVote} setVote={setVote} realId={realId} />
             {children /** <PostListHot /> */}
           </React.Fragment>
         ) : (

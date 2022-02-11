@@ -90,5 +90,9 @@ declare module '@cc98/api' {
     tag2: number
 
     isInternalOnly: boolean
+    /**
+     * 分享时间
+     */
+    shareTime?: string
   }
 }
