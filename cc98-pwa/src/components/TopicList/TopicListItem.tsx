@@ -137,28 +137,33 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
       <Title color={isHighlight ? 'secondary' : 'textPrimary'}>{title}</Title>
       <SubTitle>
         {subtitle}
-        {hitCount !== undefined &&
+        {subtitle.length > 0 &&
           (<>
             &nbsp;&nbsp;
+          </>)
+        }
+        {hitCount !== undefined &&
+          (<>
             <VisibilityIconS />
             &nbsp;
             {hitCount}
+            &nbsp;&nbsp;
           </>)
         }
         {replyCount !== undefined &&
           (<>
-            &nbsp;&nbsp;
             <ReplyIconS />
             &nbsp;
             {replyCount}
+            &nbsp;&nbsp;
           </>)
         }
         {lastPostUser !== undefined &&
           (<>
-            &nbsp;&nbsp;
             <PersonIconS />
             &nbsp;
             {lastPostUser}
+            &nbsp;&nbsp;
           </>)
         }
         {likeCount !== undefined &&
@@ -166,14 +171,15 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
             <ThumbUpIconS />
             &nbsp;
             {likeCount}
+            &nbsp;&nbsp;
           </>)
         }
         {dislikeCount !== undefined &&
           (<>
-            &nbsp;&nbsp;
             <ThumbDownIconS />
             &nbsp;
             {dislikeCount}
+            &nbsp;&nbsp;
           </>)
         }
       </SubTitle>
@@ -229,9 +235,9 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'usercenter':
       subtitle = ''
       showAvatar = false
-      hitCount = undefined
-      replyCount = undefined
       lastPostUser = undefined
+      likeCount = undefined
+      dislikeCount = undefined
       break
     case 'hot':
       lastPostUser = undefined
