@@ -17,12 +17,13 @@ export const getBoardsInfo = cacheService(
 
 // Cache Map for Board
 let HAS_MAP = false
-const BOARD_MAP: {
+export const BOARD_MAP: {
   [id: number]: IBasicBoard
 } = {}
 
 /** 创建 BOARD_MAP */
-async function buildBoardMap() {
+export async function buildBoardMap() {
+  if (HAS_MAP) return
   const res = await getBoardsInfo()
   res.fail().succeed(boards => {
     // 防止重复创建
@@ -42,10 +43,7 @@ async function buildBoardMap() {
  * 获取版面的版主信息（返回值不是 Try）
  */
 export async function getBoardMastersById(boardId: number) {
-  if (!HAS_MAP) {
-    await buildBoardMap()
-  }
-
+  await buildBoardMap()
   return BOARD_MAP[boardId].boardMasters || []
 }
 
@@ -53,11 +51,16 @@ export async function getBoardMastersById(boardId: number) {
  * 通过版面Id获取版面名称（返回值不是 Try）
  */
 export async function getBoardNameById(boardId: number) {
-  if (!HAS_MAP) {
-    await buildBoardMap()
-  }
-
+  await buildBoardMap()
   return BOARD_MAP[boardId] ? BOARD_MAP[boardId].name : '版面失效'
+}
+
+/**
+ * 通过版面Id获取版面（返回值不是 Try）
+ */
+export async function getBoardById(boardId: number) {
+  await buildBoardMap()
+  return BOARD_MAP[boardId] ? BOARD_MAP[boardId] : undefined
 }
 
 /**
@@ -82,7 +85,6 @@ export function customBoard(id: number, opt: 0 | 1) {
   if (opt === 1) {
     return PUT(url)
   }
-
   return DELETE(url)
 }
 

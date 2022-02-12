@@ -206,9 +206,6 @@ export default ({ data, place, portraitUrl }: Props) => {
   const { useAvatar, customWords } = useModel(settingModel, ['useAvatar', 'customWords'])
   const { TRANS_IMG } = settingModel
   useEffect(() => {
-    if (place === 'inboard') {
-      return
-    }
     getBoardNameById(data.boardId).then(boardName => setBoardName(boardName))
   }, [place])
 

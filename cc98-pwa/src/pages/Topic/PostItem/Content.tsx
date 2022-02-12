@@ -1,27 +1,45 @@
-import { CDN, CDN_FILE_URL, CDN_IMG_URL, FILE_BASE_URL, IMG_BASE_URL, IMG_COMPRESS_WIDTH } from '@/config'
+import { CDN, IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
+import { getFaces } from '@/services/post'
 import { UBBReact } from '@/UBB'
 import { IPost } from '@cc98/api'
 import { Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
-import { PhotoConsumer, PhotoProvider } from 'react-photo-view'
-import 'react-photo-view/dist/index.css'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
+import 'react-photo-view/dist/react-photo-view.css'
 import MarkdownView from 'react-showdown'
+import styled from 'styled-components'
 
-function CustomImageComponent({ originalSrc, compressSrc }: { originalSrc: string, compressSrc: string }) {
+const Overlay = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
+  min-height: 44px;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #ccc;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: justify;
+  z-index: 1000;
+`
+
+const CustomImageComponent = ({ originalSrc, compressSrc }: { originalSrc: string, compressSrc: string }) => {
   return (
     <LazyLoad height={200} offset={200} once>
-      <PhotoConsumer src={`${originalSrc}`} >
+      <PhotoView src={`${originalSrc}`} >
         <img className="ubb-tag-img" src={`${compressSrc}`} />
-      </PhotoConsumer>
+      </PhotoView>
     </LazyLoad>
   )
 }
 
-function Markdown(content: string) {
+const Markdown = (content: string) => {
   return <MarkdownView
     markdown={content}
     options={{ tables: true, emoji: true }}
@@ -87,11 +105,54 @@ export default ({ postInfo }: Props) => {
 
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content)
 
+  // 每张图片的介绍
+  const [intros, setIntros] = useState<{ [id: number]: string[] }>({})
   return (
     <PhotoProvider
+      overlayRender={({ rotate, onRotate, scale, index }) => {
+        return (
+          intros[index] &&
+          <Overlay>
+            {intros[index].map((value, index) => <div>{value}</div>)}
+          </Overlay>
+        );
+      }}
       toolbarRender={({ images, rotate, onRotate, onScale, scale, index }) => {
         return (
           <>
+            <svg
+              className="PhotoView-PhotoSlider__toolbarIcon"
+              onClick={() => {
+                setIntros(prevIntros => {
+                  const newIntros = { ...prevIntros }
+                  newIntros[index] = ['人脸检测识别中...']
+                  return newIntros
+                })
+                const src = images[index].src
+                src && getFaces(src).then(res =>
+                  res.fail().succeed(data => {
+                    const faces = data.faces
+                    const intro: string[] = []
+                    intro.push(faces.length > 0 ? `检测到${faces.length}张人脸` : '未检测到人脸')
+                    for (let i = 0; i < faces.length; i++) {
+                      const face = faces[i]
+                      intro.push(`X: ${face.x.toFixed(2)} Y: ${face.y.toFixed(2)} 性别: ${face.gender <= 49 ? '女' : '男'} 年龄: ${face.age} 笑容: ${face.expression} 发型: ${face.hair} 魅力值: ${face.beauty}`)
+                    }
+                    setIntros(prevIntros => {
+                      const newIntros = { ...prevIntros }
+                      newIntros[index] = intro
+                      return newIntros
+                    })
+                  })
+                )
+              }}
+              width="44"
+              height="44"
+              fill="white"
+              viewBox="0 0 768 768"
+            >
+              <path d="M384 559.5c-75 0-138-45-163.5-111h327c-25.5 66-88.5 111-163.5 111zM271.5 352.5c-27 0-48-21-48-48s21-48 48-48 48 21 48 48-21 48-48 48zM496.5 352.5c-27 0-48-21-48-48s21-48 48-48 48 21 48 48-21 48-48 48zM384 640.5c141 0 256.5-115.5 256.5-256.5s-115.5-256.5-256.5-256.5-256.5 115.5-256.5 256.5 115.5 256.5 256.5 256.5zM384 64.5c177 0 319.5 142.5 319.5 319.5s-142.5 319.5-319.5 319.5-319.5-142.5-319.5-319.5 142.5-319.5 319.5-319.5z" />
+            </svg>
             <svg
               className="PhotoView-PhotoSlider__toolbarIcon"
               width="44"

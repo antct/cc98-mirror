@@ -5,6 +5,7 @@ import { IBasicBoard } from '@cc98/api'
 import { CardMedia, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
+import LazyLoad from 'react-lazyload'
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -54,21 +55,23 @@ export default ({ boardInfo, hasCover }: Props) => {
   }
 
   return (
-    <div className={classes.card} onClick={() => navigate(`board/${boardInfo.id}`)}>
-      <div className={classes.content}>
-        <Typography variant="subtitle1" color="primary" className={classes.name}>
-          {boardInfo.name}
-        </Typography>
-        <Typography color="textSecondary" className={classes.desc}>
-          {boardInfo.description}
-        </Typography>
-      </div>
-
-      {hasCover && (
-        <div className={classes.mediaGround}>
-          <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`} />
+    <LazyLoad height={100} offset={200}>
+      <div className={classes.card} onClick={() => navigate(`board/${boardInfo.id}`)}>
+        <div className={classes.content}>
+          <Typography variant="subtitle1" color="primary" className={classes.name}>
+            {boardInfo.name}
+          </Typography>
+          <Typography color="textSecondary" className={classes.desc}>
+            {boardInfo.description}
+          </Typography>
         </div>
-      )}
-    </div>
+
+        {hasCover && (
+          <div className={classes.mediaGround}>
+            <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`} />
+          </div>
+        )}
+      </div>
+    </LazyLoad>
   )
 }

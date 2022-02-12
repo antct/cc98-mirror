@@ -1,5 +1,5 @@
 import { GET, PUT } from '@/utils/fetch'
-import { ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98/api'
+import { IFace, ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98/api'
 
 /**
  * 获取一个帖子的10层楼
@@ -186,6 +186,16 @@ export async function getMyHotPosts(from: number) {
     },
   })
   return await Promise.resolve(res.map(posts => posts.data))
+}
+/**
+ * 获取人脸
+ */
+export async function getFaces(url: string) {
+  return GET<IFace>('face', {
+    params: {
+      url
+    },
+  })
 }
 /**
  * 获取摘要

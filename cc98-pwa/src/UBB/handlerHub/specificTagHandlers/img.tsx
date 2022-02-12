@@ -5,8 +5,8 @@ import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
-import { PhotoConsumer } from 'react-photo-view'
-import 'react-photo-view/dist/index.css'
+import { PhotoView } from 'react-photo-view'
+import 'react-photo-view/dist/react-photo-view.css'
 
 const handler: ITagHandler<React.ReactNode> = {
   isRecursive: false,
@@ -15,7 +15,7 @@ const handler: ITagHandler<React.ReactNode> = {
     const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     return (
       <LazyLoad height={200} offset={200} once>
-        <PhotoConsumer src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)} >
+        <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)} >
           {!useCDN ? (
             useCompress ?
               <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
@@ -24,7 +24,7 @@ const handler: ITagHandler<React.ReactNode> = {
             :
             <img className="ubb-tag-img" src={CDN(node.innerText, false)} />
           }
-        </PhotoConsumer>
+        </PhotoView>
       </LazyLoad>
     )
   },

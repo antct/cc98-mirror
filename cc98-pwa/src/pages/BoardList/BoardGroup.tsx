@@ -8,11 +8,11 @@ import BoardItem from './BoardItem'
 import { NOT_EXPANDED_BOARDS } from './constants'
 
 
-const WrapperDiv = styled.div`
+export const WrapperDiv = styled.div`
   margin: 24px 8px;
 `
 
-const Title = muiStyled(Typography).attrs({
+export const Title = muiStyled(Typography).attrs({
   variant: 'subtitle1',
   color: 'primary',
 })({

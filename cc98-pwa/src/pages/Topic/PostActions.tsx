@@ -60,7 +60,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.long_url}`)
-        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex / 3600)}小时`)
+        snackbar.success(`分享链接已复制，有效期${Math.ceil(res.ex / 3600)}小时`)
         handleClose()
       })
   }
@@ -74,7 +74,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
       })
       .succeed(res => {
         copy2Clipboard(`${res.url}`)
-        snackbar.success(`分享链接已经成功复制到剪切板，有效期${Math.ceil(res.ex / 3600)}小时`)
+        snackbar.success(`分享链接已复制，有效期${Math.ceil(res.ex / 3600)}小时`)
         handleClose()
       })
   }
@@ -83,7 +83,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
     if (document.location) {
       copy2Clipboard(`http://${document.location.host}/topic/${topicInfo.id}`)
     }
-    snackbar.success('分享链接已经成功复制到剪切板')
+    snackbar.success('分享链接已复制')
     handleClose()
   }
 
