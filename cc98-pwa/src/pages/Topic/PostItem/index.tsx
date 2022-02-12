@@ -139,8 +139,8 @@ interface Props {
    */
   voteInfo?: IVote
   /**
- * 分享状态下的ID信息
- */
+   * 分享状态下的ID信息
+   */
   realId?: string
 }
 

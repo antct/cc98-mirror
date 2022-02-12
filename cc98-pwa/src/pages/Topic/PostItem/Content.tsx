@@ -131,6 +131,14 @@ export default ({ postInfo }: Props) => {
                 const src = images[index].src
                 src && getFaces(src).then(res =>
                   res.fail().succeed(data => {
+                    if (data.msg) {
+                      setIntros(prevIntros => {
+                        const newIntros = { ...prevIntros }
+                        newIntros[index] = [data.msg ? data.msg : '']
+                        return newIntros
+                      })
+                      return
+                    }
                     const faces = data.faces
                     const intro: string[] = []
                     intro.push(faces.length > 0 ? `检测到${faces.length}张人脸` : '未检测到人脸')

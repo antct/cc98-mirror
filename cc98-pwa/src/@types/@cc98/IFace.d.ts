@@ -23,6 +23,6 @@ declare module '@cc98/api' {
     /**
      * 信息
      */
-    msg: string
+    msg?: string
   }
 }
