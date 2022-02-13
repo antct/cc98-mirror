@@ -11,8 +11,7 @@ import {
   FormControl,
   // FormHelperText,
   Input,
-  InputLabel,
-  Typography
+  InputLabel
 } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useAuth } from "react-oidc-context"

@@ -16,7 +16,7 @@ export interface FetchError {
   /**
    * response 本体
    */
-  response: Response
+  response?: Response
 }
 
 async function cc98Fetch<T>(url: string, init: RequestInit): Promise<Try<T, FetchError>> {

@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { IConfig, IShare, ISignIn, ISite, ITheme } from '@cc98/api'
+import { IConfig, IShare, ISignIn, ISite, ITheme, IProxy } from '@cc98/api'
 
 /**
  * 获取全站基本信息
@@ -41,3 +41,11 @@ export function signIn() {
 export function getTheme() {
   return GET<ITheme>('theme')
 }
+
+/**
+ * 获取当前代理
+ */
+export function getProxy() {
+  return GET<IProxy>('proxy')
+}
+

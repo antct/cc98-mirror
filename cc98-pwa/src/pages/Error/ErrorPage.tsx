@@ -30,9 +30,10 @@ interface Props {
    * 补充提示
    */
   secondMessage?: string
+  button?: boolean
 }
 
-export default ({ errMessage, secondMessage }: Props) => (
+export default ({ errMessage, secondMessage, button = true }: Props) => (
   <LayoutCenter>
     <FlexDiv>
       <ErrorImage status="404" />
@@ -44,7 +45,7 @@ export default ({ errMessage, secondMessage }: Props) => (
           {secondMessage}
         </Typography>
       )}
-      {window.history.length > 1 && (
+      {button && window.history.length > 1 && (
         <ButtonS onClick={() => window.history.back()}>
           回到前页
         </ButtonS>

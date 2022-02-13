@@ -1,6 +1,6 @@
 import ListS from '@/hotfix/List'
 import ListItemText from '@/hotfix/ListItemText'
-import { Route } from '@/router/Router'
+import { ILocation, Route } from '@/router/Router'
 import { navigate } from '@/utils/history'
 import { ListItem, ListItemIcon } from '@material-ui/core'
 import BarChartIcon from '@material-ui/icons/BarChart'
@@ -16,10 +16,12 @@ import NatureIcon from '@material-ui/icons/NatureOutlined'
 import NotListedIcon from '@material-ui/icons/NotListedLocationOutlined'
 import ScoreIcon from '@material-ui/icons/ScoreOutlined'
 import SmartphoneIcon from '@material-ui/icons/Smartphone'
+import WifiTetheringIcon from '@material-ui/icons/WifiTethering'
 import { Router } from '@reach/router'
 import React from 'react'
 import ActivityPoint from './ActivityPoint'
 import DevTeam from './DevTeam'
+import ProxyInfo from './ProxyInfo'
 import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
 
@@ -40,6 +42,7 @@ const Item: React.FC<ItemProps> = ({ icon, text, url, external = false }) => (
 const Index = () => (
   <ListS>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
+    <Item icon={<WifiTetheringIcon />} text="论坛代理" url="/help/proxyInfo" />
     <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
     <Item icon={<ScoreIcon />} text="活跃度" url="/help/activityPoint" />
@@ -55,10 +58,12 @@ const Index = () => (
   </ListS>
 )
 
-export default () => (
-  <Router>
+
+export default React.memo(({ location }: ILocation) =>
+  <Router location={location}>
     <Route path="/" component={Index} />
     <Route path="siteInfo" component={SiteInfo} />
+    <Route path="proxyInfo" component={ProxyInfo} />
     <Route path="devTeam" component={DevTeam} />
     <Route path="activityPoint" component={ActivityPoint} />
     <Route path="transferWealth" component={TransferWealth} />

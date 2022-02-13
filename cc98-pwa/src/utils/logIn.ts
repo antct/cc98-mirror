@@ -1,4 +1,5 @@
 import host from '@/config/host'
+import { navigateHandler } from '@/services/utils/errorHandler'
 import snackbar from '@/utils/snackbar'
 import AwaitLock from 'await-lock'
 import { encodeParams, FetchError } from './fetch'
@@ -30,17 +31,13 @@ export async function getAccessToken(): Promise<string> {
       const accessType = getLocalStorage('access_type') as string
 
       if (!refreshToken) {
-        // 分享模式不显示
         if (!window.location.pathname.startsWith('/share')) snackbar.error('登录凭证失效，请重新登录')
         return ''
       }
 
       const token = await getTokenByRefreshToken(refreshToken, accessType)
       token
-        .fail(() => {
-          snackbar.error('登录凭证失效，请重新登录')
-          // TODO: 添加 refresh token 过期的处理
-        })
+        .fail(err => navigateHandler(err))
         .succeed(token => {
           const access_token = `${token.token_type} ${token.access_token}`
           setLocalStorage('access_token', access_token, token.expires_in)
@@ -67,27 +64,32 @@ async function getTokenByRefreshToken(refreshToken: string, accessType: string) 
     grant_type: 'refresh_token',
     refresh_token: refreshToken,
   }
-
-  const response = await fetch(host.oauth, {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-    body: encodeParams(requestBody),
-  })
-
-  if (!(response.ok && response.status === 200)) {
-    // TODO: maybe can remove ?
+  try {
+    const response = await fetch(host.oauth, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      body: encodeParams(requestBody),
+    })
+    if (!(response.ok && response.status === 200)) {
+      return Try.of<Token, FetchError>(
+        Failure.of({
+          status: response.status,
+          msg: await response.text(),
+          response,
+        })
+      )
+    }
+    return Try.of<Token, FetchError>(Success.of(await response.json()))
+  } catch {
     return Try.of<Token, FetchError>(
       Failure.of({
-        status: response.status,
-        msg: await response.text(),
-        response,
+        status: 500,
+        msg: ''
       })
     )
   }
-
-  return Try.of<Token, FetchError>(Success.of(await response.json()))
 }
 
 /**
@@ -108,33 +110,42 @@ export async function logIn(username: string, password: string) {
     scope: 'cc98-api openid offline_access',
   }
 
-  const response = await fetch(host.oauth, {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-    body: encodeParams(requestBody),
-  })
+  try {
+    const response = await fetch(host.oauth, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+      body: encodeParams(requestBody),
+    })
 
-  if (!(response.ok && response.status === 200)) {
+    if (!(response.ok && response.status === 200)) {
+      return Try.of<Token, FetchError>(
+        Failure.of({
+          status: response.status,
+          msg: await response.text(),
+          response,
+        })
+      ).fail(err => navigateHandler(err))
+    }
+
+    const token = await response.json()
+
+    const access_token = `${token.token_type} ${token.access_token}`
+    setLocalStorage('access_token', access_token, token.expires_in)
+    // refresh_token 有效期一个月
+    setLocalStorage('refresh_token', token.refresh_token, 2592000)
+    setLocalStorage('access_type', 'password', 2592000)
+
+    return Try.of<Token, FetchError>(Success.of(token))
+  } catch {
     return Try.of<Token, FetchError>(
       Failure.of({
-        status: response.status,
-        msg: await response.text(),
-        response,
+        status: 500,
+        msg: ''
       })
     )
   }
-
-  const token = await response.json()
-
-  const access_token = `${token.token_type} ${token.access_token}`
-  setLocalStorage('access_token', access_token, token.expires_in)
-  // refresh_token 有效期一个月
-  setLocalStorage('refresh_token', token.refresh_token, 2592000)
-  setLocalStorage('access_type', 'password', 2592000)
-
-  return Try.of<Token, FetchError>(Success.of(token))
 }
 
 /**
