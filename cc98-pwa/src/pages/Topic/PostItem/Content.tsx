@@ -64,28 +64,20 @@ export default ({ postInfo }: Props) => {
   const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
   let regex_content = postInfo.content.trim()
 
-  // FIXME: 链接转换还存在许多BUG
-  // // 目标：需要将那些未转化的链接，转化为可点击的链接
-  // // 规范化，去除多余的空格
-  // if (postInfo.contentType == 0) {
-  //   const ubb_link_regex = /\[url.*?\]\s*(.*?)\s*\[\/url\]/g
-  //   regex_content = regex_content.replace(ubb_link_regex, `[url]$1[/url]`)
-  //   const ubb_image_regex = /\[img.*?\]\s*(.*?)\s*\[\/img\]/g
-  //   regex_content = regex_content.replace(ubb_image_regex, `[img]$1[/img]`)
-  // } else {
-  //   const markdown_link_regex = /([^!]|^)\[.*?\]\(\s*(.*?)\s*\)/g
-  //   regex_content = regex_content.replace(markdown_link_regex, `$1[$2]($2)`)
-  //   const markdown_image_regex = /!\[.*?\]\(\s*(.*?)\s*\)/g
-  //   regex_content = regex_content.replace(markdown_image_regex, `![]($1)`)
-  // }
-  // // 对那些未使用[url]或md标签的链接进行改造
-  // // const http_regex = /(?<!\[url\]|\[img\]|\[\]\()(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
-  // const http_regex = /([^\]\[\)\(=]|^)(http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
-  // if (postInfo.contentType === 0) {
-  //   regex_content = regex_content.replace(http_regex, `$1[url=$2]$2[/url]`)
-  // } else {
-  //   regex_content = regex_content.replace(http_regex, `$1[$2]($2)`)
-  // }
+  // FIXME: 可能还存在BUG
+  const http_regex = /([^\]\[\)\(= ]|^)( *http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
+  const image_regex = /.*\.(gif|jpe?g|bmp|png)$/ig
+  if (postInfo.contentType === 0) {
+    regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
+      if (image_regex.test(capture2)) return match
+      else return `${capture1}[url=${capture2.trim()}]${capture2.trim()}[/url]`
+    })
+  } else {
+    regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
+      if (image_regex.test(capture2)) return match
+      else return `${capture1}[${capture2.trim()}](${capture2.trim()})`
+    })
+  }
 
   // markdown下的图片进行改造
   if (postInfo.contentType === 1) {
