@@ -1,3 +1,4 @@
+import { VoteInfo } from '@/pages/Editor/MetaInfo/MetaInfoModel'
 import { GET, POST, PUT } from '@/utils/fetch'
 import { IPost } from '@cc98/api'
 
@@ -55,6 +56,8 @@ export interface ITopicParams extends IPostParams {
    */
   tag1?: number
   tag2?: number
+  isVote?: boolean
+  voteInfo?: VoteInfo
 }
 
 /**

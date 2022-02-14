@@ -87,29 +87,19 @@ interface Props {
 }
 
 export default ({ data, topic }: Props) => {
-  // const [postInfo, setPostInfo] = useFetcher(() => getPostInfoById(data.postId))
-  // const [topicInfo, setTopicInfo] = useFetcher(() => getTopicInfoById(data.topicId))
   const post = data.postBasicInfo
-  if (post === null || post === undefined) {
-    return null
-  }
-  if (topic === null || topic === undefined) {
-    return null
-  }
+
+  if (!!!post || !!!topic) return null
+
   const { userName, floor, isDeleted } = post
   const { title } = topic
 
-  if (isDeleted) {
-    return null
-  }
+  if (isDeleted) return null
 
-  let subtitle = userName || '[匿名]'
+  const subtitle = userName || '[匿名]'
 
-  let info1 = dayjs(data.time).fromNow()
-  let info2 = data.isRead ? '已读' : '未读'
-
-  // let page = Math.floor(floor / 10) + 1
-  // let offset = floor % 10
+  const info1 = data.isRead ? '已读' : '未读'
+  const info2 = dayjs(data.time).fromNow()
 
   return (
     <ReplyItem

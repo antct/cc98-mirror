@@ -124,12 +124,40 @@ function chooseSendCallback(
   // 发布帖子
   if (boardId && !topicId && !postId) {
     return () => {
+      const isVote = !!metaInfo.state.isVote
+      const voteInfo = metaInfo.state.voteInfo
+      if (isVote && voteInfo !== undefined && voteInfo.expiredDays < 1) {
+        snackbar.error('请选择过期时间')
+        failCallback()
+        return
+      }
+      if (isVote && voteInfo !== undefined && voteInfo.maxVoteCount < 1) {
+        snackbar.error('请选择最大投票数')
+        failCallback()
+        return
+      }
+      if (isVote && voteInfo !== undefined && voteInfo.voteItems.length <= 1) {
+        snackbar.error('投票至少应有2个选项')
+        failCallback()
+        return
+      }
       let topicParams: ITopicParams = {
         ...metaInfo.state,
         content: editor.fullContent,
         contentType: editor.state.contentType,
       }
-      if (editor.state.anonymousState == 2 && editor.state.anonymousSend) topicParams.isAnonymous = true
+      if (!isVote) {
+        topicParams.isVote = undefined
+        topicParams.voteInfo = undefined
+      }
+      if (editor.state.anonymousState == 2 && editor.state.anonymousSend) {
+        if (isVote) {
+          snackbar.error('投票禁止匿名')
+          failCallback()
+          return
+        }
+        topicParams.isAnonymous = true
+      }
       postTopic(boardId, topicParams).then(res =>
         res
           .fail((data) => {
@@ -175,15 +203,15 @@ function chooseSendCallback(
     return () => {
       const params: ITopicParams | IPostParams = isEditorTopic
         ? {
-            ...metaInfo.state,
-            content: editor.fullContent,
-            contentType: editor.state.contentType,
-          }
+          ...metaInfo.state,
+          content: editor.fullContent,
+          contentType: editor.state.contentType,
+        }
         : {
-            title: '',
-            content: editor.fullContent,
-            contentType: editor.state.contentType,
-          }
+          title: '',
+          content: editor.fullContent,
+          contentType: editor.state.contentType,
+        }
       editorPost(postId, params).then(res =>
         res
           .fail((data) => {

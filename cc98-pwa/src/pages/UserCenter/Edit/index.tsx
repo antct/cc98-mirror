@@ -6,6 +6,7 @@ import { goback } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { Button, IconButton, TextField, Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
+import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import EditAvatar from './EditAvatar'
@@ -107,6 +108,15 @@ const FormBody = () => {
             <option value={1}>男</option>
             <option value={0}>女</option>
           </FormItem>
+          <FormItem
+            label="生日"
+            type="date"
+            defaultValue={info.birthday && dayjs(info.birthday).format('YYYY-MM-DD')}
+            onChange={handleChange('birthday')}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
           <FormItem label="QQ" value={info.qq} onChange={handleChange('qq')} />
           <FormItem
             label="邮箱"

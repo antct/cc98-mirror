@@ -1,4 +1,4 @@
-import { AVATAR_COMPRESS_WIDTH, CDN, IMG_COMPRESS_WIDTH } from '@/config'
+import { AVATAR_COMPRESS_WIDTH, CDN, IMG_BASE_URL, IMG_COMPRESS_WIDTH } from '@/config'
 import { Model } from '@/hooks/useModel'
 import { ModeEnum, ThemeEnum } from '@/theme'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
@@ -91,7 +91,7 @@ class SettingModel extends Model<State> {
   }
 
   TRANS_IMG = (url?: string, isAvatar?: boolean) => {
-    if (url === undefined) return url
+    if (url === undefined) return undefined
     if (this.state.useCDN) return CDN(url, !!isAvatar)
     if (this.state.useCompress) {
       if (!!isAvatar) return `${url}?compress=true&width=${AVATAR_COMPRESS_WIDTH}`
@@ -253,7 +253,7 @@ class SettingModel extends Model<State> {
 
   TOGGLE_SCHOOLNEWS = () => {
     this.setState(state => ({
-      showSchoolNews: !state.showSchoolNewss,
+      showSchoolNews: !state.showSchoolNews,
     }))
     this.SYNC_SETTING()
   }

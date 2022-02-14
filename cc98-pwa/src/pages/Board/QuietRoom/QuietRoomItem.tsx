@@ -1,35 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import muiStyled from '@/muiStyled'
-
-import { Paper, Divider, Typography } from '@material-ui/core'
-import { IBoardStopPostUser } from '@cc98/api'
-
-import dayjs from 'dayjs'
-import Actions from './Actions'
+import { TopicItem } from '@/components/TopicList/TopicListItem'
 import { navigate } from '@/utils/history'
+import { IBoardStopPostUser } from '@cc98/api'
+import dayjs from 'dayjs'
+import React from 'react'
 
-const Wrapper = muiStyled(Paper).attrs({
-  square: true,
-  elevation: 0,
-})({
-  marginTop: 6,
-})
-
-const FlexDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 8px 16px;
-`
-
-const RightDiv = styled.div`
-  text-align: right;
-`
-
-const SubTitle = muiStyled(Typography).attrs({
-  color: 'textSecondary',
-})({})
 
 interface Props {
   /**
@@ -51,24 +25,13 @@ interface Props {
 }
 
 export default ({ info, boardId, refreshFunc, canManage }: Props) => (
-  <Wrapper>
-    <FlexDiv>
-      <div>
-        <Typography onClick={info.userId === -1 ? undefined : () => navigate(`/user/${info.userId}`)}>{info.userId === -1 ? '匿名' : info.userName}</Typography>
-        <SubTitle>{`TP：${dayjs(info.expiredTime).subtract(info.days, 'day').format('YYYY/MM/DD HH:mm')} — ${dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}`}</SubTitle>
-        {/* <SubTitle>{`到期时间：${dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}`}</SubTitle> */}
-      </div>
-      <RightDiv>
-        <Typography>{`操作人：${info.operatorUserName}`}</Typography>
-        {canManage && (<Actions
-          boardId={boardId}
-          userId={info.userId}
-          refreshFunc={refreshFunc}
-          canManage={canManage}
-        />)}
-      </RightDiv>
-    </FlexDiv>
-
-    <Divider />
-  </Wrapper>
+  <TopicItem
+    title={info.userId === -1 ? '匿名' : info.userName}
+    subtitle={`操作人：${info.operatorUserName}`}
+    info1={dayjs(info.expiredTime).subtract(info.days, 'day').format('YYYY/MM/DD HH:mm')}
+    info2={dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}
+    isAnonymous={false}
+    showAvatar={false}
+    onClick={info.userId === -1 ? () => { } : () => navigate(`/user/${info.userId}`)}
+  />
 )

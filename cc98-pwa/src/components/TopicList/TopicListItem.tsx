@@ -124,7 +124,7 @@ interface ItemProps {
 }
 
 export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, dislikeCount = undefined }) => (
-  <ListItemS button divider onClick={onClick}>
+  <ListItemS button divider onClick={onClick} >
     {showAvatar &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={200} once>
@@ -143,19 +143,19 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
             &nbsp;&nbsp;
           </>)
         }
-        {hitCount !== undefined &&
-          (<>
-            <VisibilityIconS />
-            &nbsp;
-            {hitCount}
-            &nbsp;&nbsp;
-          </>)
-        }
         {replyCount !== undefined &&
           (<>
             <ReplyIconS />
             &nbsp;
             {replyCount}
+            &nbsp;&nbsp;
+          </>)
+        }
+        {hitCount !== undefined &&
+          (<>
+            <VisibilityIconS />
+            &nbsp;
+            {hitCount}
             &nbsp;&nbsp;
           </>)
         }

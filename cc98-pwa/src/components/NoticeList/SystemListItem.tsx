@@ -85,9 +85,9 @@ interface Props {
 
 export default ({ data }: Props) => {
   const title = data.title
-  let subtitle = data.content
-  let info1 = dayjs(data.time).fromNow()
-  let info2 = data.isRead ? '已读' : '未读'
+  const subtitle = data.content
+  const info1 = data.isRead ? '已读' : '未读'
+  const info2 = dayjs(data.time).fromNow()
 
   return (
     <SystemItem
