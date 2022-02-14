@@ -1,4 +1,4 @@
-import { IS_PC } from '@/config'
+import { ANONYMOUS_AVATAR, IS_PC } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
@@ -30,6 +30,7 @@ const AvatarArea = styled.div`
 
 const AvatarS = muiStyled(Avatar)({
   marginRight: 12,
+  backgroundColor: "#bdbdbd"
 })
 
 const TitleArea = styled.div`
@@ -128,9 +129,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
     {showAvatar &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={portraitUrl}>
-            {isAnonymous && '匿'}
-          </AvatarS>
+          <AvatarS src={isAnonymous ? ANONYMOUS_AVATAR : portraitUrl} children={false} />
         </LazyLoad>
       </AvatarArea>
     }

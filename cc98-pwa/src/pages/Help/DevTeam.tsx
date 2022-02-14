@@ -20,7 +20,7 @@ interface Props {
 
 const DevCard: React.FC<Props> = ({ userInfo }) => (
   <CardHeaderS
-    avatar={<Avatar src={userInfo.portraitUrl} />}
+    avatar={<Avatar src={userInfo.portraitUrl} children={false} />}
     title={<Typography color="textPrimary">{userInfo.name}</Typography>}
     subheader={userInfo.introduction}
     onClick={() => navigate(`/user/${userInfo.id}`)}

@@ -94,10 +94,10 @@ export default ({ data, place }: Props) => {
               }}
               variant="dot"
             >
-              <Avatar src={TRANS_IMG(portraitUrl, true)} />
+              <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
             </StyledBadge>
             :
-            <Avatar src={TRANS_IMG(portraitUrl, true)} />
+            <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
           }
         </ListItemAvatar>
       </LazyLoad>

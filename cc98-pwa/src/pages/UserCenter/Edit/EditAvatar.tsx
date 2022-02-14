@@ -40,7 +40,7 @@ interface Props {
 const EditAvatar: React.FC<Props> = ({ info, handleAvatarSubmit }) => (
   <WrapperDiv>
     <AvatarDiv>
-      <AvatarS src={info.portraitUrl} />
+      <AvatarS src={info.portraitUrl} children={false} />
       <Typography variant="h6">{info.name}</Typography>
     </AvatarDiv>
     <ButtonDiv>

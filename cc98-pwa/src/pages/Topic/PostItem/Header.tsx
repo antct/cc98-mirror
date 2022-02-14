@@ -1,4 +1,4 @@
-import { ONLINE_TIME } from '@/config'
+import { ANONYMOUS_AVATAR, ONLINE_TIME } from '@/config'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
@@ -70,6 +70,7 @@ const AvatarArea = styled.div`
 
 const AvatarS = muiStyled(Avatar)({
   marginRight: 12,
+  backgroundColor: "#bdbdbd"
 })
 
 const Title = Typography
@@ -136,18 +137,16 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
               >
                 <AvatarS
                   onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                  src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
-                >
-                  {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
-                </AvatarS>
+                  src={(postInfo.isAnonymous || postInfo.isDeleted || !userInfo) ? ANONYMOUS_AVATAR : TRANS_IMG(userInfo.portraitUrl, true) }
+                  children={false}
+                />
               </StyledBadge>
               :
               <AvatarS
                 onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                src={userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
-              >
-                {(postInfo.isAnonymous || postInfo.isDeleted) && '匿'}
-              </AvatarS>
+                src={(postInfo.isAnonymous || postInfo.isDeleted || !userInfo) ? ANONYMOUS_AVATAR: TRANS_IMG(userInfo.portraitUrl, true) }
+                children={false}
+              />
             }
           </LazyLoad>
           <div>

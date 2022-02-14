@@ -8,12 +8,13 @@ import React, { useState } from 'react'
 
 const TypographyS = muiStyled(Typography).attrs({
 })({
-  margin: '0px 11px',
+  margin: '0px 16px',
   whiteSpace: 'normal'
 })
 
 const ChipS = muiStyled(Chip).attrs({
 })({
+  marginTop: 5,
   marginRight: 5
 })
 

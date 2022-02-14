@@ -41,7 +41,7 @@ export default ({ message, user }: Props) => {
     <ListItem button onClick={() => navigateToDetail(message.userId)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
-          <Avatar src={TRANS_IMG(portraitUrl, true)} />
+          <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{message.lastContent}</Text>} />

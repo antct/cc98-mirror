@@ -3,6 +3,7 @@ export const FILE_BASE_URL = 'https://api.ttxixi.cc/cc98/files'
 export const CDN_AVATAR_URL = 'https://cdn.img.cc98.top'
 export const CDN_IMG_URL = 'https://cdn.img.cc98.top/static/images'
 export const CDN_FILE_URL = 'https://cdn.img.cc98.top'
+export const ANONYMOUS_AVATAR = `${CDN_IMG_URL}/_心灵之约.png`
 export const AVATAR_COMPRESS_WIDTH = 50
 export const IMG_COMPRESS_WIDTH = 300
 export const MAX_WIDTH = 700

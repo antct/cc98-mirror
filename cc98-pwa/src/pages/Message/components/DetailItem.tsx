@@ -101,7 +101,7 @@ export default ({ message }: Props) => {
     <ListItemS button>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} children={false} />
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
@@ -118,7 +118,7 @@ export default ({ message }: Props) => {
       </MessageRoot>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
-          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} children={false} />
         </ListItemAvatarS>
       </LazyLoad>
     </ListItemS>

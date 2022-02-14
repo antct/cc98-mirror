@@ -130,7 +130,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
       <WrapperDiv>
         <AvatarDiv>
           <LazyLoad height={'100%'} offset={200} once>
-            <AvatarS src={info.portraitUrl} />
+            <AvatarS src={info.portraitUrl} children={false} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>

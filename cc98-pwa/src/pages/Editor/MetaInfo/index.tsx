@@ -20,6 +20,7 @@ const InputArea = muiStyled(InputBase).attrs({
 
 const ChipS = muiStyled(Chip).attrs({
 })({
+  marginTop: 5,
   marginRight: 5
 })
 
