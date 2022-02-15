@@ -1,6 +1,6 @@
 import muiStyled from '@/muiStyled'
 import { IUser } from '@cc98/api'
-import { Avatar, Typography } from '@material-ui/core'
+import { Avatar, Typography } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 import ForumAvatarButton from './ForumAvatarButton'

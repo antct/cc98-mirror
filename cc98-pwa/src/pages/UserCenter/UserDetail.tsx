@@ -1,5 +1,5 @@
 import { IUser } from '@cc98/api'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'

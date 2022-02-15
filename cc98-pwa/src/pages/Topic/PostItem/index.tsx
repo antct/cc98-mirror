@@ -6,11 +6,11 @@ import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
 import { IPost, ITopic, IUser } from '@cc98/api'
-import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import DoneIcon from '@material-ui/icons/Done'
-import SummaryIcon from '@material-ui/icons/FormatQuote'
-import TagIcon from '@material-ui/icons/LocalOffer'
+import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
+import withStyles from '@mui/styles/withStyles';
+import DoneIcon from '@mui/icons-material/Done'
+import SummaryIcon from '@mui/icons-material/FormatQuote'
+import TagIcon from '@mui/icons-material/Tag'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import MarkdownView from 'react-showdown'
@@ -271,7 +271,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
               <CardHeaderS
                 action={
                   currentVote.needVote && currentVote.canVote &&
-                  <IconButton onClick={handleSubmit}>
+                  <IconButton onClick={handleSubmit} size="large">
                     <DoneIcon />
                   </IconButton>
                 }
@@ -343,5 +343,5 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
       />
       <Divider />
     </Wrapper>
-  )
+  );
 }

@@ -2,13 +2,13 @@ import muiStyled from '@/muiStyled'
 import { customBoard } from '@/services/board'
 import { IBoard } from '@cc98/api'
 import {
-  CircularProgress, ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  CircularProgress, Accordion,
+  AccordionDetails,
+  AccordionSummary,
   IconButton, Typography
-} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import FavoriteIcon from '@material-ui/icons/Favorite'
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BoardMenu from './components/BoardMenu'
@@ -31,7 +31,7 @@ const HeaderDiv = styled.div`
   padding: 16px 0px 10px 16px;
 `
 
-const ExpansionPanelS = muiStyled(ExpansionPanel)({
+const AccordionS = muiStyled(Accordion)({
   width: '100%',
   border: 'none',
   boxShadow: `
@@ -39,7 +39,7 @@ const ExpansionPanelS = muiStyled(ExpansionPanel)({
   `,
 })
 
-const ExpansionPanelSummaryS = muiStyled(ExpansionPanelSummary)({
+const AccordionSummaryS = muiStyled(AccordionSummary)({
   paddingRight: 12
 })
 
@@ -84,7 +84,7 @@ export default ({ data }: Props) => {
           </Typography>
         </div>
         <div>
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={handleClick} size="large">
             {state.loading ? (
               <CircularProgress size={20} />
             ) : (
@@ -95,16 +95,16 @@ export default ({ data }: Props) => {
         </div>
       </HeaderDiv>
 
-      <ExpansionPanelS>
-        <ExpansionPanelSummaryS expandIcon={<ExpandMoreIcon />}>
+      <AccordionS>
+        <AccordionSummaryS expandIcon={<ExpandMoreIcon />}>
           <Typography variant="subtitle2" color="primary">
             版面描述
           </Typography>
-        </ExpansionPanelSummaryS>
-        <ExpansionPanelDetails>
+        </AccordionSummaryS>
+        <AccordionDetails>
           <Typography variant="body2">{data.description}</Typography>
-        </ExpansionPanelDetails>
-      </ExpansionPanelS>
+        </AccordionDetails>
+      </AccordionS>
     </FlexDiv>
-  )
+  );
 }

@@ -4,9 +4,11 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IUser } from '@cc98/api'
-import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@material-ui/core'
-import Badge from '@material-ui/core/Badge'
-import { createStyles, Theme, withStyles } from '@material-ui/core/styles'
+import { Avatar, ListItem, ListItemAvatar, ListItemSecondaryAction, Typography } from '@mui/material'
+import Badge from '@mui/material/Badge'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'

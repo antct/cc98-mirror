@@ -2,8 +2,8 @@ import { MAX_WIDTH } from '@/config'
 import stateModel from '@/models/state'
 import muiStyled from '@/muiStyled'
 import version from '@/version'
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 import React from 'react'
 
 

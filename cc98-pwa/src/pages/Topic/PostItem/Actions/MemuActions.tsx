@@ -4,8 +4,8 @@ import { judgeEdit, judgeManager, judgeManagerOrBoardMasters } from '@/utils/Act
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { IPost, IUser } from '@cc98/api'
-import { IconButton, Menu, MenuItem } from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React, { useEffect, useState } from 'react'
 // TODO: fix
 import Judge from '../Dialog/Judge'
@@ -115,40 +115,38 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
   // 管理员才有的管理操作
   const onlyManager = judgeManager(myInfo)
 
-  return (
-    <>
-      {showJudge && (
-        <Judge postInfo={postInfo} handleClose={judgeClose} refreshPost={refreshPost} />
+  return <>
+    {showJudge && (
+      <Judge postInfo={postInfo} handleClose={judgeClose} refreshPost={refreshPost} />
+    )}
+    {showManage && (
+      <Manage
+        postInfo={postInfo}
+        handleClose={manageClose}
+        refreshPost={refreshPost}
+        isManager={onlyManager}
+      />
+    )}
+    <IconButton onClick={handleOpen} size="large">
+      <ExpandMoreIcon />
+    </IconButton>
+    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+      <MenuItem onClick={handleTrace}>{isTrace ? '返回' : '追踪'}</MenuItem>
+      {canEdit && (
+        <MenuItem
+          onClick={() => {
+            navigate(`/editor/edit/${postInfo.boardId}/${postInfo.id}`)
+            handleClose()
+          }}
+        >
+          编辑
+        </MenuItem>
       )}
-      {showManage && (
-        <Manage
-          postInfo={postInfo}
-          handleClose={manageClose}
-          refreshPost={refreshPost}
-          isManager={onlyManager}
-        />
-      )}
-      <IconButton onClick={handleOpen}>
-        <ExpandMoreIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleTrace}>{isTrace ? '返回' : '追踪'}</MenuItem>
-        {canEdit && (
-          <MenuItem
-            onClick={() => {
-              navigate(`/editor/edit/${postInfo.boardId}/${postInfo.id}`)
-              handleClose()
-            }}
-          >
-            编辑
-          </MenuItem>
-        )}
-        <MenuItem onClick={handleJudge}>评分</MenuItem>
-        {/* <MenuItem onClick={handleShare}>分享</MenuItem> */}
-        {canManage && <MenuItem onClick={handleManage}>管理</MenuItem>}
-      </Menu>
-    </>
-  )
+      <MenuItem onClick={handleJudge}>评分</MenuItem>
+      {/* <MenuItem onClick={handleShare}>分享</MenuItem> */}
+      {canManage && <MenuItem onClick={handleManage}>管理</MenuItem>}
+    </Menu>
+  </>;
 }
 
 export default MenuActions

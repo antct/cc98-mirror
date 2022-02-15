@@ -2,8 +2,8 @@ import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import muiStyled from '@/muiStyled'
 import { getBoardTags } from '@/services/board'
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormLabel, IconButton, InputBase, MenuItem, Select, Switch, TextField } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/AddCircle'
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormLabel, IconButton, InputBase, MenuItem, Select, Switch, TextField } from '@mui/material'
+import AddIcon from '@mui/icons-material/AddCircle'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { MetaInfoModel } from './MetaInfoModel'
@@ -151,6 +151,7 @@ export default ({ model, boardId }: Props) => {
             <Select
               value={model.state.voteInfo.expiredDays}
               onChange={onExpireDaysChange}
+              size="small"
             >
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
@@ -161,6 +162,7 @@ export default ({ model, boardId }: Props) => {
             <FormLabel>最大投票数：</FormLabel>
             <Select
               onChange={onMaxVoteCountChange}
+              size="small"
             >
               {
                 model.state.voteInfo.voteItems.map((value: string, index: number) => <MenuItem value={index + 1}>{index + 1}</MenuItem>)

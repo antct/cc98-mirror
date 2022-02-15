@@ -4,15 +4,15 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IRecommendationReading } from '@cc98/api'
-import { Divider, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -79,14 +79,14 @@ export default (props: Props) => {
 
       {showSchoolNews && props.schoolNews.map((info: IRecommendationReading) => {
         return (
-          <ListItemS button divider onClick={() => navigate(info.url)}>
+          <ListItemButtonS divider onClick={() => navigate(info.url)}>
             <TitleArea>
               <Title>{info.title}</Title>
             </TitleArea>
             <InfoArea>
               <Info1>{dayjs(info.time).fromNow()}</Info1>
             </InfoArea>
-          </ListItemS>
+          </ListItemButtonS>
         )
       })}
     </ListS>

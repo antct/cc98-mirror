@@ -11,7 +11,7 @@ import {
 import { getUsersBasicInfoByNames } from '@/services/user'
 import { notificationHandler } from '@/services/utils/errorHandler'
 import { IHotTopic } from '@cc98/api'
-import { List, Tab, Tabs } from '@material-ui/core'
+import { Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
 import HotTopicItem from './HotTopicItem'
 

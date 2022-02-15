@@ -5,18 +5,18 @@ import muiStyled from '@/muiStyled'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
-import { Avatar, ListItem, Typography } from '@material-ui/core'
-import PersonIcon from '@material-ui/icons/Person'
-import ReplyIcon from '@material-ui/icons/Reply'
-import ThumbDownIcon from '@material-ui/icons/ThumbDown'
-import ThumbUpIcon from '@material-ui/icons/ThumbUp'
-import VisibilityIcon from '@material-ui/icons/Visibility'
+import PersonIcon from '@mui/icons-material/Person'
+import ReplyIcon from '@mui/icons-material/Reply'
+import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Avatar, ListItemButton, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -117,19 +117,18 @@ interface ItemProps {
   replyCount?: number
   likeCount?: number
   dislikeCount?: number
-  isAnonymous: boolean
   isHighlight?: boolean
   portraitUrl?: string
   showAvatar: boolean
   onClick: () => void
 }
 
-export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, dislikeCount = undefined }) => (
-  <ListItemS button divider onClick={onClick} >
+export const TopicItem: React.FC<ItemProps> = ({ onClick, isHighlight = false, portraitUrl, showAvatar, title, subtitle, info1, info2, hitCount = undefined, lastPostUser = undefined, replyCount = undefined, likeCount = undefined, dislikeCount = undefined }) => (
+  <ListItemButtonS divider onClick={onClick} >
     {showAvatar &&
       <AvatarArea>
         <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={isAnonymous ? ANONYMOUS_AVATAR : portraitUrl} children={false} />
+          <AvatarS src={portraitUrl} children={false} />
         </LazyLoad>
       </AvatarArea>
     }
@@ -189,7 +188,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isAnonymous, isHighlig
       <Info1>{info1}</Info1>
       <Info2>{info2}</Info2>
     </InfoArea>
-  </ListItemS>
+  </ListItemButtonS>
 )
 
 export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update'
@@ -272,9 +271,8 @@ export default ({ data, place, portraitUrl }: Props) => {
   return (
     <TopicItem
       onClick={() => navigate(`/topic/${data.id}`)}
-      isAnonymous={data.isAnonymous}
       isHighlight={showHighlight}
-      portraitUrl={TRANS_IMG(portraitUrl, true)}
+      portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
       showAvatar={useAvatar && showAvatar}
       title={title}
       subtitle={subtitle}

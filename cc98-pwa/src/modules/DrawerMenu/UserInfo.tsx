@@ -2,7 +2,7 @@ import snowballImg from '@/assets/snowball.png'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IUser } from '@cc98/api'
-import { Avatar, Typography } from '@material-ui/core'
+import { Avatar, Typography } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 

@@ -1,6 +1,6 @@
 import LayoutCenter from '@/components/LayoutCenter'
 import muiStyled from '@/muiStyled'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 import ErrorImage from './ErrorImage'

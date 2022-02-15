@@ -3,15 +3,16 @@ import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import userModel from '@/models/user'
 import { getAt, getReply, getSystem } from '@/services/notice'
-import { Tab, Tabs, Badge } from '@material-ui/core'
+import { Badge, Tab, Tabs } from '@mui/material'
+import withStyles from '@mui/styles/withStyles'
 import React, { useState } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 
 const BadgeS = withStyles(theme => ({
-  anchorOriginTopRightRectangle: {
+  anchorOriginTopRight: {
     right: -4
   }
 }))(Badge)
+
 
 export default () => {
   const [current, setCurrent] = useState('reply')

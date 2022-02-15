@@ -1,12 +1,12 @@
 import FixFab from '@/components/FixFab'
 import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
-import AddIcon from '@material-ui/icons/Add'
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import RemoveIcon from '@material-ui/icons/Remove'
-import ReplyIcon from '@material-ui/icons/Reply'
-import RotateRightIcon from '@material-ui/icons/RotateRight'
-import SwapVertIcon from '@material-ui/icons/SwapVert'
+import AddIcon from '@mui/icons-material/Add'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import RemoveIcon from '@mui/icons-material/Remove'
+import ReplyIcon from '@mui/icons-material/Reply'
+import RotateRightIcon from '@mui/icons-material/RotateRight'
+import SwapVertIcon from '@mui/icons-material/SwapVert'
 import React, { useState } from 'react'
 
 

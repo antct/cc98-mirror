@@ -4,10 +4,10 @@ import { putDislike, putLike } from '@/services/post'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { ILikeState, IPost } from '@cc98/api'
-import { IconButton, Typography } from '@material-ui/core'
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote'
-import ThumbDownIcon from '@material-ui/icons/ThumbDown'
-import ThumbUpIcon from '@material-ui/icons/ThumbUp'
+import { IconButton, Typography } from '@mui/material'
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote'
+import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -89,7 +89,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
 
   return (
     <ActionDiv>
-      <IconButton onClick={handleLike(LikeState.LIKE)}>
+      <IconButton onClick={handleLike(LikeState.LIKE)} size="large">
         <ThumbUpIcon
           fontSize="small"
           color={likeState === LikeState.LIKE ? 'secondary' : 'inherit'}
@@ -99,7 +99,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
 
       <DividerCol />
 
-      <IconButton onClick={handleLike(LikeState.DISLIKE)}>
+      <IconButton onClick={handleLike(LikeState.DISLIKE)} size="large">
         <ThumbDownIcon
           fontSize="small"
           color={likeState === LikeState.DISLIKE ? 'secondary' : 'inherit'}
@@ -108,11 +108,11 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
       <Count>{postInfo.dislikeCount}</Count>
 
       <DividerCol />
-      <IconButton onClick={handleQuote}>
+      <IconButton onClick={handleQuote} size="large">
         <FormatQuoteIcon fontSize="small" />
       </IconButton>
     </ActionDiv>
-  )
+  );
 }
 
 export default IconActions

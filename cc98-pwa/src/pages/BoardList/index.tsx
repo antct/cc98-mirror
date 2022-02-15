@@ -6,8 +6,8 @@ import userModel from '@/models/user'
 import { getBoardsInfo } from '@/services/board'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { IBasicBoard } from '@cc98/api'
-import { Collapse, IconButton } from '@material-ui/core'
-import SwapVertIcon from '@material-ui/icons/SwapVert'
+import { Collapse, IconButton } from '@mui/material'
+import SwapVertIcon from '@mui/icons-material/SwapVert'
 import { throttle } from 'lodash-es'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -45,43 +45,41 @@ export default () => {
   }, 250)
 
   const [isExpanded, setIsExpanded] = useState(true)
-  return (
-    <>
-      <StickyBar>
-        <SearchInput placeholder="搜索版面" onChange={onSearchTermChange} />
-      </StickyBar>
-      {searchTerm ? (
-        <SearchDiv>
-          {filteredBoards.map(board => (
-            <BoardItem key={board.id} boardInfo={board} />
-          ))}
-        </SearchDiv>
-      ) : (
-        <>
-          <WrapperDiv>
-            <Title onClick={() => setIsExpanded(!isExpanded)}>
-              {'关注'}
-              <IconButton color="primary" style={{ marginRight: -4 }}>
-                <SwapVertIcon
-                  style={{
-                    transform: isExpanded ? undefined : 'rotate(90deg)',
-                    transition: 'transform 0.5s',
-                  }}
-                />
-              </IconButton>
-            </Title>
-            <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-              {myInfo && myInfo.customBoards.map((value, index) => {
-                const board = childBoards.filter(board => board.id === value)[0]
-                return (board && <BoardItem key={value} boardInfo={board} hasCover={true} />)
-              })}
-            </Collapse>
-          </WrapperDiv>
-          {boardList &&
-            boardList.map(boardGroup => <BoardGroup key={boardGroup.id} boardsInfo={boardGroup} />)}
-          <EmptyDiv />
-        </>
-      )}
-    </>
-  )
+  return <>
+    <StickyBar>
+      <SearchInput placeholder="搜索版面" onChange={onSearchTermChange} />
+    </StickyBar>
+    {searchTerm ? (
+      <SearchDiv>
+        {filteredBoards.map(board => (
+          <BoardItem key={board.id} boardInfo={board} />
+        ))}
+      </SearchDiv>
+    ) : (
+      <>
+        <WrapperDiv>
+          <Title onClick={() => setIsExpanded(!isExpanded)}>
+            {'关注'}
+            <IconButton color="primary" style={{ marginRight: -4 }} size="large">
+              <SwapVertIcon
+                style={{
+                  transform: isExpanded ? undefined : 'rotate(90deg)',
+                  transition: 'transform 0.5s',
+                }}
+              />
+            </IconButton>
+          </Title>
+          <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            {myInfo && myInfo.customBoards.map((value, index) => {
+              const board = childBoards.filter(board => board.id === value)[0]
+              return (board && <BoardItem key={value} boardInfo={board} hasCover={true} />)
+            })}
+          </Collapse>
+        </WrapperDiv>
+        {boardList &&
+          boardList.map(boardGroup => <BoardGroup key={boardGroup.id} boardsInfo={boardGroup} />)}
+        <EmptyDiv />
+      </>
+    )}
+  </>;
 }

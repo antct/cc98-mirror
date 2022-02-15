@@ -1,4 +1,5 @@
 import { TopicItem } from '@/components/TopicList/TopicListItem'
+import { ANONYMOUS_AVATAR } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { getBoardNameById } from '@/services/board'
@@ -27,9 +28,8 @@ export default ({ data, portraitUrl }: Props) => {
 
   return (
     <TopicItem
-      isAnonymous={data.isAnonymous}
       showAvatar={useAvatar}
-      portraitUrl={TRANS_IMG(portraitUrl, true)}
+      portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}
       subtitle={data.authorName ? data.authorName : '[匿名]'}

@@ -1,8 +1,8 @@
 import FixFab from '@/components/FixFab'
 import { InfTopicList } from '@/components/TopicList'
 import { getNewTopics } from '@/services/topic'
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
-import RotateRightIcon from '@material-ui/icons/RotateRight'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import RotateRightIcon from '@mui/icons-material/RotateRight'
 import React, { useState } from 'react'
 
 export default () => {

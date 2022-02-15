@@ -1,5 +1,5 @@
-import { Snackbar } from '@material-ui/core'
-import { SnackbarProps } from '@material-ui/core/Snackbar'
+import { Snackbar } from '@mui/material'
+import { SnackbarProps } from '@mui/material/Snackbar'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import MySnackbarContent from './MySnackbarContent'

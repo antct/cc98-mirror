@@ -2,7 +2,7 @@ import LoadingCircle from '@/components/LoadingCircle'
 import useModel from '@/hooks/useModel'
 import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
-import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core'
+import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 

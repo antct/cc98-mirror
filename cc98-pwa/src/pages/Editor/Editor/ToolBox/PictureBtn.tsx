@@ -1,6 +1,6 @@
 import { uploadPicture } from '@/services/editor'
-import { IconButton } from '@material-ui/core'
-import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate'
+import { IconButton } from '@mui/material'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import React, { useRef } from 'react'
 import { EditorModel } from '../EditorModel'
 
@@ -31,20 +31,18 @@ export default ({ editor }: Props) => {
     }
   }
 
-  return (
-    <>
-      <IconButton onClick={clickHandler}>
-        <AddPhotoAlternateIcon />
-      </IconButton>
-      <input
-        style={{ display: 'none' }}
-        type="file"
-        name="file"
-        onChange={e => choosePicFinish(e.target.files)}
-        ref={fileInputRef}
-        multiple
-        accept="image/*"
-      />
-    </>
-  )
+  return <>
+    <IconButton onClick={clickHandler} size="large">
+      <AddPhotoAlternateIcon />
+    </IconButton>
+    <input
+      style={{ display: 'none' }}
+      type="file"
+      name="file"
+      onChange={e => choosePicFinish(e.target.files)}
+      ref={fileInputRef}
+      multiple
+      accept="image/*"
+    />
+  </>;
 }

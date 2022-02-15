@@ -1,6 +1,6 @@
 import { IMG_BASE_URL } from '@/config'
 import muiStyled from '@/muiStyled'
-import { DialogContent, DialogTitle, Tab, Tabs } from '@material-ui/core'
+import { DialogContent, DialogTitle, Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { EditorModel } from '../EditorModel'

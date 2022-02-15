@@ -1,7 +1,7 @@
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
-import { InputAdornment, ListItem, MenuItem, TextField } from '@material-ui/core'
+import { InputAdornment, ListItem, MenuItem, TextField } from '@mui/material'
 import React from 'react'
 
 const ranges = [
@@ -25,10 +25,11 @@ const Cache = () => {
       <ListItemText primary="缓存页数" secondary="十分影响性能（重启生效）" />
       <TextField
         select
-        InputProps={{
-          endAdornment: <InputAdornment position="end"></InputAdornment>,
-        }}
+        // InputProps={{
+        //   endAdornment: <InputAdornment position="end"></InputAdornment>,
+        // }}
         value={cacheSize}
+        size="small"
         onChange={handleChange}
       >
         {ranges.map(option => (

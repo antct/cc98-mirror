@@ -1,5 +1,5 @@
 import muiStyled from '@/muiStyled'
-import { List } from '@material-ui/core'
+import { List } from '@mui/material'
 
 const ListS = muiStyled(List)({
     width: '100%',

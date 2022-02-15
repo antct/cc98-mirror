@@ -1,5 +1,5 @@
 import { ITag } from '@cc98/api'
-import { MenuItem, Select } from '@material-ui/core'
+import { MenuItem, Select } from '@mui/material'
 import React, { useEffect } from 'react'
 
 
@@ -16,12 +16,12 @@ export default ({ tags, value, onChange }: Props) => {
     }
   }, [])
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLInputElement>, child: React.ReactNode) => {
     onChange(parseInt(e.target.value, 10))
   }
 
   return (
-    <Select value={value} onChange={handleSelect}>
+    <Select value={value} onChange={handleSelect} size="small">
       {tags.map(tag => (
         <MenuItem key={tag.id} value={tag.id}>
           {tag.name}

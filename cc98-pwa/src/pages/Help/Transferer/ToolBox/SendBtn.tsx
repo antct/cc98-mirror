@@ -1,7 +1,7 @@
 import {
   CircularProgress, IconButton
-} from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send'
+} from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
 import React from 'react'
 import { WealthModel } from '../WealthModel'
 
@@ -12,12 +12,10 @@ interface Props {
 }
 
 export default ({ transferer, onSendCallback }: Props) => {
-  return (
-    <>
-      <IconButton onClick={onSendCallback}>
-        {!transferer.state.isSending && <SendIcon />}
-        {transferer.state.isSending && <CircularProgress size={24} />}
-      </IconButton>
-    </>
-  )
+  return <>
+    <IconButton onClick={onSendCallback} size="large">
+      {!transferer.state.isSending && <SendIcon />}
+      {transferer.state.isSending && <CircularProgress size={24} />}
+    </IconButton>
+  </>;
 }

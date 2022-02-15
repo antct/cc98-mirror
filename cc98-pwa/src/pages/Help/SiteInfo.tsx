@@ -1,7 +1,7 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import muiStyled from '@/muiStyled'
 import { getHomeInfo } from '@/services/global'
-import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core'
+import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 

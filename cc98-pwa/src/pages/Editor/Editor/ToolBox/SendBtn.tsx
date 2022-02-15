@@ -3,8 +3,8 @@ import {
   Dialog, IconButton, List,
   ListItem,
   ListItemText
-} from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send'
+} from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 
@@ -68,18 +68,16 @@ export default ({ editor, onSendCallback }: Props) => {
     }
   }
 
-  return (
-    <>
-      <SimpleDialog
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-        options={options}
-      />
-      <IconButton onClick={clickHandler}>
-        {!editor.state.isSending && <SendIcon />}
-        {editor.state.isSending && <CircularProgress size={24} />}
-      </IconButton>
-    </>
-  )
+  return <>
+    <SimpleDialog
+      selectedValue={selectedValue}
+      open={open}
+      onClose={handleClose}
+      options={options}
+    />
+    <IconButton onClick={clickHandler} size="large">
+      {!editor.state.isSending && <SendIcon />}
+      {editor.state.isSending && <CircularProgress size={24} />}
+    </IconButton>
+  </>;
 }

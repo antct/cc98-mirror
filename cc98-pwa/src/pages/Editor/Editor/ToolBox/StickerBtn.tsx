@@ -1,5 +1,5 @@
-import { Dialog, IconButton } from '@material-ui/core'
-import TagFacesIcon from '@material-ui/icons/TagFaces'
+import { Dialog, IconButton } from '@mui/material'
+import TagFacesIcon from '@mui/icons-material/TagFaces'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 import StickerBox from './StickerBox'
@@ -19,14 +19,12 @@ export default ({ editor }: Props) => {
     setOpen(!open)
   }
 
-  return (
-    <>
-      <IconButton onClick={clickHandler}>
-        <TagFacesIcon />
-      </IconButton>
-      <Dialog open={open} onClose={handleClose} fullWidth scroll="paper">
-        <StickerBox editor={editor} handleClose={handleClose} />
-      </Dialog>
-    </>
-  )
+  return <>
+    <IconButton onClick={clickHandler} size="large">
+      <TagFacesIcon />
+    </IconButton>
+    <Dialog open={open} onClose={handleClose} fullWidth scroll="paper">
+      <StickerBox editor={editor} handleClose={handleClose} />
+    </Dialog>
+  </>;
 }

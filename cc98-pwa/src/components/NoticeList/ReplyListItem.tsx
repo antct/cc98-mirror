@@ -1,13 +1,13 @@
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IReply, ITopic } from '@cc98/api'
-import { ListItem, Typography } from '@material-ui/core'
+import { ListItemButton, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -67,7 +67,7 @@ interface ItemProps {
 }
 
 export const ReplyItem: React.FC<ItemProps> = ({ onClick, title, subtitle, info1, info2 }) => (
-  <ListItemS button divider onClick={onClick}>
+  <ListItemButtonS divider onClick={onClick}>
     <TitleArea>
       <Title>{title}</Title>
       <SubTitle>{subtitle}</SubTitle>
@@ -77,7 +77,7 @@ export const ReplyItem: React.FC<ItemProps> = ({ onClick, title, subtitle, info1
       <Info1>{info1}</Info1>
       <Info2>{info2}</Info2>
     </InfoArea>
-  </ListItemS>
+  </ListItemButtonS>
 )
 
 

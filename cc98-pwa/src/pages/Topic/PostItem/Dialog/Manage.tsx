@@ -10,7 +10,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle, MenuItem, Select, TextField
-} from '@material-ui/core'
+} from '@mui/material'
 import React, { useState } from 'react'
 
 const TextFieldS = muiStyled(TextField).attrs({
@@ -55,7 +55,7 @@ const Manage: React.FC<Props> = ({ postInfo, isManager, handleClose, refreshPost
     submitFail: false,
   })
 
-  const handlePointChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePointChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const point = parseInt(event.target.value, 10)
     setPoint(point)
   }

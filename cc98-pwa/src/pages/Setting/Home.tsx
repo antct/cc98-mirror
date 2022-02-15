@@ -1,7 +1,7 @@
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
-import { ListItem, MenuItem, TextField } from '@material-ui/core'
+import { ListItem, MenuItem, TextField } from '@mui/material'
 import React from 'react'
 
 const ranges = [
@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <ListItem>
       <ListItemText primary="主页设置" secondary="自定义主页内容" />
-      <TextField select value={customHome} onChange={handleChange}>
+      <TextField select value={customHome} size="small" onChange={handleChange}>
         {ranges.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

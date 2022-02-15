@@ -1,8 +1,7 @@
-import { InputBase } from '@material-ui/core'
-import { Theme } from '@material-ui/core/styles'
-import { fade } from '@material-ui/core/styles/colorManipulator'
-import SearchIcon from '@material-ui/icons/Search'
-import { makeStyles } from '@material-ui/styles'
+import { InputBase } from '@mui/material'
+import { Theme, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search'
+import { makeStyles } from '@mui/styles'
 import React, { useState } from 'react'
 
 
@@ -11,9 +10,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     width: '100%',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
   },
   searchIcon: {

@@ -30,7 +30,6 @@ export default ({ info, boardId, refreshFunc, canManage }: Props) => (
     subtitle={`操作人：${info.operatorUserName}`}
     info1={dayjs(info.expiredTime).subtract(info.days, 'day').format('YYYY/MM/DD HH:mm')}
     info2={dayjs(info.expiredTime).format('YYYY/MM/DD HH:mm')}
-    isAnonymous={false}
     showAvatar={false}
     onClick={info.userId === -1 ? () => { } : () => navigate(`/user/${info.userId}`)}
   />

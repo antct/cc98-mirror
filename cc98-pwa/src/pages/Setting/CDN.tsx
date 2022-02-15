@@ -1,7 +1,7 @@
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
-import { ListItem, Switch } from '@material-ui/core'
+import { ListItem, Switch } from '@mui/material'
 import React from 'react'
 
 export default () => {

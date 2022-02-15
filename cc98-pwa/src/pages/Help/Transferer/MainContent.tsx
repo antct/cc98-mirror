@@ -1,5 +1,5 @@
 import muiStyled from '@/muiStyled'
-import { Card, CardContent, InputBase, Typography } from '@material-ui/core'
+import { Card, CardContent, InputBase, Typography } from '@mui/material'
 import React from 'react'
 import { WealthModel } from './WealthModel'
 
@@ -9,7 +9,7 @@ const InputArea = muiStyled(InputBase).attrs({
   multiline: true,
   autoFocus: true,
   rows: 1,
-  rowsMax: 10,
+  maxRows: 10,
 })({
   marginTop: 8,
   padding: '12px 8px',

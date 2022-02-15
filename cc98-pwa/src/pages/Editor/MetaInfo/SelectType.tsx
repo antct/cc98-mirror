@@ -1,4 +1,4 @@
-import { MenuItem, Select } from '@material-ui/core'
+import { MenuItem, Select } from '@mui/material'
 import React from 'react'
 
 
@@ -10,12 +10,12 @@ interface Props {
 }
 
 export default ({ value, onChange }: Props) => {
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLInputElement>, child: React.ReactNode) => {
     onChange(parseInt(e.target.value, 10))
   }
 
   return (
-    <Select value={value} onChange={handleSelect}>
+    <Select value={value} size="small" onChange={handleSelect}>
       {PostType.map(item => (
         <MenuItem key={item.id} value={item.id}>
           {item.name}

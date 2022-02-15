@@ -1,7 +1,7 @@
 import muiStyled from '@/muiStyled'
 import { IBoardGroup } from '@cc98/api'
-import { Collapse, IconButton, Typography } from '@material-ui/core'
-import SwapVertIcon from '@material-ui/icons/SwapVert'
+import { Collapse, IconButton, Typography } from '@mui/material'
+import SwapVertIcon from '@mui/icons-material/SwapVert'
 import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import BoardItem from './BoardItem'
@@ -36,7 +36,7 @@ export default ({ boardsInfo }: Props) => {
     <WrapperDiv>
       <Title onClick={() => setIsExpanded(!isExpanded)}>
         {boardsInfo.name}
-        <IconButton color="primary" style={{ marginRight: -4 }}>
+        <IconButton color="primary" style={{ marginRight: -4 }} size="large">
           <SwapVertIcon
             style={{
               transform: isExpanded ? undefined : 'rotate(90deg)',
@@ -51,5 +51,5 @@ export default ({ boardsInfo }: Props) => {
         ))}
       </Collapse>
     </WrapperDiv>
-  )
+  );
 }

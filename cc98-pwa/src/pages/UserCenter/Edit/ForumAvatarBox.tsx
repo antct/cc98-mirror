@@ -1,5 +1,4 @@
 import { IMG_BASE_URL } from '@/config'
-import { DialogContent, DialogTitle } from '@material-ui/core'
 import React from 'react'
 import styled from 'styled-components'
 

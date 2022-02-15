@@ -1,8 +1,8 @@
 import { navigate } from '@/utils/history'
-import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@material-ui/core'
-import BlockIcon from '@material-ui/icons/Block'
-import InfoIcon from '@material-ui/icons/Info'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
+import BlockIcon from '@mui/icons-material/Block'
+import InfoIcon from '@mui/icons-material/Info'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 import React, { useState } from 'react'
 
 
@@ -36,25 +36,23 @@ export default ({ boardId }: Props) => {
     },
   ]
 
-  return (
-    <>
-      <IconButton onClick={handleOpen}>
-        <MoreVertIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        {menuItem.map(item => (
-          <MenuItem
-            key={item.key}
-            onClick={() => {
-              navigate(item.router)
-              handleClose()
-            }}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <Typography>{item.name}</Typography>
-          </MenuItem>
-        ))}
-      </Menu>
-    </>
-  )
+  return <>
+    <IconButton onClick={handleOpen} size="large">
+      <MoreVertIcon />
+    </IconButton>
+    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+      {menuItem.map(item => (
+        <MenuItem
+          key={item.key}
+          onClick={() => {
+            navigate(item.router)
+            handleClose()
+          }}
+        >
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <Typography>{item.name}</Typography>
+        </MenuItem>
+      ))}
+    </Menu>
+  </>;
 }

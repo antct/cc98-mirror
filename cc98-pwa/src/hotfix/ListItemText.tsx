@@ -1,5 +1,5 @@
-import { ListItemText, Typography } from '@material-ui/core'
-import { ListItemTextProps } from '@material-ui/core/ListItemText'
+import { ListItemText, Typography } from '@mui/material'
+import { ListItemTextProps } from '@mui/material/ListItemText'
 import React from 'react'
 
 

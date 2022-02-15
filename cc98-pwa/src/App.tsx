@@ -5,9 +5,16 @@ import DrawerMenu from '@/modules/DrawerMenu'
 import TopBar from '@/modules/TopBar'
 import Router from '@/router'
 import { getTheme } from '@/theme'
-import { ThemeProvider } from '@material-ui/styles'
+import { StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles'
 import React from 'react'
 import { AuthProvider } from "react-oidc-context"
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme { }
+}
+
 
 const App = () => (
   <BackGround>
@@ -29,12 +36,14 @@ const Root = () => {
   const { theme, mode } = useModel(settingModel, ['theme', 'mode'])
 
   return (
-    <ThemeProvider theme={getTheme(theme, mode)}>
-      <AuthProvider {...oidcConfig}>
-        <App />
-      </AuthProvider>
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={getTheme(theme, mode)}>
+        <AuthProvider {...oidcConfig}>
+          <App />
+        </AuthProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 export default Root

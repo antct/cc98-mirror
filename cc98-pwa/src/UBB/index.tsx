@@ -1,6 +1,6 @@
 import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import React from 'react'
 import ubbReact from './ubbReact'
 

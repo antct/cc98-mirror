@@ -1,5 +1,5 @@
-import { IconButton, TextField } from '@material-ui/core'
-import SearchIcon from '@material-ui/icons/Search'
+import { IconButton, TextField } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -29,11 +29,11 @@ const SearchInput: React.FC<Props> = ({ onSearch }) => {
         value={value}
         onChange={onChange}
       />
-      <IconButton onClick={() => onSearch(value)}>
+      <IconButton onClick={() => onSearch(value)} size="large">
         <SearchIcon color="primary" />
       </IconButton>
     </SearchDiv>
-  )
+  );
 }
 
 export default SearchInput

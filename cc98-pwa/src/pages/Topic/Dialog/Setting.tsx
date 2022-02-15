@@ -15,7 +15,7 @@ import {
   DialogContent,
   DialogTitle, FormControl, Input,
   InputLabel, MenuItem, Select, TextField
-} from '@material-ui/core'
+} from '@mui/material'
 import React, { useState } from 'react'
 import MoveTopic from './MoveTopic'
 
@@ -58,7 +58,7 @@ const Setting: React.FC<Props> = ({ topicInfo, handleClose, refreshFunc }) => {
     submitFail: false,
   })
 
-  const handlePointChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePointChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPoint(event.target.value.toString())
   }
 

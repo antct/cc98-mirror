@@ -1,6 +1,6 @@
 import { InfUserList } from '@/components/UserList'
 import { getFollowee, getFollower } from '@/services/social'
-import { Tab, Tabs } from '@material-ui/core'
+import { Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
 
 export default () => {

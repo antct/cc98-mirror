@@ -2,8 +2,8 @@ import muiStyled from '@/muiStyled'
 import { cancelStopPost } from '@/services/manage'
 import { manageHandler } from '@/services/utils/errorHandler'
 import snackbar from '@/utils/snackbar'
-import { IconButton, Menu, MenuItem } from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React, { useState } from 'react'
 
 

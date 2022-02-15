@@ -1,6 +1,6 @@
 import UBB from '@/UBB'
-import { Badge } from '@material-ui/core'
-import ClearIcon from '@material-ui/icons/Clear'
+import { Badge } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear'
 import React from 'react'
 import styled from 'styled-components'
 import { EditorModel } from './EditorModel'

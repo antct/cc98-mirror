@@ -2,7 +2,7 @@ import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import { ThemeEnum } from '@/theme'
-import { ListItem, MenuItem, TextField } from '@material-ui/core'
+import { ListItem, MenuItem, TextField } from '@mui/material'
 import React from 'react'
 
 const ranges = [
@@ -24,7 +24,7 @@ const Theme = () => {
   return (
     <ListItem>
       <ListItemText primary="主题" secondary="主题风格" />
-      <TextField select value={theme} onChange={handleChange}>
+      <TextField select value={theme} size='small' onChange={handleChange}>
         {ranges.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

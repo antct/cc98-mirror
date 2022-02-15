@@ -3,13 +3,13 @@ import muiStyled from '@/muiStyled'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
 import { IBasicTopic } from '@cc98/api'
-import { Divider, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import { Divider, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -71,7 +71,7 @@ export default (props: Props) => {
           getBoardNameById(info.boardId).then(boardName => setBoardName(boardName))
         }, [])
         return (
-          <ListItemS button divider onClick={() => navigate(`/topic/${info.id}`)}>
+          <ListItemButtonS divider onClick={() => navigate(`/topic/${info.id}`)}>
             <TitleArea>
               <Title>{info.title}</Title>
             </TitleArea>
@@ -79,7 +79,7 @@ export default (props: Props) => {
             <InfoArea>
               <Info1>{boardName}</Info1>
             </InfoArea>
-          </ListItemS>
+          </ListItemButtonS>
         )
       })}
 

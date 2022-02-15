@@ -7,13 +7,13 @@ import muiStyled from '@/muiStyled'
 import { getUserInfoById } from '@/services/user'
 import { navigate } from '@/utils/history'
 import { IMessageContent } from '@cc98/api'
-import { Avatar, ListItem, ListItemAvatar } from '@material-ui/core'
+import { Avatar, ListItemAvatar, ListItemButton } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   flexShrink: 0,
 })
 
@@ -98,7 +98,7 @@ export default ({ message }: Props) => {
     return null
   }
   return !(myInfo.id === message.senderId) ? (
-    <ListItemS button>
+    <ListItemButtonS>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatarS>
           <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} children={false} />
@@ -108,9 +108,9 @@ export default ({ message }: Props) => {
         <MessageContentLeft>{message.content}</MessageContentLeft>
         <MessageDate right>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
-    </ListItemS>
+    </ListItemButtonS>
   ) : (
-    <ListItemS button>
+    <ListItemButtonS>
       <ListItemText />
       <MessageRoot>
         <MessageContentRight>{message.content}</MessageContentRight>
@@ -121,6 +121,6 @@ export default ({ message }: Props) => {
           <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} children={false} />
         </ListItemAvatarS>
       </LazyLoad>
-    </ListItemS>
+    </ListItemButtonS>
   )
 }

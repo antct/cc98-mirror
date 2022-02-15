@@ -2,8 +2,8 @@ import {
   Button,
   Dialog, DialogActions, DialogContent,
   DialogContentText, IconButton
-} from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+} from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 
@@ -27,24 +27,22 @@ export default ({ editor }: Props) => {
     setOpen(true)
   }
 
-  return (
-    <>
-      <IconButton onClick={clickHandler}>
-        <DeleteIcon />
-      </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogContent>
-          <DialogContentText>确认要清空已输入的内容吗？</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            取消
-          </Button>
-          <Button onClick={handlerComfirm} color="primary">
-            确认
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  )
+  return <>
+    <IconButton onClick={clickHandler} size="large">
+      <DeleteIcon />
+    </IconButton>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogContent>
+        <DialogContentText>确认要清空已输入的内容吗？</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          取消
+        </Button>
+        <Button onClick={handlerComfirm} color="primary">
+          确认
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </>;
 }

@@ -1,26 +1,26 @@
 import muiStyled from '@/muiStyled'
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Typography
-} from '@material-ui/core'
-import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+} from '@mui/material'
+import { AccordionProps } from '@mui/material/Accordion'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React from 'react'
 
 
-const ExpansionPanelSummaryS = muiStyled(ExpansionPanelSummary)({
+const AccordionSummaryS = muiStyled(AccordionSummary)({
   paddingRight: 12
 })
 
-const ExpansionPanelDetailsS = muiStyled(ExpansionPanelDetails)({
+const AccordionDetailsS = muiStyled(AccordionDetails)({
   width: '100%',
   padding: '0 0px 24px 0px',
 })
 
 
-type Props = Pick<ExpansionPanelProps, 'expanded' | 'defaultExpanded' | 'onChange'> & {
+type Props = Pick<AccordionProps, 'expanded' | 'defaultExpanded' | 'onChange'> & {
   /**
    * 标题
    */
@@ -28,18 +28,18 @@ type Props = Pick<ExpansionPanelProps, 'expanded' | 'defaultExpanded' | 'onChang
 }
 
 const ExpandPanel: React.FC<Props> = props => (
-  <ExpansionPanel
+  <Accordion
     expanded={props.expanded}
     defaultExpanded={props.defaultExpanded}
     onChange={props.onChange}
   >
     {props.title && (
-      <ExpansionPanelSummaryS expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummaryS expandIcon={<ExpandMoreIcon />}>
         <Typography variant="subtitle1">{props.title}</Typography>
-      </ExpansionPanelSummaryS>
+      </AccordionSummaryS>
     )}
-    <ExpansionPanelDetailsS>{props.children || <></>}</ExpansionPanelDetailsS>
-  </ExpansionPanel>
+    <AccordionDetailsS>{props.children || <></>}</AccordionDetailsS>
+  </Accordion>
 )
 
 export default ExpandPanel

@@ -3,7 +3,7 @@ import snackbar from '@/utils/snackbar'
 import {
   Button,
   CircularProgress, DialogActions, DialogContent, DialogTitle
-} from '@material-ui/core'
+} from '@mui/material'
 import 'cropperjs/dist/cropper.css'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'

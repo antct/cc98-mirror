@@ -5,11 +5,11 @@ import { followUser, unFollowUser } from '@/services/user'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { IUser } from '@cc98/api'
-import { Avatar, CircularProgress, IconButton, Typography } from '@material-ui/core'
-import ChatIcon from '@material-ui/icons/Chat'
-import EditIcon from '@material-ui/icons/Edit'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FingerprintIcon from '@material-ui/icons/Fingerprint'
+import { Avatar, CircularProgress, IconButton, Typography } from '@mui/material'
+import ChatIcon from '@mui/icons-material/Chat'
+import EditIcon from '@mui/icons-material/Edit'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FingerprintIcon from '@mui/icons-material/Fingerprint'
 import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
@@ -20,7 +20,7 @@ const WrapperDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  padding-top: 24px;
   margin: 20px 12px 0px 16px;
 `
 
@@ -99,27 +99,27 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
 
   const buttonsJSX = isUserCenter ? (
     <>
-      <IconButton onClick={toggleSign}>
+      <IconButton onClick={toggleSign} size="large">
         {isLoadingSign ? (
           <CircularProgress size={20} />
         ) : (
           <FingerprintIcon color={(isSign || (signState && signState.hasSignedInToday)) ? 'secondary' : 'disabled'} />
         )}
       </IconButton>
-      <IconButton onClick={() => navigate('/userCenter/edit')}>
+      <IconButton onClick={() => navigate('/userCenter/edit')} size="large">
         <EditIcon />
       </IconButton>
     </>
   ) : (
     <>
-      <IconButton onClick={toggleFunc}>
+      <IconButton onClick={toggleFunc} size="large">
         {isLoading ? (
           <CircularProgress size={20} />
         ) : (
           <FavoriteIcon color={isFollowing ? 'secondary' : 'disabled'} />
         )}
       </IconButton>
-      <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)}>
+      <IconButton onClick={() => navigate(`/messageDetail/${info.id}`)} size="large">
         <ChatIcon />
       </IconButton>
     </>

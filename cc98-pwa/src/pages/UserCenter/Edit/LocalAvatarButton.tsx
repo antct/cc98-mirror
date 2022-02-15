@@ -1,5 +1,5 @@
 import snackbar from '@/utils/snackbar'
-import { Button, Dialog } from '@material-ui/core'
+import { Button, Dialog } from '@mui/material'
 import React, { useRef, useState } from 'react'
 
 

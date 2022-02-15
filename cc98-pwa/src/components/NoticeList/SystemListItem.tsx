@@ -1,12 +1,12 @@
 import muiStyled from '@/muiStyled'
 import { ISystem } from '@cc98/api'
-import { ListItem, Typography } from '@material-ui/core'
+import { ListItemButton, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -65,7 +65,7 @@ interface ItemProps {
 }
 
 export const SystemItem: React.FC<ItemProps> = ({ title, subtitle, info1, info2 }) => (
-  <ListItemS button divider>
+  <ListItemButtonS divider>
     <TitleArea>
       <Title>{title}</Title>
       <SubTitle>{subtitle}</SubTitle>
@@ -75,7 +75,7 @@ export const SystemItem: React.FC<ItemProps> = ({ title, subtitle, info1, info2 
       <Info1>{info1}</Info1>
       <Info2>{info2}</Info2>
     </InfoArea>
-  </ListItemS>
+  </ListItemButtonS>
 )
 
 

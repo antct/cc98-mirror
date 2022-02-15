@@ -20,7 +20,6 @@ const UserRecentPostsItem: React.FC<{
 
   return (
     <TopicItem
-      isAnonymous={post.isAnonymous}
       showAvatar={false}
       title={post.content}
       subtitle={''}

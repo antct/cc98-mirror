@@ -101,5 +101,5 @@ function chooseSendCallback(
           successCallback()
         })
     )
-  }
+  };
 }

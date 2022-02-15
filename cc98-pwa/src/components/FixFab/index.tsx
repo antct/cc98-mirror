@@ -1,5 +1,5 @@
 import muiStyled from '@/muiStyled'
-import { Fab } from '@material-ui/core'
+import { Fab } from '@mui/material'
 import React from 'react'
 
 

@@ -1,4 +1,4 @@
-import { Button, Dialog } from '@material-ui/core'
+import { Button, Dialog } from '@mui/material'
 import React, { useState } from 'react'
 import ForumAvatarBox from './ForumAvatarBox'
 

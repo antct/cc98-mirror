@@ -1,6 +1,5 @@
-import pink from '@material-ui/core/colors/pink'
-import { createTheme } from '@material-ui/core/styles'
-import { ThemeOptions } from '@material-ui/core/styles/createTheme'
+import { pink } from '@mui/material/colors'
+import { adaptV4Theme, createTheme, ThemeOptions } from '@mui/material/styles'
 
 // https://material.io/tools/color/#!/?view.left=0&view.right=0
 
@@ -30,12 +29,12 @@ const defaultLight: ThemeOptions = {
 
 const defaultDark: ThemeOptions = {
   palette: {
+    mode: 'dark',
     primary: {
       main: '#7A92C2',
       contrastText: '#fff',
     },
     secondary: pink,
-    type: 'dark',
   },
 }
 
@@ -51,11 +50,11 @@ const springLight: ThemeOptions = {
 
 const springDark: ThemeOptions = {
   palette: {
+    mode: 'dark',
     primary: {
       main: '#95B675',
     },
     secondary: pink,
-    type: 'dark',
   },
 }
 
@@ -70,11 +69,11 @@ const summerLight: ThemeOptions = {
 
 const summerDark: ThemeOptions = {
   palette: {
+    mode: 'dark',
     primary: {
       main: '#5198D8',
     },
     secondary: pink,
-    type: 'dark',
   },
 }
 
@@ -89,11 +88,11 @@ const autumnLight: ThemeOptions = {
 
 const autumnDark: ThemeOptions = {
   palette: {
+    mode: "dark",
     primary: {
       main: '#F4A460',
     },
     secondary: pink,
-    type: 'dark',
   },
 }
 
@@ -108,11 +107,11 @@ const winnerLight: ThemeOptions = {
 
 const winnerDark: ThemeOptions = {
   palette: {
+    mode: 'dark',
     primary: {
       main: '#7A92C2',
     },
     secondary: pink,
-    type: 'dark',
   },
 }
 
@@ -155,5 +154,5 @@ export function getTheme(themeColor: ThemeEnum, mode: ModeEnum) {
     ..._getTheme(themeColor, mode),
   }
 
-  return createTheme(theme)
+  return createTheme(adaptV4Theme(theme));
 }

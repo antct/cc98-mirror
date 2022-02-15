@@ -1,13 +1,14 @@
-import { IconButton, SnackbarContent } from '@material-ui/core'
-import green from '@material-ui/core/colors/green'
-import red from '@material-ui/core/colors/red'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-// import WarningIcon from '@material-ui/icons/Warning'
-import CloseIcon from '@material-ui/icons/Close'
-import ErrorIcon from '@material-ui/icons/Error'
-import InfoIcon from '@material-ui/icons/Info'
+import { IconButton, SnackbarContent } from '@mui/material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+// import WarningIcon from '@mui/icons-material/Warning'
+import CloseIcon from '@mui/icons-material/Close'
+import ErrorIcon from '@mui/icons-material/Error'
+import InfoIcon from '@mui/icons-material/Info'
 import React from 'react'
 import styled from 'styled-components'
+
+
+import { green, red } from '@mui/material/colors';
 
 
 const IconMap = {
@@ -53,12 +54,12 @@ const MySnackbarContent: React.ForwardRefRenderFunction<unknown, Props> = ({ var
         </MessageDiv>
       }
       action={
-        <IconButton color="inherit" onClick={onClose}>
+        <IconButton color="inherit" onClick={onClose} size="large">
           <CloseIcon fontSize="small" />
         </IconButton>
       }
     />
-  )
+  );
 }
 
 export default React.forwardRef(MySnackbarContent)

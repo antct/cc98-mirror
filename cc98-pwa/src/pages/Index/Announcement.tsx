@@ -1,9 +1,9 @@
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import UBB from '@/UBB'
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import React from 'react'
 import styled from 'styled-components'
 

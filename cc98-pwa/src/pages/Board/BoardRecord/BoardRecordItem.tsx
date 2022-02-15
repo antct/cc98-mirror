@@ -14,7 +14,6 @@ interface Props {
 export default ({ eventInfo }: Props) => (
   <TopicItem
     title={eventInfo.content}
-    isAnonymous={false}
     showAvatar={false}
     subtitle={`操作人: ${eventInfo.operatorUserName}`}
     info1={`${eventInfo.boardId === 182 ? '匿名用户' : eventInfo.targetUserName}`}

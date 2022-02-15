@@ -1,5 +1,5 @@
 import muiStyled from '@/muiStyled'
-import { InputBase } from '@material-ui/core'
+import { InputBase } from '@mui/material'
 import React from 'react'
 import { EditorModel } from './EditorModel'
 
@@ -9,7 +9,7 @@ const InputArea = muiStyled(InputBase).attrs({
   multiline: true,
   autoFocus: true,
   rows: 6,
-  rowsMax: 10,
+  maxRows: 10,
 })({
   marginTop: 8,
   padding: '12px 8px',

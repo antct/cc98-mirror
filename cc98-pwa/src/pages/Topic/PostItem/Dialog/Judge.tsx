@@ -12,7 +12,7 @@ import {
   Tab,
   Tabs,
   TextField
-} from '@material-ui/core'
+} from '@mui/material'
 import React, { useState } from 'react'
 
 const TabS = muiStyled(Tab)({

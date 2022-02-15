@@ -1,6 +1,6 @@
-import { Theme } from '@material-ui/core/styles/createTheme'
-import { styled } from '@material-ui/styles'
-import { CreateCSSProperties, WithStylesOptions } from '@material-ui/styles/withStyles'
+import { Theme } from '@mui/material/styles';
+import { styled } from '@mui/styles'
+import { CreateCSSProperties, WithStylesOptions } from '@mui/styles/withStyles'
 import React from 'react'
 export { Theme }
 

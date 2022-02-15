@@ -1,6 +1,6 @@
 import { InfTopicList } from '@/components/TopicList'
 import { getFavoriteTopics, getFavoriteTopicsOrderByUpdate, getFollowBoardsTopics, getFollowUsersTopics } from '@/services/topic'
-import { Tab, Tabs } from '@material-ui/core'
+import { Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
 
 export default () => {

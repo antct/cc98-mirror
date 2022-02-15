@@ -3,16 +3,14 @@ import ListS from '@/hotfix/List'
 import historyModel from '@/models/history'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
-import { IconButton, ListItem, ListItemSecondaryAction, Typography } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { IconButton, ListItemButton, ListItemSecondaryAction, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import styled from 'styled-components'
 
 
-const ListItemS = muiStyled(ListItem).attrs({
-  button: true
-})({
+const ListItemButtonS = muiStyled(ListItemButton)({
   paddingRight: 0
 })
 
@@ -54,20 +52,20 @@ const History: React.FC = () => {
   return (
     <ListS>
       {historyList.map(item => (
-        <ListItemS key={item.id} button onClick={() => navigate(`/topic/${item.id}`)}>
+        <ListItemButtonS key={item.id} onClick={() => navigate(`/topic/${item.id}`)}>
           <TitleArea>
             <Title>{clamp(item.title)}</Title>
             <SubTitle>{`${dayjs(item.lastViewTime).fromNow()}`}</SubTitle>
           </TitleArea>
           <ListItemSecondaryActionS>
-            <IconButton onClick={() => historyModel.DELETE(item.id)}>
+            <IconButton onClick={() => historyModel.DELETE(item.id)} size="large">
               <DeleteIcon fontSize="small" />
             </IconButton>
           </ListItemSecondaryActionS>
-        </ListItemS>
+        </ListItemButtonS>
       ))}
     </ListS>
-  )
+  );
 }
 
 export default History

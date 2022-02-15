@@ -1,5 +1,5 @@
 import { ITagGroup } from '@cc98/api'
-import { MenuItem, Select } from '@material-ui/core'
+import { MenuItem, Select } from '@mui/material'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 

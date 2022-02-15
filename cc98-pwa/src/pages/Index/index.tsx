@@ -1,5 +1,5 @@
 import FixFab from '@/components/FixFab'
-import RotateRightIcon from '@material-ui/icons/RotateRight'
+import RotateRightIcon from '@mui/icons-material/RotateRight'
 import React, { useState } from 'react'
 import Home from './Home'
 

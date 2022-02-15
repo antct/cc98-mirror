@@ -4,14 +4,14 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IRecommendationReading } from '@cc98/api'
-import { Divider, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core'
-import VolumeOffIcon from '@material-ui/icons/VolumeOff'
-import VolumeUpIcon from '@material-ui/icons/VolumeUp'
+import { Divider, ListItem, ListItemIcon, ListItemText, Typography, ListItemButton } from '@mui/material'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import React from 'react'
 import styled from 'styled-components'
 
 
-const ListItemS = muiStyled(ListItem)({
+const ListItemButtonS = muiStyled(ListItemButton)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'stretch',
@@ -82,7 +82,7 @@ export default (props: Props) => {
         const boardName = decodeURI(name)
         return (
 
-          <ListItemS button divider onClick={() => navigate(info.url)}>
+          <ListItemButtonS divider onClick={() => navigate(info.url)}>
             <TitleArea>
               <Title>{info.title}</Title>
               <SubTitle>{info.content}</SubTitle>
@@ -91,7 +91,7 @@ export default (props: Props) => {
               <Info1>{info.id}</Info1>
               <Info2>{boardName}</Info2>
             </InfoArea>
-          </ListItemS>
+          </ListItemButtonS>
         )
       })}
     </ListS>

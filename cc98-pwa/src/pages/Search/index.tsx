@@ -4,7 +4,7 @@ import { InfTopicList } from '@/components/TopicList'
 import muiStyled from '@/muiStyled'
 import { searchFavoriteTopics, searchTopics } from '@/services/topic'
 import { getUserInfoListByName } from '@/services/user'
-import { Tab, Tabs } from '@material-ui/core'
+import { Tab, Tabs } from '@mui/material'
 import { throttle } from 'lodash-es'
 import React, { useState } from 'react'
 // 这个地方重新写了一个InfUserList
