@@ -73,7 +73,7 @@ const CheckboxS = muiStyled(Checkbox).attrs({
   paddingTop: 0,
   paddingLeft: 0,
   paddingBottom: 0,
-  verticalAlign: 'sub'
+  verticalAlign: 'text-top'
 })
 
 const ChipS = muiStyled(Chip)({

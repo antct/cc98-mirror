@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <ListItem>
       <ListItemText primary="主页设置" secondary="自定义主页内容" />
-      <TextField select value={customHome} size="small" onChange={handleChange}>
+      <TextField select value={customHome} variant='standard' size="small" onChange={handleChange}>
         {ranges.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

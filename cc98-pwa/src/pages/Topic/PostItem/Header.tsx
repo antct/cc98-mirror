@@ -139,14 +139,14 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
               >
                 <AvatarS
                   onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                  src={(postInfo.isAnonymous || postInfo.isDeleted || !userInfo) ? ANONYMOUS_AVATAR : TRANS_IMG(userInfo.portraitUrl, true) }
+                  src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true) }
                   children={false}
                 />
               </StyledBadge>
               :
               <AvatarS
                 onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                src={(postInfo.isAnonymous || postInfo.isDeleted || !userInfo) ? ANONYMOUS_AVATAR: TRANS_IMG(userInfo.portraitUrl, true) }
+                src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR: userInfo && TRANS_IMG(userInfo.portraitUrl, true) }
                 children={false}
               />
             }

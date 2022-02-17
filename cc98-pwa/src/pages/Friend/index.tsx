@@ -1,14 +1,20 @@
 import { InfUserList } from '@/components/UserList'
+import userModel from '@/models/user'
 import { getFollowee, getFollower } from '@/services/social'
 import { Tab, Tabs } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default () => {
   const [current, setCurrent] = useState('followee')
+  const { FRESH_FAN } = userModel
 
   const handleChange = (_: React.ChangeEvent, value: string) => {
     setCurrent(value)
   }
+
+  useEffect(() => {
+    FRESH_FAN()
+  }, [])
 
   return (
     <>

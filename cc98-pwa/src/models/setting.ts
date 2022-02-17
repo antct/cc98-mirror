@@ -64,7 +64,7 @@ class SettingModel extends Model<State> {
       useAvatar: true,
       useCompress: true,
       useCDN: true,
-      cacheSize: 3,
+      cacheSize: 2,
       customHome: 1,
       customWords: [],
 

@@ -21,7 +21,7 @@ export default ({ tags, value, onChange }: Props) => {
   }
 
   return (
-    <Select value={value} onChange={handleSelect} size="small">
+    <Select value={value} onChange={handleSelect} variant='standard' size="small">
       {tags.map(tag => (
         <MenuItem key={tag.id} value={tag.id}>
           {tag.name}

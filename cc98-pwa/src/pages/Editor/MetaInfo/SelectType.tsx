@@ -15,7 +15,7 @@ export default ({ value, onChange }: Props) => {
   }
 
   return (
-    <Select value={value} size="small" onChange={handleSelect}>
+    <Select value={value} variant='standard' size="small" onChange={handleSelect}>
       {PostType.map(item => (
         <MenuItem key={item.id} value={item.id}>
           {item.name}

@@ -82,7 +82,7 @@ const DrawerMenu: React.FC = () => {
             <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount) : 0} color="primary"><NotificationsIcon /></Badge>} text="通知" onClick={jump('/notice')} />
             <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount) : 0} color="primary"><MailIcon /></Badge>} text="私信" onClick={jump('/messageList')} />
-            <Item icon={<GroupIcon />} text="好友" onClick={jump('/friend')} />
+            <Item icon={<Badge max={99} badgeContent={user.fanDiff} color="primary"><GroupIcon /></Badge>} text="好友" onClick={jump('/friend')} />
             <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
             <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
             <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />

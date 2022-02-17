@@ -67,17 +67,17 @@ export default ({ postInfo }: Props) => {
   // FIXME: 可能还存在BUG
   const http_regex = /([^\]\[\)\(= ]|^)( *http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
   const image_regex = /.*\.(gif|jpe?g|bmp|png)$/ig
-  if (postInfo.contentType === 0) {
-    regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
-      if (image_regex.test(capture2)) return match
-      else return `${capture1}[url=${capture2.trim()}]${capture2.trim()}[/url]`
-    })
-  } else {
-    regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
-      if (image_regex.test(capture2)) return match
-      else return `${capture1}[${capture2.trim()}](${capture2.trim()})`
-    })
-  }
+  regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
+    if (image_regex.test(capture2)) return match
+    else {
+      const url = capture2.trim()
+      if (url.startsWith(window.location.origin)) {
+        const inner_url = url.substring(window.location.origin.length)
+        return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到帖子(${inner_url})[/url]` : `${capture1}[跳转到帖子(${inner_url})](${url})`
+      }
+      else return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到外链(${url})[/url]`: `${capture1}[跳转到外链(${url})](${url})`
+    }
+  })
 
   // markdown下的图片进行改造
   if (postInfo.contentType === 1) {
@@ -136,8 +136,9 @@ export default ({ postInfo }: Props) => {
                     intro.push(faces.length > 0 ? `检测到${faces.length}张人脸` : '未检测到人脸')
                     for (let i = 0; i < faces.length; i++) {
                       const face = faces[i]
-                      intro.push(`X: ${face.x.toFixed(2)} Y: ${face.y.toFixed(2)} 性别: ${face.gender <= 49 ? '女' : '男'} 年龄: ${face.age} 笑容: ${face.expression} 发型: ${face.hair} 魅力值: ${face.beauty}`)
+                      intro.push(`[${i+1}] 性别: ${face.gender <= 49 ? '女' : '男'} 年龄: ${face.age} 笑容: ${face.expression} 发型: ${face.hair} 魅力值: ${face.beauty}`)
                     }
+                    if (faces.length > 0) images[index].src = data.url
                     setIntros(prevIntros => {
                       const newIntros = { ...prevIntros }
                       newIntros[index] = intro

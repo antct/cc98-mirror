@@ -9,10 +9,6 @@ declare module '@cc98/api' {
     hat: boolean
     eyeOpen: boolean
     mask: boolean
-    x: number
-    y: number
-    dx: number
-    dy: number
   }
 
   export interface IFace {
@@ -24,5 +20,9 @@ declare module '@cc98/api' {
      * 信息
      */
     msg?: string
+    /**
+     * 人脸带框的URL
+     */
+    url: string
   }
 }

@@ -11,7 +11,8 @@ import {
   FormControl,
   // FormHelperText,
   Input,
-  InputLabel
+  InputLabel,
+  TextField
 } from '@mui/material'
 import React, { useState } from 'react'
 import { useAuth } from "react-oidc-context"
@@ -144,22 +145,22 @@ const LogIn: React.FC = () => {
     <WrapperDiv>
       <SnowballImg src={snowball} />
 
-      {/* <Typography variant="h6">登录</Typography> */}
-
       <FormDiv>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="username">用户名</InputLabel>
-          <Input id="username" value={formField.username} onChange={handleChange('username')} />
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="password">密码</InputLabel>
-          <Input
-            id="password"
-            type="password"
-            value={formField.password}
-            onChange={handleChange('password')}
-          />
-        </FormControl>
+        <TextField
+          fullWidth
+          label="用户名"
+          variant="standard"
+          value={formField.username}
+          onChange={handleChange('username')}
+        />
+        <TextField
+          fullWidth
+          type='password'
+          label="密码"
+          variant="standard"
+          value={formField.password}
+          onChange={handleChange('password')}
+        />
       </FormDiv>
 
       <LogInButton disabled={logInState.loading} onClick={logIn}>

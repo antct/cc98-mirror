@@ -5,6 +5,7 @@ import { navigate } from '@/utils/history'
 import { isLogIn, logIn, logOut } from '@/utils/logIn'
 import snackbar from '@/utils/snackbar'
 import { ISignIn, IUnRead, IUser } from '@cc98/api'
+import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/utils/storage'
 
 
 interface State {
@@ -17,6 +18,7 @@ interface State {
    */
   myInfo: IUser | null
   unRead: IUnRead | null
+  fanDiff: number
 }
 
 class UserModel extends Model<State> {
@@ -27,6 +29,7 @@ class UserModel extends Model<State> {
       isLogIn: isLogIn(),
       myInfo: null,
       unRead: null,
+      fanDiff: 0
     }
 
     this.FRESH_INFO()
@@ -76,9 +79,18 @@ class UserModel extends Model<State> {
 
     const myInfo = await GET<IUser>('me')
     myInfo.fail().succeed(myInfo => {
-      this.setState({
-        myInfo,
-      })
+      const lastFanCount = getLocalStorage('fanCount') as string
+      if (lastFanCount !== null && `${myInfo.fanCount}` !== lastFanCount) {
+        this.setState({
+          myInfo,
+          fanDiff: myInfo.fanCount - parseInt(lastFanCount, 10)
+        })
+      } else {
+        this.setState({
+          myInfo,
+        })
+        setLocalStorage('fanCount', `${myInfo.fanCount}`)
+      }
     })
 
     const unRead = await GET<IUnRead>('me/unread-count')
@@ -96,9 +108,19 @@ class UserModel extends Model<State> {
           .fail(() => {
           })
           .succeed((msg) => {
-            snackbar.success(`签到${state.lastSignInCount+1}天，获得${msg}财富值`)
+            snackbar.success(`签到${state.lastSignInCount + 1}天，获得${msg}财富值`)
           })
       }
+    })
+  }
+
+  FRESH_FAN = () => {
+    if (!this.state.isLogIn) {
+      return
+    }
+    if (this.state.myInfo) setLocalStorage('fanCount', `${this.state.myInfo.fanCount}`)
+    this.setState({
+      fanDiff: 0
     })
   }
 

@@ -28,6 +28,7 @@ const Cache = () => {
         // InputProps={{
         //   endAdornment: <InputAdornment position="end"></InputAdornment>,
         // }}
+        variant='standard'
         value={cacheSize}
         size="small"
         onChange={handleChange}

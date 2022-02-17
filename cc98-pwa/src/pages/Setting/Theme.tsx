@@ -24,7 +24,7 @@ const Theme = () => {
   return (
     <ListItem>
       <ListItemText primary="主题" secondary="主题风格" />
-      <TextField select value={theme} size='small' onChange={handleChange}>
+      <TextField select value={theme} variant='standard' size='small' onChange={handleChange}>
         {ranges.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

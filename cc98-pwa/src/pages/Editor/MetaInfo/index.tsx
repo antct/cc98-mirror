@@ -151,6 +151,7 @@ export default ({ model, boardId }: Props) => {
             <Select
               value={model.state.voteInfo.expiredDays}
               onChange={onExpireDaysChange}
+              variant='standard'
               size="small"
             >
               <MenuItem value={1}>1</MenuItem>
@@ -159,9 +160,10 @@ export default ({ model, boardId }: Props) => {
             </Select>
           </div>
           <div>
-            <FormLabel>最大投票数：</FormLabel>
+            <FormLabel>最大投票：</FormLabel>
             <Select
               onChange={onMaxVoteCountChange}
+              variant='standard'
               size="small"
             >
               {
@@ -170,7 +172,7 @@ export default ({ model, boardId }: Props) => {
             </Select>
           </div>
           <div>
-            <FormLabel>投票后可见：</FormLabel>
+            <FormLabel>投票可见：</FormLabel>
             <Switch
               checked={model.state.voteInfo.needVote}
               color="primary"
