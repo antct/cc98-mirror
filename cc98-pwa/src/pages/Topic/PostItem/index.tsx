@@ -263,9 +263,7 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
         })()
       }
       {
-        topicInfo && topicInfo.isVote && (isShare ?
-          <TypographyS>分享模式禁止投票</TypographyS>
-          :
+        topicInfo && topicInfo.isVote && 
           (currentVote &&
             <CardS variant="outlined">
               <CardHeaderS
@@ -316,7 +314,6 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
               </CardContentS>
             </CardS>
           )
-        )
       }
       <Content postInfo={currentPost} />
       {

@@ -1,5 +1,5 @@
 import { GET, PUT } from '@/utils/fetch'
-import { IFace, ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98/api'
+import { IEnhance, IFace, ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98/api'
 
 /**
  * 获取一个帖子的10层楼
@@ -192,6 +192,16 @@ export async function getMyHotPosts(from: number) {
  */
 export async function getFaces(url: string) {
   return GET<IFace>('face', {
+    params: {
+      url
+    },
+  })
+}
+/**
+ * 获取增强图片
+ */
+export async function getEnhancedImage(url: string) {
+  return GET<IEnhance>('enhance', {
     params: {
       url
     },

@@ -129,12 +129,12 @@ export default ({ topicInfo, refreshFunc }: Props) => {
         </ListItemIcon>
         <Typography>官方页面</Typography>
       </MenuItem>
-      <MenuItem onClick={() => handleShare1()}>
+      {/* <MenuItem onClick={() => handleShare1()}>
         <ListItemIcon>
           <ShareIcon />
         </ListItemIcon>
         <Typography>普通分享</Typography>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={() => handleShare2()}>
         <ListItemIcon>
           <ShareIcon />
@@ -145,7 +145,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
         <ListItemIcon>
           <ShareIcon />
         </ListItemIcon>
-        <Typography>免密短链分享</Typography>
+        <Typography>短链分享</Typography>
       </MenuItem>
       {canManage && (
         <MenuItem onClick={() => handleSetting()}>

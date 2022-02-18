@@ -89,7 +89,7 @@ const PostList: React.FC<Props> = ({ service, isTrace, children, isShare, topicI
 
   // 分享模式下不获取投票
   useEffect(() => {
-    if (!isShare && topicInfo.isVote) setVote()
+    if (topicInfo.isVote) setVote()
   }, [topicInfo])
 
   return (

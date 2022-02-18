@@ -2,7 +2,7 @@ import { CDN, IMG_COMPRESS_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
-import { getFaces } from '@/services/post'
+import { getEnhancedImage, getFaces } from '@/services/post'
 import { UBBReact } from '@/UBB'
 import { IPost } from '@cc98/api'
 import { Typography } from '@mui/material'
@@ -75,7 +75,7 @@ export default ({ postInfo }: Props) => {
         const inner_url = url.substring(window.location.origin.length)
         return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到帖子(${inner_url})[/url]` : `${capture1}[跳转到帖子(${inner_url})](${url})`
       }
-      else return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到外链(${url})[/url]`: `${capture1}[跳转到外链(${url})](${url})`
+      else return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到外链(${url})[/url]` : `${capture1}[跳转到外链(${url})](${url})`
     }
   })
 
@@ -99,6 +99,7 @@ export default ({ postInfo }: Props) => {
 
   // 每张图片的介绍
   const [intros, setIntros] = useState<{ [id: number]: string[] }>({})
+  const [srcs, setSrcs] = useState<{ [id: number]: string }>({})
   return (
     <PhotoProvider
       overlayRender={({ rotate, onRotate, scale, index }) => {
@@ -114,13 +115,54 @@ export default ({ postInfo }: Props) => {
           <>
             <svg
               className="PhotoView-PhotoSlider__toolbarIcon"
+              width="38"
+              height="38"
+              viewBox="0 0 1024 1024"
+              fill="white"
+              onClick={() => {
+                setIntros(prevIntros => {
+                  const newIntros = { ...prevIntros }
+                  newIntros[index] = ['图片增强中...']
+                  return newIntros
+                })
+                const src = srcs[index] || images[index].src
+                src && getEnhancedImage(src).then(res =>
+                  res.fail().succeed(data => {
+                    if (data.msg) {
+                      setIntros(prevIntros => {
+                        const newIntros = { ...prevIntros }
+                        newIntros[index] = [data.msg ? data.msg : '']
+                        return newIntros
+                      })
+                      return
+                    }
+                    const intro: string[] = ['图片增强完成']
+                    images[index].src = data.url
+                    setIntros(prevIntros => {
+                      const newIntros = { ...prevIntros }
+                      newIntros[index] = intro
+                      return newIntros
+                    })
+                    setSrcs(prevSrcs => {
+                      const newSrcs = { ...prevSrcs }
+                      newSrcs[index] = src
+                      return newSrcs
+                    })
+                  })
+                )
+              }}
+            >
+             <path d="M120 334a40 40 0 0 1 40 40V476h80V374a40 40 0 1 1 80 0v284a40 40 0 1 1-80 0V556H160v102a40 40 0 1 1-80 0v-284a40 40 0 0 1 40-40zM984 760a40 40 0 0 1 40 40v64c0 88.224-71.776 160-160 160H160c-88.224 0-160-71.776-160-160v-64a40 40 0 1 1 80 0v64c0 44.112 35.888 80 80 80h704c44.112 0 80-35.888 80-80v-64a40 40 0 0 1 40-40zM864 0c88.224 0 160 71.776 160 160v72a40 40 0 1 1-80 0v-72c0-44.112-35.888-80-80-80H160c-44.112 0-80 35.888-80 80v72a40 40 0 1 1-80 0v-72C0 71.776 71.776 0 160 0h704z m78 460c0 43.52-22.552 81.84-56.56 103.976l49.424 71.224a40 40 0 1 1-65.728 45.6L801.968 584H780v74a40 40 0 1 1-80 0V376a40 40 0 0 1 40-40h78c68.376 0 124 55.624 124 124z m-124 44c24.264 0 44-19.736 44-44s-19.736-44-44-44H780v88h38zM503 698H430a40 40 0 0 1-40-40v-284a40 40 0 0 1 40-40h73C574.128 334 632 391.872 632 463v106c0 71.128-57.872 129-129 129z m-33-284v204h33A49.056 49.056 0 0 0 552 569v-106a49.056 49.056 0 0 0-49-49H470z" p-id="2110"></path>
+            </svg>
+            <svg
+              className="PhotoView-PhotoSlider__toolbarIcon"
               onClick={() => {
                 setIntros(prevIntros => {
                   const newIntros = { ...prevIntros }
                   newIntros[index] = ['人脸检测识别中...']
                   return newIntros
                 })
-                const src = images[index].src
+                const src = srcs[index] || images[index].src
                 src && getFaces(src).then(res =>
                   res.fail().succeed(data => {
                     if (data.msg) {
@@ -136,7 +178,7 @@ export default ({ postInfo }: Props) => {
                     intro.push(faces.length > 0 ? `检测到${faces.length}张人脸` : '未检测到人脸')
                     for (let i = 0; i < faces.length; i++) {
                       const face = faces[i]
-                      intro.push(`[${i+1}] 性别: ${face.gender <= 49 ? '女' : '男'} 年龄: ${face.age} 笑容: ${face.expression} 发型: ${face.hair} 魅力值: ${face.beauty}`)
+                      intro.push(`[${i + 1}] 性别: ${face.gender <= 49 ? '女' : '男'} 年龄: ${face.age} 笑容: ${face.expression} 发型: ${face.hair} 魅力值: ${face.beauty}`)
                     }
                     if (faces.length > 0) images[index].src = data.url
                     setIntros(prevIntros => {
@@ -144,20 +186,25 @@ export default ({ postInfo }: Props) => {
                       newIntros[index] = intro
                       return newIntros
                     })
+                    setSrcs(prevSrcs => {
+                      const newSrcs = { ...prevSrcs }
+                      newSrcs[index] = src
+                      return newSrcs
+                    })
                   })
                 )
               }}
-              width="44"
-              height="44"
+              width="42"
+              height="42"
               fill="white"
-              viewBox="0 0 768 768"
+              viewBox="0 0 1024 1024"
             >
-              <path d="M384 559.5c-75 0-138-45-163.5-111h327c-25.5 66-88.5 111-163.5 111zM271.5 352.5c-27 0-48-21-48-48s21-48 48-48 48 21 48 48-21 48-48 48zM496.5 352.5c-27 0-48-21-48-48s21-48 48-48 48 21 48 48-21 48-48 48zM384 640.5c141 0 256.5-115.5 256.5-256.5s-115.5-256.5-256.5-256.5-256.5 115.5-256.5 256.5 115.5 256.5 256.5 256.5zM384 64.5c177 0 319.5 142.5 319.5 319.5s-142.5 319.5-319.5 319.5-319.5-142.5-319.5-319.5 142.5-319.5 319.5-319.5z" />
+              <path d="M810.666667 213.333333h-128a42.666667 42.666667 0 0 1 0-85.333333h170.666666a42.666667 42.666667 0 0 1 42.666667 42.666667v170.666666a42.666667 42.666667 0 0 1-85.333333 0V213.333333zM213.333333 213.333333v128a42.666667 42.666667 0 1 1-85.333333 0V170.666667a42.666667 42.666667 0 0 1 42.666667-42.666667h170.666666a42.666667 42.666667 0 1 1 0 85.333333H213.333333z m597.333334 597.333334v-128a42.666667 42.666667 0 0 1 85.333333 0v170.666666a42.666667 42.666667 0 0 1-42.666667 42.666667h-170.666666a42.666667 42.666667 0 0 1 0-85.333333h128zM213.333333 810.666667h128a42.666667 42.666667 0 0 1 0 85.333333H170.666667a42.666667 42.666667 0 0 1-42.666667-42.666667v-170.666666a42.666667 42.666667 0 0 1 85.333333 0v128z m341.333334-341.333334a42.666667 42.666667 0 0 1 0 85.333334h-42.666667a42.666667 42.666667 0 0 1-42.666667-42.666667V384a42.666667 42.666667 0 0 1 85.333334 0v85.333333z m77.994666 120.661334a42.666667 42.666667 0 0 1 60.373334 60.373333 256 256 0 0 1-362.069334 0 42.666667 42.666667 0 0 1 60.373334-60.373333 170.666667 170.666667 0 0 0 241.322666 0zM640 384a42.666667 42.666667 0 0 1 85.333333 0v42.666667a42.666667 42.666667 0 0 1-85.333333 0V384zM298.666667 384a42.666667 42.666667 0 1 1 85.333333 0v42.666667a42.666667 42.666667 0 0 1-85.333333 0V384z" />
             </svg>
             <svg
               className="PhotoView-PhotoSlider__toolbarIcon"
-              width="44"
-              height="44"
+              width="42"
+              height="42"
               viewBox="0 0 768 768"
               fill="white"
               onClick={() => onScale(scale + 0.2)}
@@ -166,8 +213,8 @@ export default ({ postInfo }: Props) => {
             </svg>
             <svg
               className="PhotoView-PhotoSlider__toolbarIcon"
-              width="44"
-              height="44"
+              width="42"
+              height="42"
               viewBox="0 0 768 768"
               fill="white"
               onClick={() => onScale(scale - 0.2)}
