@@ -1,6 +1,7 @@
 import muiStyled from '@/muiStyled'
 import { Fab } from '@mui/material'
 import React from 'react'
+import { IS_PC, DRAWER_WIDTH, MAX_WIDTH } from '@/config'
 
 
 // FIX: children: true
@@ -11,7 +12,7 @@ const FabS = muiStyled(Fab).attrs({
 })({
   position: 'fixed',
   // bottom: pass by props
-  right: 15,
+  right: IS_PC ? `calc(50% - ${(DRAWER_WIDTH+MAX_WIDTH)/2}px + 15px)` : 15,
   zIndex: 20,
 })
 

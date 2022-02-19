@@ -3,11 +3,14 @@ import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import DrawerMenu from '@/modules/DrawerMenu'
 import TopBar from '@/modules/TopBar'
+import MobileMenu from '@/modules/MobileMenu'
+import PCMenu from '@/modules/PCMenu'
 import Router from '@/router'
 import { getTheme } from '@/theme'
 import { StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles'
 import React from 'react'
 import { AuthProvider } from "react-oidc-context"
+import { IS_PC } from './config'
 
 
 declare module '@mui/styles/defaultTheme' {
@@ -18,9 +21,15 @@ declare module '@mui/styles/defaultTheme' {
 
 const App = () => (
   <BackGround>
-    <TopBar />
-    <DrawerMenu />
-    <Router />
+    {!IS_PC ?
+      <MobileMenu>
+        <Router />
+      </MobileMenu>
+      :
+      <PCMenu>
+        <Router />
+      </PCMenu>
+    }
   </BackGround>
 )
 

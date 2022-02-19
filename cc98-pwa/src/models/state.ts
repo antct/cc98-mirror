@@ -23,6 +23,12 @@ class StateModel extends Model<State> {
       isDrawerOpen: false,
     })
   }
+
+  TOGGLE_DRAWER = () => {
+    this.setState({
+      isDrawerOpen: !this.state.isDrawerOpen,
+    })
+  }
 }
 
 export default new StateModel()
