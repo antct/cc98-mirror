@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { WealthModel } from '../WealthModel'
+import ClearBtn from './ClearBtn'
 import SendBtn from './SendBtn'
 
 
@@ -21,6 +22,7 @@ export default ({ transferer, onSendCallback }: Props) => (
   <WrapperToolBox>
     <WrapperDiv>
       <div>
+        <ClearBtn transferer={transferer} />
       </div>
       <div>
         <SendBtn transferer={transferer} onSendCallback={onSendCallback} />

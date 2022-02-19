@@ -46,4 +46,15 @@ export class WealthModel extends Model<State> {
       ownWealth: str,
     })
   }
+
+    /**
+   * 清空输入
+   */
+  clearAll() {
+    this.setState({
+      userNames: '',
+      wealth: '',
+      reason: ''
+    })
+  }
 }

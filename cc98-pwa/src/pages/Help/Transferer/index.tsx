@@ -7,7 +7,6 @@ import { WealthModel } from './WealthModel'
 
 
 const FixBottomDiv = styled.div`
-  position: fixed;
   left: 8px;
   right: 8px;
   bottom: 12px;

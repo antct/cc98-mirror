@@ -100,6 +100,12 @@ const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
         >
           <MenuItem onClick={() => {
             handleCloseUserMenu()
+            window.open('https://account.cc98.org/')
+          }}>
+            <Typography textAlign="center">{'注册'}</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => {
+            handleCloseUserMenu()
             navigate('/logIn')
           }}>
             <Typography textAlign="center">{'登录'}</Typography>

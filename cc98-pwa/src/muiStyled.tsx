@@ -1,8 +1,7 @@
-import { Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles'
 import { styled } from '@mui/styles'
 import { CreateCSSProperties, WithStylesOptions } from '@mui/styles/withStyles'
 import React from 'react'
-export { Theme }
 
 export default function muiStyled<Props>(Component: React.ComponentType<Props> | React.ReactType) {
   function styledCreator(

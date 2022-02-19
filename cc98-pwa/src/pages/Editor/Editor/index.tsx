@@ -8,7 +8,6 @@ import ToolBox from './ToolBox'
 
 
 const FixBottomDiv = styled.div`
-  position: fixed;
   left: 8px;
   right: 8px;
   bottom: 12px;

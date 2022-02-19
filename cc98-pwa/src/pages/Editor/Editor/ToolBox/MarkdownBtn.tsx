@@ -1,10 +1,11 @@
 import muiStyled from '@/muiStyled'
+import WrapTextIcon from '@mui/icons-material/WrapText'
 import {
   Button,
   Dialog, DialogActions, DialogContent,
-  DialogContentText, IconButton
+  DialogContentText, IconButton,
+  Tooltip
 } from '@mui/material'
-import WrapTextIcon from '@mui/icons-material/WrapText'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
 
@@ -38,9 +39,11 @@ export default ({ editor }: Props) => {
   }
 
   return <>
-    <IconButton onClick={clickHandler} size="large">
-      <WrapTextIcon />
-    </IconButton>
+    <Tooltip title='文本类型' placement='bottom'>
+      <IconButton onClick={clickHandler} size="large">
+        <WrapTextIcon />
+      </IconButton>
+    </Tooltip>
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
         <DialogContentText>{`切换富文本类型`}</DialogContentText>

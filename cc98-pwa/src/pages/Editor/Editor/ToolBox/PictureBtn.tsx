@@ -1,6 +1,6 @@
 import { uploadPicture } from '@/services/editor'
-import { IconButton } from '@mui/material'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import { IconButton, Tooltip } from '@mui/material'
 import React, { useRef } from 'react'
 import { EditorModel } from '../EditorModel'
 
@@ -32,9 +32,11 @@ export default ({ editor }: Props) => {
   }
 
   return <>
-    <IconButton onClick={clickHandler} size="large">
-      <AddPhotoAlternateIcon />
-    </IconButton>
+    <Tooltip title='图片' placement='bottom'>
+      <IconButton onClick={clickHandler} size="large">
+        <AddPhotoAlternateIcon />
+      </IconButton>
+    </Tooltip>
     <input
       style={{ display: 'none' }}
       type="file"

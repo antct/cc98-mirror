@@ -6,21 +6,21 @@ import {
   Tooltip
 } from '@mui/material'
 import React, { useState } from 'react'
-import { EditorModel } from '../EditorModel'
+import { WealthModel } from '../WealthModel'
 
 
 interface Props {
-  editor: EditorModel
+  transferer: WealthModel
 }
 
-export default ({ editor }: Props) => {
+export default ({ transferer }: Props) => {
   const [open, setOpen] = useState(false)
   const handleClose = () => {
     setOpen(false)
   }
 
   const handlerComfirm = () => {
-    editor.clearAll()
+    transferer.clearAll()
     handleClose()
   }
 

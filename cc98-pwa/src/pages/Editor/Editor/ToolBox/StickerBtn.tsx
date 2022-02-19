@@ -1,4 +1,4 @@
-import { Dialog, IconButton } from '@mui/material'
+import { Dialog, IconButton, Tooltip } from '@mui/material'
 import TagFacesIcon from '@mui/icons-material/TagFaces'
 import React, { useState } from 'react'
 import { EditorModel } from '../EditorModel'
@@ -20,9 +20,11 @@ export default ({ editor }: Props) => {
   }
 
   return <>
-    <IconButton onClick={clickHandler} size="large">
-      <TagFacesIcon />
-    </IconButton>
+    <Tooltip title='表情' placement='bottom'>
+      <IconButton onClick={clickHandler} size="large">
+        <TagFacesIcon />
+      </IconButton>
+    </Tooltip>
     <Dialog open={open} onClose={handleClose} fullWidth scroll="paper">
       <StickerBox editor={editor} handleClose={handleClose} />
     </Dialog>

@@ -1,5 +1,4 @@
 import { IMG_BASE_URL } from '@/config'
-import { Theme } from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IBasicBoard } from '@cc98/api'
 import { CardMedia, Typography } from '@mui/material'
@@ -7,7 +6,7 @@ import { makeStyles } from '@mui/styles'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex',
     margin: 8,

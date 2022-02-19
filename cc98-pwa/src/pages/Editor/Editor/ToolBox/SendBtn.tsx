@@ -2,7 +2,7 @@ import {
   CircularProgress,
   Dialog, IconButton, List,
   ListItem,
-  ListItemText
+  ListItemText, Tooltip
 } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import React, { useState } from 'react'
@@ -75,9 +75,11 @@ export default ({ editor, onSendCallback }: Props) => {
       onClose={handleClose}
       options={options}
     />
-    <IconButton onClick={clickHandler} size="large">
-      {!editor.state.isSending && <SendIcon />}
-      {editor.state.isSending && <CircularProgress size={24} />}
-    </IconButton>
+    <Tooltip title='发送' placement='bottom'>
+      <IconButton onClick={clickHandler} size="large">
+        {!editor.state.isSending && <SendIcon />}
+        {editor.state.isSending && <CircularProgress size={24} />}
+      </IconButton>
+    </Tooltip>
   </>;
 }
