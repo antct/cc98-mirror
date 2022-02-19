@@ -1,4 +1,4 @@
-import { DRAWER_WIDTH, MAX_WIDTH } from '@/config'
+import { DRAWER_WIDTH, MAX_WIDTH, PC_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
@@ -28,7 +28,7 @@ import { useAuth } from "react-oidc-context"
 import UserInfo from './UserInfo'
 
 const AppBarS = muiStyled(AppBar)({
-  maxWidth: 600,
+  maxWidth: PC_WIDTH,
   left: 'auto',
   right: 'auto',
 })

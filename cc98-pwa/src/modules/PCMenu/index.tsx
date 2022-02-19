@@ -80,7 +80,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   '@media (min-width: 600px)': {
     width: 56
   }
-});
+})
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -92,7 +92,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   '@media (min-width: 600px)': {
     minHeight: 56,
   }
-}));
+}))
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;

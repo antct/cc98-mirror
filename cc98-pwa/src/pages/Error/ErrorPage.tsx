@@ -1,9 +1,12 @@
-import LayoutCenter from '@/components/LayoutCenter'
+import LayoutCenter, { PCLayoutCenter } from '@/components/LayoutCenter'
 import muiStyled from '@/muiStyled'
 import { Button, Typography } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 import ErrorImage from './ErrorImage'
+import useModel from '@/hooks/useModel'
+import stateModel from '@/models/state'
+import { IS_PC } from '@/config'
 
 
 const FlexDiv = styled.div`
@@ -33,23 +36,46 @@ interface Props {
   button?: boolean
 }
 
-export default ({ errMessage, secondMessage, button = true }: Props) => (
-  <LayoutCenter>
-    <FlexDiv>
-      <ErrorImage status="404" />
-      <Typography variant="h6" color="textPrimary">
-        {errMessage}
-      </Typography>
-      {secondMessage && (
-        <Typography variant="subtitle1" color="textPrimary">
-          {secondMessage}
-        </Typography>
-      )}
-      {button && window.history.length > 1 && (
-        <ButtonS onClick={() => window.history.back()}>
-          回到前页
-        </ButtonS>
-      )}
-    </FlexDiv>
-  </LayoutCenter>
-)
+export default ({ errMessage, secondMessage, button = true }: Props) => {
+  const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
+  return (
+    IS_PC ?
+      <PCLayoutCenter open={isDrawerOpen}>
+        <FlexDiv>
+          <ErrorImage status="404" />
+          <Typography variant="h6" color="textPrimary">
+            {errMessage}
+          </Typography>
+          {secondMessage && (
+            <Typography variant="subtitle1" color="textPrimary">
+              {secondMessage}
+            </Typography>
+          )}
+          {button && window.history.length > 1 && (
+            <ButtonS onClick={() => window.history.back()}>
+              回到前页
+            </ButtonS>
+          )}
+        </FlexDiv>
+      </PCLayoutCenter>
+      :
+      <LayoutCenter>
+        <FlexDiv>
+          <ErrorImage status="404" />
+          <Typography variant="h6" color="textPrimary">
+            {errMessage}
+          </Typography>
+          {secondMessage && (
+            <Typography variant="subtitle1" color="textPrimary">
+              {secondMessage}
+            </Typography>
+          )}
+          {button && window.history.length > 1 && (
+            <ButtonS onClick={() => window.history.back()}>
+              回到前页
+            </ButtonS>
+          )}
+        </FlexDiv>
+      </LayoutCenter>
+  )
+}

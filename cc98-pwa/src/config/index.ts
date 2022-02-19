@@ -8,8 +8,10 @@ export const AVATAR_COMPRESS_WIDTH = 50
 export const IMG_COMPRESS_WIDTH = 300
 export const DRAWER_WIDTH = 180
 export const HEADER_WIDTH = 56
+export const PC_WIDTH = 900
 export const IS_PC = document.body.clientWidth >= 900
-export const MAX_WIDTH = IS_PC ? 900 - DRAWER_WIDTH : 600
+export const MAX_WIDTH = IS_PC ? 900 - DRAWER_WIDTH : 900
+export const BIG_MAX_WIDTH = IS_PC ? 900 - 56 : 900
 export const ONLINE_TIME = 30
 export const CDN = (url: string, isAvatar: boolean) => {
     if (url.indexOf('files') !== -1) {
