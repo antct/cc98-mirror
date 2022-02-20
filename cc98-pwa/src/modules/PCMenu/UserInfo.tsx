@@ -2,10 +2,14 @@ import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IUser } from '@cc98/api'
-import { Avatar, IconButton, Menu, MenuItem, Typography } from '@mui/material'
+import { Avatar, IconButton, Menu, MenuItem, Typography, ListItemIcon } from '@mui/material'
 import React from 'react'
 import { useAuth } from "react-oidc-context"
 import styled from 'styled-components'
+import PersonIcon from '@mui/icons-material/Person'
+import LogoutIcon from '@mui/icons-material/Logout'
+import RegistrationIcon from '@mui/icons-material/AppRegistration'
+import LoginIcon from '@mui/icons-material/Login'
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -21,7 +25,7 @@ const AvatarS = muiStyled(Avatar)({
 
 const IconButtonS = muiStyled(IconButton).attrs({
 })({
-  marginRight: -14,
+  marginRight: -8,
 })
 
 interface Props {
@@ -65,14 +69,20 @@ const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
             handleCloseUserMenu()
             navigate('/userCenter')
           }}>
-            <Typography textAlign="center">{'资料'}</Typography>
+            <ListItemIcon>
+              <PersonIcon fontSize="small" />
+            </ListItemIcon>
+            用户
           </MenuItem>
           <MenuItem onClick={() => {
             handleCloseUserMenu()
             if (auth.isAuthenticated) auth.removeUser().then(() => LOG_OUT())
             else LOG_OUT()
           }}>
-            <Typography textAlign="center" >{'退出'}</Typography>
+            <ListItemIcon>
+              <LogoutIcon fontSize="small" />
+            </ListItemIcon>
+            登出
           </MenuItem>
         </Menu>
       </>
@@ -102,13 +112,19 @@ const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
             handleCloseUserMenu()
             window.open('https://account.cc98.org/')
           }}>
-            <Typography textAlign="center">{'注册'}</Typography>
+            <ListItemIcon>
+              <RegistrationIcon fontSize="small" />
+            </ListItemIcon>
+            注册
           </MenuItem>
           <MenuItem onClick={() => {
             handleCloseUserMenu()
             navigate('/logIn')
           }}>
-            <Typography textAlign="center">{'登录'}</Typography>
+            <ListItemIcon>
+              <LoginIcon fontSize="small" />
+            </ListItemIcon>
+            登录
           </MenuItem>
         </Menu>
       </>

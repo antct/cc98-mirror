@@ -15,14 +15,21 @@ const handler: ITagHandler<React.ReactNode> = {
     const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     return (
       <LazyLoad height={200} offset={200} once>
-        <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)} >
+        <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)}>
           {!useCDN ? (
             useCompress ?
               <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
               :
               <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />)
             :
-            <img className="ubb-tag-img" src={CDN(node.innerText, false)} />
+            <img className="ubb-tag-img"
+              src={CDN(node.innerText, false)}
+              onError={
+                (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                  event.currentTarget.src = node.innerText
+                }
+              }
+            />
           }
         </PhotoView>
       </LazyLoad>

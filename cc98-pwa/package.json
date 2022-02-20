@@ -23,6 +23,9 @@
   "dependencies": {
     "@aspnet/signalr": "^1.1.4",
     "@cc98/ubb-core": "1.1.0",
+    "@devexpress/dx-react-chart": "^3.0.1",
+    "@devexpress/dx-react-chart-material-ui": "^3.0.1",
+    "@devexpress/dx-react-core": "^3.0.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.4.1",
@@ -37,7 +40,7 @@
     "cropperjs": "^1.5.1",
     "dayjs": "^1.8.13",
     "dplayer": "^1.26.0",
-    "lodash-es": "^4.17.11",
+    "lodash-es": "^4.17.21",
     "oidc-client": "^1.11.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -46,12 +49,9 @@
     "react-photo-view": "^1.0.0-beta.1",
     "react-showdown": "^2.3.1",
     "react-spring": "^8.0.19",
-    "rehype-raw": "^6.1.0",
-    "remark": "^10.0.1",
-    "remark-react": "^5.0.1",
     "styled-components": "^5.3.3",
-    "typeface-roboto": "^0.0.54",
-    "url-parse": "^1.4.7"
+    "typeface-roboto": "^1.1.13",
+    "url-parse": "^1.5.8"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

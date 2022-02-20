@@ -48,7 +48,7 @@ const RecentTopics: React.FC<Props> = ({ info }) => (
       <ListItem name="QQ" value={info.qq} />
       <ListItem name="邮箱" value={info.emailAddress || ''} />
       <ListItem name="等级" value={info.levelTitle} />
-      <ListItem name="IP" value={info.lastIpAddress || ''} />
+      <ListItem name="组别" value={info.groupName} />
       <ListItem name="注册时间" value={dayjs(info.registerTime).format('YYYY-MM-DD HH:mm')} />
       <ListItem name="最后登录" value={dayjs(info.lastLogOnTime).format('YYYY-MM-DD HH:mm')} />
     </ListDiv>

@@ -142,5 +142,9 @@ declare module '@cc98/api' {
      * 是否在线
      */
     isOnline: boolean
+    /**
+     * 组别
+     */
+    groupName: string
   }
 }

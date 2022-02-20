@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import PageviewIcon from '@mui/icons-material/Pageview'
+import PersonIcon from '@mui/icons-material/Person'
 import PetsIcon from '@mui/icons-material/Pets'
 import CollectionsIcon from '@mui/icons-material/Photo'
 import RefreshIcon from '@mui/icons-material/Refresh'
@@ -186,9 +187,10 @@ const PCMenu: React.FC = ({ children }) => {
         <ListS>
           {user.isLogIn && (
             <>
-              <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
               <Item icon={<BackIcon />} text="回退" onClick={() => goback()} />
               <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
+              <Item icon={<PersonIcon />} text="用户" onClick={jump('/userCenter')} />
+              <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
               <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
@@ -208,14 +210,14 @@ const PCMenu: React.FC = ({ children }) => {
               <Item icon={<HelpIcon />} text="联系" onClick={() => window.open('https://github.com/ttcqaq')} />
             </>
           )}
-          {user.isLogIn && (
+          {/* {user.isLogIn && (
             <>
               <Item icon={<CancelIcon />} text="退出" onClick={() => {
                 if (auth.isAuthenticated) auth.removeUser().then(() => LOG_OUT())
                 else LOG_OUT()
               }} />
             </>
-          )}
+          )} */}
         </ListS>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, padding: 0 }}>

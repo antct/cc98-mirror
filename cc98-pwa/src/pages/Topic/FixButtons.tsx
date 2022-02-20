@@ -7,6 +7,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import ReplyIcon from '@mui/icons-material/Reply'
 import RotateRightIcon from '@mui/icons-material/RotateRight'
 import SwapVertIcon from '@mui/icons-material/SwapVert'
+import { Tooltip } from '@mui/material'
 import React, { useState } from 'react'
 
 
@@ -38,34 +39,46 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
       {expand && (
         <>
           {isShare ? (
-              <>
+            <>
+              <Tooltip title='顶部' placement='left'>
                 <FixFab order={3}>
                   <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
                 </FixFab>
+              </Tooltip>
+              <Tooltip title='刷新' placement='left'>
                 <FixFab order={2}>
                   <RotateRightIcon onClick={refreshFunc} />
                 </FixFab>
-              </>
-            )
+              </Tooltip>
+            </>
+          )
             : (
               <>
                 <FixFab order={5}>
-                  <SwapVertIcon
-                    onClick={() =>
-                      isReverse
-                        ? navigate(`/topic/${topicInfo.id}`)
-                        : navigate(`/topic/${topicInfo.id}/reverse`)
-                    }
-                  />
+                  <Tooltip title='倒序' placement='left'>
+                    <SwapVertIcon
+                      onClick={() =>
+                        isReverse
+                          ? navigate(`/topic/${topicInfo.id}`)
+                          : navigate(`/topic/${topicInfo.id}/reverse`)
+                      }
+                    />
+                  </Tooltip>
                 </FixFab>
                 <FixFab order={4}>
-                  <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                  <Tooltip title='顶部' placement='left'>
+                    <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                  </Tooltip>
                 </FixFab>
                 <FixFab order={3}>
-                  <RotateRightIcon onClick={refreshFunc} />
+                  <Tooltip title='刷新' placement='left'>
+                    <RotateRightIcon onClick={refreshFunc} />
+                  </Tooltip>
                 </FixFab>
                 <FixFab order={2}>
-                  <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                  <Tooltip title='回复' placement='left'>
+                    <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                  </Tooltip>
                 </FixFab>
               </>
             )
@@ -74,9 +87,13 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
       )}
       <FixFab>
         {expand ? (
-          <RemoveIcon onClick={() => setExpand(false)} />
+          <Tooltip title='关闭' placement='left'>
+            <RemoveIcon onClick={() => setExpand(false)} />
+          </Tooltip>
         ) : (
-          <AddIcon onClick={() => setExpand(true)} />
+          <Tooltip title='选项' placement='left'>
+            <AddIcon onClick={() => setExpand(true)} />
+          </Tooltip>
         )}
       </FixFab>
     </>

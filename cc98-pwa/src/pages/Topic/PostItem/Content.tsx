@@ -29,11 +29,21 @@ const Overlay = styled.div`
   z-index: 1000;
 `
 
-const CustomImageComponent = ({ originalSrc, compressSrc }: { originalSrc: string, compressSrc: string }) => {
+const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCDN: string, useCompress: string }) => {
+  const useCDNFix = useCDN === 'true'
+  const useCompressFix = useCompress === 'true'
   return (
     <LazyLoad height={200} offset={200} once>
-      <PhotoView src={`${originalSrc}`} >
-        <img className="ubb-tag-img" src={`${compressSrc}`} />
+      <PhotoView src={!useCDNFix ? src : CDN(src, false)} >
+        <img
+          className="ubb-tag-img"
+          src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}
+          onError={
+            (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+              event.currentTarget.src = src
+            }
+          }
+        />
       </PhotoView>
     </LazyLoad>
   )
@@ -83,7 +93,7 @@ export default ({ postInfo }: Props) => {
   if (postInfo.contentType === 1) {
     const markdown_image_regex = /!\[.*?\]\((.*?)\)/g
     regex_content = regex_content.replace(markdown_image_regex, (match: string, capture: string) => {
-      return `<CustomImageComponent originalSrc="${!useCDN ? capture : CDN(capture, false)}" compressSrc="${!useCDN ? (useCompress ? `${capture}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${capture}?compress=false`) : CDN(capture, false)}" />`
+      return `<CustomImageComponent src="${capture}" useCDN="${useCDN}" useCompress="${useCompress}" />`
     })
   }
   // 分享模式禁止跳转
@@ -152,7 +162,7 @@ export default ({ postInfo }: Props) => {
                 )
               }}
             >
-             <path d="M120 334a40 40 0 0 1 40 40V476h80V374a40 40 0 1 1 80 0v284a40 40 0 1 1-80 0V556H160v102a40 40 0 1 1-80 0v-284a40 40 0 0 1 40-40zM984 760a40 40 0 0 1 40 40v64c0 88.224-71.776 160-160 160H160c-88.224 0-160-71.776-160-160v-64a40 40 0 1 1 80 0v64c0 44.112 35.888 80 80 80h704c44.112 0 80-35.888 80-80v-64a40 40 0 0 1 40-40zM864 0c88.224 0 160 71.776 160 160v72a40 40 0 1 1-80 0v-72c0-44.112-35.888-80-80-80H160c-44.112 0-80 35.888-80 80v72a40 40 0 1 1-80 0v-72C0 71.776 71.776 0 160 0h704z m78 460c0 43.52-22.552 81.84-56.56 103.976l49.424 71.224a40 40 0 1 1-65.728 45.6L801.968 584H780v74a40 40 0 1 1-80 0V376a40 40 0 0 1 40-40h78c68.376 0 124 55.624 124 124z m-124 44c24.264 0 44-19.736 44-44s-19.736-44-44-44H780v88h38zM503 698H430a40 40 0 0 1-40-40v-284a40 40 0 0 1 40-40h73C574.128 334 632 391.872 632 463v106c0 71.128-57.872 129-129 129z m-33-284v204h33A49.056 49.056 0 0 0 552 569v-106a49.056 49.056 0 0 0-49-49H470z" p-id="2110"></path>
+              <path d="M120 334a40 40 0 0 1 40 40V476h80V374a40 40 0 1 1 80 0v284a40 40 0 1 1-80 0V556H160v102a40 40 0 1 1-80 0v-284a40 40 0 0 1 40-40zM984 760a40 40 0 0 1 40 40v64c0 88.224-71.776 160-160 160H160c-88.224 0-160-71.776-160-160v-64a40 40 0 1 1 80 0v64c0 44.112 35.888 80 80 80h704c44.112 0 80-35.888 80-80v-64a40 40 0 0 1 40-40zM864 0c88.224 0 160 71.776 160 160v72a40 40 0 1 1-80 0v-72c0-44.112-35.888-80-80-80H160c-44.112 0-80 35.888-80 80v72a40 40 0 1 1-80 0v-72C0 71.776 71.776 0 160 0h704z m78 460c0 43.52-22.552 81.84-56.56 103.976l49.424 71.224a40 40 0 1 1-65.728 45.6L801.968 584H780v74a40 40 0 1 1-80 0V376a40 40 0 0 1 40-40h78c68.376 0 124 55.624 124 124z m-124 44c24.264 0 44-19.736 44-44s-19.736-44-44-44H780v88h38zM503 698H430a40 40 0 0 1-40-40v-284a40 40 0 0 1 40-40h73C574.128 334 632 391.872 632 463v106c0 71.128-57.872 129-129 129z m-33-284v204h33A49.056 49.056 0 0 0 552 569v-106a49.056 49.056 0 0 0-49-49H470z" p-id="2110"></path>
             </svg>
             <svg
               className="PhotoView-PhotoSlider__toolbarIcon"

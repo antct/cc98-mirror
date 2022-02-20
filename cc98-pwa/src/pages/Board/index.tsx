@@ -4,15 +4,15 @@ import StickyBar from '@/components/StickyBar'
 import { FinTopicList, InfTopicList } from '@/components/TopicList'
 import useFetcher from '@/hooks/useFetcher'
 import { getBoardInfo } from '@/services/board'
-import { getTopicsInBoard, getTopTopics } from '@/services/topic'
+import { getTopicsInBoard, getTopTopics, searchBoardTopics } from '@/services/topic'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { navigate } from '@/utils/history'
 import EditIcon from '@mui/icons-material/Edit'
+import { Tooltip } from '@mui/material'
 import { throttle } from 'lodash-es'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BoardHead from './BoardHead'
-import { searchBoardTopics } from '@/services/topic'
 
 const WrapperDiv = styled.div`
   display: flex;
@@ -59,7 +59,9 @@ export default ({ id }: Props) => {
           <>
             <BoardHead data={board} />
             <FixFab onClick={() => navigate(`/editor/postTopic/${board.id}`)}>
-              <EditIcon />
+              <Tooltip title='发帖' placement='left'>
+                <EditIcon />
+              </Tooltip>
             </FixFab>
           </>
         )}

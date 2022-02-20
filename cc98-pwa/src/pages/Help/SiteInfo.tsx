@@ -1,10 +1,14 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import muiStyled from '@/muiStyled'
-import { getHomeInfo } from '@/services/global'
+import { getDailyCountInfo, getHomeInfo, getMonthlyCountInfo } from '@/services/global'
+import { ICountData } from '@cc98/api'
+import {
+  ArgumentAxis, Chart,
+  LineSeries, ValueAxis
+} from '@devexpress/dx-react-chart-material-ui'
 import { Divider, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
-
 
 const Title = muiStyled(Typography).attrs({
   align: 'center',
@@ -30,6 +34,10 @@ interface RowType {
 export default () => {
   const [rows, setRows] = useState<RowType[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [dailyRows, setDailyRows] = useState<ICountData[]>([])
+  const [monthlyRows, setMonthlyRows] = useState<ICountData[]>([])
+  const [isDailyLoading, setIsDailyLoading] = useState(false)
+  const [isMonthlyLoading, setIsMonthlyLoading] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
@@ -48,6 +56,28 @@ export default () => {
         setIsLoading(false)
       }
       )
+    )
+    setIsDailyLoading(true)
+    setIsMonthlyLoading(true)
+    getDailyCountInfo(0, 14).then(res =>
+      res.fail().succeed(info => {
+        let data = info.data.reverse()
+        for (let i = 0; i < data.length; i++) {
+          data[i].date = dayjs(data[i].date).format('MM-DD')
+        }
+        setDailyRows(data)
+        setIsDailyLoading(false)
+      })
+    )
+    getMonthlyCountInfo(0, 12).then(res =>
+      res.fail().succeed(info => {
+        let data = info.data.reverse()
+        for (let i = 0; i < data.length; i++) {
+          data[i].date = dayjs(data[i].date).format('YY-MM')
+        }
+        setMonthlyRows(data)
+        setIsMonthlyLoading(false)
+      })
     )
   }, [])
 
@@ -69,6 +99,32 @@ export default () => {
             ))}
           </TableBody>
         </Table>
+      }
+      <Title>日活统计</Title>
+      <Divider />
+      {isDailyLoading && <LoadingCircle />}
+
+      {!isDailyLoading && dailyRows &&
+        <Chart
+          data={dailyRows}
+        >
+          <ArgumentAxis />
+          <ValueAxis />
+          <LineSeries valueField="userCount" argumentField="date" />
+        </Chart>
+      }
+      <Title>月活统计</Title>
+      <Divider />
+      {isMonthlyLoading && <LoadingCircle />}
+
+      {!isMonthlyLoading && monthlyRows &&
+        <Chart
+          data={monthlyRows}
+        >
+          <ArgumentAxis />
+          <ValueAxis />
+          <LineSeries valueField="userCount" argumentField="date" />
+        </Chart>
       }
     </>
   )

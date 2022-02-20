@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { IConfig, IShare, ISignIn, ISite, ITheme, IProxy } from '@cc98/api'
+import { IConfig, IShare, ISignIn, ISite, ITheme, IProxy, ICount } from '@cc98/api'
 
 /**
  * 获取全站基本信息
@@ -14,6 +14,22 @@ export function getSiteInfo() {
 export function getHomeInfo() {
   return GET<IConfig>('config/index')
 }
+
+/**
+ * 获取全站日活信息
+ */
+export function getDailyCountInfo(from: number, size: number) {
+  return GET<ICount>(`config/daily-data?from=${from}&size=${size}`)
+}
+
+
+/**
+ * 获取全站月活信息
+ */
+export function getMonthlyCountInfo(from: number, size: number) {
+  return GET<ICount>(`config/monthly-data?from=${from}&size=${size}`)
+}
+
 
 /**
  * 获取签到信息

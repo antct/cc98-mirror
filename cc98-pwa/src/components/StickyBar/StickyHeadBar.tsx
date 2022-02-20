@@ -32,6 +32,7 @@ const PCTitle = muiStyled(Typography).attrs({
   margin: '6px 0px',
   flexGrow: 2,
   flexShrink: 1,
+  fontWeight: 'bold'
 })
 
 const AcitonDiv = styled.div`
