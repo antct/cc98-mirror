@@ -1,10 +1,11 @@
 import muiStyled from '@/muiStyled'
 import { goback } from '@/utils/history'
-import { IconButton, Typography } from '@mui/material'
+import { AppBar, Divider, IconButton, Typography } from '@mui/material'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import React from 'react'
 import styled from 'styled-components'
 import StickyBar from './index'
+import { IS_PC } from '@/config'
 
 
 const GobackIcon = muiStyled(IconButton).attrs({
@@ -22,6 +23,15 @@ const Title = muiStyled(Typography).attrs({
   flexGrow: 2,
   flexShrink: 1,
   lineHeight: 1.25,
+})
+
+const PCTitle = muiStyled(Typography).attrs({
+  variant: 'body1',
+  color: 'inherit',
+})({
+  margin: '6px 0px',
+  flexGrow: 2,
+  flexShrink: 1,
 })
 
 const AcitonDiv = styled.div`
@@ -43,6 +53,17 @@ const SubTitle = muiStyled(Typography).attrs({
   opacity: 0.75,
 })
 
+const PCSubTitle = muiStyled(Typography).attrs({
+  variant: 'body2',
+  color: 'inherit',
+})({
+  // minWidth: '4rem',
+  // maxWidth: '6rem',
+  textAlign: 'center',
+  flexShrink: 1,
+  opacity: 0.75,
+})
+
 interface Props {
   title: string
   titleClick?: () => void
@@ -54,17 +75,33 @@ interface Props {
 
 const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action, isShare }) => {
   return (
-    <StickyBar>
-      {
-        !!!isShare &&
-        <GobackIcon onClick={goback}>
-          <KeyboardBackspaceIcon />
-        </GobackIcon>
-      }
-      <Title onClick={titleClick}>{title}</Title>
-      <SubTitle onClick={subTitleClick}>{subTitle}</SubTitle>
-      {action && <AcitonDiv>{action}</AcitonDiv>}
-    </StickyBar>
+    IS_PC ?
+      <>
+        <StickyBar>
+          {
+            !!!isShare &&
+            <GobackIcon onClick={goback}>
+              <KeyboardBackspaceIcon />
+            </GobackIcon>
+          }
+          <PCTitle onClick={titleClick}>{title}</PCTitle>
+          <PCSubTitle onClick={subTitleClick}>{subTitle}</PCSubTitle>
+          {action && <AcitonDiv>{action}</AcitonDiv>}
+        </StickyBar>
+        <Divider />
+      </>
+      :
+      <StickyBar>
+        {
+          !!!isShare &&
+          <GobackIcon onClick={goback}>
+            <KeyboardBackspaceIcon />
+          </GobackIcon>
+        }
+        <Title onClick={titleClick}>{title}</Title>
+        <SubTitle onClick={subTitleClick}>{subTitle}</SubTitle>
+        {action && <AcitonDiv>{action}</AcitonDiv>}
+      </StickyBar>
   )
 }
 

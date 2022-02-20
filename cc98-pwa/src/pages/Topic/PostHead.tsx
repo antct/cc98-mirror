@@ -1,4 +1,5 @@
 import StickyHeadBar from '@/components/StickyBar/StickyHeadBar'
+import { IS_PC } from '@/config'
 import historyModel from '@/models/history'
 import { getBoardNameById } from '@/services/board'
 import { navigate } from '@/utils/history'
@@ -35,7 +36,7 @@ const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc, isShare }) => {
       subTitle={isShare ? '分享模式' : boardName}
       subTitleClick={isShare ? () => false : () => navigate(`/board/${topicInfo.boardId}`)}
       action={isShare ? null : <PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} />}
-      isShare={isShare}
+      isShare={isShare || IS_PC}
     />
   )
 }

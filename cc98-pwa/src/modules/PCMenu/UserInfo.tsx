@@ -21,7 +21,7 @@ const AvatarS = muiStyled(Avatar)({
 
 const IconButtonS = muiStyled(IconButton).attrs({
 })({
-  marginRight: -8,
+  marginRight: -14,
 })
 
 interface Props {

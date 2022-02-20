@@ -1,13 +1,12 @@
-import { MAX_WIDTH } from '@/config'
+import { PC_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
-import muiStyled from '@/muiStyled'
 import { getTheme } from '@/services/global'
 import { notificationHandler } from '@/services/utils/errorHandler'
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import VolumeOffIcon from '@mui/icons-material/VolumeOff'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -47,7 +46,7 @@ export default ({ }: Props) => {
             {
               !!theme ?
                 <>
-                  <WrapperDiv style={{ backgroundImage: `url("${theme?.url}?width=${MAX_WIDTH}")` }}>
+                  <WrapperDiv style={{ backgroundImage: `url("${theme?.url}?width=${PC_WIDTH}")` }}>
                   </WrapperDiv>
                   <Divider />
                 </>

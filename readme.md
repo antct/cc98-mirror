@@ -5,6 +5,7 @@
 ## TODO
 
 - 引入react-virtualized，无限列表优化。
+- 开发CC98全文搜索引擎，需考虑98的爬虫限制。
 
 ## ChangeLog
 

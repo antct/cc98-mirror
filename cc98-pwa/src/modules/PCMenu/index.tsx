@@ -6,7 +6,8 @@ import settingModel from '@/models/setting'
 import stateModel from '@/models/state'
 import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
-import { navigate } from '@/utils/history'
+import { go, goback, navigate } from '@/utils/history'
+import BackIcon from '@mui/icons-material/ArrowBack'
 import CancelIcon from '@mui/icons-material/Cancel'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -22,6 +23,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import PageviewIcon from '@mui/icons-material/Pageview'
 import PetsIcon from '@mui/icons-material/Pets'
 import CollectionsIcon from '@mui/icons-material/Photo'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import SettingsIcon from '@mui/icons-material/Settings'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import { Badge, Divider, IconButton, ListItem, ListItemIcon, Toolbar, Tooltip, Typography } from '@mui/material'
@@ -185,6 +187,8 @@ const PCMenu: React.FC = ({ children }) => {
           {user.isLogIn && (
             <>
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
+              <Item icon={<BackIcon />} text="回退" onClick={() => goback()} />
+              <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
               <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
