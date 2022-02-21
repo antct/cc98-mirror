@@ -41,6 +41,19 @@ const Video: React.FC<Props> = ({ src }) => {
         },
       })
 
+      dplayer.on('error', () => {
+        dplayer && dplayer.destroy()
+        dplayer = new DPlayer({
+          container: divRef.current,
+          autoplay: false,
+          preload: 'metadata',
+          video: {
+            url: encodeURI(src),
+            type: 'auto',
+          },
+        })
+      })
+
       // 监听到 url 改变，暂停播放
       unsubscribe = globalHistory.listen(() => {
         dplayer && dplayer.pause()

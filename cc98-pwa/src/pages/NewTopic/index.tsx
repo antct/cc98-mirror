@@ -1,5 +1,6 @@
 import FixFab from '@/components/FixFab'
 import { InfTopicList } from '@/components/TopicList'
+import { IS_PC } from '@/config'
 import { getNewTopics } from '@/services/topic'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import RotateRightIcon from '@mui/icons-material/RotateRight'
@@ -12,16 +13,20 @@ export default () => {
   return (
     <>
       <InfTopicList key={topicListKey} service={getNewTopics} place="newtopic" />
-      <FixFab order={2}>
-        <Tooltip title='顶部' placement='left'>
-          <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
-        </Tooltip>
-      </FixFab>
-      <FixFab order={1}>
-        <Tooltip title='刷新' placement='left'>
-          <RotateRightIcon onClick={() => setTopicListKey(topicListKey + 1)} />
-        </Tooltip>
-      </FixFab>
+      {!IS_PC &&
+        <>
+          <FixFab order={2}>
+            <Tooltip title='顶部' placement='left'>
+              <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+            </Tooltip>
+          </FixFab>
+          <FixFab order={1}>
+            <Tooltip title='刷新' placement='left'>
+              <RotateRightIcon onClick={() => setTopicListKey(topicListKey + 1)} />
+            </Tooltip>
+          </FixFab>
+        </>
+      }
     </>
   )
 }

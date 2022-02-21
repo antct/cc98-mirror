@@ -43,6 +43,14 @@ const AcitonDiv = styled.div`
   text-align: center;
 `
 
+const PCAcitonDiv = styled.div`
+  margin-left: -10px;
+  margin-right: -16px;
+  width: 48px;
+  height: 44px;
+  text-align: center;
+`
+
 const SubTitle = muiStyled(Typography).attrs({
   variant: 'body2',
   color: 'inherit',
@@ -55,7 +63,7 @@ const SubTitle = muiStyled(Typography).attrs({
 })
 
 const PCSubTitle = muiStyled(Typography).attrs({
-  variant: 'body2',
+  variant: 'body1',
   color: 'inherit',
 })({
   // minWidth: '4rem',
@@ -87,7 +95,7 @@ const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleC
           }
           <PCTitle onClick={titleClick}>{title}</PCTitle>
           <PCSubTitle onClick={subTitleClick}>{subTitle}</PCSubTitle>
-          {action && <AcitonDiv>{action}</AcitonDiv>}
+          {action && <PCAcitonDiv>{action}</PCAcitonDiv>}
         </StickyBar>
         <Divider />
       </>

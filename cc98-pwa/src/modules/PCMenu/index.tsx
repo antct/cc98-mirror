@@ -8,6 +8,7 @@ import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { go, goback, navigate } from '@/utils/history'
 import BackIcon from '@mui/icons-material/ArrowBack'
+import UpwardIcon from '@mui/icons-material/ArrowUpward'
 import CancelIcon from '@mui/icons-material/Cancel'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -188,8 +189,8 @@ const PCMenu: React.FC = ({ children }) => {
           {user.isLogIn && (
             <>
               <Item icon={<BackIcon />} text="回退" onClick={() => goback()} />
+              <Item icon={<UpwardIcon />} text="顶部" onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
               <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
-              <Item icon={<PersonIcon />} text="用户" onClick={jump('/userCenter')} />
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
               <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />

@@ -1,4 +1,5 @@
 import FixFab from '@/components/FixFab'
+import { IS_PC } from '@/config'
 import RotateRightIcon from '@mui/icons-material/RotateRight'
 import { Tooltip } from '@mui/material'
 import React, { useState } from 'react'
@@ -10,11 +11,12 @@ export default () => {
   return (
     <>
       <Home key={homeKey} />
-      <FixFab>
+      {!IS_PC && <FixFab>
         <Tooltip title='刷新' placement='left'>
           <RotateRightIcon onClick={() => setHomeKey(homeKey + 1)} />
         </Tooltip>
       </FixFab>
+      }
     </>
   )
 }

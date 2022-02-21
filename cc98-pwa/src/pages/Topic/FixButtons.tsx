@@ -1,4 +1,5 @@
 import FixFab from '@/components/FixFab'
+import { IS_PC } from '@/config'
 import { navigate } from '@/utils/history'
 import { ITopic } from '@cc98/api'
 import AddIcon from '@mui/icons-material/Add'
@@ -39,48 +40,69 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
       {expand && (
         <>
           {isShare ? (
-            <>
-              <Tooltip title='顶部' placement='left'>
-                <FixFab order={3}>
-                  <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
-                </FixFab>
-              </Tooltip>
-              <Tooltip title='刷新' placement='left'>
-                <FixFab order={2}>
-                  <RotateRightIcon onClick={refreshFunc} />
-                </FixFab>
-              </Tooltip>
-            </>
+            !IS_PC &&
+              <>
+                <Tooltip title='顶部' placement='left'>
+                  <FixFab order={3}>
+                    <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                  </FixFab>
+                </Tooltip>
+                <Tooltip title='刷新' placement='left'>
+                  <FixFab order={2}>
+                    <RotateRightIcon onClick={refreshFunc} />
+                  </FixFab>
+                </Tooltip>
+              </>
           )
             : (
-              <>
-                <FixFab order={5}>
-                  <Tooltip title='倒序' placement='left'>
-                    <SwapVertIcon
-                      onClick={() =>
-                        isReverse
-                          ? navigate(`/topic/${topicInfo.id}`)
-                          : navigate(`/topic/${topicInfo.id}/reverse`)
-                      }
-                    />
-                  </Tooltip>
-                </FixFab>
-                <FixFab order={4}>
-                  <Tooltip title='顶部' placement='left'>
-                    <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
-                  </Tooltip>
-                </FixFab>
-                <FixFab order={3}>
-                  <Tooltip title='刷新' placement='left'>
-                    <RotateRightIcon onClick={refreshFunc} />
-                  </Tooltip>
-                </FixFab>
-                <FixFab order={2}>
-                  <Tooltip title='回复' placement='left'>
-                    <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
-                  </Tooltip>
-                </FixFab>
-              </>
+              IS_PC ?
+                <>
+                  <FixFab order={3}>
+                    <Tooltip title='倒序' placement='left'>
+                      <SwapVertIcon
+                        onClick={() =>
+                          isReverse
+                            ? navigate(`/topic/${topicInfo.id}`)
+                            : navigate(`/topic/${topicInfo.id}/reverse`)
+                        }
+                      />
+                    </Tooltip>
+                  </FixFab>
+                  <FixFab order={2}>
+                    <Tooltip title='回复' placement='left'>
+                      <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                    </Tooltip>
+                  </FixFab>
+                </>
+                :
+                <>
+                  <FixFab order={5}>
+                    <Tooltip title='倒序' placement='left'>
+                      <SwapVertIcon
+                        onClick={() =>
+                          isReverse
+                            ? navigate(`/topic/${topicInfo.id}`)
+                            : navigate(`/topic/${topicInfo.id}/reverse`)
+                        }
+                      />
+                    </Tooltip>
+                  </FixFab>
+                  <FixFab order={4}>
+                    <Tooltip title='顶部' placement='left'>
+                      <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                    </Tooltip>
+                  </FixFab>
+                  <FixFab order={3}>
+                    <Tooltip title='刷新' placement='left'>
+                      <RotateRightIcon onClick={refreshFunc} />
+                    </Tooltip>
+                  </FixFab>
+                  <FixFab order={2}>
+                    <Tooltip title='回复' placement='left'>
+                      <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                    </Tooltip>
+                  </FixFab>
+                </>
             )
           }
         </>
