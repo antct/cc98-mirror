@@ -18,6 +18,10 @@ export function go(delta?: number | undefined) {
   window.history.go(delta)
 }
 
+export function push(url: string) {
+  window.history.pushState({}, '', url)
+}
+
 /**
  * 路由回退
  */
@@ -33,4 +37,5 @@ export default {
   navigate,
   go,
   back: goback,
+  push
 }

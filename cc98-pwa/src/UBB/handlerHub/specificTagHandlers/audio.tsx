@@ -50,16 +50,17 @@ const Audio: React.FC<Props> = ({ src, title, author }) => {
       aplayer.on('error', () => {
         aplayer && aplayer.destroy()
         aplayer = new APlayer({
-        container: divRef.current,
-        autoplay: false,
-        preload: 'metadata',
-        audio: {
-          url: encodeURI(src),
-          name: title ? title : encodeURI(src),
-          author: author ? author : null,
-          cover: `${IMG_BASE_URL}/audio_cover.png`,
-        },
-      })
+          container: divRef.current,
+          autoplay: false,
+          preload: 'metadata',
+          audio: {
+            url: encodeURI(src),
+            name: title ? title : encodeURI(src),
+            author: author ? author : null,
+            cover: `${IMG_BASE_URL}/audio_cover.png`,
+          },
+        })
+        aplayer.on('error', () => {})
       })
 
       // 监听到 url 改变，暂停播放

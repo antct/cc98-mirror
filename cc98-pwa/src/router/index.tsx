@@ -1,7 +1,7 @@
 import useModel, { Model } from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 // https://reach.tech/router/api/Router
-import { Location, WindowLocation } from '@reach/router'
+import { Location, useLocation, WindowLocation } from '@reach/router'
 import React, { useEffect, useRef } from 'react'
 import { animated, config, useSpring } from 'react-spring'
 import './gesture'
@@ -136,3 +136,9 @@ const CacheRouter: React.FC<ILocation> = ({ location }) => {
 export default React.memo(() => (
   <Location>{({ location }) => <CacheRouter location={location} />}</Location>
 ))
+
+
+export const useQuery = ()  => {
+  const { search } = useLocation()
+  return React.useMemo(() => new URLSearchParams(search), [search])
+}

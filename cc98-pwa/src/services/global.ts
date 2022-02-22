@@ -38,8 +38,8 @@ export function getSignState() {
   return GET<ISignIn>('me/signin')
 }
 
-export function getShareToken(id: number, short: string) {
-  return GET<IShare>(`share?id=${id}&short=${short}`)
+export function getShareToken(id: number, path: string, short: string) {
+  return GET<IShare>(`share?id=${id}&path=${path}&short=${short}`)
 }
 
 

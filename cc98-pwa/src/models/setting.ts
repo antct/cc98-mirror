@@ -25,6 +25,7 @@ interface State {
    */
   useCDN: boolean
   useAvatar: boolean
+  usePagination: boolean
   /**
    * 缓存页数
    */
@@ -62,6 +63,7 @@ class SettingModel extends Model<State> {
       useSignature: false,
       useNotification: true,
       useAvatar: true,
+      usePagination: false,
       useCompress: true,
       useCDN: true,
       cacheSize: 2,
@@ -128,6 +130,13 @@ class SettingModel extends Model<State> {
   TOGGLE_AVATAR = () => {
     this.setState(state => ({
       useAvatar: !state.useAvatar,
+    }))
+    this.SYNC_SETTING()
+  }
+
+  TOGGLE_PAGINATION = () => {
+    this.setState(state => ({
+      usePagination: !state.usePagination,
     }))
     this.SYNC_SETTING()
   }

@@ -27,7 +27,7 @@ const UserRecentPostsItem: React.FC<{
       info2={dayjs(post.time).fromNow()}
       likeCount={post.likeCount}
       dislikeCount={post.dislikeCount}
-      onClick={() => navigate(`/topic/${post.topicId}/${post.floor}`)}
+      onClick={() => navigate(`/topic/${post.topicId}/${Math.ceil(post.floor/10)}#${post.floor%10 === 0 ? 10 : post.floor%10}`)}
     />
   )
 }

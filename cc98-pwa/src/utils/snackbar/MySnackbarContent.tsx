@@ -38,7 +38,7 @@ const Message = styled.div`
   margin-left: 1rem;
 `
 
-const MySnackbarContent: React.ForwardRefRenderFunction<unknown, Props> = ({ variant, message, onClose }, ref) => {
+const MySnackbarContent: React.ForwardRefRenderFunction<HTMLDivElement, Props> = ({ variant, message, onClose }, ref) => {
   const Icon = IconMap[variant]
 
   return (

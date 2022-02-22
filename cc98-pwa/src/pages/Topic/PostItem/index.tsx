@@ -1,11 +1,11 @@
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
-import { getPostSummary, getSharePostSummary, getSinglePost } from '@/services/post'
+import { getPostSummary, getSinglePost } from '@/services/post'
 import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
-import { IPost, ITopic, IUser } from '@cc98/api'
+import { IPost, ISummary, ITopic, IUser } from '@cc98/api'
 import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
 import withStyles from '@mui/styles/withStyles';
 import DoneIcon from '@mui/icons-material/Done'
@@ -20,6 +20,7 @@ import Actions from './Actions'
 import Awards from './Awards'
 import Content from './Content'
 import Header from './Header'
+import { Service } from '@/hooks/useFetcher'
 
 
 const Wrapper = muiStyled(Paper).attrs({
@@ -125,7 +126,7 @@ interface Props {
    * 是否追踪
    */
   isTrace?: boolean
-  isShare: boolean
+  isShare?: boolean
   /**
    * 帖子元信息
    */
@@ -139,14 +140,14 @@ interface Props {
    */
   voteInfo?: IVote
   /**
-   * 分享状态下的ID信息
+   * 摘要服务
    */
-  realId?: string
+  summaryService?: Service<ISummary>
 }
 
 const DELETE_CONTENT = '该贴已被 my CC98, my home'
 
-export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo = undefined, voteInfo = undefined, setVote = undefined, realId = undefined }: Props) => {
+const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, isHot, isTrace = false, isShare = false, topicInfo = undefined, voteInfo = undefined, setVote = undefined, summaryService = undefined }: Props, ref) => {
   const [currentPost, setCurrentPost] = useState<IPost>(postInfo)
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(voteInfo)
   const [voteOption, setVoteOption] = useState<boolean[]>([])
@@ -171,9 +172,10 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
   }
 
   const getSummary = async () => {
-    const res = await ((isShare && realId !== undefined) ? getSharePostSummary(realId) : getPostSummary(postInfo.topicId))
-    res.fail().succeed(summary => {
-      setCurrentSummary(summary)
+    if (summaryService === undefined) return
+    const res = await summaryService()
+    res.fail().succeed(data => {
+      setCurrentSummary(data.summary)
     })
   }
 
@@ -226,44 +228,45 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
   }
 
   return (
-    <Wrapper>
-      {
-        topicInfo && postInfo.floor === 1 ?
-          <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
-          :
-          <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
-      }
-      {
-        postInfo.floor === 1 && !!postInfo.tags &&
-        <ChipDiv>
-          {
-            postInfo.tags.map((value, index) => (
-              <ChipS icon={<TagIconS />} size="small" label={value} />
-            ))
-          }
-        </ChipDiv>
-      }
-      {
-        postInfo.floor === 1 &&
-        <ChipDiv>
-          {currentSummary !== undefined ?
-            <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
+    <div ref={ref}>
+      <Wrapper>
+        {
+          topicInfo && postInfo.floor === 1 ?
+            <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
             :
-            <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
-          }
-        </ChipDiv>
-      }
-      {
-        topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
-        (() => {
-          let content = '```text\n'
-          content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
-          content += '```'
-          return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
-        })()
-      }
-      {
-        topicInfo && topicInfo.isVote && 
+            <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
+        }
+        {
+          postInfo.floor === 1 && !!postInfo.tags &&
+          <ChipDiv>
+            {
+              postInfo.tags.map((value, index) => (
+                <ChipS icon={<TagIconS />} size="small" label={value} />
+              ))
+            }
+          </ChipDiv>
+        }
+        {
+          postInfo.floor === 1 &&
+          <ChipDiv>
+            {currentSummary !== undefined ?
+              <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
+              :
+              <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
+            }
+          </ChipDiv>
+        }
+        {
+          topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
+          (() => {
+            let content = '```text\n'
+            content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
+            content += '```'
+            return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
+          })()
+        }
+        {
+          topicInfo && topicInfo.isVote &&
           (currentVote &&
             <CardS variant="outlined">
               <CardHeaderS
@@ -314,31 +317,34 @@ export default ({ postInfo, userInfo, isHot, isTrace = false, isShare, topicInfo
               </CardContentS>
             </CardS>
           )
-      }
-      <Content postInfo={currentPost} />
-      {
-        <Actions
-          postInfo={currentPost}
-          userInfo={userInfo}
-          isTrace={isTrace}
-          refreshPost={refreshPost}
+        }
+        <Content postInfo={currentPost} />
+        {
+          <Actions
+            postInfo={currentPost}
+            userInfo={userInfo}
+            isTrace={isTrace}
+            refreshPost={refreshPost}
+          />
+        }
+        {useSignature && userInfo !== undefined && userInfo.signatureCode &&
+          (
+            <>
+              <Divider />
+              <WrapperDiv>
+                <UBB ubbText={userInfo.signatureCode.trim()} />
+              </WrapperDiv>
+            </>
+          )
+        }
+        <Awards
+          key={currentPost.awards ? currentPost.awards.length : 0}
+          awards={currentPost.awards}
         />
-      }
-      {useSignature && userInfo !== undefined && userInfo.signatureCode &&
-        (
-          <>
-            <Divider />
-            <WrapperDiv>
-              <UBB ubbText={userInfo.signatureCode.trim()} />
-            </WrapperDiv>
-          </>
-        )
-      }
-      <Awards
-        key={currentPost.awards ? currentPost.awards.length : 0}
-        awards={currentPost.awards}
-      />
-      <Divider />
-    </Wrapper>
-  );
-}
+        <Divider />
+      </Wrapper>
+    </div>
+  )
+})
+
+export default PostItem

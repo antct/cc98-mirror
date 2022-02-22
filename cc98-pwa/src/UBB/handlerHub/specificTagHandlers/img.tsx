@@ -26,6 +26,7 @@ const handler: ITagHandler<React.ReactNode> = {
               src={CDN(node.innerText, false)}
               onError={
                 (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                  if (event.currentTarget.src === node.innerText) return
                   event.currentTarget.src = node.innerText
                 }
               }

@@ -56,18 +56,14 @@ export async function getTopicsInBoard(id: string, from: number, size: number, t
 /**
  * 获取帖子基本信息
  */
-export function getTopicInfo(id: number | string) {
-  return GET<ITopic>(`topic/${id}`)
-}
-
-export function getShareTopicInfo(shareId: string) {
-  let id = shareId.slice(0, shareId.indexOf('+'))
-  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
-  return GET<ITopic>(`topic/${id}`, {
-    params: {
-      share_token
-    }
-  })
+export function getTopicInfo(id: number | string, shareToken?: string) {
+  return GET<ITopic>(`topic/${id}`,
+    shareToken !== undefined ? {
+      params: {
+        share_token: shareToken
+      }
+    } : {}
+  )
 }
 
 export function getTopicList(data: IReply[]) {

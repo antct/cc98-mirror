@@ -52,6 +52,7 @@ const Video: React.FC<Props> = ({ src }) => {
             type: 'auto',
           },
         })
+        dplayer.on('error', () => {})
       })
 
       // 监听到 url 改变，暂停播放

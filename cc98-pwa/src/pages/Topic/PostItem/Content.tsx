@@ -40,6 +40,7 @@ const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCD
           src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}
           onError={
             (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+              if (event.currentTarget.src === src) return
               event.currentTarget.src = src
             }
           }

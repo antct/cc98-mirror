@@ -52,8 +52,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="newTopics" component={NewTopic} />
 
     <Route path="topic/:topicId" component={Topic} />
-    <Route path="topic/:topicId/:page/:floor" component={Topic} />
-    <Route path="topic/:topicId/:floor" component={Topic} />
+    <Route path="topic/:topicId/:page" component={Topic} />
     <Route path="topic/:topicId/reverse" component={TopicReverse} />
     <Route path="topic/:topicId/trace/:postId" component={Topic} />
 

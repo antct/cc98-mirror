@@ -191,19 +191,26 @@ const PCMenu: React.FC = ({ children }) => {
               <Item icon={<BackIcon />} text="回退" onClick={() => goback()} />
               <Item icon={<UpwardIcon />} text="顶部" onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
               <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
+              <Divider />
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
               <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
+              <Divider />
               <Item icon={<BoardIcon />} text="版面" onClick={jump('/boardList')} />
               <Item icon={<CollectionsIcon />} text="关注" onClick={jump('/myFollow')} />
+              <Divider />
               <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.atCount + user.unRead.replyCount + user.unRead.systemCount) : 0} color="primary"><NotificationsIcon /></Badge>} text="通知" onClick={jump('/notice')} />
               <Item icon={<Badge max={99} badgeContent={(useNotification && user.unRead) ? (user.unRead.messageCount) : 0} color="primary"><MailIcon /></Badge>} text="私信" onClick={jump('/messageList')} />
+              <Divider />
+              <Item icon={<PersonIcon />} text="用户" onClick={jump('/userCenter')} />
               <Item icon={<Badge max={99} badgeContent={user.fanDiff} color="primary"><GroupIcon /></Badge>} text="好友" onClick={jump('/friend')} />
+              <Divider />
               <Item icon={<PetsIcon />} text="足迹" onClick={jump('/history')} />
               <Item icon={<PageviewIcon />} text="搜索" onClick={jump('/search')} />
               <Item icon={<SettingsIcon />} text="设置" onClick={jump('/setting')} />
               <Item icon={<HelpIcon />} text="帮助" onClick={jump('/help')} />
+              <Divider />
             </>
           )}
           {!user.isLogIn && (

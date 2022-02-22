@@ -1,18 +1,20 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import useFetcher from '@/hooks/useFetcher'
+import { getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
 import {
-  getFloor, getHotPost, getPost, getReversePost, getShareHotPost, getSharePost, getTracePost, getPostSummary, getSharePostSummary
-} from '@/services/post'
-import {
-  getShareTopicInfo, getTopicInfo
+  getTopicInfo
 } from '@/services/topic'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import FixButtons from './FixButtons'
 import PostHead from './PostHead'
-import PostList from './PostList'
+import PostList, { PostPage } from './PostList'
 import PostListHot from './PostListHot'
+import { navigate } from '@/utils/history'
+import { useQuery } from '@/router'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 
 const EndPlaceholder = styled.div`
@@ -23,7 +25,6 @@ interface Props {
   // 帖子 ID
   topicId: string
   page?: string
-  floor?: string
   // 追踪非匿名帖子
   userId?: string
   // 追踪匿名帖子
@@ -33,43 +34,53 @@ interface Props {
   shareId?: string
 }
 
-const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Props) => {
+const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => {
+  const { usePagination } = useModel(settingModel, ['usePagination'])
+
+  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) navigate(`/topic/${topicId}/1`, {replace: true})
+
   const safeATOB = (str: string) => {
     try {
       return window.atob(str)
     } catch (err) {
-      return '+'
+      return '++'
     }
   }
-  const realId = !!shareId ? safeATOB(shareId) : topicId
-  const isShare = !!shareId
-  const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getShareTopicInfo(realId) : () => getTopicInfo(realId), {
+  if (!!shareId) {
+    const [shareTopicId, sharePath, shareToken] = safeATOB(shareId).split('+')
+    navigate(`${sharePath}?token=${shareToken}`)
+  }
+  const query = useQuery()
+  const shareToken = query.get('token')
+  const isShare = shareToken !== null
+
+  if (!topicId) return null
+
+  const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getTopicInfo(topicId, shareToken) : () => getTopicInfo(topicId), {
     fail: navigateHandler,
   })
   // 用于刷新
   const [postListKey, setPostListKey] = useState(0)
 
-  if (!topicInfo) {
-    return <LoadingCircle />
-  }
+  if (!topicInfo) return <LoadingCircle />
 
   // 根据 URL 参数选择获取 post 的 service
   const postService = isReverse
-    ? (from: number) => getReversePost(topicInfo.id, from, topicInfo.replyCount)
+    ? (from: number) => getReversePost(topicId, from, topicInfo.replyCount)
     : postId
-      ? (from: number) => getTracePost(topicInfo.id, postId, from)
-      : floor
-        ? (from: number) => getFloor(topicInfo.id, page ? 10 * (parseInt(page) - 1) + parseInt(floor) : parseInt(floor))
-        : (from: number) => isShare ? getSharePost(realId, from) : getPost(topicInfo.id, from)
+      ? (from: number) => getTracePost(topicId, postId, from)
+      :
+      (from: number) => isShare ? getPost(topicId, from, shareToken) : getPost(topicId, from)
 
-  const hotPostService = () => isShare ? getShareHotPost(realId) : getHotPost(topicInfo.id)
-  
+  const hotPostService = () => isShare ? getHotPost(topicId, shareToken) : getHotPost(topicId)
+
+  const postSummaryService = () => isShare ? getPostSummary(topicId, shareToken) : getPostSummary(topicId)
+
   // 是否处于追踪状态
   const isTrace = !!userId || !!postId
 
   const refreshFunc = () => {
-    const func = isShare ? getShareTopicInfo : getTopicInfo
-    func(realId).then(res =>
+    getTopicInfo(topicId, isShare ? shareToken : undefined).then(res =>
       res.fail(navigateHandler).succeed(newTopicInfo => {
         setTopicInfo(newTopicInfo)
         setPostListKey(prevKey => prevKey + 1)
@@ -80,11 +91,18 @@ const Topic = ({ topicId, page, floor, userId, postId, isReverse, shareId }: Pro
   return (
     <>
       <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />
-      <PostList key={postListKey} topicInfo={topicInfo} service={postService} isTrace={isTrace} isShare={isShare} realId={realId} >
-        {!isTrace && !page && !floor && <PostListHot service={hotPostService} isShare={isShare} />}
-      </PostList>
+      {
+        page ?
+          <PostPage key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} page={parseInt(page)}>
+            <PostListHot service={hotPostService} isShare={isShare} />
+          </PostPage>
+          :
+          <PostList key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} isTrace={isTrace} isShare={isShare}  >
+            {!isTrace && !page && <PostListHot service={hotPostService} isShare={isShare} />}
+          </PostList>
+      }
       <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />
-      <EndPlaceholder />
+      {/* {!page && <EndPlaceholder />} */}
     </>
   )
 }

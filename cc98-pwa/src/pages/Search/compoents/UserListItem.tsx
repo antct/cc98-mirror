@@ -12,7 +12,7 @@ const Text = styled.span`
   display: block;
   max-width: 80%;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: pre-wrap;
   text-overflow: ellipsis;
 `
 

@@ -51,7 +51,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
   }
 
   const handleShare2 = async () => {
-    const res = await getShareToken(topicInfo.id, 'false')
+    const res = await getShareToken(topicInfo.id, window.location.pathname, 'false')
     res
       .fail(err => {
         snackbar.success('分享链接获取失败')
@@ -65,7 +65,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
   }
 
   const handleShare3 = async () => {
-    const res = await getShareToken(topicInfo.id, 'true')
+    const res = await getShareToken(topicInfo.id, window.location.pathname, 'true')
     res
       .fail(err => {
         snackbar.success('分享链接获取失败')

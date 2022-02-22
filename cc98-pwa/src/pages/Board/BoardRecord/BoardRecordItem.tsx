@@ -11,8 +11,8 @@ interface Props {
   eventInfo: IBoardEvent
 }
 
-export default ({ eventInfo }: Props) => (
-  <TopicItem
+export default ({ eventInfo }: Props) => {
+  return <TopicItem
     title={eventInfo.content}
     showAvatar={false}
     subtitle={`操作人: ${eventInfo.operatorUserName}`}
@@ -20,4 +20,4 @@ export default ({ eventInfo }: Props) => (
     info2={dayjs(eventInfo.time).fromNow()}
     onClick={() => navigate(`/topic/${eventInfo.topicId}`)}
   />
-)
+}

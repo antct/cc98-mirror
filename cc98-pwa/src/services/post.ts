@@ -4,26 +4,24 @@ import { IEnhance, IFace, ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98
 /**
  * 获取一个帖子的10层楼
  */
-export function getPost(id: number, from: number) {
-  return GET<IPost[]>(`topic/${id}/post`, {
-    params: {
-      from,
-      size: 10,
-    },
-  })
+export function getPost(id: number | string, from: number, shareToken?: string) {
+  return GET<IPost[]>(`topic/${id}/post`,
+    shareToken !== undefined ? {
+      params: {
+        from,
+        size: 10,
+        share_token: shareToken
+      },
+    } :
+      {
+        params: {
+          from,
+          size: 10,
+        },
+      }
+  )
 }
 
-export function getSharePost(shareId: string, from: number) {
-  let id = shareId.slice(0, shareId.indexOf('+'))
-  let share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
-  return GET<IPost[]>(`topic/${id}/post`, {
-    params: {
-      share_token,
-      from,
-      size: 10,
-    },
-  })
-}
 
 export function getPostList(data: IReply[]) {
   let id = data.map(x => `id=${x.postId}`).join('&')
@@ -42,7 +40,7 @@ export async function getPostInfoById(id: number) {
 /**
  * 逆向获取帖子
  */
-export async function getReversePost(id: number, from: number, total: number) {
+export async function getReversePost(id: number | string, from: number, total: number) {
   const floor = total + 1
   /**
    * case ex 34L  floor = 34 from = 0
@@ -98,7 +96,7 @@ export function getFloor(topicId: number | string, floor: number) {
 /**
  * 追踪用户
  */
-export function getTracePost(topicid: number, postid: number | string, from: number) {
+export function getTracePost(topicid: number | string, postid: number | string, from: number) {
   return GET<IPost[]>('post/topic/specific-user', {
     params: {
       topicid,
@@ -112,18 +110,14 @@ export function getTracePost(topicid: number, postid: number | string, from: num
 /**
  * 获取热评
  */
-export function getHotPost(topicId: number) {
-  return GET<IPost[]>(`topic/${topicId}/hot-post`)
-}
-
-export function getShareHotPost(shareId: string) {
-  const id = shareId.slice(0, shareId.indexOf('+'))
-  const share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
-  return GET<IPost[]>(`topic/${id}/hot-post`, {
-    params: {
-      share_token
-    },
-  })
+export function getHotPost(topicId: number | string, shareToken?: string) {
+  return GET<IPost[]>(`topic/${topicId}/hot-post`,
+    shareToken !== undefined ? {
+      params: {
+        share_token: shareToken
+      }
+    } : {}
+  )
 }
 
 /**
@@ -210,25 +204,17 @@ export async function getEnhancedImage(url: string) {
 /**
  * 获取摘要
  */
-export async function getPostSummary(id: number) {
-  const res = await GET<ISummary>('summary', {
-    params: {
-      id
-    },
-  })
-  return await Promise.resolve(res.map(post => post.summary))
-}
-/**
- * 分享模式下获取摘要
- */
-export async function getSharePostSummary(shareId: string) {
-  const id = shareId.slice(0, shareId.indexOf('+'))
-  const share_token = shareId.slice(shareId.indexOf('+') + 1, shareId.length)
-  const res = await GET<ISummary>('summary', {
-    params: {
-      id,
-      share_token
-    },
-  })
-  return await Promise.resolve(res.map(post => post.summary))
+export async function getPostSummary(id: number | string, shareToken?: string) {
+  return GET<ISummary>('summary',
+    shareToken !== undefined ? {
+      params: {
+        id,
+        share_token: shareToken
+      },
+    } : {
+      params: {
+        id
+      },
+    }
+  )
 }

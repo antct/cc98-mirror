@@ -14,6 +14,7 @@ export const MAX_WIDTH = IS_PC ? 900 - DRAWER_WIDTH : 900
 export const BIG_MAX_WIDTH = IS_PC ? 900 - 56 : 900
 export const ONLINE_TIME = 30
 export const CDN = (url: string, isAvatar: boolean) => {
+    if (url.indexOf('cc98') === -1) return url
     if (url.indexOf('files') !== -1) {
         if (isAvatar) return `${url.replace(FILE_BASE_URL, CDN_AVATAR_URL)}!avatar`
         else return `${url.replace(FILE_BASE_URL, CDN_FILE_URL)}`

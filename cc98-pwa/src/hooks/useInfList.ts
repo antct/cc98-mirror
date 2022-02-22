@@ -115,3 +115,45 @@ export default function useInfList<T>(service: Service<T[]>, options: Options<T>
 
   return [list, state, callback] as [typeof list, typeof state, typeof callback]
 }
+
+
+export function usePageList<T>(service: Service<T[]>, options: Options<T> = {}) {
+  const [state, setState] = useState<InfListState>({
+    isLoading: false,
+    isEnd: false,
+    from: (options && options.initFrom) || 0,
+  })
+
+  const [list, setList] = useState<T[]>([])
+
+  function callback(from: number) {
+    setState({
+      ...state,
+      isLoading: true,
+    })
+
+    service(from).then(res => {
+      res
+        .fail(err => {
+          options.fail && options.fail(err)
+        })
+        .succeed(list => {
+          setList(list)
+
+          setState({
+            isLoading: false,
+            isEnd: list.length !== (options.step || 20),
+            from: state.from,
+          })
+
+          options.success && options.success(list)
+        })
+    })
+  }
+
+  useEffect(() => {
+    callback(state.from)
+  }, [])
+
+  return [list, state, callback] as [typeof list, typeof state, typeof callback]
+}

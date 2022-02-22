@@ -103,7 +103,7 @@ export default ({ data, topic }: Props) => {
 
   return (
     <ReplyItem
-      onClick={() => navigate(`/topic/${data.topicId}/${floor}`)}
+      onClick={() => navigate(`/topic/${data.topicId}/${Math.ceil(floor/10)}#${floor%10 === 0 ? 10 : floor%10}`)}
       title={title}
       subtitle={subtitle}
       info1={info1}

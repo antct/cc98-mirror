@@ -8,6 +8,7 @@ import CustomWords from './CustomWords'
 import CustomHome from './Home'
 import Mode from './Mode'
 import Notification from './Notification'
+import Pagination from './Pagination'
 import Signature from './Signature'
 // import Signalr from './Signalr'
 import Theme from './Theme'
@@ -19,6 +20,7 @@ const Setting: React.FC = () => (
     <CustomHome />
     <Mode />
     <Avatar />
+    <Pagination />
     <Signature />
     <Notification />
     <Compress />
