@@ -1,25 +1,19 @@
 import LoadingCircle from '@/components/LoadingCircle'
 import useFetcher from '@/hooks/useFetcher'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
+import { useQuery } from '@/router'
 import { getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
 import {
   getTopicInfo
 } from '@/services/topic'
 import { navigateHandler } from '@/services/utils/errorHandler'
+import { navigate } from '@/utils/history'
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import FixButtons from './FixButtons'
 import PostHead from './PostHead'
 import PostList, { PostPage } from './PostList'
-import PostListHot from './PostListHot'
-import { navigate } from '@/utils/history'
-import { useQuery } from '@/router'
-import useModel from '@/hooks/useModel'
-import settingModel from '@/models/setting'
 
-
-const EndPlaceholder = styled.div`
-  height: 64px;
-`
 
 interface Props {
   // 帖子 ID
@@ -34,24 +28,30 @@ interface Props {
   shareId?: string
 }
 
+
 const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => {
   const { usePagination } = useModel(settingModel, ['usePagination'])
+  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) navigate(`/topic/${topicId}/1`, { replace: true })
 
-  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) navigate(`/topic/${topicId}/1`, {replace: true})
-
+  // 将shareId转化为 path+token的组合
   const safeATOB = (str: string) => {
     try {
       return window.atob(str)
-    } catch (err) {
+    } catch {
       return '++'
     }
   }
   if (!!shareId) {
     const [sharePath, shareToken] = safeATOB(shareId).split('+')
-    navigate(`${sharePath}?token=${shareToken}`, {replace: true})
+    if (sharePath === '' || shareToken === '') {
+      navigate('/error/410', { replace: true })
+      return null
+    }
+    navigate(`${sharePath}?token=${shareToken}`, { replace: true })
     return null
   }
   if (!topicId) return null
+
   const query = useQuery()
   const shareToken = query.get('token')
   const isShare = shareToken !== null
@@ -90,19 +90,39 @@ const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => 
 
   return (
     <>
-      <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />
+      <PostHead
+        topicInfo={topicInfo}
+        refreshFunc={refreshFunc}
+        isShare={isShare}
+      />
       {
         page ?
-          <PostPage key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} page={parseInt(page)} isShare={isShare}>
-            <PostListHot service={hotPostService} isShare={isShare} />
-          </PostPage>
+          <PostPage
+            key={postListKey}
+            topicInfo={topicInfo}
+            hotService={hotPostService}
+            service={postService}
+            summaryService={postSummaryService}
+            page={parseInt(page)}
+            isShare={isShare}
+          />
           :
-          <PostList key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} isTrace={isTrace} isShare={isShare}  >
-            {!isTrace && !page && <PostListHot service={hotPostService} isShare={isShare} />}
-          </PostList>
+          <PostList
+            key={postListKey}
+            topicInfo={topicInfo}
+            hotService={hotPostService}
+            service={postService}
+            summaryService={postSummaryService}
+            isTrace={isTrace}
+            isShare={isShare}
+          />
       }
-      <FixButtons topicInfo={topicInfo} isReverse={isReverse} isShare={isShare} refreshFunc={refreshFunc} />
-      {/* {!page && <EndPlaceholder />} */}
+      <FixButtons
+        topicInfo={topicInfo}
+        isReverse={isReverse}
+        isShare={isShare}
+        refreshFunc={refreshFunc}
+      />
     </>
   )
 }

@@ -1,6 +1,6 @@
 import InfiniteList from '@/components/InfiniteList'
 import LoadingCircle from '@/components/LoadingCircle'
-import { Service as SService } from '@/hooks/useFetcher'
+import useFetcher, { Service as SService } from '@/hooks/useFetcher'
 import useInfList, { Service, usePageList } from '@/hooks/useInfList'
 import { getUsersInfoByIds } from '@/services/user'
 import { GET } from '@/utils/fetch'
@@ -10,6 +10,7 @@ import Pagination from '@mui/material/Pagination'
 import withStyles from '@mui/styles/withStyles'
 import React, { useEffect, useRef, useState } from 'react'
 import PostItem from './PostItem'
+import PostListHot from './PostListHot'
 
 
 interface IUserMap {
@@ -18,6 +19,7 @@ interface IUserMap {
 
 interface Props {
   service: Service<IPost[]>
+  hotService: SService<IPost[]>
   summaryService: SService<ISummary>
   topicInfo: ITopic
   isTrace: boolean
@@ -72,7 +74,7 @@ export function useUserMap() {
   return [userMap, updateUserMap] as [typeof userMap, typeof updateUserMap]
 }
 
-const PostList: React.FC<Props> = ({ service, summaryService, isTrace, children, isShare, topicInfo }) => {
+const PostList = ({ service, hotService, summaryService, isTrace, isShare, topicInfo }: Props) => {
   const [userMap, updateUserMap] = useUserMap()
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(undefined)
   const [posts, state, callback] = useInfList(service, {
@@ -100,7 +102,7 @@ const PostList: React.FC<Props> = ({ service, summaryService, isTrace, children,
     <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
       {posts.map(info =>
         info.floor === 1 ? (
-          <React.Fragment key={info.id}>
+          <>
             <PostItem
               postInfo={info}
               userInfo={userMap[info.userId]}
@@ -111,8 +113,12 @@ const PostList: React.FC<Props> = ({ service, summaryService, isTrace, children,
               isTrace={isTrace}
               isShare={isShare}
             />
-            {children}
-          </React.Fragment>
+            {!isTrace &&
+              <PostListHot
+                service={hotService}
+                isShare={isShare}
+              />}
+          </>
         ) : (
           <PostItem
             key={info.id}
@@ -136,13 +142,14 @@ const PaginationS = withStyles(theme => ({
 
 interface PageProps {
   service: Service<IPost[]>
+  hotService: SService<IPost[]>
   summaryService: SService<ISummary>
   topicInfo: ITopic
   page: number
   isShare: boolean
 }
 
-const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, page, isShare, children }) => {
+const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShare }: PageProps) => {
   const floorRef = useRef<HTMLDivElement>(null)
   let floorId = -1
   if (window.location.hash && window.location.hash !== "#") {
@@ -162,6 +169,11 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
   })
   const { isLoading, isEnd } = state
 
+  const [hotUserMap, updateHotUserMap] = useUserMap()
+  const [hotPosts] = (page === 1) ? useFetcher(hotService, {
+    success: updateHotUserMap,
+  }) : []
+
   const getVote = (id: number) => {
     return GET<IVote>(`topic/${id}/vote`)
   }
@@ -177,20 +189,22 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
     (page === 1) && topicInfo.isVote && setVote()
   }, [topicInfo])
 
+
+  // FIXME: 似乎应该加上指定依赖
   useEffect(() => {
     floorRef.current && floorRef.current.scrollIntoView({
       block: 'center',
       behavior: 'smooth'
     })
-  }, [floorRef.current])
+  }, [{}])
 
   return (
     isLoading ? <LoadingCircle />
       :
       <>
         {posts.map((info: IPost, index: number) =>
-          info.floor === 1 ? (
-            <React.Fragment key={info.id}>
+          info.floor === 1 ?
+            <>
               <PostItem
                 postInfo={info}
                 userInfo={userMap[info.userId]}
@@ -200,9 +214,19 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
                 isShare={isShare}
                 summaryService={summaryService}
               />
-              {children}
-            </React.Fragment>
-          ) : (
+              {
+                hotPosts && hotPosts.map(info =>
+                  <PostItem
+                    key={info.id}
+                    postInfo={info}
+                    userInfo={hotUserMap[info.userId]}
+                    isHot
+                    isShare={isShare}
+                  />
+                )
+              }
+            </>
+            :
             <PostItem
               key={info.id}
               ref={index === floorId ? floorRef : undefined}
@@ -210,7 +234,6 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
               postInfo={info}
               userInfo={userMap[info.userId]}
             />
-          )
         )}
         <PaginationS
           count={totalPage}

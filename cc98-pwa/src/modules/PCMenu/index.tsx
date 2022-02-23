@@ -67,8 +67,11 @@ const openedMixin = (theme: Theme): CSSObject => ({
   }),
   overflowX: 'hidden',
   left: 'auto',
-  width: DRAWER_WIDTH
-});
+  width: DRAWER_WIDTH,
+  '&::-webkit-scrollbar': {
+    width: '0px'
+  }
+})
 
 const closedMixin = (theme: Theme): CSSObject => ({
   transition: theme.transitions.create('width', {
@@ -76,13 +79,16 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
+  left: 'auto',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(9)} + 1px)`,
   },
-  left: 'auto',
   '@media (min-width: 600px)': {
     width: 56
+  },
+  '&::-webkit-scrollbar': {
+    width: '0px'
   }
 })
 

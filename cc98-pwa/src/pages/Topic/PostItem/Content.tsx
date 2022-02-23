@@ -35,16 +35,18 @@ const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCD
   return (
     <LazyLoad height={200} offset={200} once>
       <PhotoView src={!useCDNFix ? src : CDN(src, false)} >
-        <img
-          className="ubb-tag-img"
-          src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}
-          onError={
-            (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-              if (event.currentTarget.src === src) return
-              event.currentTarget.src = src
+        <div style={{ maxHeight: 1000, overflow: 'auto' }}>
+          <img
+            className="ubb-tag-img"
+            src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}
+            onError={
+              (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                if (event.currentTarget.src === src) return
+                event.currentTarget.src = src
+              }
             }
-          }
-        />
+          />
+        </div>
       </PhotoView>
     </LazyLoad>
   )

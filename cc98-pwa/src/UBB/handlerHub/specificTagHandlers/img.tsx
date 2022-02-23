@@ -16,22 +16,24 @@ const handler: ITagHandler<React.ReactNode> = {
     return (
       <LazyLoad height={200} offset={200} once>
         <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)}>
-          {!useCDN ? (
-            useCompress ?
-              <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
+          <div style={{ maxHeight: 1000, overflow: 'auto' }}>
+            {!useCDN ? (
+              useCompress ?
+                <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
+                :
+                <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />)
               :
-              <img className="ubb-tag-img" src={`${node.innerText}?compress=false`} />)
-            :
-            <img className="ubb-tag-img"
-              src={CDN(node.innerText, false)}
-              onError={
-                (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                  if (event.currentTarget.src === node.innerText) return
-                  event.currentTarget.src = node.innerText
+              <img className="ubb-tag-img"
+                src={CDN(node.innerText, false)}
+                onError={
+                  (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    if (event.currentTarget.src === node.innerText) return
+                    event.currentTarget.src = node.innerText
+                  }
                 }
-              }
-            />
-          }
+              />
+            }
+          </div>
         </PhotoView>
       </LazyLoad>
     )

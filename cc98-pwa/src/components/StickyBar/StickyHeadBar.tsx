@@ -19,7 +19,7 @@ const Title = muiStyled(Typography).attrs({
   variant: 'subtitle2',
   color: 'inherit',
 })({
-  margin: '6px 4px',
+  margin: '6px 0px',
   flexGrow: 2,
   flexShrink: 1,
   lineHeight: 1.25,

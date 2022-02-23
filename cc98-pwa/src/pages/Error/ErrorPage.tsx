@@ -36,7 +36,7 @@ interface Props {
   button?: boolean
 }
 
-export default ({ errMessage, secondMessage, button = true }: Props) => {
+export default ({ errMessage, secondMessage, button = false }: Props) => {
   const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
   return (
     IS_PC ?

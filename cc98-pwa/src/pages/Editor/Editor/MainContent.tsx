@@ -1,3 +1,4 @@
+import { IS_PC } from '@/config'
 import muiStyled from '@/muiStyled'
 import { InputBase } from '@mui/material'
 import React from 'react'
@@ -8,8 +9,8 @@ const InputArea = muiStyled(InputBase).attrs({
   fullWidth: true,
   multiline: true,
   autoFocus: true,
-  rows: 6,
-  maxRows: 10,
+  rows: IS_PC ? 10 : 5,
+  maxRows: IS_PC ? 20 : 10,
 })({
   marginTop: 8,
   padding: '12px 8px',

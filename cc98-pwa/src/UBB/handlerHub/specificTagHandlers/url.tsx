@@ -21,8 +21,7 @@ const handler: ITagHandler<React.ReactNode> = {
   render(node: TagNode, context: IContext, children: React.ReactNode[]) {
     const innerText = node.innerText
     const dangerousURL = node.tagData.url || innerText
-    let fixUrl = (dangerousURL.length && dangerousURL[0] === '/') ? dangerousURL.replace('#', '/') : dangerousURL
-    const safeURL = isSafe(fixUrl) ? fixUrl : undefined
+    const safeURL = isSafe(dangerousURL) ? dangerousURL : undefined
 
     // return <a href={safeURL} style={{textDecoration: 'none'}}>{children}</a>
     return <a href={safeURL} target={'_blank'}>{children}</a>

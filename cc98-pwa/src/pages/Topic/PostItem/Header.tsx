@@ -3,14 +3,14 @@ import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
-import { Avatar, Chip, Typography } from '@mui/material'
-import Badge from '@mui/material/Badge'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
 import Lock from '@mui/icons-material/Lock'
 import LockOpen from '@mui/icons-material/LockOpen'
 import Whatshot from '@mui/icons-material/Whatshot'
+import { Avatar, Chip, Typography } from '@mui/material'
+import Badge from '@mui/material/Badge'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import withStyles from '@mui/styles/withStyles'
 import dayjs from 'dayjs'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
@@ -139,14 +139,14 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
               >
                 <AvatarS
                   onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                  src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true) }
+                  src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
                   children={false}
                 />
               </StyledBadge>
               :
               <AvatarS
                 onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
-                src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR: userInfo && TRANS_IMG(userInfo.portraitUrl, true) }
+                src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
                 children={false}
               />
             }

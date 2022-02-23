@@ -22,8 +22,8 @@ export function notificationHandler(err: FetchError) {
 
 const navigateFix = (url: string) => {
   if (window.location.pathname === url) return
-  navigate(url, { replace: true })
-
+  // navigate(url, { replace: true })
+  navigate(url)
 }
 
 export function navigateHandler(err: FetchError) {
