@@ -31,7 +31,7 @@ export async function getAccessToken(): Promise<string> {
       const accessType = getLocalStorage('access_type') as string
 
       if (!refreshToken) {
-        if (!window.location.pathname.startsWith('/share')) snackbar.error('登录凭证失效，请重新登录')
+        if (window.location.search.indexOf('token') === -1) snackbar.error('登录凭证失效，请重新登录')
         return ''
       }
 

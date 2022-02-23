@@ -92,7 +92,6 @@ const PostList: React.FC<Props> = ({ service, summaryService, isTrace, children,
     })
   }
 
-  // 分享模式下不获取投票
   useEffect(() => {
     if (topicInfo.isVote) setVote()
   }, [topicInfo])
@@ -102,8 +101,17 @@ const PostList: React.FC<Props> = ({ service, summaryService, isTrace, children,
       {posts.map(info =>
         info.floor === 1 ? (
           <React.Fragment key={info.id}>
-            <PostItem isTrace={isTrace} postInfo={info} userInfo={userMap[info.userId]} isShare={isShare} topicInfo={topicInfo} voteInfo={currentVote} setVote={setVote} summaryService={summaryService} />
-            {children /** <PostListHot /> */}
+            <PostItem
+              postInfo={info}
+              userInfo={userMap[info.userId]}
+              topicInfo={topicInfo}
+              voteInfo={currentVote}
+              setVote={setVote}
+              summaryService={summaryService}
+              isTrace={isTrace}
+              isShare={isShare}
+            />
+            {children}
           </React.Fragment>
         ) : (
           <PostItem
@@ -131,9 +139,10 @@ interface PageProps {
   summaryService: SService<ISummary>
   topicInfo: ITopic
   page: number
+  isShare: boolean
 }
 
-const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, page, children }) => {
+const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, page, isShare, children }) => {
   const floorRef = useRef<HTMLDivElement>(null)
   let floorId = -1
   if (window.location.hash && window.location.hash !== "#") {
@@ -144,18 +153,14 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
 
   const [userMap, updateUserMap] = useUserMap()
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(undefined)
-  const totalPage = Math.ceil((topicInfo.replyCount+1) / 10)
+
+  const totalPage = Math.ceil((topicInfo.replyCount + 1) / 10)
   const [posts, state, callback] = usePageList(service, {
-    initFrom: page <= totalPage ? (page - 1) * 10 : (totalPage -1) * 10,
+    initFrom: page <= totalPage ? (page - 1) * 10 : (totalPage - 1) * 10,
     step: 10,
     success: updateUserMap,
   })
   const { isLoading, isEnd } = state
-
-  const [curPage, setCurPage] = useState(page)
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    navigate(`/topic/${topicInfo.id}/${value}`+window.location.search)
-  }
 
   const getVote = (id: number) => {
     return GET<IVote>(`topic/${id}/vote`)
@@ -169,7 +174,7 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
   }
 
   useEffect(() => {
-    if (page === 1 && topicInfo.isVote) setVote()
+    (page === 1) && topicInfo.isVote && setVote()
   }, [topicInfo])
 
   useEffect(() => {
@@ -186,19 +191,34 @@ const PostPage: React.FC<PageProps> = ({ service, summaryService, topicInfo, pag
         {posts.map((info: IPost, index: number) =>
           info.floor === 1 ? (
             <React.Fragment key={info.id}>
-              <PostItem postInfo={info} userInfo={userMap[info.userId]} topicInfo={topicInfo} voteInfo={currentVote} setVote={setVote} summaryService={summaryService} />
+              <PostItem
+                postInfo={info}
+                userInfo={userMap[info.userId]}
+                topicInfo={topicInfo}
+                voteInfo={currentVote}
+                setVote={setVote}
+                isShare={isShare}
+                summaryService={summaryService}
+              />
               {children}
             </React.Fragment>
           ) : (
             <PostItem
               key={info.id}
               ref={index === floorId ? floorRef : undefined}
+              isShare={isShare}
               postInfo={info}
               userInfo={userMap[info.userId]}
             />
           )
         )}
-        <PaginationS count={totalPage} page={curPage} showFirstButton showLastButton onChange={handleChange} />
+        <PaginationS
+          count={totalPage}
+          page={page}
+          onChange={(event: React.ChangeEvent<unknown>, value: number) => { navigate(`/topic/${topicInfo.id}/${value}` + window.location.search) }}
+          showFirstButton
+          showLastButton
+        />
       </>
   )
 }

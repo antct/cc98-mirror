@@ -9,6 +9,7 @@ export interface VoteInfo {
 
 
 interface State {
+  mode: string
   /**
    * 标题
    */
@@ -36,7 +37,7 @@ export class MetaInfoModel extends Model<State> {
   constructor(init: State) {
     super()
     this.state = {
-      ...init, 
+      ...init,
       isVote: false, 
       voteInfo: {
         voteItems: [],
@@ -47,11 +48,12 @@ export class MetaInfoModel extends Model<State> {
     }
   }
 
-  /**
-   * 设置标题
-   */
   setTitle(title: string) {
     this.setState({ title })
+  }
+
+  setMode(mode: string) {
+    this.setState({ mode: mode })
   }
 
   setType(type: number) {

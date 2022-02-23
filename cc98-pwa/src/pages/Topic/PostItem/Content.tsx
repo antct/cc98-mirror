@@ -98,7 +98,7 @@ export default ({ postInfo }: Props) => {
     })
   }
   // 分享模式禁止跳转
-  if (window.location.pathname.startsWith('/share')) {
+  if (window.location.search.indexOf('token') !== -1) {
     const ubb_link_regex = /\[url.*?\].*?\[\/url\]/g
     // const markdown_link_regex = /(?<!!)\[.*?\]\(.*?\)/g
     const markdown_link_regex = /([^!]|^)\[.*?\]\(.*?\)/g

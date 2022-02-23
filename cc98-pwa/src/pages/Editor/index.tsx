@@ -1,3 +1,4 @@
+import LoadingCircle from '@/components/LoadingCircle'
 import useFetcher from '@/hooks/useFetcher'
 import { getBoardInfo } from '@/services/board'
 import { editorPost, IPostParams, ITopicParams, postTopic, replyTopic } from '@/services/editor'
@@ -51,8 +52,7 @@ export default (props: Props) => {
   const [boardInfo] = useFetcher(() => getBoardInfo(props.boardId))
 
   if (init === null || boardInfo === null) {
-    // init 还在获取中
-    return null
+    return <LoadingCircle />
   }
 
   if (!isModelInit.current) {
@@ -78,13 +78,12 @@ export default (props: Props) => {
   const onSendCallback = chooseSendCallback(
     editor.current!,
     metaModel.current!,
-    props,
-    init.boardId !== undefined
+    props
   )
 
   return (
     <WrapperDiv>
-      {(init.boardId && !props.topicId && !props.postId) && <MetaInfo model={metaModel.current!} boardId={init.boardId} />}
+      {init.boardId && <MetaInfo model={metaModel.current!} boardId={init.boardId} />}
       <Editor editor={editor.current!} onSendCallback={onSendCallback} />
     </WrapperDiv>
   )
@@ -97,7 +96,6 @@ function chooseSendCallback(
   editor: EditorModel,
   metaInfo: MetaInfoModel,
   props: Props,
-  isEditorTopic: boolean
 ): () => void {
   const { boardId, topicId, postId } = props
 
@@ -142,7 +140,12 @@ function chooseSendCallback(
         return
       }
       let topicParams: ITopicParams = {
-        ...metaInfo.state,
+        title: metaInfo.state.title,
+        type: metaInfo.state.type,
+        tag1: metaInfo.state.tag1,
+        tag2: metaInfo.state.tag2,
+        isVote: metaInfo.state.isVote,
+        voteInfo: metaInfo.state.voteInfo,
         content: editor.fullContent,
         contentType: editor.state.contentType,
       }
@@ -201,9 +204,12 @@ function chooseSendCallback(
   // 编辑帖子
   if (postId) {
     return () => {
-      const params: ITopicParams | IPostParams = isEditorTopic
+      const params: ITopicParams | IPostParams = (metaInfo.state.mode === 'edit_topic')
         ? {
-          ...metaInfo.state,
+          title: metaInfo.state.title,
+          type: metaInfo.state.type,
+          tag1: metaInfo.state.tag1,
+          tag2: metaInfo.state.tag2,
           content: editor.fullContent,
           contentType: editor.state.contentType,
         }

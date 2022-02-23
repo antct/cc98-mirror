@@ -47,14 +47,14 @@ const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => 
     }
   }
   if (!!shareId) {
-    const [shareTopicId, sharePath, shareToken] = safeATOB(shareId).split('+')
-    navigate(`${sharePath}?token=${shareToken}`)
+    const [sharePath, shareToken] = safeATOB(shareId).split('+')
+    navigate(`${sharePath}?token=${shareToken}`, {replace: true})
+    return null
   }
+  if (!topicId) return null
   const query = useQuery()
   const shareToken = query.get('token')
   const isShare = shareToken !== null
-
-  if (!topicId) return null
 
   const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getTopicInfo(topicId, shareToken) : () => getTopicInfo(topicId), {
     fail: navigateHandler,
@@ -93,7 +93,7 @@ const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => 
       <PostHead topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />
       {
         page ?
-          <PostPage key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} page={parseInt(page)}>
+          <PostPage key={postListKey} topicInfo={topicInfo} service={postService} summaryService={postSummaryService} page={parseInt(page)} isShare={isShare}>
             <PostListHot service={hotPostService} isShare={isShare} />
           </PostPage>
           :

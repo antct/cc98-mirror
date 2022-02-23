@@ -12,6 +12,7 @@ interface Init {
    * MetaInfo Model 初始值
    */
   metaInfo: {
+    mode: string
     title: string
     type: number
     tag1?: number
@@ -42,6 +43,7 @@ export default function useInit(props: Props): Init | null {
     initContent: '',
     initContentType: <0 | 1>0,
     metaInfo: {
+      mode: 'reply',
       title: '',
       type: 0,
       tag1: <number | undefined>undefined,
@@ -66,6 +68,10 @@ export default function useInit(props: Props): Init | null {
     setIsLoading(true)
     setState({
       boardId: parseInt(boardId, 10),
+      metaInfo: {
+        ...state.metaInfo,
+        mode: 'post'
+      }
     }, () => {
       setOk(true)
     })
@@ -80,7 +86,11 @@ export default function useInit(props: Props): Init | null {
         const { floor, userName, time, topicId, content } = postInfo
         const formatTime = dayjs(time).format('YYYY-MM-DD HH:mm')
         setState({
-          initContent: `[quote][b]以下是引用${floor}楼：用户${userName}在${formatTime}的发言：[color=blue][url=/topic/${topicId}#${floor}]>>查看原帖<<[/url][/color][/b]\n${content}[/quote]\n`
+          initContent: `[quote][b]以下是引用${floor}楼：用户${userName}在${formatTime}的发言：[color=blue][url=/topic/${topicId}#${floor}]>>查看原帖<<[/url][/color][/b]\n${content}[/quote]\n`,
+          metaInfo: {
+            ...state.metaInfo,
+            mode: 'quote'
+          }
         }, () => {
           setOk(true)
         })
@@ -103,7 +113,11 @@ export default function useInit(props: Props): Init | null {
         if (postInfo.floor !== 1) {
           setState({
             initContent: postInfo.content,
-            initContentType: postInfo.contentType
+            initContentType: postInfo.contentType,
+            metaInfo: {
+              ...state.metaInfo,
+              mode: 'edit_post'
+            }
           }, () => {
             setOk(true)
           })
@@ -117,6 +131,7 @@ export default function useInit(props: Props): Init | null {
               initContentType: postInfo.contentType,
               boardId: postInfo.boardId,
               metaInfo: {
+                mode: 'edit_topic',
                 title: topicInfo.title,
                 type: topicInfo.type,
                 tag1: topicInfo.tag1,

@@ -2,8 +2,8 @@ import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import muiStyled from '@/muiStyled'
 import { getBoardTags } from '@/services/board'
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormLabel, IconButton, InputBase, MenuItem, Select, Switch, TextField } from '@mui/material'
 import AddIcon from '@mui/icons-material/AddCircle'
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormLabel, IconButton, InputBase, MenuItem, Select, Switch, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { MetaInfoModel } from './MetaInfoModel'
@@ -110,112 +110,114 @@ export default ({ model, boardId }: Props) => {
   }
 
   return (
-    <>
-      <SelectDiv>
-        <div>
-          <FormLabel>类型：</FormLabel>
-          <SelectType value={model.state.type} onChange={type => model.setType(type)} />
-        </div>
+    (model.state.mode === 'post' || model.state.mode === 'edit_topic') ?
+      <>
+        <SelectDiv>
+          <div>
+            <FormLabel>类型：</FormLabel>
+            <SelectType value={model.state.type} onChange={type => model.setType(type)} />
+          </div>
 
-        <TagSelectDiv>
-          {boardTags.length !== 0 && <FormLabel>标签：</FormLabel>}
-          {boardTags[0] && (
-            <ScrollTag
-              tags={boardTags[0].tags}
-              value={model.state.tag1}
-              onChange={tag => model.setTag1(tag)}
-            />
-          )}
-          {boardTags[1] && (
-            <ScrollTag
-              tags={boardTags[1].tags}
-              value={model.state.tag2}
-              onChange={tag => model.setTag2(tag)}
-            />
-          )}
-        </TagSelectDiv>
-        <div>
-          <FormLabel>投票：</FormLabel>
-          <Switch
-            checked={model.state.isVote}
-            onChange={onVoteChange}
-            color="primary"
-          />
-        </div>
-      </SelectDiv>
-      {
-        model.state.isVote && model.state.voteInfo &&
-        <VoteDiv>
-          <div>
-            <FormLabel>有效期：</FormLabel>
-            <Select
-              value={model.state.voteInfo.expiredDays}
-              onChange={onExpireDaysChange}
-              variant='standard'
-              size="small"
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-            </Select>
-          </div>
-          <div>
-            <FormLabel>最大投票：</FormLabel>
-            <Select
-              onChange={onMaxVoteCountChange}
-              variant='standard'
-              size="small"
-            >
-              {
-                model.state.voteInfo.voteItems.map((value: string, index: number) => <MenuItem value={index + 1}>{index + 1}</MenuItem>)
-              }
-            </Select>
-          </div>
-          <div>
-            <FormLabel>投票可见：</FormLabel>
+          <TagSelectDiv>
+            {boardTags.length !== 0 && <FormLabel>标签：</FormLabel>}
+            {boardTags[0] && (
+              <ScrollTag
+                tags={boardTags[0].tags}
+                value={model.state.tag1}
+                onChange={tag => model.setTag1(tag)}
+              />
+            )}
+            {boardTags[1] && (
+              <ScrollTag
+                tags={boardTags[1].tags}
+                value={model.state.tag2}
+                onChange={tag => model.setTag2(tag)}
+              />
+            )}
+          </TagSelectDiv>
+          {model.state.mode === 'post' && <div>
+            <FormLabel>投票：</FormLabel>
             <Switch
-              checked={model.state.voteInfo.needVote}
+              checked={model.state.isVote}
+              onChange={onVoteChange}
               color="primary"
-              onChange={onNeedVoteChange}
             />
-          </div>
-          <div>
-            <FormLabel>添加选项：</FormLabel>
-            <IconButtonS color="primary" onClick={handleOpen}>
-              <AddIcon />
-            </IconButtonS>
-          </div>
+          </div>}
+        </SelectDiv>
+        {
+          model.state.isVote && model.state.voteInfo &&
+          <VoteDiv>
+            <div>
+              <FormLabel>有效期：</FormLabel>
+              <Select
+                value={model.state.voteInfo.expiredDays}
+                onChange={onExpireDaysChange}
+                variant='standard'
+                size="small"
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+              </Select>
+            </div>
+            <div>
+              <FormLabel>最大投票：</FormLabel>
+              <Select
+                onChange={onMaxVoteCountChange}
+                variant='standard'
+                size="small"
+              >
+                {
+                  model.state.voteInfo.voteItems.map((value: string, index: number) => <MenuItem value={index + 1}>{index + 1}</MenuItem>)
+                }
+              </Select>
+            </div>
+            <div>
+              <FormLabel>投票可见：</FormLabel>
+              <Switch
+                checked={model.state.voteInfo.needVote}
+                color="primary"
+                onChange={onNeedVoteChange}
+              />
+            </div>
+            <div>
+              <FormLabel>添加选项：</FormLabel>
+              <IconButtonS color="primary" onClick={handleOpen}>
+                <AddIcon />
+              </IconButtonS>
+            </div>
 
-        </VoteDiv>
-      }
-      {
-        model.state.isVote && model.state.voteInfo && model.state.voteInfo.voteItems.length > 0 &&
-        <OptionDiv>
-          {model.state.voteInfo.voteItems.map((value, index) => <ChipS label={value} onDelete={handleDelete(index)} />)}
-        </OptionDiv>
-      }
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>投票</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            输入选项
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            fullWidth
-            variant="standard"
-            onChange={e => setWord(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>关闭</Button>
-          <Button onClick={handleSave}>保存</Button>
-        </DialogActions>
-      </Dialog>
+          </VoteDiv>
+        }
+        {
+          model.state.isVote && model.state.voteInfo && model.state.voteInfo.voteItems.length > 0 &&
+          <OptionDiv>
+            {model.state.voteInfo.voteItems.map((value, index) => <ChipS label={value} onDelete={handleDelete(index)} />)}
+          </OptionDiv>
+        }
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>投票</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              输入选项
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              fullWidth
+              variant="standard"
+              onChange={e => setWord(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>关闭</Button>
+            <Button onClick={handleSave}>保存</Button>
+          </DialogActions>
+        </Dialog>
 
-      <InputArea value={model.state.title} placeholder="标题" onChange={onTitleChange} />
-    </>
+        <InputArea value={model.state.title} placeholder="标题" onChange={onTitleChange} />
+      </>
+      : null
   )
 }

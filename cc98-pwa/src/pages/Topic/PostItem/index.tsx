@@ -1,16 +1,17 @@
+import { Service } from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
-import { getPostSummary, getSinglePost } from '@/services/post'
+import { getSinglePost } from '@/services/post'
 import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
 import snackbar from '@/utils/snackbar'
 import { IPost, ISummary, ITopic, IUser } from '@cc98/api'
-import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
-import withStyles from '@mui/styles/withStyles';
 import DoneIcon from '@mui/icons-material/Done'
 import SummaryIcon from '@mui/icons-material/FormatQuote'
 import TagIcon from '@mui/icons-material/Tag'
+import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
+import withStyles from '@mui/styles/withStyles'
 import dayjs from 'dayjs'
 import React, { useEffect, useState } from 'react'
 import MarkdownView from 'react-showdown'
@@ -20,13 +21,6 @@ import Actions from './Actions'
 import Awards from './Awards'
 import Content from './Content'
 import Header from './Header'
-import { Service } from '@/hooks/useFetcher'
-
-
-const Wrapper = muiStyled(Paper).attrs({
-  square: true,
-  elevation: 0,
-})({})
 
 const WrapperDiv = styled.div`
   margin: 8px 16px;
@@ -228,122 +222,120 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
   }
 
   return (
-    <div ref={ref}>
-      <Wrapper>
-        {
-          topicInfo && postInfo.floor === 1 ?
-            <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
+    <Paper ref={ref} square={true} elevation={0}>
+      {
+        topicInfo && postInfo.floor === 1 ?
+          <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} isLock={topicInfo.state === 1} />
+          :
+          <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
+      }
+      {
+        postInfo.floor === 1 && !!postInfo.tags &&
+        <ChipDiv>
+          {
+            postInfo.tags.map((value, index) => (
+              <ChipS icon={<TagIconS />} size="small" label={value} />
+            ))
+          }
+        </ChipDiv>
+      }
+      {
+        postInfo.floor === 1 &&
+        <ChipDiv>
+          {currentSummary !== undefined ?
+            <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
             :
-            <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
-        }
-        {
-          postInfo.floor === 1 && !!postInfo.tags &&
-          <ChipDiv>
-            {
-              postInfo.tags.map((value, index) => (
-                <ChipS icon={<TagIconS />} size="small" label={value} />
-              ))
-            }
-          </ChipDiv>
-        }
-        {
-          postInfo.floor === 1 &&
-          <ChipDiv>
-            {currentSummary !== undefined ?
-              <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
-              :
-              <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
-            }
-          </ChipDiv>
-        }
-        {
-          topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
-          (() => {
-            let content = '```text\n'
-            content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
-            content += '```'
-            return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
-          })()
-        }
-        {
-          topicInfo && topicInfo.isVote &&
-          (currentVote &&
-            <CardS variant="outlined">
-              <CardHeaderS
-                action={
-                  currentVote.needVote && currentVote.canVote &&
-                  <IconButton onClick={handleSubmit} size="large">
-                    <DoneIcon />
-                  </IconButton>
-                }
-                title={
-                  <>
-                    {!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你的选项是 ${currentVote.myRecord.items.join('，')}`}</Typography>}
-                    {!!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你尚未投票`}</Typography>}
-                  </>
-                }
-                subheader={<Typography variant="body2">{`截止时间：${dayjs(currentVote.expiredTime).format('YYYY/MM/DD HH:mm')}`}</Typography>}
-              />
-              <CardContentS>
-                {!!currentVote.myRecord ?
-                  currentVote.voteItems.map((item, index) => (
-                    <Typography>
-                      <CheckboxS
-                        size='small'
-                        disabled={!(currentVote.needVote && currentVote.canVote)}
-                        checked={!!currentVote.myRecord && currentVote.myRecord.items.indexOf(index + 1) !== -1}
-                      />
-                      {`${index + 1}. ${item.description}`}
-                      <RightTypography>
-                        {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
-                      </RightTypography>
-                    </Typography>
-                  ))
-                  :
-                  currentVote.voteItems.map((item, index) => (
-                    <Typography>
-                      <CheckboxS
-                        size='small'
-                        onChange={(event, checked) => handleChange(event, checked, index)}
-                        disabled={!(currentVote.needVote && currentVote.canVote)}
-                      />
-                      {`${index + 1}. ${item.description}`}
-                      <RightTypography>
-                        {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
-                      </RightTypography>
-                    </Typography>
-                  ))
-                }
-              </CardContentS>
-            </CardS>
-          )
-        }
-        <Content postInfo={currentPost} />
-        {
-          <Actions
-            postInfo={currentPost}
-            userInfo={userInfo}
-            isTrace={isTrace}
-            refreshPost={refreshPost}
-          />
-        }
-        {useSignature && userInfo !== undefined && userInfo.signatureCode &&
-          (
-            <>
-              <Divider />
-              <WrapperDiv>
-                <UBB ubbText={userInfo.signatureCode.trim()} />
-              </WrapperDiv>
-            </>
-          )
-        }
-        <Awards
-          key={currentPost.awards ? currentPost.awards.length : 0}
-          awards={currentPost.awards}
+            <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
+          }
+        </ChipDiv>
+      }
+      {
+        topicInfo && postInfo.floor === 1 && topicInfo.todayCount > 3 &&
+        (() => {
+          let content = '```text\n'
+          content += `该用户今日在本版发布了${topicInfo.todayCount}个主题帖\n`
+          content += '```'
+          return <TypographyS><MarkdownView markdown={content}></MarkdownView></TypographyS>
+        })()
+      }
+      {
+        topicInfo && topicInfo.isVote &&
+        (currentVote &&
+          <CardS variant="outlined">
+            <CardHeaderS
+              action={
+                currentVote.needVote && currentVote.canVote &&
+                <IconButton onClick={handleSubmit} size="large">
+                  <DoneIcon />
+                </IconButton>
+              }
+              title={
+                <>
+                  {!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你的选项是 ${currentVote.myRecord.items.join('，')}`}</Typography>}
+                  {!!!currentVote.myRecord && <Typography variant="body1">{`投票详情：你尚未投票`}</Typography>}
+                </>
+              }
+              subheader={<Typography variant="body2">{`截止时间：${dayjs(currentVote.expiredTime).format('YYYY/MM/DD HH:mm')}`}</Typography>}
+            />
+            <CardContentS>
+              {!!currentVote.myRecord ?
+                currentVote.voteItems.map((item, index) => (
+                  <Typography>
+                    <CheckboxS
+                      size='small'
+                      disabled={!(currentVote.needVote && currentVote.canVote)}
+                      checked={!!currentVote.myRecord && currentVote.myRecord.items.indexOf(index + 1) !== -1}
+                    />
+                    {`${index + 1}. ${item.description}`}
+                    <RightTypography>
+                      {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
+                    </RightTypography>
+                  </Typography>
+                ))
+                :
+                currentVote.voteItems.map((item, index) => (
+                  <Typography>
+                    <CheckboxS
+                      size='small'
+                      onChange={(event, checked) => handleChange(event, checked, index)}
+                      disabled={!(currentVote.needVote && currentVote.canVote)}
+                    />
+                    {`${index + 1}. ${item.description}`}
+                    <RightTypography>
+                      {`${item.count}人/${(100 * item.count / (currentVote.voteUserCount || 1)).toFixed(2)}%`}
+                    </RightTypography>
+                  </Typography>
+                ))
+              }
+            </CardContentS>
+          </CardS>
+        )
+      }
+      <Content postInfo={currentPost} />
+      {
+        <Actions
+          postInfo={currentPost}
+          userInfo={userInfo}
+          isTrace={isTrace}
+          refreshPost={refreshPost}
         />
-        <Divider />
-      </Wrapper>
-    </div>
+      }
+      {useSignature && userInfo !== undefined && userInfo.signatureCode &&
+        (
+          <>
+            <Divider />
+            <WrapperDiv>
+              <UBB ubbText={userInfo.signatureCode.trim()} />
+            </WrapperDiv>
+          </>
+        )
+      }
+      <Awards
+        key={currentPost.awards ? currentPost.awards.length : 0}
+        awards={currentPost.awards}
+      />
+      <Divider />
+    </Paper>
   )
 })
 

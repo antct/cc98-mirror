@@ -37,71 +37,68 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
 
   return (
     isShare ? null :
-    <>
-      {expand && (
-        <>
+      <>
+        {expand && (
           IS_PC ?
-          <>
-            <FixFab order={3}>
-              <Tooltip title='倒序' placement='left'>
-                <SwapVertIcon
-                  onClick={() =>
-                    isReverse
-                      ? navigate(`/topic/${topicInfo.id}`)
-                      : navigate(`/topic/${topicInfo.id}/reverse`)
-                  }
-                />
-              </Tooltip>
-            </FixFab>
-            <FixFab order={2}>
-              <Tooltip title='回复' placement='left'>
-                <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
-              </Tooltip>
-            </FixFab>
-          </>
-          :
-          <>
-            <FixFab order={5}>
-              <Tooltip title='倒序' placement='left'>
-                <SwapVertIcon
-                  onClick={() =>
-                    isReverse
-                      ? navigate(`/topic/${topicInfo.id}`)
-                      : navigate(`/topic/${topicInfo.id}/reverse`)
-                  }
-                />
-              </Tooltip>
-            </FixFab>
-            <FixFab order={4}>
-              <Tooltip title='顶部' placement='left'>
-                <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
-              </Tooltip>
-            </FixFab>
-            <FixFab order={3}>
-              <Tooltip title='刷新' placement='left'>
-                <RotateRightIcon onClick={refreshFunc} />
-              </Tooltip>
-            </FixFab>
-            <FixFab order={2}>
-              <Tooltip title='回复' placement='left'>
-                <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
-              </Tooltip>
-            </FixFab>
-          </>
-          )
-        </>
-      )}
-      <FixFab>
-        {expand ? (
-          <Tooltip title='关闭' placement='left'>
-            <RemoveIcon onClick={() => setExpand(false)} />
-          </Tooltip>
-        ) : (
-          <Tooltip title='选项' placement='left'>
-            <AddIcon onClick={() => setExpand(true)} />
-          </Tooltip>
+            <>
+              <FixFab order={3}>
+                <Tooltip title='倒序' placement='left'>
+                  <SwapVertIcon
+                    onClick={() =>
+                      isReverse
+                        ? navigate(`/topic/${topicInfo.id}`)
+                        : navigate(`/topic/${topicInfo.id}/reverse`)
+                    }
+                  />
+                </Tooltip>
+              </FixFab>
+              <FixFab order={2}>
+                <Tooltip title='回复' placement='left'>
+                  <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                </Tooltip>
+              </FixFab>
+            </>
+            :
+            <>
+              <FixFab order={5}>
+                <Tooltip title='倒序' placement='left'>
+                  <SwapVertIcon
+                    onClick={() =>
+                      isReverse
+                        ? navigate(`/topic/${topicInfo.id}`)
+                        : navigate(`/topic/${topicInfo.id}/reverse`)
+                    }
+                  />
+                </Tooltip>
+              </FixFab>
+              <FixFab order={4}>
+                <Tooltip title='顶部' placement='left'>
+                  <ArrowUpwardIcon onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+                </Tooltip>
+              </FixFab>
+              <FixFab order={3}>
+                <Tooltip title='刷新' placement='left'>
+                  <RotateRightIcon onClick={refreshFunc} />
+                </Tooltip>
+              </FixFab>
+              <FixFab order={2}>
+                <Tooltip title='回复' placement='left'>
+                  <ReplyIcon onClick={() => navigate(`/editor/replyTopic/${topicInfo.boardId}/${topicInfo.id}`)} />
+                </Tooltip>
+              </FixFab>
+            </>
         )}
-      </FixFab>
-    </>
+        <FixFab>
+          {expand ? (
+            <Tooltip title='关闭' placement='left'>
+              <RemoveIcon onClick={() => setExpand(false)} />
+            </Tooltip>
+          ) : (
+            <Tooltip title='选项' placement='left'>
+              <AddIcon onClick={() => setExpand(true)} />
+            </Tooltip>
+          )}
+        </FixFab>
+      </>
   )
 }

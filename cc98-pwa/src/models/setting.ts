@@ -1,4 +1,4 @@
-import { AVATAR_COMPRESS_WIDTH, CDN, IMG_BASE_URL, IMG_COMPRESS_WIDTH } from '@/config'
+import { AVATAR_COMPRESS_WIDTH, CDN, IMG_COMPRESS_WIDTH, IS_PC } from '@/config'
 import { Model } from '@/hooks/useModel'
 import { ModeEnum, ThemeEnum } from '@/theme'
 import { getLocalStorage, setLocalStorage } from '@/utils/storage'
@@ -63,7 +63,7 @@ class SettingModel extends Model<State> {
       useSignature: false,
       useNotification: true,
       useAvatar: true,
-      usePagination: false,
+      usePagination: IS_PC,
       useCompress: true,
       useCDN: true,
       cacheSize: 2,
