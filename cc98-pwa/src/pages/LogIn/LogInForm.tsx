@@ -164,7 +164,7 @@ const LogIn: React.FC = () => {
         {logInState.logInFail ? '重试' : '登录'}
         {logInState.loading && <ButtonProgress />}
       </LogInButton>
-      <VisitorButton onClick={() => navigate('/index')}>
+      <VisitorButton onClick={() => navigate('/')}>
         我是游客
       </VisitorButton>
       <VisitorButton disabled={authInState.loading} onClick={() => {

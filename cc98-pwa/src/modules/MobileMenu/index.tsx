@@ -123,7 +123,7 @@ const MobileMenu: React.FC = ({children}) => {
           {user.isLogIn && (
             <>
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
-              <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
+              {/* <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} /> */}
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
               <Item icon={<BoardIcon />} text="版面" onClick={jump('/boardList')} />

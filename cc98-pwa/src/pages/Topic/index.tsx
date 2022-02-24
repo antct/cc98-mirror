@@ -18,20 +18,25 @@ import PostList, { PostPage } from './PostList'
 interface Props {
   // 帖子 ID
   topicId: string
-  page?: string
   // 追踪非匿名帖子
   userId?: string
   // 追踪匿名帖子
   postId?: string
   // 是否逆向
   isReverse?: boolean
+  // 分享加密ID
   shareId?: string
+  // 页码
+  page?: string
 }
 
 
-const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => {
+const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => {
   const { usePagination } = useModel(settingModel, ['usePagination'])
-  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) navigate(`/topic/${topicId}/1`, { replace: true })
+  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) {
+    navigate(`/topic/${topicId}/1`, { replace: true })
+    return null
+  }
 
   // 将shareId转化为 path+token的组合
   const safeATOB = (str: string) => {
@@ -47,13 +52,13 @@ const Topic = ({ topicId, page, userId, postId, isReverse, shareId }: Props) => 
       navigate('/error/410', { replace: true })
       return null
     }
-    navigate(`${sharePath}?token=${shareToken}`, { replace: true })
+    navigate(`${sharePath}?code=${shareToken}`, { replace: true })
     return null
   }
   if (!topicId) return null
 
   const query = useQuery()
-  const shareToken = query.get('token')
+  const shareToken = query.get('code')
   const isShare = shareToken !== null
 
   const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getTopicInfo(topicId, shareToken) : () => getTopicInfo(topicId), {

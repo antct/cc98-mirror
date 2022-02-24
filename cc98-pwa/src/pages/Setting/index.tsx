@@ -17,7 +17,7 @@ const Setting: React.FC = () => (
   <ListS>
     {/* <Signalr /> */}
     <Theme />
-    <CustomHome />
+    {/* <CustomHome /> */}
     <Mode />
     <Avatar />
     <Pagination />

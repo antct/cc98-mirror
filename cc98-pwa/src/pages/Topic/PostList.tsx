@@ -1,5 +1,6 @@
 import InfiniteList from '@/components/InfiniteList'
 import LoadingCircle from '@/components/LoadingCircle'
+import { IS_PC } from '@/config'
 import useFetcher, { Service as SService } from '@/hooks/useFetcher'
 import useInfList, { Service, usePageList } from '@/hooks/useInfList'
 import { getUsersInfoByIds } from '@/services/user'
@@ -133,10 +134,12 @@ const PostList = ({ service, hotService, summaryService, isTrace, isShare, topic
   )
 }
 
+
 const PaginationS = withStyles(theme => ({
   ul: {
     justifyContent: 'center',
-    margin: '20px 0'
+    margin: IS_PC ? '20px 0px' : '0px 0px',
+    flexWrap: IS_PC ? 'wrap' : 'inherit'
   }
 }))(Pagination)
 
@@ -150,6 +153,7 @@ interface PageProps {
 }
 
 const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShare }: PageProps) => {
+  // url#floor，需要跳转到floor这个楼层
   const floorRef = useRef<HTMLDivElement>(null)
   let floorId = -1
   if (window.location.hash && window.location.hash !== "#") {
@@ -158,10 +162,10 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
     floorId = parseInt(eleId[1]) - 1;
   }
 
+  // 获取当前页面帖子内容
+  const totalPage = Math.ceil((topicInfo.replyCount + 1) / 10)
   const [userMap, updateUserMap] = useUserMap()
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(undefined)
-
-  const totalPage = Math.ceil((topicInfo.replyCount + 1) / 10)
   const [posts, state, callback] = usePageList(service, {
     initFrom: page <= totalPage ? (page - 1) * 10 : (totalPage - 1) * 10,
     step: 10,
@@ -169,17 +173,14 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
   })
   const { isLoading, isEnd } = state
 
+  // 如果是第一页，还需要获取热门帖子
   const [hotUserMap, updateHotUserMap] = useUserMap()
   const [hotPosts] = (page === 1) ? useFetcher(hotService, {
     success: updateHotUserMap,
   }) : []
 
-  const getVote = (id: number) => {
-    return GET<IVote>(`topic/${id}/vote`)
-  }
-
   const setVote = async () => {
-    const res = await getVote(topicInfo.id)
+    const res = await GET<IVote>(`topic/${topicInfo.id}/vote`)
     res.fail().succeed(vote => {
       setCurrentVote(vote)
     })

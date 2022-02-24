@@ -6,6 +6,7 @@ import { isLogIn, logIn, logOut } from '@/utils/logIn'
 import snackbar from '@/utils/snackbar'
 import { ISignIn, IUnRead, IUser } from '@cc98/api'
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/utils/storage'
+import dayjs from 'dayjs'
 
 
 interface State {
@@ -79,7 +80,7 @@ class UserModel extends Model<State> {
 
     const myInfo = await GET<IUser>('me')
     myInfo.fail().succeed(myInfo => {
-      const lastFanCount = getLocalStorage('fanCount') as string
+      const lastFanCount = getLocalStorage('fan_count') as string
       if (lastFanCount !== null && `${myInfo.fanCount}` !== lastFanCount) {
         this.setState({
           myInfo,
@@ -89,7 +90,7 @@ class UserModel extends Model<State> {
         this.setState({
           myInfo,
         })
-        setLocalStorage('fanCount', `${myInfo.fanCount}`)
+        setLocalStorage('fan_count', `${myInfo.fanCount}`)
       }
     })
 
@@ -100,25 +101,29 @@ class UserModel extends Model<State> {
       })
     })
 
-    const signState = await GET<ISignIn>('me/signin')
-    signState.fail().succeed(async state => {
-      if (!state.hasSignedInToday) {
-        const res = await signIn()
-        res
-          .fail(() => {
-          })
-          .succeed((msg) => {
-            snackbar.success(`签到${state.lastSignInCount + 1}天，获得${msg}财富值`)
-          })
-      }
-    })
+    const localState = getLocalStorage('sign_state') as string
+    if (localState === null) {
+      const signState = await GET<ISignIn>('me/signin')
+      signState.fail().succeed(async state => {
+        if (!state.hasSignedInToday) {
+          const res = await signIn()
+          res
+            .fail(() => {
+            })
+            .succeed((msg) => {
+              snackbar.success(`签到${state.lastSignInCount + 1}天，获得${msg}财富值`)
+              setLocalStorage('sign_state', '1', dayjs().add(1, 'day').startOf('day').diff(dayjs(), 'second'))
+            })
+        } else {
+          setLocalStorage('sign_state', '1', dayjs().add(1, 'day').startOf('day').diff(dayjs(), 'second'))
+        }
+      })
+    }
   }
 
   FRESH_FAN = () => {
-    if (!this.state.isLogIn) {
-      return
-    }
-    if (this.state.myInfo) setLocalStorage('fanCount', `${this.state.myInfo.fanCount}`)
+    if (!this.state.isLogIn) return
+    if (this.state.myInfo) setLocalStorage('fan_count', `${this.state.myInfo.fanCount}`)
     this.setState({
       fanDiff: 0
     })

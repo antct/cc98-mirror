@@ -199,7 +199,7 @@ const PCMenu: React.FC = ({ children }) => {
               <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
               <Divider />
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />
-              <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} />
+              {/* <Item icon={<IndexIcon />} text="首页" onClick={jump('/index')} /> */}
               <Item icon={<TrendingUpIcon />} text="热门" onClick={jump('/hotTopics')} />
               <Item icon={<FiberNewIcon />} text="新帖" onClick={jump('/newTopics')} />
               <Divider />

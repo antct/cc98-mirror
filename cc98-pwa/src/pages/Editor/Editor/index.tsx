@@ -26,7 +26,7 @@ const Editor: React.FC<Props> = ({ editor, onSendCallback }) => {
   return (
     <div>
       <MainContent editor={editor} />
-      <Attachments editor={editor} />
+      {/* <Attachments editor={editor} /> */}
       <FixBottomDiv>
         <ToolBox editor={editor} onSendCallback={onSendCallback} />
       </FixBottomDiv>
