@@ -1,11 +1,12 @@
-import { ANONYMOUS_AVATAR, ONLINE_TIME } from '@/config'
+import { ANONYMOUS_AVATAR, IS_PC, ONLINE_TIME } from '@/config'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
-import Lock from '@mui/icons-material/Lock'
-import LockOpen from '@mui/icons-material/LockOpen'
-import Whatshot from '@mui/icons-material/Whatshot'
+import LockIcon from '@mui/icons-material/Lock'
+import LockOpenIcon from '@mui/icons-material/LockOpen'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Avatar, Chip, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
 import { Theme } from '@mui/material/styles'
@@ -90,13 +91,11 @@ const Floor = muiStyled(Typography).attrs({
   height: 48
 })
 
-// const HotIcon = muiStyled(Whatshot)({
-//   color: red[400],
-// })
 
-const HotIcon = <Whatshot color="error" />
-const LockIcon = <Lock color="error" />
-const LockOpenIcon = <LockOpen color="primary" />
+const RedHotIcon = <WhatshotIcon color="error" />
+const RedLockIcon = <LockIcon color="error" />
+const RedFavoriteIcon = <FavoriteIcon color="error" />
+const RedLockOpenIcon = <LockOpenIcon color="primary" />
 
 interface Props {
   /**
@@ -170,7 +169,13 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
           </div>
         </AvatarArea>
 
-        <Floor>{postInfo.floor === 1 ? (isLock ? LockIcon : (postInfo.isMe ? 'ME' : 'LZ')) : (isHot ? HotIcon : (postInfo.isMe ? 'ME' : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)))}</Floor>
+        <Floor>
+          {
+            postInfo.floor === 1 ?
+              (isLock ? RedLockIcon : 'LZ') :
+              (isHot ? RedHotIcon : (userInfo && userInfo.isFollowing ? RedFavoriteIcon : (postInfo.isLZ ? 'LZ' : `${postInfo.floor}L`)))
+          }
+        </Floor>
       </FlexDiv>
       {/* <Div>
         {

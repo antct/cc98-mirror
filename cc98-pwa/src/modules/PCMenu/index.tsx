@@ -8,8 +8,8 @@ import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { go, goback, navigate } from '@/utils/history'
 import BackIcon from '@mui/icons-material/ArrowBack'
+import DownwardIcon from '@mui/icons-material/ArrowDownward'
 import UpwardIcon from '@mui/icons-material/ArrowUpward'
-import CancelIcon from '@mui/icons-material/Cancel'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import BoardIcon from '@mui/icons-material/Dashboard'
@@ -17,7 +17,6 @@ import FiberNewIcon from '@mui/icons-material/FiberNew'
 import GroupIcon from '@mui/icons-material/Group'
 import HelpIcon from '@mui/icons-material/Help'
 import HomeIcon from '@mui/icons-material/Home'
-import IndexIcon from '@mui/icons-material/List'
 import MailIcon from '@mui/icons-material/Mail'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
@@ -196,6 +195,7 @@ const PCMenu: React.FC = ({ children }) => {
             <>
               <Item icon={<BackIcon />} text="回退" onClick={() => goback()} />
               <Item icon={<UpwardIcon />} text="顶部" onClick={() => { window.scrollTo({ left: 0, top: 0, behavior: 'smooth' }) }} />
+              {/* <Item icon={<DownwardIcon />} text="底部" onClick={() => { window.scrollTo({ left: 0, top: document.body.offsetHeight - window.innerHeight, behavior: 'smooth'}) }} /> */}
               <Item icon={<RefreshIcon />} text="刷新" onClick={() => go(0)} />
               <Divider />
               <Item icon={<HomeIcon />} text="主页" onClick={jump('/')} />

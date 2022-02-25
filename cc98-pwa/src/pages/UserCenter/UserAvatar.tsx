@@ -1,15 +1,16 @@
 import useFetcher from '@/hooks/useFetcher'
+import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { getSignState, signIn } from '@/services/global'
 import { followUser, unFollowUser } from '@/services/user'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { IUser } from '@cc98/api'
-import { Avatar, CircularProgress, IconButton, Typography } from '@mui/material'
 import ChatIcon from '@mui/icons-material/Chat'
 import EditIcon from '@mui/icons-material/Edit'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FingerprintIcon from '@mui/icons-material/Fingerprint'
+import { Avatar, CircularProgress, IconButton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import styled from 'styled-components'
@@ -50,6 +51,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
   const [isFollowing, setIsFollowing] = useState(info.isFollowing)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingSign, setIsLoadingSign] = useState(false)
+  const { TRANS_IMG } = settingModel
 
   const toggleSign = async () => {
     // 签到了，或者未签到签到状态还没获取到，直接返回
@@ -130,7 +132,7 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
       <WrapperDiv>
         <AvatarDiv>
           <LazyLoad height={'100%'} offset={200} once>
-            <AvatarS src={info.portraitUrl} children={false} />
+            <AvatarS src={TRANS_IMG(info.portraitUrl, true)} children={false} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>

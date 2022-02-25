@@ -7,11 +7,13 @@ import { getUsersInfoByIds } from '@/services/user'
 import { GET } from '@/utils/fetch'
 import { navigate } from '@/utils/history'
 import { IPost, ISummary, ITopic, IUser } from '@cc98/api'
+import { Divider } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import withStyles from '@mui/styles/withStyles'
 import React, { useEffect, useRef, useState } from 'react'
 import PostItem from './PostItem'
 import PostListHot from './PostListHot'
+import styled from 'styled-components'
 
 
 interface IUserMap {
@@ -134,14 +136,21 @@ const PostList = ({ service, hotService, summaryService, isTrace, isShare, topic
   )
 }
 
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 32px;
+`
 
 const PaginationS = withStyles(theme => ({
   ul: {
     justifyContent: 'center',
-    margin: IS_PC ? '20px 0px' : '0px 0px',
-    flexWrap: IS_PC ? 'wrap' : 'inherit'
+    flexWrap: 'inherit'
   }
 }))(Pagination)
+
 
 interface PageProps {
   service: Service<IPost[]>
@@ -203,6 +212,12 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
     isLoading ? <LoadingCircle />
       :
       <>
+        <PaginationS
+          count={totalPage}
+          page={page}
+          onChange={(event: React.ChangeEvent<unknown>, value: number) => { navigate(`/topic/${topicInfo.id}/${value}` + window.location.search) }}
+        />
+        <Divider />
         {posts.map((info: IPost, index: number) =>
           info.floor === 1 ?
             <>
@@ -240,9 +255,8 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
           count={totalPage}
           page={page}
           onChange={(event: React.ChangeEvent<unknown>, value: number) => { navigate(`/topic/${topicInfo.id}/${value}` + window.location.search) }}
-          showFirstButton
-          showLastButton
         />
+        <Divider />
       </>
   )
 }
