@@ -191,7 +191,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isHighlight = false, p
   </ListItemButtonS>
 )
 
-export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update'
+export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update' | 'search-content'
 
 interface Props {
   data: ITopic
@@ -256,6 +256,13 @@ export default ({ data, place, portraitUrl }: Props) => {
     case 'search':
       // 搜索时使用发帖时间
       // https://github.com/ZJU-CC98/CC98-PWA/issues/35
+      hitCount = undefined
+      replyCount = undefined
+      lastPostUser = undefined
+      likeCount = undefined
+      dislikeCount = undefined
+      break
+    case 'search-content':
       hitCount = undefined
       replyCount = undefined
       lastPostUser = undefined

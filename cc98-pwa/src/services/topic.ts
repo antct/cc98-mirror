@@ -1,5 +1,5 @@
 import { DELETE, GET, PUT } from '@/utils/fetch'
-import { IHotTopic, IReply, ITopic } from '@cc98/api'
+import { IHotTopic, IReply, ITopic, IPost } from '@cc98/api'
 
 /**
  * 根据id获取某个版面的置顶帖子
@@ -143,6 +143,20 @@ export function getFavoriteTopicsOrderByUpdate(from: number) {
     },
   })
 }
+
+/**
+ * 搜索
+ */
+export function searchTopicContent(keyword: string, from: number) {
+  return GET<IPost[]>('es', {
+    params: {
+      keyword: `${keyword}`,
+      from,
+      size: 20,
+    },
+  })
+}
+
 
 /**
  * 搜索

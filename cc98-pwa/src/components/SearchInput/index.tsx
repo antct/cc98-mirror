@@ -1,4 +1,4 @@
-import { InputBase } from '@mui/material'
+import { IconButton, InputBase } from '@mui/material'
 import { Theme, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search'
 import { makeStyles } from '@mui/styles'
@@ -68,6 +68,12 @@ const SearchInput: React.FC<Props> = ({ placeholder, onChange, onSearch }) => {
     onSearch && onSearch(value)
   }
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch && onSearch(value)
+    }
+  }
+
   return (
     IS_PC ?
       <div className={classes.PCSearch}>
@@ -78,10 +84,13 @@ const SearchInput: React.FC<Props> = ({ placeholder, onChange, onSearch }) => {
             input: classes.inputInput,
           }}
           value={value}
+          onKeyDown={onKeyDown}
           onChange={inputOnChange}
         />
         <div className={classes.searchIcon}>
-          <SearchIcon color="inherit" onClick={onSearchClick} />
+          <IconButton onClick={onSearchClick}>
+            <SearchIcon color="inherit" />
+          </IconButton>
         </div>
       </div>
       :

@@ -5,6 +5,7 @@ import settingModel from '@/models/setting'
 import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { getUserInfoById } from '@/services/user'
+import UBB from '@/UBB'
 import { navigate } from '@/utils/history'
 import { IMessageContent } from '@cc98/api'
 import { Avatar, ListItemAvatar, ListItemButton } from '@mui/material'
@@ -105,7 +106,9 @@ export default ({ message }: Props) => {
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
-        <MessageContentLeft>{message.content}</MessageContentLeft>
+        <MessageContentLeft>
+          <UBB ubbText={message.content} />
+        </MessageContentLeft>
         <MessageDate right>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
     </ListItemButtonS>
@@ -113,7 +116,9 @@ export default ({ message }: Props) => {
     <ListItemButtonS>
       <ListItemText />
       <MessageRoot>
-        <MessageContentRight>{message.content}</MessageContentRight>
+        <MessageContentRight>
+          <UBB ubbText={message.content} />
+        </MessageContentRight>
         <MessageDate>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
       <LazyLoad height={'100%'} offset={200} once>

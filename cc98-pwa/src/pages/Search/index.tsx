@@ -1,8 +1,9 @@
 import SearchInput from '@/components/SearchInput'
 import StickyBar from '@/components/StickyBar'
 import { InfTopicList } from '@/components/TopicList'
+import { InfPostList } from '@/components/PostList'
 import muiStyled from '@/muiStyled'
-import { searchFavoriteTopics, searchTopics } from '@/services/topic'
+import { searchFavoriteTopics, searchTopics, searchTopicContent } from '@/services/topic'
 import { getUserInfoListByName } from '@/services/user'
 import { Tab, Tabs } from '@mui/material'
 import { throttle } from 'lodash-es'
@@ -14,7 +15,7 @@ const StickyBarS = muiStyled(StickyBar)({
 })
 
 export default () => {
-  const [current, setCurrent] = useState('topic')
+  const [current, setCurrent] = useState('content')
   const [search, setSearch] = useState('')
 
   const onSearch = throttle((value: string) => {
@@ -29,7 +30,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput placeholder="搜索主题，收藏或用户" onSearch={onSearch} />
+        <SearchInput placeholder="搜索帖子、主题，收藏或用户" onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"
@@ -38,11 +39,20 @@ export default () => {
         value={current}
         onChange={handleChange}
       >
+        <Tab value="content" label="全文搜索" />
         <Tab value="topic" label="搜索主题" />
         <Tab value="favorite" label="搜索收藏" />
         <Tab value="user" label="搜索用户" />
       </Tabs>
-
+      {current === 'content' && <>
+        {search && (
+        <InfPostList
+          key={search}
+          service={(from: number) => searchTopicContent(search, from)}
+          place="search"
+        />
+        )}
+      </>}
       {current === 'topic' && <>
         {search && (
         <InfTopicList

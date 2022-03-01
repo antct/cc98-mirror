@@ -105,5 +105,11 @@ declare module '@cc98/api' {
      * 关键词
      */
     tags: string []
+
+    highlightInfo?: {
+      title: string[]
+      content: string[]
+    }
+    score?: number
   }
 }

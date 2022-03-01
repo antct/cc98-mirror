@@ -1,5 +1,5 @@
 import { GET, POST } from '@/utils/fetch'
-import { IConfig, IShare, ISignIn, ISite, ITheme, IProxy, ICount } from '@cc98/api'
+import { IConfig, ICount, IFun, IProxy, IShare, ISignIn, ISite, ITheme } from '@cc98/api'
 
 /**
  * 获取全站基本信息
@@ -56,6 +56,13 @@ export function signIn() {
  */
 export function getTheme() {
   return GET<ITheme>('theme')
+}
+
+/**
+ * 获取N站趣味盒
+ */
+export function getFun() {
+  return GET<IFun[]>('fun')
 }
 
 /**

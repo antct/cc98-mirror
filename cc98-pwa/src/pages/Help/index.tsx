@@ -17,6 +17,7 @@ import NotListedIcon from '@mui/icons-material/NotListedLocationOutlined'
 import ScoreIcon from '@mui/icons-material/ScoreOutlined'
 import SmartphoneIcon from '@mui/icons-material/Smartphone'
 import WifiTetheringIcon from '@mui/icons-material/WifiTethering'
+import FunIcon from '@mui/icons-material/CelebrationOutlined'
 import { Router } from '@reach/router'
 import React from 'react'
 import ActivityPoint from './ActivityPoint'
@@ -24,6 +25,7 @@ import DevTeam from './DevTeam'
 import ProxyInfo from './ProxyInfo'
 import SiteInfo from './SiteInfo'
 import TransferWealth from './TransferWealth'
+import nexushdFun from './nexushdFun'
 
 interface ItemProps {
   icon: React.ReactElement<any>
@@ -50,6 +52,7 @@ const Index = () => (
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />
+    <Item icon={<FunIcon />} text="N站趣味盒" url="/help/nexushdFun" />
     <Item icon={<MusicIcon />} text="广播点歌台" url="/topic/5180600" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
     <Item icon={<BugReportIcon />} text="新手代码测试楼" url="/topic/4759491" />
@@ -65,6 +68,7 @@ export default React.memo(({ location }: ILocation) =>
     <Route path="siteInfo" component={SiteInfo} />
     <Route path="proxyInfo" component={ProxyInfo} />
     <Route path="devTeam" component={DevTeam} />
+    <Route path="nexushdFun" component={nexushdFun} />
     <Route path="activityPoint" component={ActivityPoint} />
     <Route path="transferWealth" component={TransferWealth} />
   </Router>

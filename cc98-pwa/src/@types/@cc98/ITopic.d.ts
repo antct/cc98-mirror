@@ -83,7 +83,7 @@ declare module '@cc98/api' {
      */
     dislikeCount: number
 
-    highlightInfo: any
+    highlightInfo?: any
 
     tag1: number
 
