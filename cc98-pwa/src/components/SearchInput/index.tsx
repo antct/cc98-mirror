@@ -75,39 +75,23 @@ const SearchInput: React.FC<Props> = ({ placeholder, onChange, onSearch }) => {
   }
 
   return (
-    IS_PC ?
-      <div className={classes.PCSearch}>
-        <InputBase
-          placeholder={placeholder}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          value={value}
-          onKeyDown={onKeyDown}
-          onChange={inputOnChange}
-        />
-        <div className={classes.searchIcon}>
-          <IconButton onClick={onSearchClick}>
-            <SearchIcon color="inherit" />
-          </IconButton>
-        </div>
+    <div className={IS_PC ? classes.PCSearch : classes.search}>
+      <InputBase
+        placeholder={placeholder}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        value={value}
+        onKeyDown={onKeyDown}
+        onChange={inputOnChange}
+      />
+      <div className={classes.searchIcon}>
+        <IconButton onClick={onSearchClick}>
+          <SearchIcon color="inherit" />
+        </IconButton>
       </div>
-      :
-      <div className={classes.search}>
-        <InputBase
-          placeholder={placeholder}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          value={value}
-          onChange={inputOnChange}
-        />
-        <div className={classes.searchIcon}>
-          <SearchIcon color="inherit" onClick={onSearchClick} />
-        </div>
-      </div>
+    </div>
   )
 }
 

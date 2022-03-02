@@ -44,6 +44,10 @@
   background-color: #ebebeb;
 }
 
+.ubb-tag-hr {
+  max-width: 100%;
+}
+
 
 .ubb-tag-del {
   text-decoration: line-through;

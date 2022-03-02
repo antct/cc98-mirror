@@ -1,7 +1,7 @@
 import ListS from '@/hotfix/List'
 import { IPost } from '@cc98/api'
 import React from 'react'
-import PostListItem, { Place } from './PostListItem'
+import SearchListItem, { Place } from './SearchListItem'
 
 interface IUrlMap {
   [key: number]: string
@@ -13,14 +13,14 @@ interface Props {
   urlMap: IUrlMap
 }
 
-const PostList: React.FC<Props> = ({ posts, place, urlMap }) => {
+const SearchList: React.FC<Props> = ({ posts, place, urlMap }) => {
   return (
     <ListS>
       {posts.map(info => (
-        <PostListItem key={info.id} data={info} place={place} portraitUrl={urlMap[info.userId]} />
+        <SearchListItem key={info.id} data={info} place={place} portraitUrl={urlMap[info.userId]} />
       ))}
     </ListS>
   )
 }
 
-export default PostList
+export default SearchList

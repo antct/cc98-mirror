@@ -148,7 +148,7 @@ export function getFavoriteTopicsOrderByUpdate(from: number) {
  * 搜索
  */
 export function searchTopicContent(keyword: string, from: number) {
-  return GET<IPost[]>('es', {
+  return GET<IPost[]>('es/search', {
     params: {
       keyword: `${keyword}`,
       from,

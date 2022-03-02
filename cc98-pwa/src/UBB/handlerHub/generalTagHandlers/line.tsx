@@ -9,7 +9,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
   match: /line/,
 
   render(node: TagNode, context: IContext) {
-    return <hr />
+    return <hr className='ubb-tag-hr' />
   },
 }
 

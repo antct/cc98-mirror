@@ -7,11 +7,10 @@ import settingModel from '@/models/setting'
 import { getUsersBasicInfoByIds } from '@/services/user'
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { IPost } from '@cc98/api'
-import { Typography } from '@mui/material'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import PostList from './PostList'
-import { Place } from './PostListItem'
+import SearchList from './SearchList'
+import { Place } from './SearchListItem'
 
 
 const Img = styled.img`
@@ -25,11 +24,6 @@ const CenterDiv = styled.div`
   align-items: center;
 `
 
-const UBBDiv = styled.div`
-  width: 100%;
-  margin: 0 20px;
-`
-
 /**
  * 空列表占位，表示 InfList 什么都没有
  */
@@ -37,12 +31,6 @@ const EmptyList = () => (
   <CenterDiv>
     <Img src={img404} />
   </CenterDiv>
-)
-
-const UserCenterEmptyList = () => (
-  <UBBDiv>
-    <Typography>这家伙很懒，什么都没留下。</Typography>
-  </UBBDiv>
 )
 
 
@@ -72,7 +60,7 @@ interface InfProps {
   place: Place
 }
 
-const InfPostList: React.FC<InfProps> = ({ service, place }) => {
+const InfSearchList: React.FC<InfProps> = ({ service, place }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
   const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [posts, state, callback] = useInfList(service, {
@@ -85,9 +73,9 @@ const InfPostList: React.FC<InfProps> = ({ service, place }) => {
     <>
       {isEnd && posts.length === 0 && <EmptyList />}
       <InfiniteList isLoading={isLoading} isEnd={isEnd} callback={callback}>
-        <PostList posts={posts} place={place} urlMap={urlMap} />
+        <SearchList posts={posts} place={place} urlMap={urlMap} />
       </InfiniteList>
     </>
   )
 }
-export { InfPostList }
+export { InfSearchList }

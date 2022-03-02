@@ -84,7 +84,7 @@ interface ItemProps {
   onClick: () => void
 }
 
-export const PostItem: React.FC<ItemProps> = ({ onClick, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
+export const SearchItem: React.FC<ItemProps> = ({ onClick, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
   <ListItemButtonS divider onClick={onClick} >
     {showAvatar &&
       <AvatarArea>
@@ -133,7 +133,7 @@ export default ({ data, place, portraitUrl }: Props) => {
   }
 
   return (
-    <PostItem
+    <SearchItem
       onClick={() => navigate(`/topic/${data.topicId}#${data.floor}`)}
       portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
       showAvatar={useAvatar && showAvatar}

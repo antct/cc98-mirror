@@ -1,7 +1,7 @@
 import SearchInput from '@/components/SearchInput'
 import StickyBar from '@/components/StickyBar'
 import { InfTopicList } from '@/components/TopicList'
-import { InfPostList } from '@/components/PostList'
+import { InfSearchList } from '@/components/SearchList'
 import muiStyled from '@/muiStyled'
 import { searchFavoriteTopics, searchTopics, searchTopicContent } from '@/services/topic'
 import { getUserInfoListByName } from '@/services/user'
@@ -46,7 +46,7 @@ export default () => {
       </Tabs>
       {current === 'content' && <>
         {search && (
-        <InfPostList
+        <InfSearchList
           key={search}
           service={(from: number) => searchTopicContent(search, from)}
           place="search"
