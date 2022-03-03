@@ -39,7 +39,7 @@ export default () => {
         value={current}
         onChange={handleChange}
       >
-        <Tab value="content" label="全文搜索" />
+        <Tab value="content" label="搜索全文" />
         <Tab value="topic" label="搜索主题" />
         <Tab value="favorite" label="搜索收藏" />
         <Tab value="user" label="搜索用户" />

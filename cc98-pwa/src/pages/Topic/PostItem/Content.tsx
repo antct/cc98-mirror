@@ -85,7 +85,7 @@ export default ({ postInfo }: Props) => {
 
   // FIXME: 可能还存在BUG
   const http_regex = /([^\]\[\)\(= ]|^)( *http[s]?\:\/\/?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.*[a-zA-Z]{2,6}[a-zA-Z0-9\.\&\/\?\:@\-_=#%~]*)/g
-  const image_regex = /.*\.(gif|jpe?g|bmp|png)$/ig
+  const image_regex = /.*\.(gif|jpe?g|bmp|png)$/
   regex_content = regex_content.replace(http_regex, (match: string, capture1: string, capture2: string) => {
     if (image_regex.test(capture2)) return match
     else {

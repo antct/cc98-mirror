@@ -84,8 +84,7 @@ interface Props {
 
 const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleClick, action, isShare }) => {
   return (
-    IS_PC ?
-      <>
+    IS_PC ? <>
         <StickyBar>
           {
             !!!isShare &&
@@ -93,7 +92,7 @@ const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleC
               <KeyboardBackspaceIcon />
             </GobackIcon>
           }
-          <PCTitle onClick={titleClick}>{title}</PCTitle>
+          <PCTitle>{title}</PCTitle>
           <PCSubTitle onClick={subTitleClick}>{subTitle}</PCSubTitle>
           {action && <PCAcitonDiv>{action}</PCAcitonDiv>}
         </StickyBar>
