@@ -27,6 +27,7 @@ interface Props {
   topicInfo: ITopic
   isTrace: boolean
   isShare: boolean
+  isCache: boolean
 }
 
 type voteItem = {
@@ -77,7 +78,7 @@ export function useUserMap() {
   return [userMap, updateUserMap] as [typeof userMap, typeof updateUserMap]
 }
 
-const PostList = ({ service, hotService, summaryService, isTrace, isShare, topicInfo }: Props) => {
+const PostList = ({ service, hotService, summaryService, isTrace, isShare, isCache, topicInfo }: Props) => {
   const [userMap, updateUserMap] = useUserMap()
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(undefined)
   const [posts, state, callback] = useInfList(service, {
@@ -112,11 +113,11 @@ const PostList = ({ service, hotService, summaryService, isTrace, isShare, topic
               topicInfo={topicInfo}
               voteInfo={currentVote}
               setVote={setVote}
-              summaryService={summaryService}
+              summaryService={isCache ? undefined : summaryService}
               isTrace={isTrace}
-              isShare={isShare}
+              isShare={isCache || isShare}
             />
-            {!isTrace &&
+            {!isTrace && !isCache &&
               <PostListHot
                 service={hotService}
                 isShare={isShare}
@@ -128,7 +129,7 @@ const PostList = ({ service, hotService, summaryService, isTrace, isShare, topic
             postInfo={info}
             userInfo={userMap[info.userId]}
             isTrace={isTrace}
-            isShare={isShare}
+            isShare={isCache || isShare}
           />
         )
       )}
@@ -159,9 +160,10 @@ interface PageProps {
   topicInfo: ITopic
   page: number
   isShare: boolean
+  isCache: boolean
 }
 
-const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShare }: PageProps) => {
+const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShare, isCache }: PageProps) => {
   // url#floor，需要跳转到floor这个楼层
   const floorRef = useRef<HTMLDivElement>(null)
   let floorId = -1
@@ -227,8 +229,8 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
                 topicInfo={topicInfo}
                 voteInfo={currentVote}
                 setVote={setVote}
-                isShare={isShare}
-                summaryService={summaryService}
+                summaryService={isCache ? undefined : summaryService}
+                isShare={isCache || isShare}
               />
               {
                 hotPosts && hotPosts.map(info =>
@@ -246,9 +248,9 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
             <PostItem
               key={info.id}
               ref={index === floorId ? floorRef : undefined}
-              isShare={isShare}
               postInfo={info}
               userInfo={userMap[info.userId]}
+              isShare={isCache || isShare}
             />
         )}
         <PaginationS

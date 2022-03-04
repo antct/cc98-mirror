@@ -9,7 +9,7 @@ import { NOT_EXPANDED_BOARDS } from './constants'
 
 
 export const WrapperDiv = styled.div`
-  margin: 24px 8px;
+  margin: 8px 8px;
 `
 
 export const Title = muiStyled(Typography).attrs({

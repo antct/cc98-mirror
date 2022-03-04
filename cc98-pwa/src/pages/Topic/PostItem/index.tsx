@@ -242,10 +242,8 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
       {
         postInfo.floor === 1 &&
         <ChipDiv>
-          {currentSummary !== undefined ?
+          {currentSummary !== undefined && currentSummary.length > 0 &&
             <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
-            :
-            <SummaryS icon={<SummaryIconS />} size="small" label={'帖子摘要生成中...'} />
           }
         </ChipDiv>
       }
@@ -311,11 +309,15 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
           </CardS>
         )
       }
-      <Content postInfo={currentPost} />
+      <Content
+        postInfo={currentPost}
+        isShare={isShare}
+      />
       {
         <Actions
           postInfo={currentPost}
           userInfo={userInfo}
+          isShare={isShare}
           isTrace={isTrace}
           refreshPost={refreshPost}
         />

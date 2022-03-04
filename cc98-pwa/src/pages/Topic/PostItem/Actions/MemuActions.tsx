@@ -24,13 +24,14 @@ interface Props {
    * 是否追踪
    */
   isTrace: boolean
+  isShare: boolean
   /**
    * 更新 Post 信息
    */
   refreshPost: () => void
 }
 
-const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo }) => {
+const MenuActions: React.FC<Props> = ({ postInfo, isTrace, isShare, refreshPost, userInfo }) => {
   // 控制 Menu 的显示
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -127,7 +128,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo
         isManager={onlyManager}
       />
     )}
-    <IconButton onClick={handleOpen} size="large">
+    <IconButton disabled={isShare} onClick={handleOpen} size="large">
       <ExpandMoreIcon />
     </IconButton>
     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>

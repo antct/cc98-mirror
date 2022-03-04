@@ -111,5 +111,6 @@ declare module '@cc98/api' {
       content: string[]
     }
     score?: number
+    cacheTime: string
   }
 }

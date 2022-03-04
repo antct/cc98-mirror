@@ -1,11 +1,13 @@
+import FixFab from '@/components/FixFab'
 import SearchInput from '@/components/SearchInput'
+import { InfSearchList } from '@/components/SearchList'
 import StickyBar from '@/components/StickyBar'
 import { InfTopicList } from '@/components/TopicList'
-import { InfSearchList } from '@/components/SearchList'
 import muiStyled from '@/muiStyled'
-import { searchFavoriteTopics, searchTopics, searchTopicContent } from '@/services/topic'
+import { searchFavoriteTopics, searchTopicContent, searchTopics } from '@/services/topic'
 import { getUserInfoListByName } from '@/services/user'
-import { Tab, Tabs } from '@mui/material'
+import TimelineIcon from '@mui/icons-material/Timeline'
+import { Tab, Tabs, Tooltip } from '@mui/material'
 import { throttle } from 'lodash-es'
 import React, { useState } from 'react'
 // 这个地方重新写了一个InfUserList
@@ -17,9 +19,12 @@ const StickyBarS = muiStyled(StickyBar)({
 export default () => {
   const [current, setCurrent] = useState('content')
   const [search, setSearch] = useState('')
+  const [searchSort, setSearchSort] = useState(0)
+  const [searchKey, setSearchKey] = useState(0)
 
   const onSearch = throttle((value: string) => {
     setSearch(value)
+    setSearchKey(prevKey => prevKey+1)
   }, 1000 * 10)
 
   const handleChange = (_: React.ChangeEvent, value: string) => {
@@ -30,7 +35,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput placeholder="搜索帖子、主题，收藏或用户" onSearch={onSearch} />
+        <SearchInput onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"
@@ -46,37 +51,52 @@ export default () => {
       </Tabs>
       {current === 'content' && <>
         {search && (
-        <InfSearchList
-          key={search}
-          service={(from: number) => searchTopicContent(search, from)}
-          place="search"
-        />
+          <>
+            <InfSearchList
+              key={searchKey}
+              service={(from: number) => searchTopicContent(search, from, searchSort)}
+              place="search"
+            />
+            <FixFab>
+              <Tooltip title='时序' placement='left'>
+                <TimelineIcon
+                  color={searchSort === 1 ? 'secondary' : 'inherit'}
+                  onClick={
+                    () => {
+                      setSearchSort(prevState => 1 - prevState)
+                      setSearchKey(prevKey => prevKey + 1)
+                    }
+                  }
+                />
+              </Tooltip>
+            </FixFab>
+          </>
         )}
       </>}
       {current === 'topic' && <>
         {search && (
-        <InfTopicList
-          key={search}
-          service={(from: number) => searchTopics(search, from)}
-          place="search"
-        />
+          <InfTopicList
+            key={searchKey}
+            service={(from: number) => searchTopics(search, from)}
+            place="search"
+          />
         )}
       </>}
       {current === 'favorite' && <>
         {search && (
-        <InfTopicList
-          key={search}
-          service={(from: number) => searchFavoriteTopics(search, from)}
-          place="search"
-        />
+          <InfTopicList
+            key={searchKey}
+            service={(from: number) => searchFavoriteTopics(search, from)}
+            place="search"
+          />
         )}
       </>}
       {current === 'user' && <>
         {search && (
-        <InfUserList
-          key={search}
-          service={() => getUserInfoListByName(search) }
-        />
+          <InfUserList
+            key={searchKey}
+            service={() => getUserInfoListByName(search)}
+          />
         )}
       </>}
     </>

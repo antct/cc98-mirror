@@ -12,10 +12,12 @@ import LinkIcon from '@mui/icons-material/Link'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import SettingIcon from '@mui/icons-material/Settings'
 import ShareIcon from '@mui/icons-material/Share'
+import CachedIcon from '@mui/icons-material/Cached'
 import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
 import copy2Clipboard from 'copy-to-clipboard'
 import React, { useEffect, useState } from 'react'
 import Setting from './Dialog/Setting'
+import { navigate } from '@/utils/history'
 
 
 interface Props {
@@ -24,9 +26,10 @@ interface Props {
    */
   topicInfo: ITopic
   refreshFunc: () => void
+  isShare: boolean
 }
 
-export default ({ topicInfo, refreshFunc }: Props) => {
+export default ({ topicInfo, refreshFunc, isShare }: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [showSetting, setShowSetting] = useState(false)
   const [isFavorite, setIsFavorite] = useFetcher(() => getTopicFavorite(topicInfo.id))
@@ -103,7 +106,7 @@ export default ({ topicInfo, refreshFunc }: Props) => {
   const canManage = judgeManagerOrBoardMasters(myInfo, boardMasters)
 
   return <>
-    <IconButton color="inherit" onClick={handleOpen} size="large">
+    <IconButton disabled={isShare} color="inherit" onClick={handleOpen} size="large">
       <MoreVertIcon fontSize="small" />
     </IconButton>
     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
@@ -128,6 +131,17 @@ export default ({ topicInfo, refreshFunc }: Props) => {
           <LinkIcon />
         </ListItemIcon>
         <Typography>官方页面</Typography>
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate(`/topic/${topicInfo.id}/cache`)
+          handleClose()
+        }}
+      >
+        <ListItemIcon>
+          <CachedIcon />
+        </ListItemIcon>
+        <Typography>帖子快照</Typography>
       </MenuItem>
       {/* <MenuItem onClick={() => handleShare1()}>
         <ListItemIcon>

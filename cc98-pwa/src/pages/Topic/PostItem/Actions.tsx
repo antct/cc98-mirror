@@ -23,20 +23,26 @@ interface Props {
    * 是否追踪
    */
   isTrace: boolean
+  isShare: boolean
   /**
    * 更新 Post 信息
    */
   refreshPost: () => void
 }
 
-const Actions: React.FC<Props> = ({ postInfo, isTrace, refreshPost, userInfo }) => (
+const Actions: React.FC<Props> = ({ postInfo, isTrace, isShare, refreshPost, userInfo }) => (
   <FlexDiv>
-    <IconActions postInfo={postInfo} refreshPost={refreshPost} />
+    <IconActions
+      postInfo={postInfo}
+      refreshPost={refreshPost}
+      isShare={isShare}
+    />
     <MemuActions
       postInfo={postInfo}
       userInfo={userInfo}
-      isTrace={isTrace}
       refreshPost={refreshPost}
+      isTrace={isTrace}
+      isShare={isShare}
     />
   </FlexDiv>
 )

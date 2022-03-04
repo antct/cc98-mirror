@@ -18,7 +18,7 @@ import NewTopic from '@/pages/NewTopic'
 import Notice from '@/pages/Notice'
 import Search from '@/pages/Search'
 import Setting from '@/pages/Setting'
-import Topic, { TopicReverse } from '@/pages/Topic'
+import Topic, { TopicCache, TopicReverse } from '@/pages/Topic'
 import UserCenter from '@/pages/UserCenter'
 import UserCenterEdit from '@/pages/UserCenter/Edit'
 // https://reach.tech/router/api/Router
@@ -54,6 +54,7 @@ const MyRouter: React.FC<ILocation> = ({ location }) => (
     <Route path="topic/:topicId" component={Topic} />
     <Route path="topic/:topicId/:page" component={Topic} />
     <Route path="topic/:topicId/reverse" component={TopicReverse} />
+    <Route path="topic/:topicId/cache" component={TopicCache} />
     <Route path="topic/:topicId/trace/:postId" component={Topic} />
 
     <Route path="share/:shareId" component={Topic} />

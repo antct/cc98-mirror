@@ -160,12 +160,19 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
                   : postInfo.userName}
             </Title>
             <SubTitle>{dayjs(postInfo.time).format('YYYY/MM/DD HH:mm')}</SubTitle>
-            <SubTitle>
-              {postInfo.lastUpdateTime &&
-                `${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
-                  postInfo.lastUpdateTime
-                ).format('YYYY/MM/DD HH:mm')}`}
-            </SubTitle>
+            {
+              postInfo.cacheTime !== undefined ?
+                <SubTitle>
+                    {`快照 缓存于 ${dayjs(postInfo.cacheTime).format('YYYY/MM/DD HH:mm')}`}
+                </SubTitle>
+                :
+                <SubTitle>
+                  {postInfo.lastUpdateTime &&
+                    `${postInfo.lastUpdateAuthor || '匿名'} 编辑于 ${dayjs(
+                      postInfo.lastUpdateTime
+                    ).format('YYYY/MM/DD HH:mm')}`}
+                </SubTitle>
+            }
           </div>
         </AvatarArea>
 

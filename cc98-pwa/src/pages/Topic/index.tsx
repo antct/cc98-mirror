@@ -3,7 +3,7 @@ import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { useQuery } from '@/router'
-import { getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
+import { getHotPost, getPost, getPostSummary, getReversePost, getTracePost, getCachePost } from '@/services/post'
 import {
   getTopicInfo
 } from '@/services/topic'
@@ -22,6 +22,8 @@ interface Props {
   userId?: string
   // 追踪匿名帖子
   postId?: string
+  // 是否缓存
+  isCache?: boolean
   // 是否逆向
   isReverse?: boolean
   // 分享加密ID
@@ -31,9 +33,9 @@ interface Props {
 }
 
 
-const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => {
+const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: Props) => {
   const { usePagination } = useModel(settingModel, ['usePagination'])
-  if (topicId && !page && !userId && !postId && !isReverse && !shareId && usePagination) {
+  if (topicId && !page && !userId && !postId && !isReverse && !shareId && !isCache && usePagination) {
     navigate(`/topic/${topicId}/1`, { replace: true })
     return null
   }
@@ -72,10 +74,11 @@ const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => 
   // 根据 URL 参数选择获取 post 的 service
   const postService = isReverse
     ? (from: number) => getReversePost(topicId, from, topicInfo.replyCount)
-    : postId
-      ? (from: number) => getTracePost(topicId, postId, from)
-      :
-      (from: number) => isShare ? getPost(topicId, from, shareToken) : getPost(topicId, from)
+    : isCache ? (from: number) => getCachePost(topicId)
+      : postId
+        ? (from: number) => getTracePost(topicId, postId, from)
+        :
+        (from: number) => isShare ? getPost(topicId, from, shareToken) : getPost(topicId, from)
 
   const hotPostService = () => isShare ? getHotPost(topicId, shareToken) : getHotPost(topicId)
 
@@ -98,7 +101,7 @@ const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => 
       <PostHead
         topicInfo={topicInfo}
         refreshFunc={refreshFunc}
-        isShare={isShare}
+        isShare={!!isCache || isShare}
       />
       {
         page ?
@@ -110,6 +113,7 @@ const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => 
             summaryService={postSummaryService}
             page={parseInt(page)}
             isShare={isShare}
+            isCache={!!isCache}
           />
           :
           <PostList
@@ -120,6 +124,7 @@ const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => 
             summaryService={postSummaryService}
             isTrace={isTrace}
             isShare={isShare}
+            isCache={!!isCache}
           />
       }
       <FixButtons
@@ -137,4 +142,6 @@ const Topic = ({ topicId, userId, postId, isReverse, shareId, page }: Props) => 
  */
 const TopicReverse = (props: Props) => <Topic isReverse {...props} />
 
-export { Topic as default, TopicReverse }
+const TopicCache = (props: Props) => <Topic isCache {...props} />
+
+export { Topic as default, TopicReverse, TopicCache }

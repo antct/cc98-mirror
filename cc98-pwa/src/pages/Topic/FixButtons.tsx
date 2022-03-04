@@ -36,7 +36,7 @@ export default ({ topicInfo, isReverse, isShare, refreshFunc }: Props) => {
   const [expand, setExpand] = useState(false)
 
   return (
-    isShare ? null :
+    (isShare) ? null :
       <>
         {expand && (
           IS_PC ?

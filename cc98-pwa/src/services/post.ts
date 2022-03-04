@@ -72,6 +72,14 @@ export async function getReversePost(id: number | string, from: number, total: n
 }
 
 /**
+ * 获取帖子缓存
+ */
+export async function getCachePost(id: number | string) {
+  const res = await GET<IPost[]>(`cache?id=${id}`)
+  return await Promise.resolve(res)
+}
+
+/**
  * 获取一个帖子的单独一层
  */
 export async function getSinglePost(topicId: number | string, floor: number) {

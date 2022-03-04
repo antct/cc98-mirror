@@ -32,10 +32,10 @@ const PostHead: React.FC<Props> = ({ topicInfo, refreshFunc, isShare }) => {
   return (
     <StickyHeadBar
       title={topicInfo.title}
-      titleClick={isShare ? () => false : () => navigate(`/topic/${topicInfo.id}`)}
-      subTitle={isShare ? '分享模式' : boardName}
-      subTitleClick={isShare ? () => false : () => navigate(`/board/${topicInfo.boardId}`)}
-      action={isShare ? null : <PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} />}
+      titleClick={isShare ? undefined : () => navigate(`/topic/${topicInfo.id}`)}
+      subTitle={boardName}
+      subTitleClick={isShare ? undefined : () => navigate(`/board/${topicInfo.boardId}`)}
+      action={<PostActions topicInfo={topicInfo} refreshFunc={refreshFunc} isShare={isShare} />}
       isShare={isShare || IS_PC}
     />
   )

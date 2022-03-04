@@ -77,9 +77,10 @@ interface Props {
    * 帖子信息
    */
   postInfo: IPost
+  isShare: boolean
 }
 
-export default ({ postInfo }: Props) => {
+export default ({ postInfo, isShare }: Props) => {
   const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
   let regex_content = postInfo.content.trim()
 
@@ -132,7 +133,7 @@ export default ({ postInfo }: Props) => {
       toolbarRender={({ images, rotate, onRotate, onScale, scale, index }) => {
         return (
           <>
-            <HdrPlusIcon sx={{ margin: '0px 5px' }} onClick={() => {
+            {!isShare && <HdrPlusIcon sx={{ margin: '0px 5px' }} onClick={() => {
               setIntros(prevIntros => {
                 const newIntros = { ...prevIntros }
                 newIntros[index] = ['图片增强中...']
@@ -163,8 +164,8 @@ export default ({ postInfo }: Props) => {
                   })
                 })
               )
-            }} />
-            <FaceRetouchingNaturalIcon
+            }} />}
+            {!isShare && <FaceRetouchingNaturalIcon
              sx={{ margin: '0px 5px' }}
               onClick={() => {
                 setIntros(prevIntros => {
@@ -204,7 +205,7 @@ export default ({ postInfo }: Props) => {
                   })
                 )
               }}
-            />
+            />}
             <ZoomInIcon sx={{ margin: '0px 5px' }} onClick={() => onScale(scale + 0.2)} />
             <ZoomOutIcon sx={{ margin: '0px 5px' }} onClick={() => onScale(scale - 0.2)} />
             <RotateRightIcon sx={{ margin: '0px 5px' }} onClick={() => onRotate(rotate + 90)} />

@@ -27,6 +27,7 @@ interface Props {
    * 更新 Post 信息
    */
   refreshPost: () => void
+  isShare: boolean
 }
 
 const ActionDiv = styled.div`
@@ -61,7 +62,7 @@ function checkLogIn() {
   return true
 }
 
-const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
+const IconActions: React.FC<Props> = ({ postInfo, refreshPost, isShare }) => {
   const { likeState } = postInfo
 
   const handleLike = (newLikeState: ILikeState) => () => {
@@ -89,7 +90,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
 
   return (
     <ActionDiv>
-      <IconButton onClick={handleLike(LikeState.LIKE)} size="large">
+      <IconButton disabled={isShare} onClick={handleLike(LikeState.LIKE)} size="large">
         <ThumbUpIcon
           fontSize="small"
           color={likeState === LikeState.LIKE ? 'secondary' : 'inherit'}
@@ -99,7 +100,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
 
       <DividerCol />
 
-      <IconButton onClick={handleLike(LikeState.DISLIKE)} size="large">
+      <IconButton disabled={isShare} onClick={handleLike(LikeState.DISLIKE)} size="large">
         <ThumbDownIcon
           fontSize="small"
           color={likeState === LikeState.DISLIKE ? 'secondary' : 'inherit'}
@@ -108,7 +109,7 @@ const IconActions: React.FC<Props> = ({ postInfo, refreshPost }) => {
       <Count>{postInfo.dislikeCount}</Count>
 
       <DividerCol />
-      <IconButton onClick={handleQuote} size="large">
+      <IconButton disabled={isShare} onClick={handleQuote} size="large">
         <FormatQuoteIcon fontSize="small" />
       </IconButton>
     </ActionDiv>
