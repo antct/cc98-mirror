@@ -11,9 +11,9 @@ export default () => {
   return (
     <>
       <Home key={homeKey} />
-      {!IS_PC && <FixFab>
+      {!IS_PC && <FixFab onClick={() => setHomeKey(homeKey + 1)}>
         <Tooltip title='刷新' placement='left'>
-          <RotateRightIcon onClick={() => setHomeKey(homeKey + 1)} />
+          <RotateRightIcon />
         </Tooltip>
       </FixFab>
       }

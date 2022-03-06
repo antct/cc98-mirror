@@ -126,7 +126,14 @@ export async function logIn(username: string, password: string) {
           msg: await response.text(),
           response,
         })
-      ).fail(err => navigateHandler(err))
+      )
+      // return Try.of<Token, FetchError>(
+      //   Failure.of({
+      //     status: response.status,
+      //     msg: await response.text(),
+      //     response,
+      //   })
+      // ).fail(err => navigateHandler(err))
     }
 
     const token = await response.json()

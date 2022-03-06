@@ -1,12 +1,12 @@
-import { ANONYMOUS_AVATAR, IS_PC, ONLINE_TIME } from '@/config'
+import { ANONYMOUS_AVATAR, ONLINE_TIME } from '@/config'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { navigate } from '@/utils/history'
 import { IPost, IUser } from '@cc98/api'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import LockIcon from '@mui/icons-material/Lock'
 import LockOpenIcon from '@mui/icons-material/LockOpen'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Avatar, Chip, Typography } from '@mui/material'
 import Badge from '@mui/material/Badge'
 import { Theme } from '@mui/material/styles'
@@ -92,9 +92,9 @@ const Floor = muiStyled(Typography).attrs({
 })
 
 
-const RedHotIcon = <WhatshotIcon color="error" />
-const RedLockIcon = <LockIcon color="error" />
-const RedFavoriteIcon = <FavoriteIcon color="error" />
+const RedHotIcon = <WhatshotIcon fontSize='small' color="error" />
+const RedLockIcon = <LockIcon fontSize='small' color="error" />
+const RedFavoriteIcon = <FavoriteIcon fontSize='small' color="error" />
 const RedLockOpenIcon = <LockOpenIcon color="primary" />
 
 interface Props {
@@ -151,7 +151,6 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
             }
           </LazyLoad>
           <div>
-            {/* {isHot && <a href={`#${postInfo.floor}`} />} */}
             <Title>
               {postInfo.isDeleted
                 ? '98Deleter'
@@ -163,7 +162,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
             {
               postInfo.cacheTime !== undefined ?
                 <SubTitle>
-                    {`快照 缓存于 ${dayjs(postInfo.cacheTime).format('YYYY/MM/DD HH:mm')}`}
+                  {`快照 缓存于 ${dayjs(postInfo.cacheTime).format('YYYY/MM/DD HH:mm')}`}
                 </SubTitle>
                 :
                 <SubTitle>
@@ -188,12 +187,11 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
         {
           userInfo && <>
             <ChipS size="small" label={userInfo.gender === 1 ? '男' : '女'} />
-            <ChipS size="small" label={`帖 ${userInfo.postCount}`} />
-            <ChipS size="small" label={`赞 ${userInfo.receivedLikeCount}`} />
-            <ChipS size="small" label={`粉丝 ${userInfo.fanCount}`} />
-            <ChipS size="small" label={`风评 ${userInfo.popularity}`} />
-            <ChipS size="small" label={`威望 ${userInfo.prestige}`} />
-            <ChipS size="small" label={`IP ${userInfo.lastIpAddress}`} />
+            <ChipS size="small" avatar={<Avatar>{'帖'}</Avatar>} label={`${userInfo.postCount}`} />
+            <ChipS size="small" avatar={<Avatar>{'赞'}</Avatar>} label={`${userInfo.receivedLikeCount}`} />
+            <ChipS size="small" avatar={<Avatar>{'粉'}</Avatar>} label={`${userInfo.fanCount}`} />
+            <ChipS size="small" avatar={<Avatar>{'评'}</Avatar>} label={`${userInfo.popularity}`} />
+            <ChipS size="small" avatar={<Avatar>{'威'}</Avatar>} label={`${userInfo.prestige}`} />
             {userInfo.isFollowing && <ChipS color='secondary' size="small" label={`你的关注`} />}
           </>
         }

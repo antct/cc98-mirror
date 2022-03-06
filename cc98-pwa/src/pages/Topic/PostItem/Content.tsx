@@ -5,6 +5,11 @@ import muiStyled from '@/muiStyled'
 import { getEnhancedImage, getFaces } from '@/services/post'
 import { UBBReact } from '@/UBB'
 import { IPost } from '@cc98/api'
+import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined'
+import HdrPlusIcon from '@mui/icons-material/HdrPlusOutlined'
+import RotateRightIcon from '@mui/icons-material/RotateRightOutlined'
+import ZoomInIcon from '@mui/icons-material/ZoomInOutlined'
+import ZoomOutIcon from '@mui/icons-material/ZoomOutOutlined'
 import { Typography } from '@mui/material'
 import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
@@ -12,11 +17,6 @@ import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
 import MarkdownView from 'react-showdown'
 import styled from 'styled-components'
-import HdrPlusIcon from '@mui/icons-material/HdrPlusOutlined'
-import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined'
-import RotateRightIcon from '@mui/icons-material/RotateRightOutlined'
-import ZoomInIcon from '@mui/icons-material/ZoomInOutlined'
-import ZoomOutIcon from '@mui/icons-material/ZoomOutOutlined'
 
 
 const Overlay = styled.div`
@@ -77,6 +77,9 @@ interface Props {
    * 帖子信息
    */
   postInfo: IPost
+  /**
+   * 是否分享
+   */
   isShare: boolean
 }
 
@@ -166,7 +169,7 @@ export default ({ postInfo, isShare }: Props) => {
               )
             }} />}
             {!isShare && <FaceRetouchingNaturalIcon
-             sx={{ margin: '0px 5px' }}
+              sx={{ margin: '0px 5px' }}
               onClick={() => {
                 setIntros(prevIntros => {
                   const newIntros = { ...prevIntros }

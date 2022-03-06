@@ -12,7 +12,7 @@ const Text = styled.span`
   display: block;
   max-width: 80%;
   overflow: hidden;
-  white-space: pre-wrap;
+  white-space: nowrap;
   text-overflow: ellipsis;
 `
 
@@ -23,7 +23,13 @@ interface Props {
 export default ({ data }: Props) => {
   const { id, name, portraitUrl, lastLogOnTime, signatureCode } = data
   const { TRANS_IMG } = settingModel
-  const fixSignatureCode = signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
+  const clamp = (str: string) => {
+    if (str.length <= 20) {
+      return str
+    }
+    return `${str.slice(0, 20)}...`
+  }
+  const fixSignatureCode = clamp(signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''))
 
   return (
     <ListItem button divider onClick={() => navigate(`/user/${id}`)}>

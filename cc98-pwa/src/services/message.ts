@@ -1,5 +1,6 @@
-import { GET, POST } from '@/utils/fetch'
+import { GET, POST, PUT } from '@/utils/fetch'
 import { IMessageContent, IRecentMessage } from '@cc98/api'
+import userModel from '@/models/user'
 
 /**
  * 获取近期私信列表
@@ -34,5 +35,35 @@ export function sendMessage(ReceiverId: number | string, Content: string) {
       ReceiverId,
       Content,
     },
+  })
+}
+
+/**
+ * 清除所有回复
+ */
+export async function readAllReply() {
+  const res = await PUT('notification/read-all-reply')
+  res.fail().succeed(() => {
+    userModel.FRESH_READ()
+  })
+}
+
+/**
+ * 清除所有AT
+ */
+export async function readAllAt() {
+  const res = await PUT('notification/read-all-at')
+  res.fail().succeed(() => {
+    userModel.FRESH_READ()
+  })
+}
+
+/**
+ * 清除所有系统
+ */
+export async function readAllSystem() {
+  const res = await PUT('notification/read-all-system')
+  res.fail().succeed(() => {
+    userModel.FRESH_READ()
   })
 }

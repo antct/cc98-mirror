@@ -23,6 +23,9 @@ interface Props {
    * 是否追踪
    */
   isTrace: boolean
+  /**
+   * 是否分享
+   */
   isShare: boolean
   /**
    * 更新 Post 信息

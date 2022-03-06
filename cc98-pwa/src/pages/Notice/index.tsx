@@ -1,11 +1,14 @@
+import FixFab from '@/components/FixFab'
 import { InfReplyList, InfSystemList } from '@/components/NoticeList'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import userModel from '@/models/user'
 import { getAt, getReply, getSystem } from '@/services/notice'
-import { Badge, Tab, Tabs } from '@mui/material'
+import { Badge, Tab, Tabs, Tooltip } from '@mui/material'
 import withStyles from '@mui/styles/withStyles'
 import React, { useState } from 'react'
+import ReadIcon from '@mui/icons-material/MarkEmailRead'
+import { readAllAt, readAllSystem, readAllReply } from '@/services/message'
 
 const BadgeS = withStyles(theme => ({
   anchorOriginTopRight: {
@@ -40,6 +43,18 @@ export default () => {
       {current === 'reply' && <InfReplyList service={getReply} />}
       {current === 'at' && <InfReplyList service={getAt} />}
       {current === 'system' && <InfSystemList service={getSystem} />}
+      <FixFab
+        onClick={
+          () => {
+            const service = (current === 'reply') ? readAllReply : (current === 'at' ? readAllAt : readAllSystem)
+            service()
+          }
+        }
+      >
+        <Tooltip title='已读' placement='left'>
+          <ReadIcon />
+        </Tooltip>
+      </FixFab>
     </>
   )
 }

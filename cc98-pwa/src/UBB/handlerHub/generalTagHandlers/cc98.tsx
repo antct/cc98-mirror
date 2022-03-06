@@ -11,7 +11,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
   render(node: TagNode, context: IContext) {
     const cc98ID = node.tagData.__tagName__.slice(4)
 
-    const url = ((cc98ID>='15' && cc98ID<='30') ?`${context.imgBaseURL}/CC98/CC98${cc98ID}.png`:`${context.imgBaseURL}/CC98/CC98${cc98ID}.gif`)
+    const url = (((cc98ID >= '15' && cc98ID <='30') || cc98ID >= '36') ?`${context.imgBaseURL}/CC98/CC98${cc98ID}.png`:`${context.imgBaseURL}/CC98/CC98${cc98ID}.gif`)
 
     return <img className="ubb-tag-cc98" src={url} alt={`[CC98${cc98ID}]`} />
   },

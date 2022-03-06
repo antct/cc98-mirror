@@ -8,12 +8,10 @@ import LogInForm from './LogInForm'
 const LogIn: React.FC = () => {
   const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
   return (
-    IS_PC ?
-      <PCLayoutCenter open={isDrawerOpen}>
-        <LogInForm />
-      </PCLayoutCenter>
-      :
-      <LayoutCenter>
+    IS_PC ? <PCLayoutCenter open={isDrawerOpen}>
+      <LogInForm />
+    </PCLayoutCenter>
+      : <LayoutCenter>
         <LogInForm />
       </LayoutCenter>
   )

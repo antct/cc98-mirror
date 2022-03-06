@@ -120,6 +120,9 @@ interface Props {
    * 是否追踪
    */
   isTrace?: boolean
+  /**
+   * 是否分享
+   */
   isShare?: boolean
   /**
    * 帖子元信息

@@ -1,4 +1,4 @@
-import { DRAWER_WIDTH, MAX_WIDTH, PC_WIDTH } from '@/config'
+import { DRAWER_WIDTH, PC_WIDTH } from '@/config'
 import useModel from '@/hooks/useModel'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
@@ -13,7 +13,6 @@ import FiberNewIcon from '@mui/icons-material/FiberNew'
 import GroupIcon from '@mui/icons-material/Group'
 import HelpIcon from '@mui/icons-material/Help'
 import HomeIcon from '@mui/icons-material/Home'
-import IndexIcon from '@mui/icons-material/List'
 import MailIcon from '@mui/icons-material/Mail'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
@@ -97,7 +96,7 @@ const DividerS = muiStyled(Divider)({
 
 const jump = (link: string) => () => navigate(link)
 
-const MobileMenu: React.FC = ({children}) => {
+const MobileMenu: React.FC = ({ children }) => {
   const user = useModel(userModel)
   const auth = useAuth()
   const { LOG_OUT } = userModel

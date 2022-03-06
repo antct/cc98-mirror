@@ -1,4 +1,5 @@
 import snowball from '@/assets/snowball.png'
+import LoadingCircle from '@/components/LoadingCircle'
 import userModel from '@/models/user'
 import muiStyled from '@/muiStyled'
 import { loginHandler } from '@/services/utils/errorHandler'
@@ -75,6 +76,7 @@ const LogIn: React.FC = () => {
     setLocalStorage('refresh_token', `${auth.user?.refresh_token}`, 2592000)
     setLocalStorage('access_type', 'authorization', 2592000)
     if (window.location.pathname !== '/') navigate('/')
+    return null
   }
 
   const [formField, setFormField] = useState<FormField>({
@@ -164,7 +166,7 @@ const LogIn: React.FC = () => {
         {logInState.logInFail ? '重试' : '登录'}
         {logInState.loading && <ButtonProgress />}
       </LogInButton>
-      <VisitorButton onClick={() => navigate('/')}>
+      <VisitorButton onClick={() => navigate('/hotTopics')}>
         我是游客
       </VisitorButton>
       <VisitorButton disabled={authInState.loading} onClick={() => {
@@ -174,7 +176,7 @@ const LogIn: React.FC = () => {
           logInFail: false,
         })
       }}>
-        CC98授权(内网)
+        CC98内网授权
         {authInState.loading && <ButtonProgress />}
       </VisitorButton>
     </WrapperDiv>

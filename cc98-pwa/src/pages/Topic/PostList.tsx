@@ -1,6 +1,5 @@
 import InfiniteList from '@/components/InfiniteList'
 import LoadingCircle from '@/components/LoadingCircle'
-import { IS_PC } from '@/config'
 import useFetcher, { Service as SService } from '@/hooks/useFetcher'
 import useInfList, { Service, usePageList } from '@/hooks/useInfList'
 import { getUsersInfoByIds } from '@/services/user'
@@ -11,9 +10,9 @@ import { Divider } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import withStyles from '@mui/styles/withStyles'
 import React, { useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 import PostItem from './PostItem'
 import PostListHot from './PostListHot'
-import styled from 'styled-components'
 
 
 interface IUserMap {

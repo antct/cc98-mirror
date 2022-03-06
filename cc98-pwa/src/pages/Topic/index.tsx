@@ -3,7 +3,7 @@ import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { useQuery } from '@/router'
-import { getHotPost, getPost, getPostSummary, getReversePost, getTracePost, getCachePost } from '@/services/post'
+import { getCachePost, getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
 import {
   getTopicInfo
 } from '@/services/topic'

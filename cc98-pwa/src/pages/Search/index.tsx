@@ -24,7 +24,7 @@ export default () => {
 
   const onSearch = throttle((value: string) => {
     setSearch(value)
-    setSearchKey(prevKey => prevKey+1)
+    setSearchKey(prevKey => prevKey + 1)
   }, 1000 * 10)
 
   const handleChange = (_: React.ChangeEvent, value: string) => {
@@ -35,7 +35,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput onSearch={onSearch} />
+        <SearchInput placeholder='搜索关键词' onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"
@@ -57,16 +57,15 @@ export default () => {
               service={(from: number) => searchTopicContent(search, from, searchSort)}
               place="search"
             />
-            <FixFab>
+            <FixFab onClick={
+              () => {
+                setSearchSort(prevState => 1 - prevState)
+                setSearchKey(prevKey => prevKey + 1)
+              }
+            }>
               <Tooltip title='时序' placement='left'>
                 <TimelineIcon
                   color={searchSort === 1 ? 'secondary' : 'inherit'}
-                  onClick={
-                    () => {
-                      setSearchSort(prevState => 1 - prevState)
-                      setSearchKey(prevKey => prevKey + 1)
-                    }
-                  }
                 />
               </Tooltip>
             </FixFab>
