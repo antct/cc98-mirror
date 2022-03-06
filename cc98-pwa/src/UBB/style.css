@@ -75,17 +75,21 @@
 
 
 .ubb-tag-quote-container {
-  padding: 10px;
-  /* background-color: #f5faff; */
-  border: 1px solid #cccccc;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.87);
+  /* border: 1px solid #cccccc; */
   max-height: 270px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .ubb-tag-quote-item {
   margin-top: 1.2em;
 }
 
+.ubb-tag-quote-item:first-child {
+  margin-top: 0em;
+}
 
 .ubb-tag-right {
   text-align: right;

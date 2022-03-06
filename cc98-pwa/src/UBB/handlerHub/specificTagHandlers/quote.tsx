@@ -30,7 +30,7 @@ const handler: ITagHandler<React.ReactNode> = {
     return (
       <div className="ubb-tag-quote-container">
         {context.quotes!.map((item, i) => (
-          <div key={i} className={i !== 0 ? 'ubb-tag-quote-item' : undefined}>
+          <div key={i} className={'ubb-tag-quote-item'}>
             {item}
           </div>
         ))}
