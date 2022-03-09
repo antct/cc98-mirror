@@ -1,10 +1,12 @@
-import { IMG_BASE_URL } from '@/config'
+import { CDN, IMG_BASE_URL } from '@/config'
 import { navigate } from '@/utils/history'
 import { IBasicBoard } from '@cc98/api'
 import { CardMedia, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
 import LazyLoad from 'react-lazyload'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -46,6 +48,8 @@ interface Props {
 }
 
 export default ({ boardInfo, hasCover }: Props) => {
+  const { useCDN } = useModel(settingModel, ['useCDN'])
+
   const classes = useStyles()
   const transName = (name: string) => {
     const idx = name.indexOf('·')
@@ -67,7 +71,7 @@ export default ({ boardInfo, hasCover }: Props) => {
 
         {hasCover && (
           <div className={classes.mediaGround}>
-            <CardMedia className={classes.media} image={`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`} />
+            <CardMedia className={classes.media} image={useCDN ? CDN(`${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`, false) : `${IMG_BASE_URL}/_${transName(boardInfo.name)}.png`} />
           </div>
         )}
       </div>

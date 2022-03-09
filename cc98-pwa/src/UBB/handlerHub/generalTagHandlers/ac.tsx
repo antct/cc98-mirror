@@ -1,3 +1,6 @@
+import { CDN } from '@/config'
+import useModel from '@/hooks/useModel'
+import settingModel from '@/models/setting'
 import { ModeEnum } from '@/theme'
 import { IContext } from '@cc98/context'
 import { IGeneralTagHandler, TagNode } from '@cc98/ubb-core'
@@ -10,6 +13,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
   match: /ac\d{2}/i,
 
   render(node: TagNode, context: IContext) {
+    const { useCDN } = useModel(settingModel, ['useCDN'])
     const acID = node.tagData.__tagName__.slice(2)
 
     const url =
@@ -17,7 +21,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
         ? `${context.imgBaseURL}/ac/${acID}.png`
         : `${context.imgBaseURL}/ac-reverse/${acID}.png`
 
-    return <img className="ubb-tag-ac" src={url} alt={`[ac${acID}]`} />
+    return <img className="ubb-tag-ac" src={useCDN ? CDN(url, false) : url} alt={`[ac${acID}]`} />
   },
 }
 

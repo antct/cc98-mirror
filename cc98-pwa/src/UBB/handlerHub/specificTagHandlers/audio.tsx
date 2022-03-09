@@ -43,7 +43,7 @@ const Audio: React.FC<Props> = ({ src, title, author }) => {
           url: encodeURI(!useCDN ? src : CDN(src, false)),
           name: title ? title : encodeURI(!useCDN ? src : CDN(src, false)),
           author: author ? author : null,
-          cover: `${IMG_BASE_URL}/audio_cover.png`,
+          cover: useCDN ? CDN(`${IMG_BASE_URL}/audio_cover.png`, false) : `${IMG_BASE_URL}/audio_cover.png`,
         },
       })
 
