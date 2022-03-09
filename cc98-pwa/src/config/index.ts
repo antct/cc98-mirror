@@ -22,3 +22,14 @@ export const CDN = (url: string, isAvatar: boolean) => {
     else if (url.indexOf('images') !== -1) return `${url.replace(IMG_BASE_URL, CDN_IMG_URL)}`
     else return url
 }
+export const RCDN = (url: string, isAvatar: boolean) => {
+    if (url.indexOf('cc98.top') === -1) return url
+    if (url.indexOf('images') !== -1) {
+        return `${url.replace(CDN_IMG_URL, IMG_BASE_URL)}`
+    }
+    else if (url.indexOf('img') !== -1 || url.indexOf('file') !== -1) {
+        if (isAvatar) return `${url.replace(CDN_AVATAR_URL, FILE_BASE_URL).replace('!avatar', '')}`
+        else return `${url.replace(CDN_FILE_URL, FILE_BASE_URL)}`
+    }
+    else return url
+}

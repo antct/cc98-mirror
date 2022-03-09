@@ -1,4 +1,4 @@
-import { PC_WIDTH } from '@/config'
+import { CDN, PC_WIDTH } from '@/config'
 import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
@@ -25,7 +25,7 @@ export default ({ }: Props) => {
   const [theme] = useFetcher(() => getTheme(), {
     fail: notificationHandler,
   })
-  const { showTheme } = useModel(settingModel, ['showTheme'])
+  const { showTheme, useCDN } = useModel(settingModel, ['showTheme', 'useCDN'])
   const { TOGGLE_THEME } = settingModel
 
   return (
@@ -46,15 +46,12 @@ export default ({ }: Props) => {
             {
               !!theme ?
                 <>
-                  <WrapperDiv style={{ backgroundImage: `url("${theme?.url}?width=${PC_WIDTH}")` }}>
-                  </WrapperDiv>
+                  <WrapperDiv style={{ backgroundImage: useCDN ? CDN(`url("${theme?.url}`, false) : `url("${theme?.url}?width=${PC_WIDTH}")` }} />
                   <Divider />
                 </>
                 :
                 <>
-                  <WrapperDiv style={{ backgroundColor: '#e2e2e2' }}>
-                    {/* <LoadingCircle /> */}
-                  </WrapperDiv>
+                  <WrapperDiv style={{ backgroundColor: '#e2e2e2' }} />
                   <Divider />
                 </>
             }
