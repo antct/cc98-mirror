@@ -17,6 +17,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
 import MarkdownView from 'react-showdown'
 import styled from 'styled-components'
+import DownloadIcon from '@mui/icons-material/DownloadOutlined'
 
 
 const Overlay = styled.div`
@@ -212,6 +213,26 @@ export default ({ postInfo, isShare }: Props) => {
             <ZoomInIcon sx={{ margin: '0px 5px' }} onClick={() => onScale(scale + 0.2)} />
             <ZoomOutIcon sx={{ margin: '0px 5px' }} onClick={() => onScale(scale - 0.2)} />
             <RotateRightIcon sx={{ margin: '0px 5px' }} onClick={() => onRotate(rotate + 90)} />
+            <DownloadIcon sx={{ margin: '0px 5px' }} onClick={() => {
+              const tag = document.createElement('a');
+              const src = images[index].src
+              if (src === undefined) return
+              tag.setAttribute('download', src.substring(src.lastIndexOf('/') + 1))
+              const image = new Image()
+              image.src = src + '?time=' + new Date().getTime()
+              image.setAttribute('crossOrigin', 'Anonymous')
+              image.onload = () => {
+                const canvas = document.createElement('canvas')
+                canvas.width = image.width
+                canvas.height = image.height
+                const ctx = canvas.getContext('2d')
+                ctx && ctx.drawImage(image, 0, 0, image.width, image.height)
+                const extension = image.src.substring(image.src.lastIndexOf('.') + 1).toLowerCase()
+                tag.href = canvas.toDataURL('image/' + extension, 1)
+                tag.click()
+              }
+            }}
+            />
           </>
         );
       }}

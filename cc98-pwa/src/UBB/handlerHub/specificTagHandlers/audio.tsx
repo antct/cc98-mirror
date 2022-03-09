@@ -49,6 +49,7 @@ const Audio: React.FC<Props> = ({ src, title, author }) => {
 
       aplayer.on('error', () => {
         aplayer && aplayer.destroy()
+        if (!divRef.current) return
         aplayer = new APlayer({
           container: divRef.current,
           autoplay: false,

@@ -43,6 +43,7 @@ const Video: React.FC<Props> = ({ src }) => {
 
       dplayer.on('error', () => {
         dplayer && dplayer.destroy()
+        if (!divRef.current) return
         dplayer = new DPlayer({
           container: divRef.current,
           autoplay: false,
@@ -52,7 +53,7 @@ const Video: React.FC<Props> = ({ src }) => {
             type: 'auto',
           },
         })
-        dplayer.on('error', () => {})
+        dplayer.on('error', () => { })
       })
 
       // 监听到 url 改变，暂停播放
