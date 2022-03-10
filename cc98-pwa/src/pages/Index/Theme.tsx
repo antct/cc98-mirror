@@ -46,7 +46,8 @@ export default ({ }: Props) => {
             {
               !!theme ?
                 <>
-                  <WrapperDiv style={{ backgroundImage: useCDN ? CDN(`url("${theme?.url}`, false) : `url("${theme?.url}?width=${PC_WIDTH}")` }} />
+                  {/* <WrapperDiv style={{ backgroundImage: useCDN ? CDN(`url("${theme?.url}`, false) : `url("${theme?.url}?width=${PC_WIDTH}")` }} /> */}
+                  <WrapperDiv style={{ backgroundImage: `url("${theme?.url}?width=${PC_WIDTH}")` }} />
                   <Divider />
                 </>
                 :
