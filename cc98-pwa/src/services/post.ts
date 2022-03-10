@@ -1,5 +1,5 @@
 import { GET, PUT } from '@/utils/fetch'
-import { IEnhance, IFace, ILike, IMyPosts, IPost, IReply, ISummary } from '@cc98/api'
+import { IEnhance, IFace, ILike, IMyPosts, IPost, IReply, ISummary, ITopic } from '@cc98/api'
 
 /**
  * 获取一个帖子的10层楼
@@ -77,6 +77,14 @@ export async function getReversePost(id: number | string, from: number, total: n
 export async function getCachePost(id: number | string) {
   const res = await GET<IPost[]>(`cache?id=${id}`)
   return await Promise.resolve(res)
+}
+
+/**
+ * 获取帖子缓存
+ */
+export async function getCacheTopicInfo(id: number | string) {
+  const res = await GET<ITopic[]>(`cache?id=${id}`)
+  return await Promise.resolve(res.map(posts => posts[0]))
 }
 
 /**

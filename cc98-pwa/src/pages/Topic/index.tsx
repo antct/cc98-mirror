@@ -3,7 +3,7 @@ import useFetcher from '@/hooks/useFetcher'
 import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import { useQuery } from '@/router'
-import { getCachePost, getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
+import { getCachePost, getCacheTopicInfo, getHotPost, getPost, getPostSummary, getReversePost, getTracePost } from '@/services/post'
 import {
   getTopicInfo
 } from '@/services/topic'
@@ -63,7 +63,8 @@ const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: P
   const shareToken = query.get('code')
   const isShare = shareToken !== null
 
-  const [topicInfo, setTopicInfo] = useFetcher(isShare ? () => getTopicInfo(topicId, shareToken) : () => getTopicInfo(topicId), {
+  // 缓存直接把posts[0]强行转化为topicInfo
+  const [topicInfo, setTopicInfo] = useFetcher(isCache ? () => getCacheTopicInfo(topicId) : ( isShare ? () => getTopicInfo(topicId, shareToken) : () => getTopicInfo(topicId)), {
     fail: navigateHandler,
   })
   // 用于刷新
