@@ -42,7 +42,8 @@ const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCD
   return (
     <LazyLoad height={200} offset={200} once>
       <PhotoView src={!useCDNFix ? src : CDN(src, false)} >
-        <div style={{ maxHeight: 1000, overflow: 'auto' }}>
+        {/* <div style={{ maxHeight: 1000, overflow: 'auto' }}> */}
+        <div>
           <img
             className="ubb-tag-img"
             src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}

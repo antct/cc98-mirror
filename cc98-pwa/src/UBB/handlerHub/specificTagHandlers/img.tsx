@@ -14,9 +14,10 @@ const handler: ITagHandler<React.ReactNode> = {
   render(node: TagNode, context: IContext) {
     const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     return (
-      <LazyLoad height={200} offset={200} once>
+      <LazyLoad height={200} offset={200} once overflow={node.parent && node.parent instanceof TagNode && node.parent.tagName === 'quote'}>
         <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)}>
-          <div style={{ maxHeight: 1000, overflow: 'auto' }}>
+          {/* <div style={{ maxHeight: 1000, overflow: 'auto' }}> */}
+          <div>
             {!useCDN ? (
               useCompress ?
                 <img className="ubb-tag-img" src={`${node.innerText}?compress=true&width=${IMG_COMPRESS_WIDTH}`} />
