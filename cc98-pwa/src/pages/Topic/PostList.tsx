@@ -204,8 +204,7 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
   // FIXME: 似乎应该加上指定依赖
   useEffect(() => {
     floorRef.current && floorRef.current.scrollIntoView({
-      block: 'center',
-      behavior: 'smooth'
+      'block': 'center'
     })
   }, [{}])
 
