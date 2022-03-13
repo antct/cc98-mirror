@@ -5,19 +5,19 @@ import muiStyled from '@/muiStyled'
 import { getEnhancedImage, getFaces } from '@/services/post'
 import { UBBReact } from '@/UBB'
 import { IPost } from '@cc98/api'
+import DownloadIcon from '@mui/icons-material/DownloadOutlined'
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNaturalOutlined'
 import HdrPlusIcon from '@mui/icons-material/HdrPlusOutlined'
 import RotateRightIcon from '@mui/icons-material/RotateRightOutlined'
 import ZoomInIcon from '@mui/icons-material/ZoomInOutlined'
 import ZoomOutIcon from '@mui/icons-material/ZoomOutOutlined'
-import { Typography } from '@mui/material'
+import { Skeleton, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
 import MarkdownView from 'react-showdown'
 import styled from 'styled-components'
-import DownloadIcon from '@mui/icons-material/DownloadOutlined'
 
 
 const Overlay = styled.div`
@@ -39,14 +39,17 @@ const Overlay = styled.div`
 const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCDN: string, useCompress: string }) => {
   const useCDNFix = useCDN === 'true'
   const useCompressFix = useCompress === 'true'
+  const [loading, setLoading] = useState(true)
   return (
     <LazyLoad height={200} offset={200} once>
+      {loading && <Skeleton height={200} sx={{ transform: 'unset', borderRadius: 'unset' }} />}
       <PhotoView src={!useCDNFix ? src : CDN(src, false)} >
         {/* <div style={{ maxHeight: 1000, overflow: 'auto' }}> */}
         <div>
           <img
             className="ubb-tag-img"
             src={!useCDNFix ? (useCompressFix ? `${src}?compress=true&width=${IMG_COMPRESS_WIDTH}` : `${src}?compress=false`) : CDN(src, false)}
+            onLoad={() => setLoading(false)}
             onError={
               (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
                 if (event.currentTarget.src === src) return
