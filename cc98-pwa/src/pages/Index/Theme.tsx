@@ -6,7 +6,7 @@ import { getTheme } from '@/services/global'
 import { notificationHandler } from '@/services/utils/errorHandler'
 import VolumeOffIcon from '@mui/icons-material/VolumeOff'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
-import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { Divider, ListItem, ListItemIcon, ListItemText, Skeleton } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -52,7 +52,9 @@ export default ({ }: Props) => {
                 </>
                 :
                 <>
-                  <WrapperDiv style={{ backgroundColor: '#e2e2e2' }} />
+                  <WrapperDiv>
+                    <Skeleton height={70} sx={{ transform: 'unset', borderRadius: 'unset' }} />
+                  </WrapperDiv>
                   <Divider />
                 </>
             }

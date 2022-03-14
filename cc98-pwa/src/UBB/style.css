@@ -75,12 +75,13 @@
 
 
 .ubb-tag-quote-container {
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.08);
-  color: rgba(0, 0, 0, 0.87);
+  /* padding: 8px; */
+  /* background-color: rgba(0, 0, 0, 0.08); */
+  /* color: rgba(0, 0, 0, 0.87); */
   /* border: 1px solid #cccccc; */
   max-height: 270px;
   overflow-y: auto;
+  margin-bottom: -12px;
 }
 
 .ubb-tag-quote-item {
