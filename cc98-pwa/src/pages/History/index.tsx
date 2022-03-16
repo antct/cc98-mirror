@@ -1,3 +1,4 @@
+import { CLAMP } from '@/config'
 import useModel from '@/hooks/useModel'
 import ListS from '@/hotfix/List'
 import historyModel from '@/models/history'
@@ -42,19 +43,12 @@ const SubTitle = muiStyled(Typography).attrs({
 const History: React.FC = () => {
   const { historyList } = useModel(historyModel)
 
-  function clamp(str: string) {
-    if (str.length <= 20) {
-      return str
-    }
-    return `${str.slice(0, 20)}...`
-  }
-
   return (
     <ListS>
       {historyList.map(item => (
         <ListItemButtonS key={item.id} onClick={() => navigate(`/topic/${item.id}`)}>
           <TitleArea>
-            <Title>{clamp(item.title)}</Title>
+            <Title>{CLAMP(item.title)}</Title>
             <SubTitle>{`${dayjs(item.lastViewTime).fromNow()}`}</SubTitle>
           </TitleArea>
           <ListItemSecondaryActionS>

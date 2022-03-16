@@ -33,3 +33,9 @@ export const RCDN = (url: string, isAvatar: boolean) => {
     }
     else return url
 }
+export const CLAMP = (str: string) => {
+    if (str.length <= 20) {
+        return str
+    }
+    return `${str.slice(0, 20)}...`
+}

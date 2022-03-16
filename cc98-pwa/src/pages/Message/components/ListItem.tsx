@@ -1,3 +1,4 @@
+import { CLAMP } from '@/config'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import { navigate } from '@/utils/history'
@@ -12,7 +13,7 @@ const Text = styled.span`
   display: block;
   max-width: 80%;
   overflow: hidden;
-  white-space: pre-wrap;
+  white-space: nowrap;
   text-overflow: ellipsis;
 `
 
@@ -36,15 +37,14 @@ export default ({ message, user }: Props) => {
   }
   const { name, portraitUrl } = user
   const { TRANS_IMG } = settingModel
-
   return (
-    <ListItem button onClick={() => navigateToDetail(message.userId)}>
+    <ListItem button divider onClick={() => navigateToDetail(message.userId)}>
       <LazyLoad height={'100%'} offset={200} once>
         <ListItemAvatar>
           <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
         </ListItemAvatar>
       </LazyLoad>
-      <ListItemText primary={name} secondary={<Text>{message.lastContent}</Text>} />
+      <ListItemText primary={name} secondary={<Text>{CLAMP(message.lastContent.replace(/\[.*?\]/g, ''))}</Text>} />
       <ListItemSecondaryAction>
         <ListItemText secondary={dayjs(message.time).fromNow()} />
       </ListItemSecondaryAction>

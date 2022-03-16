@@ -1,3 +1,4 @@
+import { CLAMP } from '@/config'
 import ListItemText from '@/hotfix/ListItemText'
 import settingModel from '@/models/setting'
 import { navigate } from '@/utils/history'
@@ -23,13 +24,7 @@ interface Props {
 export default ({ data }: Props) => {
   const { id, name, portraitUrl, lastLogOnTime, signatureCode } = data
   const { TRANS_IMG } = settingModel
-  const clamp = (str: string) => {
-    if (str.length <= 20) {
-      return str
-    }
-    return `${str.slice(0, 20)}...`
-  }
-  const fixSignatureCode = clamp(signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''))
+  const fixSignatureCode = CLAMP(signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''))
 
   return (
     <ListItem button divider onClick={() => navigate(`/user/${id}`)}>
