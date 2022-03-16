@@ -44,7 +44,7 @@ export default () => {
 
   return (
     <>
-      <Title>N站趣味盒</Title>
+      <Title>NexusHD趣味盒</Title>
       <Divider />
       {isLoading && <LoadingCircle />}
 
@@ -57,7 +57,13 @@ export default () => {
                   <TableCellS>{row.title}</TableCellS>
                 </TableRow>
                 <TableRow>
-                  {row.img.map(src => <LazyLoad height={200} offset={200}><TableCellS><Img src={src} /></TableCellS></LazyLoad>)}
+                  {row.img.map(src =>
+                    <LazyLoad height={200} offset={200} once>
+                      <TableCellS>
+                        <Img src={src} />
+                      </TableCellS>
+                    </LazyLoad>)
+                  }
                 </TableRow>
               </>
             ))}

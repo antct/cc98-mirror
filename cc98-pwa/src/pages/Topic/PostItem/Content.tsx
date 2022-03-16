@@ -119,9 +119,16 @@ export default ({ postInfo, isShare }: Props) => {
     const ubb_link_regex = /\[url.*?\].*?\[\/url\]/g
     // const markdown_link_regex = /(?<!!)\[.*?\]\(.*?\)/g
     const markdown_link_regex = /([^!]|^)\[.*?\]\(.*?\)/g
-    if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式禁止跳转[/url]')
-    else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式禁止跳转](${window.location.href})`)
+    if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式跳转禁用[/url]')
+    else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式跳转禁用](${window.location.href})`)
   }
+
+  // quote中的用户跳转
+  const quote_user_regex = /\[quote\][\s\S]*?用户(.*?)在[\s\S]*?/g
+  regex_content = regex_content.replace(quote_user_regex, (match: string, capture1: string) => {
+    if (capture1.indexOf('匿名') !== -1) return match
+    return match.replace(`用户${capture1}`, `用户[url=/user/name/${capture1}]${capture1}[/url]`)
+  })
 
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content)
 

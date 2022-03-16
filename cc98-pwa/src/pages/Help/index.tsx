@@ -47,12 +47,12 @@ const Index = () => (
     <Item icon={<WifiTetheringIcon />} text="论坛代理" url="/help/proxyInfo" />
     <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
-    <Item icon={<ScoreIcon />} text="活跃度" url="/help/activityPoint" />
-    <Item icon={<EventIcon />} text="排行榜" url="https://rank.cc98.top/User/Wealth" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />
-    <Item icon={<FunIcon />} text="N站趣味盒" url="/help/nexushdFun" />
+    <Item icon={<ScoreIcon />} text="论坛活跃度" url="/help/activityPoint" />
+    <Item icon={<EventIcon />} text="财富排行榜" url="https://rank.cc98.top/User/Wealth" external={true} />
+    <Item icon={<FunIcon />} text="NexusHD趣味盒" url="/help/nexushdFun" />
     <Item icon={<MusicIcon />} text="广播点歌台" url="/topic/5180600" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
     <Item icon={<BugReportIcon />} text="新手代码测试楼" url="/topic/4759491" />

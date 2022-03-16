@@ -96,7 +96,7 @@ const StickyHeadBar: React.FC<Props> = ({ title, titleClick, subTitle, subTitleC
           <PCSubTitle onClick={subTitleClick}>{subTitle}</PCSubTitle>
           {action && <PCAcitonDiv>{action}</PCAcitonDiv>}
         </StickyBar>
-        <Divider />
+        <Divider sx={{ width: '100%' }} />
       </>
       :
       <StickyBar>

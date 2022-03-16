@@ -1,4 +1,5 @@
 import StickyHeadBar from '@/components/StickyBar/StickyHeadBar'
+import { IS_PC } from '@/config'
 import { navigate } from '@/utils/history'
 import { IBoard } from '@cc98/api'
 import React from 'react'
@@ -14,6 +15,7 @@ const RecordHead: React.FC<Props> = ({ title, boardInfo }) => (
     title={title}
     subTitle={boardInfo.name}
     subTitleClick={() => navigate(`/board/${boardInfo.id}`)}
+    isShare={IS_PC}
   />
 )
 
