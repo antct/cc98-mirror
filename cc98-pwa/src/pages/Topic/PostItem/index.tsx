@@ -71,15 +71,16 @@ const CheckboxS = muiStyled(Checkbox).attrs({
   verticalAlign: 'text-top'
 })
 
-const ChipS = muiStyled(Chip)({
-  marginRight: 8,
-  height: 16
-})
+const ChipS = withStyles(theme => ({
+  root: {
+    height: 16,
+    marginRight: 8
+  }
+}))(Chip)
 
 const SummaryS = withStyles(theme => ({
   root: {
     height: 'auto',
-    marginTop: 8,
     maxWidth: '100%',
     alignItems: "normal",
     borderRadius: 0
@@ -99,8 +100,10 @@ const SummaryIconS = muiStyled(SummaryIcon)({
   width: 16
 })
 
+
 const ChipDiv = styled.div`
-  margin: -8px 16px 8px 16px;
+  margin: 0px 16px 8px 16px;
+  display: flex;
 `
 
 interface Props {
