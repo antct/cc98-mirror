@@ -73,8 +73,7 @@ const Markdown = (content: string) => {
 
 const TypographyS = muiStyled(Typography).attrs({
 })({
-  margin: '12px 16px',
-  marginBottom: 0
+  margin: '0px 16px'
 })
 
 interface Props {
@@ -115,13 +114,13 @@ export default ({ postInfo, isShare }: Props) => {
     })
   }
   // 分享模式禁止跳转
-  if (window.location.search.indexOf('code') !== -1) {
-    const ubb_link_regex = /\[url.*?\].*?\[\/url\]/g
-    // const markdown_link_regex = /(?<!!)\[.*?\]\(.*?\)/g
-    const markdown_link_regex = /([^!]|^)\[.*?\]\(.*?\)/g
-    if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式跳转禁用[/url]')
-    else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式跳转禁用](${window.location.href})`)
-  }
+  // if (window.location.search.indexOf('code') !== -1) {
+  //   const ubb_link_regex = /\[url.*?\].*?\[\/url\]/g
+  //   // const markdown_link_regex = /(?<!!)\[.*?\]\(.*?\)/g
+  //   const markdown_link_regex = /([^!]|^)\[.*?\]\(.*?\)/g
+  //   if (postInfo.contentType === 0) regex_content = regex_content.replace(ubb_link_regex, '[url]分享模式跳转禁用[/url]')
+  //   else regex_content = regex_content.replace(markdown_link_regex, `$1[分享模式跳转禁用](${window.location.href})`)
+  // }
 
   // quote中的用户跳转
   const quote_user_regex = /\[quote\][\s\S]*?用户(.*?)在[\s\S]*?/g
