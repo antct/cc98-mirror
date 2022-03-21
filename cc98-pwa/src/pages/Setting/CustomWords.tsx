@@ -43,7 +43,7 @@ export default () => {
   }
 
   return <>
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="订阅关键词" secondary="高亮显示自定义词" />
       <IconButton color="primary" onClick={handleOpen} size="large">
         <AddIcon />

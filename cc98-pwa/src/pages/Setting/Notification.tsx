@@ -9,7 +9,7 @@ export default () => {
   const { TOGGLE_NOTIFICATION } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="通知提醒" secondary="接收通知信息" />
       <Switch checked={useNotification} onChange={TOGGLE_NOTIFICATION} />
     </ListItem>

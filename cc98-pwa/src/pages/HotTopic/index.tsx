@@ -45,10 +45,9 @@ export function useUrlMap() {
 
 export const HotTopicList: React.FC<Props> = ({ service, delay = 0 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics] = useFetcher(service, {
     fail: notificationHandler,
-    success: useAvatar ? updateUrlMap : undefined
+    success: updateUrlMap
   })
   const isResolve = useDelay(delay)
 

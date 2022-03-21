@@ -1,6 +1,5 @@
 import ListS from '@/hotfix/List'
 import React from 'react'
-import Avatar from './Avatar'
 import Cache from './Cache'
 import CDN from './CDN'
 import Compress from './Compress'
@@ -19,7 +18,6 @@ const Setting: React.FC = () => (
     <Theme />
     {/* <CustomHome /> */}
     <Mode />
-    <Avatar />
     <Pagination />
     <Signature />
     <Notification />

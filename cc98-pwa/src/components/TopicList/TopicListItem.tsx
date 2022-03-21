@@ -201,7 +201,7 @@ interface Props {
 
 export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useAvatar, customWords } = useModel(settingModel, ['useAvatar', 'customWords'])
+  const { customWords } = useModel(settingModel, ['customWords'])
   const { TRANS_IMG } = settingModel
   useEffect(() => {
     getBoardNameById(data.boardId).then(boardName => setBoardName(boardName))
@@ -280,7 +280,7 @@ export default ({ data, place, portraitUrl }: Props) => {
       onClick={() => navigate(`/topic/${data.id}`)}
       isHighlight={showHighlight}
       portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
-      showAvatar={useAvatar && showAvatar}
+      showAvatar={showAvatar}
       title={title}
       subtitle={subtitle}
       info1={info1}

@@ -9,7 +9,7 @@ export default () => {
   const { TOGGLE_SIGNATURE } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="签名档" secondary="显示用户个性签名" />
       <Switch checked={useSignature} onChange={TOGGLE_SIGNATURE} />
     </ListItem>

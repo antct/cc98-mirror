@@ -19,7 +19,6 @@ interface Props {
 
 export default ({ data, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const { TRANS_IMG } = settingModel
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default ({ data, portraitUrl }: Props) => {
 
   return (
     <TopicItem
-      showAvatar={useAvatar}
+      showAvatar={true}
       portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
       onClick={() => navigate(`/topic/${data.id}`)}
       title={data.title}

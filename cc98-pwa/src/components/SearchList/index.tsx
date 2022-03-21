@@ -62,10 +62,9 @@ interface InfProps {
 
 const InfSearchList: React.FC<InfProps> = ({ service, place }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [posts, state, callback] = useInfList(service, {
     fail: navigateHandler,
-    success: useAvatar ? updateUrlMap : undefined
+    success: updateUrlMap
   })
   const { isLoading, isEnd } = state
 

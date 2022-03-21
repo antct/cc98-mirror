@@ -9,7 +9,7 @@ export default () => {
   const { TOGGLE_PAGINATION } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="分页视图" secondary="帖子分页视图" />
       <Switch checked={usePagination} onChange={TOGGLE_PAGINATION} />
     </ListItem>

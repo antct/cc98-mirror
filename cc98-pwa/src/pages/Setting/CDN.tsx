@@ -9,7 +9,7 @@ export default () => {
   const { TOGGLE_CDN } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="图床混合加速" secondary="CC98官方图片CDN" />
       <Switch checked={useCDN} onChange={TOGGLE_CDN} />
     </ListItem>

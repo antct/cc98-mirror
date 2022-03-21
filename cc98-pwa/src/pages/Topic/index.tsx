@@ -35,9 +35,9 @@ interface Props {
 
 const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: Props) => {
   const { usePagination } = useModel(settingModel, ['usePagination'])
-  if (topicId && !page && !userId && !postId && !isReverse && !shareId && !isCache && usePagination) {
-    navigate(`/topic/${topicId}/1`, { replace: true })
-    return null
+  if (topicId && !page && !userId && !postId && !isReverse && !shareId && !isCache) {
+    if (usePagination) page = '1'
+    else page = 'undefined'
   }
 
   // 将shareId转化为 path+token的组合

@@ -80,19 +80,16 @@ interface ItemProps {
   info1: string
   info2: string
   portraitUrl?: string
-  showAvatar: boolean
   onClick: () => void
 }
 
-export const SearchItem: React.FC<ItemProps> = ({ onClick, portraitUrl, showAvatar, title, subtitle, info1, info2 }) => (
+export const SearchItem: React.FC<ItemProps> = ({ onClick, portraitUrl, title, subtitle, info1, info2 }) => (
   <ListItemButtonS divider onClick={onClick} >
-    {showAvatar &&
-      <AvatarArea>
-        <LazyLoad height={'100%'} offset={200} once>
-          <AvatarS src={portraitUrl} children={false} />
-        </LazyLoad>
-      </AvatarArea>
-    }
+    <AvatarArea>
+      <LazyLoad height={'100%'} offset={200} once>
+        <AvatarS src={portraitUrl} children={false} />
+      </LazyLoad>
+    </AvatarArea>
     <TitleArea>
       <Title><span dangerouslySetInnerHTML={{ __html: title }}></span></Title>
       <SubTitle><span dangerouslySetInnerHTML={{ __html: subtitle }}></span></SubTitle>
@@ -115,7 +112,6 @@ interface Props {
 
 export default ({ data, place, portraitUrl }: Props) => {
   const [boardName, setBoardName] = useState('')
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const { TRANS_IMG } = settingModel
   useEffect(() => {
     getBoardNameById(data.boardId).then(boardName => setBoardName(boardName))
@@ -125,7 +121,6 @@ export default ({ data, place, portraitUrl }: Props) => {
   let subtitle = data.highlightInfo?.content ? data.highlightInfo.content[0] : ''
   let info1 = boardName
   let info2 = dayjs(data.time).fromNow()
-  let showAvatar = true
 
   switch (place) {
     case 'search':
@@ -136,7 +131,6 @@ export default ({ data, place, portraitUrl }: Props) => {
     <SearchItem
       onClick={() => navigate(`/topic/${data.topicId}#${data.floor}`)}
       portraitUrl={data.isAnonymous ? TRANS_IMG(ANONYMOUS_AVATAR, true) : TRANS_IMG(portraitUrl, true)}
-      showAvatar={useAvatar && showAvatar}
       title={title}
       subtitle={subtitle}
       info1={info1}

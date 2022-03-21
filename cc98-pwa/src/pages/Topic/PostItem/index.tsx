@@ -236,7 +236,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
           <Header postInfo={currentPost} userInfo={userInfo} isHot={isHot} isShare={isShare} />
       }
       {
-        postInfo.floor === 1 && !!postInfo.tags &&
+        postInfo.floor === 1 && !!postInfo.tags && postInfo.tags.length > 0 &&
         <ChipDiv>
           {
             postInfo.tags.map((value, index) => (
@@ -246,11 +246,9 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
         </ChipDiv>
       }
       {
-        postInfo.floor === 1 &&
+        postInfo.floor === 1 && currentSummary !== undefined && currentSummary.length > 0 &&
         <ChipDiv>
-          {currentSummary !== undefined && currentSummary.length > 0 &&
-            <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
-          }
+          <SummaryS icon={<SummaryIconS />} size="small" label={currentSummary} />
         </ChipDiv>
       }
       {

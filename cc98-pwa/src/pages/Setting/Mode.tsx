@@ -10,7 +10,7 @@ const Theme = () => {
   const { TOGGLE_MODE } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="夜间模式" secondary="使用暗色主题" />
       <Switch checked={mode === ModeEnum.DARK} onChange={TOGGLE_MODE} />
     </ListItem>

@@ -77,10 +77,9 @@ interface InfProps {
 
 const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics, state, callback] = useInfList(service, {
     fail: navigateHandler,
-    success: (place !== 'usercenter' && useAvatar) ? updateUrlMap : undefined
+    success: (place !== 'usercenter') ? updateUrlMap : undefined
   })
   const { isLoading, isEnd } = state
 
@@ -103,10 +102,9 @@ interface FinProps {
 
 const FinTopicList: React.FC<FinProps> = ({ service, noLoading, place, delay = 0 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
-  const { useAvatar } = useModel(settingModel, ['useAvatar'])
   const [topics] = useFetcher(service, { 
     fail: navigateHandler,
-    success: (place !== 'usercenter' && useAvatar) ? updateUrlMap : undefined
+    success: (place !== 'usercenter') ? updateUrlMap : undefined
   })
   const isResolve = useDelay(delay)
 

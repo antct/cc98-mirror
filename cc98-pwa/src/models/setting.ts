@@ -24,7 +24,6 @@ interface State {
    * 是否使用官方图床加速
    */
   useCDN: boolean
-  useAvatar: boolean
   usePagination: boolean
   /**
    * 缓存页数
@@ -62,7 +61,6 @@ class SettingModel extends Model<State> {
       useSignalr: false,
       useSignature: false,
       useNotification: true,
-      useAvatar: true,
       usePagination: IS_PC,
       useCompress: true,
       useCDN: true,
@@ -123,13 +121,6 @@ class SettingModel extends Model<State> {
   TOGGLE_SIGNATURE = () => {
     this.setState(state => ({
       useSignature: !state.useSignature,
-    }))
-    this.SYNC_SETTING()
-  }
-
-  TOGGLE_AVATAR = () => {
-    this.setState(state => ({
-      useAvatar: !state.useAvatar,
     }))
     this.SYNC_SETTING()
   }

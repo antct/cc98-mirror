@@ -9,7 +9,7 @@ export default () => {
   const { TOGGLE_COMPRESS } = settingModel
 
   return (
-    <ListItem button>
+    <ListItem>
       <ListItemText primary="图片压缩" secondary="节省网络带宽" />
       <Switch checked={useCompress} onChange={TOGGLE_COMPRESS} />
     </ListItem>
