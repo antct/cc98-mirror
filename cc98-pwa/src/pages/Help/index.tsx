@@ -46,7 +46,7 @@ const Index = () => (
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
     <Item icon={<WifiTetheringIcon />} text="论坛代理" url="/help/proxyInfo" />
     <Item icon={<CopyrightIcon />} text="开发人员" url="/help/devTeam" />
-    <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/ttcqaq/cc98-mirror" external={true} />
+    <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/antct/cc98-mirror" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
     <Item icon={<NatureIcon />} text="心灵树洞" url="/topic/4238943/reverse" />

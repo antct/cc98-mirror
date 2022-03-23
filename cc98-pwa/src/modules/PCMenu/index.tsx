@@ -220,7 +220,7 @@ const PCMenu: React.FC = ({ children }) => {
           )}
           {!user.isLogIn && (
             <>
-              <Item icon={<HelpIcon />} text="联系" onClick={() => window.open('https://github.com/ttcqaq')} />
+              <Item icon={<HelpIcon />} text="联系" onClick={() => window.open('https://github.com/antct')} />
             </>
           )}
           {/* {user.isLogIn && (

@@ -37,7 +37,7 @@ const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: P
   const { usePagination } = useModel(settingModel, ['usePagination'])
   if (topicId && !page && !userId && !postId && !isReverse && !shareId && !isCache) {
     if (usePagination) page = '1'
-    else page = 'undefined'
+    else page = undefined
   }
 
   // 将shareId转化为 path+token的组合
