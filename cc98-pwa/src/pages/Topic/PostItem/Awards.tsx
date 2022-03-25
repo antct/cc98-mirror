@@ -90,7 +90,6 @@ const Awards = ({ awards }: Props) => {
                 children={false}
               />
               &nbsp;
-              &nbsp;
               {award.operatorName}
             </LazyLoad>
           </CellLeft>

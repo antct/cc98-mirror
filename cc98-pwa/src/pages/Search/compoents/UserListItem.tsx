@@ -28,7 +28,12 @@ export default ({ data }: Props) => {
 
   return (
     <ListItem button divider onClick={() => navigate(`/user/${id}`)}>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} /></ListItemAvatar>}
+      >
         <ListItemAvatar>
           <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
         </ListItemAvatar>

@@ -127,7 +127,12 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isHighlight = false, p
   <ListItemButtonS divider onClick={onClick} >
     {showAvatar &&
       <AvatarArea>
-        <LazyLoad height={'100%'} offset={200} once>
+        <LazyLoad
+          height={'100%'}
+          offset={200}
+          once
+          placeholder={<AvatarS src={undefined} children={false} />}
+        >
           <AvatarS src={portraitUrl} children={false} />
         </LazyLoad>
       </AvatarArea>

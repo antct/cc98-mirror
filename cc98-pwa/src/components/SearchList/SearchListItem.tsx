@@ -86,7 +86,12 @@ interface ItemProps {
 export const SearchItem: React.FC<ItemProps> = ({ onClick, portraitUrl, title, subtitle, info1, info2 }) => (
   <ListItemButtonS divider onClick={onClick} >
     <AvatarArea>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<AvatarS src={undefined} children={false} />}
+      >
         <AvatarS src={portraitUrl} children={false} />
       </LazyLoad>
     </AvatarArea>

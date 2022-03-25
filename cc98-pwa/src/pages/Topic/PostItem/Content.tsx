@@ -41,7 +41,11 @@ const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCD
   const useCompressFix = useCompress === 'true'
   const [loading, setLoading] = useState(true)
   return (
-    <LazyLoad height={200} offset={200} once>
+    <LazyLoad
+      height={200}
+      offset={200}
+      once
+    >
       {loading && <Skeleton height={200} sx={{ transform: 'unset', borderRadius: 'unset' }} />}
       <PhotoView src={!useCDNFix ? src : CDN(src, false)} >
         {/* <div style={{ maxHeight: 1000, overflow: 'auto' }}> */}

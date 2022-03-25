@@ -4,7 +4,7 @@ import settingModel from '@/models/setting'
 import { IContext } from '@cc98/context'
 import { ITagHandler, TagNode } from '@cc98/ubb-core'
 import { Skeleton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import { PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
@@ -16,7 +16,12 @@ const handler: ITagHandler<React.ReactNode> = {
     const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     const [loading, setLoading] = useState(true)
     return (
-      <LazyLoad height={200} offset={200} once overflow={node.parent && node.parent instanceof TagNode && node.parent.tagName === 'quote'}>
+      <LazyLoad
+        height={200}
+        offset={200}
+        once
+        overflow={node.parent && node.parent instanceof TagNode && node.parent.tagName === 'quote'}
+      >
         {loading && <Skeleton height={200} sx={{ transform: 'unset', borderRadius: 'unset' }} />}
         <PhotoView src={!useCDN ? `${node.innerText}` : CDN(node.innerText, false)}>
           {/* <div style={{ maxHeight: 1000, overflow: 'auto' }}> */}

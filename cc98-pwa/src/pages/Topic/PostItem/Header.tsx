@@ -126,7 +126,12 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
     <>
       <FlexDiv>
         <AvatarArea>
-          <LazyLoad height={'100%'} offset={200} once>
+          <LazyLoad
+            height={'100%'}
+            offset={200}
+            once
+            placeholder={<AvatarS src={undefined} children={false} />}
+          >
             {userInfo && dayjs().diff(dayjs(userInfo.lastLogOnTime), 'minute') <= ONLINE_TIME ?
               <StyledBadge
                 overlap="circular"

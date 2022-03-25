@@ -85,7 +85,12 @@ export default ({ data, place }: Props) => {
   const fixSignatureCode = CLAMP(signatureCode.replace(/\[.*?\]/g, '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''))
   return (
     <ListItem button divider onClick={() => navigateToDetail(data.id)}>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} /></ListItemAvatar>}
+      >
         <ListItemAvatar>
           {dayjs().diff(dayjs(lastLogOnTime), 'minute') <= ONLINE_TIME ?
             <StyledBadge

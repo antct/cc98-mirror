@@ -39,7 +39,12 @@ export default ({ message, user }: Props) => {
   const { TRANS_IMG } = settingModel
   return (
     <ListItem button divider onClick={() => navigateToDetail(message.userId)}>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} /></ListItemAvatar>}
+      >
         <ListItemAvatar>
           <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
         </ListItemAvatar>

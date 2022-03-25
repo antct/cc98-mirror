@@ -131,7 +131,12 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
     <ExpandPanel expanded>
       <WrapperDiv>
         <AvatarDiv>
-          <LazyLoad height={'100%'} offset={200} once>
+          <LazyLoad
+            height={'100%'}
+            offset={200}
+            once
+            placeholder={<AvatarS src={undefined} children={false} />}
+          >
             <AvatarS src={TRANS_IMG(info.portraitUrl, true)} children={false} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>

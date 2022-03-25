@@ -100,7 +100,13 @@ export default ({ message }: Props) => {
   }
   return !(myInfo.id === message.senderId) ? (
     <ListItemButtonS>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} /></ListItemAvatarS>}
+
+      >
         <ListItemAvatarS>
           <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} children={false} />
         </ListItemAvatarS>
@@ -121,7 +127,12 @@ export default ({ message }: Props) => {
         </MessageContentRight>
         <MessageDate>{dayjs(message.time).format('YYYY-MM-DD HH:mm:ss')}</MessageDate>
       </MessageRoot>
-      <LazyLoad height={'100%'} offset={200} once>
+      <LazyLoad
+        height={'100%'}
+        offset={200}
+        once
+        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} /></ListItemAvatarS>}
+      >
         <ListItemAvatarS>
           <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} children={false} />
         </ListItemAvatarS>
