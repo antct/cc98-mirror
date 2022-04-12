@@ -1,6 +1,6 @@
 .ubb-root {
   white-space: pre-wrap;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 /* specificTagHandlers */
@@ -37,8 +37,8 @@
 .ubb-tag-code-line::before {
   content: counter(li);
   display: inline-flex;
-  width: 50px;
-  margin: 0 10px;
+  width: 25px;
+  margin: 0 10px 0 0;
   justify-content: center;
   /* FIXME: hardcode color */
   background-color: #ebebeb;

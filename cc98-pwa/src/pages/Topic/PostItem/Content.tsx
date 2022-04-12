@@ -75,6 +75,42 @@ const Markdown = (content: string) => {
   />
 }
 
+// 这段代码直接拷贝官方
+const atUserUrl = (content: string, contentType: number) => {
+  try {
+    const reg = /@[^ \n]{1,10}?[ ]+/g
+    const reg2 = /[^@ ]+/
+    if (content === "") {
+      return content
+    } else if (content.match(reg)) {
+      //如果match方法返回了非null的值（即数组），则说明内容中存在合法的@
+      let atNum = content.match(reg)!.length //合法的@数
+      if (atNum > 10) atNum = 10 //至多10个
+      let ats: string[] = new Array()
+      for (let i = 0; i < atNum; i++) {
+        //提取@字符串
+        let anAt = content.match(reg)![i]
+        //提取@的用户名
+        let aUserName = reg2.exec(anAt)![0]
+        ats[i] = aUserName
+      }
+      for (let i = 0; i < atNum; i++) {
+        //给@用户名加上效果
+        let atText = new RegExp(`@${ats[i]} `, "g")
+        content = content.replace(
+          atText,
+          contentType === 0 ? `[url="/user/name/${encodeURIComponent(ats[i])}"]@${ats[i]} [/url]` : `[@${ats[i]} ](/user/name/${ats[i]})`
+        )
+      }
+      return content
+    } else {
+      return content
+    }
+  } catch (e) {
+    return content
+  }
+}
+
 const TypographyS = muiStyled(Typography).attrs({
 })({
   margin: '0px 16px'
@@ -132,6 +168,8 @@ export default ({ postInfo, isShare }: Props) => {
     if (capture1.indexOf('匿名') !== -1) return match
     return match.replace(`用户${capture1}`, `用户[url=/user/name/${capture1}]${capture1}[/url]`)
   })
+
+  regex_content = atUserUrl(regex_content, postInfo.contentType)
 
   const content = postInfo.contentType === 0 ? UBBReact(regex_content) : Markdown(regex_content)
 

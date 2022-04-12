@@ -15,6 +15,7 @@ const handler: ITagHandler<React.ReactNode> = {
   render(node: TagNode, context: IContext) {
     const { useCompress, useCDN } = useModel(settingModel, ['useCompress', 'useCDN'])
     const [loading, setLoading] = useState(true)
+    const [fold, setFold] = useState(true)
     return (
       <LazyLoad
         height={200}
