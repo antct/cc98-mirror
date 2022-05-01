@@ -162,6 +162,8 @@ export function logOut() {
   removeLocalStorage('access_token')
   removeLocalStorage('access_type')
   removeLocalStorage('refresh_token')
+  removeLocalStorage('fan_count')
+  removeLocalStorage('sign_state')
 }
 
 /**
