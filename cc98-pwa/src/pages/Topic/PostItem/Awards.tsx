@@ -46,19 +46,22 @@ interface IUserMap {
 function useUserMap() {
   const [userMap, setUserMap] = useState<IUserMap>({})
 
-  const updateUserMap = async (list: IAward[]) => {
+  const updateUserMap = async (list: IAward[], num: number) => {
     if (list.length == 0) return null
+    list = list.slice(0, num)
     let userIds = list.map(p => p.operatorName).filter(name => name)
     if (userIds.length == 0) return null
-    const res = await getUsersInfoByNames(userIds)
-    res.fail().succeed(users => {
-      users.forEach(user => {
-        userMap[user.name] = user
-      })
+    for (let i = 0; i < list.length; i += 10) {
+      const res = await getUsersInfoByNames(userIds.slice(i, i+10))
+      res.fail().succeed(users => {
+        users.forEach(user => {
+          userMap[user.name] = user
+        })
 
-      // react use Object.is algorithm for comparing
-      setUserMap({ ...userMap })
-    })
+        // react use Object.is algorithm for comparing
+        setUserMap({ ...userMap })
+      })
+    }
   }
 
   return [userMap, updateUserMap] as [typeof userMap, typeof updateUserMap]
@@ -73,8 +76,9 @@ const Awards = ({ awards }: Props) => {
   const { TRANS_IMG } = settingModel
   const [userMap, updateUserMap] = useUserMap()
   useEffect(() => {
-    updateUserMap(awards)
-  }, [])
+    if (expanded) updateUserMap(awards, awards.length)
+    else updateUserMap(awards, SHOW_AWARDS_NUM)
+  }, [awards, expanded])
   const showAwards = expanded ? awards : awards ? awards.slice(0, SHOW_AWARDS_NUM) : []
 
   return (
