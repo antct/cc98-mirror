@@ -54,7 +54,7 @@ const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: P
       navigate('/error/410', { replace: true })
       return null
     }
-    navigate(`/topic/${sharePath}?code=${shareToken}`, { replace: true })
+    navigate(`/topic/${sharePath.replace('_', '#')}?code=${shareToken}`, { replace: true })
     return null
   }
   if (!topicId) return null

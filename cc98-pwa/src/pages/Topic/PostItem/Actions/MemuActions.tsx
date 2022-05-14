@@ -1,13 +1,15 @@
 import userModel from '@/models/user'
 import { getBoardMastersById } from '@/services/board'
+import { getShareToken } from '@/services/global'
 import { judgeEdit, judgeManager, judgeManagerOrBoardMasters } from '@/utils/ActionsJudge'
 import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { IPost, IUser } from '@cc98/api'
-import { IconButton, Menu, MenuItem } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import React, { useEffect, useState } from 'react'
+import { IconButton, Menu, MenuItem } from '@mui/material'
 // TODO: fix
+import copy2Clipboard from 'copy-to-clipboard'
+import React, { useEffect, useState } from 'react'
 import Judge from '../Dialog/Judge'
 import Manage from '../Dialog/Manage'
 
@@ -62,6 +64,22 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, isShare, refreshPost,
       navigate(`/topic/${postInfo.topicId}/trace/${postInfo.id}`)
     }
     handleClose()
+  }
+
+  const handleShare = async () => {
+    const page = Math.floor((postInfo.floor-1)/10)
+    const floor = postInfo.floor % 10 == 0 ? 10 : postInfo.floor % 10
+    const res = await getShareToken(postInfo.topicId, `${postInfo.topicId}/${page}_${floor}`, 'false')
+    res
+      .fail(err => {
+        snackbar.success('分享链接获取失败')
+        handleClose()
+      })
+      .succeed(res => {
+        copy2Clipboard(`${res.long_url}`)
+        snackbar.success(`分享链接已复制，有效期${Math.ceil(res.ex / 3600)}小时`)
+        handleClose()
+      })
   }
 
   // const handleShare = () => {
@@ -146,6 +164,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, isShare, refreshPost,
       <MenuItem onClick={handleJudge}>评分</MenuItem>
       {/* <MenuItem onClick={handleShare}>分享</MenuItem> */}
       {canManage && <MenuItem onClick={handleManage}>管理</MenuItem>}
+      <MenuItem onClick={handleShare}>分享</MenuItem>
     </Menu>
   </>;
 }
