@@ -67,7 +67,7 @@ const MenuActions: React.FC<Props> = ({ postInfo, isTrace, isShare, refreshPost,
   }
 
   const handleShare = async () => {
-    const page = Math.floor((postInfo.floor-1)/10)
+    const page = Math.floor((postInfo.floor-1)/10) + 1
     const floor = postInfo.floor % 10 == 0 ? 10 : postInfo.floor % 10
     const res = await getShareToken(postInfo.topicId, `${postInfo.topicId}/${page}_${floor}`, 'false')
     res
