@@ -254,7 +254,7 @@ const PostPage = ({ service, hotService, summaryService, topicInfo, page, isShar
         <PaginationS
           count={totalPage}
           page={page}
-          onChange={(event: React.ChangeEvent<unknown>, value: number) => { navigate(`/topic/${topicInfo.id}/${value}` + window.location.search) }}
+          onChange={(event: React.ChangeEvent<unknown>, value: number) => { navigate(`/topic/${topicInfo.id}/${value}` + window.location.search, { replace: true }) }}
         />
         <Divider />
       </>
