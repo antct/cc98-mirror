@@ -140,7 +140,7 @@ export default ({ postInfo, isShare }: Props) => {
       const url = capture2.trim()
       if (url.startsWith(window.location.origin)) {
         const inner_url = url.substring(window.location.origin.length)
-        return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到帖子(${inner_url})[/url]` : `${capture1}[跳转到帖子(${inner_url})](${url})`
+        return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到帖子(${inner_url.replace('/topic/', '')})[/url]` : `${capture1}[跳转到帖子(${inner_url.replace('/topic/', '')})](${url})`
       }
       else return postInfo.contentType === 0 ? `${capture1}[url=${url}]跳转到外链(${url})[/url]` : `${capture1}[跳转到外链(${url})](${url})`
     }

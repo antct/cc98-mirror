@@ -10,10 +10,14 @@ import {
 import { navigateHandler } from '@/services/utils/errorHandler'
 import { navigate } from '@/utils/history'
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import FixButtons from './FixButtons'
 import PostHead from './PostHead'
 import PostList, { PostPage } from './PostList'
 
+const EndPlaceholder = styled.div`
+  height: 70px;
+`
 
 interface Props {
   // 帖子 ID
@@ -134,6 +138,7 @@ const Topic = ({ topicId, userId, postId, isReverse, isCache, shareId, page }: P
         isShare={isShare}
         refreshFunc={refreshFunc}
       />
+      <EndPlaceholder />
     </>
   )
 }
