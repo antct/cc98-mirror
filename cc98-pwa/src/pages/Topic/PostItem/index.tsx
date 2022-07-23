@@ -11,7 +11,7 @@ import snackbar from '@/utils/snackbar'
 import { IPost, ISummary, ITopic, IUser } from '@cc98/api'
 import DoneIcon from '@mui/icons-material/Done'
 import SummaryIcon from '@mui/icons-material/FormatQuote'
-import LightIcon from '@mui/icons-material/LightbulbOutlined'
+import AwesomeIcon from '@mui/icons-material/AutoAwesome'
 import TagIcon from '@mui/icons-material/Tag'
 import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
 import withStyles from '@mui/styles/withStyles'
@@ -106,12 +106,14 @@ const ClickSummaryS = withStyles(theme => ({
 }))(Chip)
 
 const TagIconS = muiStyled(TagIcon)({
-  height: 16,
   width: 16
 })
 
 const SummaryIconS = muiStyled(SummaryIcon)({
-  height: 16,
+  width: 16
+})
+
+const AwesomeIconS = muiStyled(AwesomeIcon)({
   width: 16
 })
 
@@ -350,7 +352,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
       {
         postInfo.floor === 1 && !!recommendationPost && recommendationPost.length >= 2 &&
         <ChippDiv>
-          <SummaryS icon={<TagIcon />} size="small" label={"你可能感兴趣的内容"} />
+          <SummaryS icon={<AwesomeIconS />} size="small" label={"你可能感兴趣的内容"} />
           {
             recommendationPost.slice(1, 4).map((data, index) => (
               <ClickSummaryS size="small" label={data.title} onClick={() => navigate(`/topic/${data.topicId}`)} />
