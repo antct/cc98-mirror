@@ -3,12 +3,15 @@ import useModel from '@/hooks/useModel'
 import settingModel from '@/models/setting'
 import muiStyled from '@/muiStyled'
 import { getSinglePost } from '@/services/post'
+import { searchTopicContent } from '@/services/topic'
 import UBB from '@/UBB'
 import { POST } from '@/utils/fetch'
+import { navigate } from '@/utils/history'
 import snackbar from '@/utils/snackbar'
 import { IPost, ISummary, ITopic, IUser } from '@cc98/api'
 import DoneIcon from '@mui/icons-material/Done'
 import SummaryIcon from '@mui/icons-material/FormatQuote'
+import LightIcon from '@mui/icons-material/LightbulbOutlined'
 import TagIcon from '@mui/icons-material/Tag'
 import { Card, CardContent, CardHeader, Checkbox, Chip, Divider, IconButton, Paper, Typography } from '@mui/material'
 import withStyles from '@mui/styles/withStyles'
@@ -90,6 +93,18 @@ const SummaryS = withStyles(theme => ({
   }
 }))(Chip)
 
+const ClickSummaryS = withStyles(theme => ({
+  root: {
+    height: 'auto',
+    alignItems: "normal",
+    borderRadius: 0
+  },
+  label: {
+    whiteSpace: "normal",
+    textDecoration: "underline"
+  }
+}))(Chip)
+
 const TagIconS = muiStyled(TagIcon)({
   height: 16,
   width: 16
@@ -103,6 +118,11 @@ const SummaryIconS = muiStyled(SummaryIcon)({
 
 const ChipDiv = styled.div`
   margin: 0px 16px 8px 16px;
+  display: flex;
+`
+
+const ChippDiv = styled.div`
+  margin: 8px 16px 0px 16px;
   display: flex;
 `
 
@@ -152,6 +172,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
   const [currentVote, setCurrentVote] = useState<IVote | undefined>(voteInfo)
   const [voteOption, setVoteOption] = useState<boolean[]>([])
   const [currentSummary, setCurrentSummary] = useState<string | undefined>(undefined)
+  const [recommendationPost, setRecommendationPost] = useState<IPost[] | undefined>(undefined)
 
   const { useSignature } = useModel(settingModel, ['useSignature'])
   if (postInfo.isDeleted) {
@@ -179,9 +200,18 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
     })
   }
 
+  const getRecommendation = async () => {
+    const res = await searchTopicContent(postInfo.title, 0, 0)
+    res.fail().succeed(data => {
+      setRecommendationPost(data)
+    })
+  }
+
+
   useEffect(() => {
     if (postInfo && postInfo.floor === 1) {
       getSummary()
+      getRecommendation()
     }
   }, [postInfo])
 
@@ -317,6 +347,17 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
         postInfo={currentPost}
         isShare={isShare}
       />
+      {
+        postInfo.floor === 1 && !!recommendationPost && recommendationPost.length >= 2 &&
+        <ChippDiv>
+          <SummaryS icon={<TagIcon />} size="small" label={"你可能感兴趣的内容"} />
+          {
+            recommendationPost.slice(1, 4).map((data, index) => (
+              <ClickSummaryS size="small" label={data.title} onClick={() => navigate(`/topic/${data.topicId}`)} />
+            ))
+          }
+        </ChippDiv>
+      }
       {
         <Actions
           postInfo={currentPost}
