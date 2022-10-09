@@ -8,9 +8,9 @@ html {
 }
 
 /* FIXME: 滚动条还是需要的 */
-html::-webkit-scrollbar {
+/* html::-webkit-scrollbar {
     width: 0px;
-}
+} */
 
 body {
   margin: 0;

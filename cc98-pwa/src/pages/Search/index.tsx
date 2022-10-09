@@ -17,7 +17,7 @@ const StickyBarS = muiStyled(StickyBar)({
 })
 
 export default () => {
-  const [current, setCurrent] = useState('content')
+  const [current, setCurrent] = useState('topic')
   const [search, setSearch] = useState('')
   const [searchSort, setSearchSort] = useState(0)
   const [searchKey, setSearchKey] = useState(0)
@@ -44,7 +44,7 @@ export default () => {
         value={current}
         onChange={handleChange}
       >
-        <Tab value="content" label="搜索全文" />
+        {/* <Tab value="content" label="搜索全文" /> */}
         <Tab value="topic" label="搜索主题" />
         <Tab value="favorite" label="搜索收藏" />
         <Tab value="user" label="搜索用户" />

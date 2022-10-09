@@ -3,6 +3,7 @@ import { IUser } from '@cc98/api'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ExpandPanel from './ExpandPanel'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 
 const UBBDiv = styled.div`
@@ -23,9 +24,11 @@ const UserSignature: React.FC<Props> = ({ info }) => {
   return (
     <ExpandPanel expanded={expand} title="签名档" onChange={onChange}>
       {expand && (
-        <UBBDiv>
-          <UBB ubbText={info.signatureCode || "这家伙很懒，什么都没留下。"} />
-        </UBBDiv>
+        <PhotoProvider>
+          <UBBDiv>
+            <UBB ubbText={info.signatureCode || "这家伙很懒，什么都没留下。"} />
+          </UBBDiv>
+        </PhotoProvider>
       )}
     </ExpandPanel>
   )

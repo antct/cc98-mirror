@@ -24,6 +24,7 @@ import Actions from './Actions'
 import Awards from './Awards'
 import Content from './Content'
 import Header from './Header'
+import { PhotoProvider, PhotoView } from 'react-photo-view'
 
 const WrapperDiv = styled.div`
   margin: 8px 16px;
@@ -211,9 +212,9 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
 
 
   useEffect(() => {
-    if (postInfo && postInfo.floor === 1) {
+    if (postInfo && postInfo.floor === 1 && !isShare) {
       getSummary()
-      getRecommendation()
+      // getRecommendation()
     }
   }, [postInfo])
 
@@ -349,7 +350,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
         postInfo={currentPost}
         isShare={isShare}
       />
-      {
+      {/* {
         postInfo.floor === 1 && !!recommendationPost && recommendationPost.length >= 2 &&
         <ChippDiv>
           <SummaryS icon={<AwesomeIconS />} size="small" label={"你可能感兴趣的内容"} />
@@ -359,7 +360,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
             ))
           }
         </ChippDiv>
-      }
+      } */}
       {
         <Actions
           postInfo={currentPost}
@@ -373,9 +374,11 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
         (
           <>
             <Divider />
-            <WrapperDiv>
-              <UBB ubbText={userInfo.signatureCode.trim()} />
-            </WrapperDiv>
+            <PhotoProvider>
+              <WrapperDiv>
+                <UBB ubbText={userInfo.signatureCode.trim()} />
+              </WrapperDiv>
+            </PhotoProvider>
           </>
         )
       }
