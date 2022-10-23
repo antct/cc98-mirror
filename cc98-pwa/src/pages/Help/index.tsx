@@ -5,9 +5,9 @@ import { navigate } from '@/utils/history'
 import { ListItem, ListItemIcon } from '@mui/material'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import RecommendIcon from '@mui/icons-material/BookOutlined'
-import BugReportIcon from '@mui/icons-material/BugReportOutlined'
+import AdbIcon from '@mui/icons-material/AdbOutlined'
 import CodeIcon from '@mui/icons-material/Code'
-import CopyrightIcon from '@mui/icons-material/Copyright'
+import BugReportIcon from '@mui/icons-material/BugReportOutlined'
 import EventIcon from '@mui/icons-material/EmojiEventsOutlined'
 import FavoriteIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import MoneyIcon from '@mui/icons-material/MonetizationOnOutlined'
@@ -45,7 +45,7 @@ const Index = () => (
   <ListS>
     <Item icon={<BarChartIcon />} text="论坛统计" url="/help/siteInfo" />
     <Item icon={<WifiTetheringIcon />} text="论坛代理" url="/help/proxyInfo" />
-    <Item icon={<CopyrightIcon />} text="问题反馈" url="https://github.com/antct/cc98-mirror/issues" external={true} />
+    <Item icon={<BugReportIcon />} text="问题反馈" url="https://github.com/antct/cc98-mirror/issues" external={true} />
     <Item icon={<CodeIcon />} text="开发日志" url="https://github.com/antct/cc98-mirror" external={true} />
     <Item icon={<MoneyIcon />} text="转账系统" url="/help/transferWealth" />
     <Item icon={<RecommendIcon />} text="推荐阅读" url="/topic/4833846/reverse" />
@@ -55,7 +55,7 @@ const Index = () => (
     <Item icon={<FunIcon />} text="NexusHD趣味盒" url="/help/nexushdFun" />
     <Item icon={<MusicIcon />} text="广播点歌台" url="/topic/5180600" />
     <Item icon={<FavoriteIcon />} text="缘分表白墙" url="/topic/4628183/reverse" />
-    <Item icon={<BugReportIcon />} text="新手代码测试楼" url="/topic/4759491" />
+    <Item icon={<AdbIcon />} text="新手代码测试楼" url="/topic/4759491" />
     <Item icon={<NotListedIcon />} text="论坛帮助" url="/topic/4970959" />
     <Item icon={<SmartphoneIcon />} text="如何添加到桌面" url="/topic/4813994" />
   </ListS>

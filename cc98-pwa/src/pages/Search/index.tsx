@@ -17,7 +17,8 @@ const StickyBarS = muiStyled(StickyBar)({
 })
 
 export default () => {
-  const [current, setCurrent] = useState('topic')
+  const [current, setCurrent] = useState('content')
+  const [placeholder, setPlaceholder] = useState('搜索关键词')
   const [search, setSearch] = useState('')
   const [searchSort, setSearchSort] = useState(0)
   const [searchKey, setSearchKey] = useState(0)
@@ -27,7 +28,7 @@ export default () => {
     setSearchKey(prevKey => prevKey + 1)
   }, 1000 * 10)
 
-  const handleChange = (_: React.ChangeEvent, value: string) => {
+  const handleChange = (e: React.ChangeEvent, value: string) => {
     setSearch('')
     setCurrent(value)
   }
@@ -35,7 +36,7 @@ export default () => {
   return (
     <>
       <StickyBar>
-        <SearchInput placeholder='搜索关键词' onSearch={onSearch} />
+        <SearchInput placeholder={placeholder} onSearch={onSearch} />
       </StickyBar>
       <Tabs
         textColor="primary"
@@ -44,7 +45,7 @@ export default () => {
         value={current}
         onChange={handleChange}
       >
-        {/* <Tab value="content" label="搜索全文" /> */}
+        <Tab value="content" label="搜索全文" />
         <Tab value="topic" label="搜索主题" />
         <Tab value="favorite" label="搜索收藏" />
         <Tab value="user" label="搜索用户" />
