@@ -43,10 +43,10 @@ export default ({ message, user }: Props) => {
         height={'100%'}
         offset={200}
         once
-        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} /></ListItemAvatar>}
+        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} /></ListItemAvatar>}
       >
         <ListItemAvatar>
-          <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
+          <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
         </ListItemAvatar>
       </LazyLoad>
       <ListItemText primary={name} secondary={<Text>{CLAMP(message.lastContent.replace(/\[.*?\]/g, ''))}</Text>} />

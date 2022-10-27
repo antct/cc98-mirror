@@ -131,9 +131,9 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isHighlight = false, p
           height={'100%'}
           offset={200}
           once
-          placeholder={<AvatarS src={undefined} children={false} />}
+          placeholder={<AvatarS src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />}
         >
-          <AvatarS src={portraitUrl} children={false} />
+          <AvatarS src={portraitUrl} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
         </LazyLoad>
       </AvatarArea>
     }

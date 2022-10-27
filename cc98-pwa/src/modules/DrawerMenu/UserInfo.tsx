@@ -48,7 +48,7 @@ interface Props {
 const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
   return (<WrapperDiv>
     {isLogIn && (
-      <AvatarS src={info ? info.portraitUrl : undefined} onClick={() => navigate('/userCenter')} children={false} />
+      <AvatarS src={info ? info.portraitUrl : undefined} onClick={() => navigate('/userCenter')} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
     )}
     {!isLogIn && <UnLogInAvatar onClick={() => navigate('/logIn')} />}
     <Username>{isLogIn ? info && info.name : '未登录'}</Username>

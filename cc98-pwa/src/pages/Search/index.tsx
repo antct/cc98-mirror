@@ -55,7 +55,7 @@ export default () => {
           <>
             <InfSearchList
               key={searchKey}
-              service={(from: number) => searchTopicContent(search, from, searchSort)}
+              service={(from: number) => searchTopicContent(search, from, 20, searchSort)}
               place="search"
             />
             <FixFab onClick={

@@ -21,7 +21,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
         ? `${context.imgBaseURL}/ac/${acID}.png`
         : `${context.imgBaseURL}/ac-reverse/${acID}.png`
 
-    return <img className="ubb-tag-ac" src={useCDN ? CDN(url, false) : url} alt={`[ac${acID}]`} />
+    return <img className="ubb-tag-ac" src={useCDN ? CDN(url, false) : url} alt={`[ac${acID}]`} referrerPolicy='no-referrer' />
   },
 }
 

@@ -92,6 +92,7 @@ const Awards = ({ awards }: Props) => {
                 src={userMap[award.operatorName] ? TRANS_IMG(userMap[award.operatorName].portraitUrl, true) : undefined}
                 onClick={() => navigate(`/user/name/${award.operatorName}`)}
                 children={false}
+                imgProps={{ referrerPolicy: "no-referrer" }}
               />
               &nbsp;
               {award.operatorName}

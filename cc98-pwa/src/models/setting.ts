@@ -63,7 +63,7 @@ class SettingModel extends Model<State> {
       useNotification: true,
       usePagination: IS_PC,
       useCompress: true,
-      useCDN: false,
+      useCDN: true,
       cacheSize: 3,
       customHome: 1,
       customWords: [],

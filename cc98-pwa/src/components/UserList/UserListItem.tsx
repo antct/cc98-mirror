@@ -89,7 +89,7 @@ export default ({ data, place }: Props) => {
         height={'100%'}
         offset={200}
         once
-        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} /></ListItemAvatar>}
+        placeholder={<ListItemAvatar><Avatar src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} /></ListItemAvatar>}
       >
         <ListItemAvatar>
           {dayjs().diff(dayjs(lastLogOnTime), 'minute') <= ONLINE_TIME ?
@@ -100,11 +100,12 @@ export default ({ data, place }: Props) => {
                 horizontal: 'right',
               }}
               variant="dot"
+              imgProps={{ referrerPolicy: "no-referrer" }}
             >
-              <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
+              <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
             </StyledBadge>
             :
-            <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} />
+            <Avatar src={TRANS_IMG(portraitUrl, true)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
           }
         </ListItemAvatar>
       </LazyLoad>

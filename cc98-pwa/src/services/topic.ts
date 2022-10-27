@@ -147,12 +147,12 @@ export function getFavoriteTopicsOrderByUpdate(from: number) {
 /**
  * 搜索
  */
-export function searchTopicContent(keyword: string, from: number, sort: number) {
+export function searchTopicContent(keyword: string, from: number, size: number, sort: number) {
   return GET<IPost[]>('es/search', {
     params: {
       keyword: `${keyword}`,
       from,
-      size: 20,
+      size,
       sort
     },
   })

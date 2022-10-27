@@ -130,7 +130,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
             height={'100%'}
             offset={200}
             once
-            placeholder={<AvatarS src={undefined} children={false} />}
+            placeholder={<AvatarS src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />}
           >
             {userInfo && dayjs().diff(dayjs(userInfo.lastLogOnTime), 'minute') <= ONLINE_TIME ?
               <StyledBadge
@@ -140,11 +140,13 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
                   horizontal: 'right',
                 }}
                 variant="dot"
+                imgProps={{ referrerPolicy: "no-referrer" }}
               >
                 <AvatarS
                   onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
                   src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
                   children={false}
+                  imgProps={{ referrerPolicy: "no-referrer" }}
                 />
               </StyledBadge>
               :
@@ -152,6 +154,7 @@ export default ({ postInfo, userInfo, isHot, isLock, isShare }: Props) => {
                 onClick={() => !postInfo.isAnonymous && !isShare && navigate(`/user/${postInfo.userId}`)}
                 src={(postInfo.isAnonymous || postInfo.isDeleted) ? ANONYMOUS_AVATAR : userInfo && TRANS_IMG(userInfo.portraitUrl, true)}
                 children={false}
+                imgProps={{ referrerPolicy: "no-referrer" }}
               />
             }
           </LazyLoad>

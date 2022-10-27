@@ -104,11 +104,11 @@ export default ({ message }: Props) => {
         height={'100%'}
         offset={200}
         once
-        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} /></ListItemAvatarS>}
+        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} /></ListItemAvatarS>}
 
       >
         <ListItemAvatarS>
-          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} children={false} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} onClick={() => navigate(`/user/${userInfo.id}`)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
         </ListItemAvatarS>
       </LazyLoad>
       <MessageRoot>
@@ -131,10 +131,10 @@ export default ({ message }: Props) => {
         height={'100%'}
         offset={200}
         once
-        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} /></ListItemAvatarS>}
+        placeholder={<ListItemAvatarS><Avatar src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} /></ListItemAvatarS>}
       >
         <ListItemAvatarS>
-          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} children={false} />
+          <Avatar src={TRANS_IMG(userInfo.portraitUrl, true)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
         </ListItemAvatarS>
       </LazyLoad>
     </ListItemButtonS>

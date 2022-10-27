@@ -60,6 +60,7 @@ const CustomImageComponent = ({ src, useCDN, useCompress }: { src: string, useCD
                 event.currentTarget.src = src
               }
             }
+            referrerPolicy='no-referrer'
           />
         </div>
       </PhotoView>

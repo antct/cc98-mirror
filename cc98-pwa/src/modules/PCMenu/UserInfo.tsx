@@ -49,7 +49,7 @@ const UserInfo: React.FC<Props> = ({ isLogIn, info }) => {
     {isLogIn && (
       <>
         <IconButtonS onClick={handleOpenUserMenu}>
-          <AvatarS src={info ? TRANS_IMG(info.portraitUrl, true) : undefined} children={false} />
+          <AvatarS src={info ? TRANS_IMG(info.portraitUrl, true) : undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
         </IconButtonS>
         <Menu
           sx={{ mt: '28px' }}

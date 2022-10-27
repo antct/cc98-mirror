@@ -30,7 +30,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
         break
     }
 
-    return <img className="ubb-tag-mahjong" src={useCDN ? CDN(url, false) : url} alt={tagName} />
+    return <img className="ubb-tag-mahjong" src={useCDN ? CDN(url, false) : url} alt={tagName} referrerPolicy='no-referrer' />
   },
 }
 

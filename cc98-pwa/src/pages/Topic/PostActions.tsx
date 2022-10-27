@@ -155,12 +155,12 @@ export default ({ topicInfo, refreshFunc, isShare }: Props) => {
         </ListItemIcon>
         <Typography>免密分享</Typography>
       </MenuItem>
-      <MenuItem onClick={() => handleShare3()}>
+      {/* <MenuItem onClick={() => handleShare3()}>
         <ListItemIcon>
           <ShareIcon />
         </ListItemIcon>
         <Typography>短链分享</Typography>
-      </MenuItem>
+      </MenuItem> */}
       {canManage && (
         <MenuItem onClick={() => handleSetting()}>
           <ListItemIcon>

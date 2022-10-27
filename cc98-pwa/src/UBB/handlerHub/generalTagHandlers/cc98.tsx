@@ -16,7 +16,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
 
     const url = (((cc98ID >= '15' && cc98ID <= '30') || cc98ID >= '36') ? `${context.imgBaseURL}/CC98/CC98${cc98ID}.png` : `${context.imgBaseURL}/CC98/CC98${cc98ID}.gif`)
 
-    return <img className="ubb-tag-cc98" src={useCDN ? CDN(url, false) : url} alt={`[CC98${cc98ID}]`} />
+    return <img className="ubb-tag-cc98" src={useCDN ? CDN(url, false) : url} alt={`[CC98${cc98ID}]`} referrerPolicy='no-referrer' />
   },
 }
 

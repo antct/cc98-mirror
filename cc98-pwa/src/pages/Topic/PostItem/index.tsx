@@ -204,7 +204,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
   }
 
   const getRecommendation = async () => {
-    const res = await searchTopicContent(postInfo.title, 0, 0)
+    const res = await searchTopicContent(postInfo.title, 0, 4, 0)
     res.fail().succeed(data => {
       setRecommendationPost(data)
     })
@@ -214,7 +214,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
   useEffect(() => {
     if (postInfo && postInfo.floor === 1 && !isShare) {
       getSummary()
-      // getRecommendation()
+      getRecommendation()
     }
   }, [postInfo])
 
@@ -350,7 +350,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
         postInfo={currentPost}
         isShare={isShare}
       />
-      {/* {
+      {
         postInfo.floor === 1 && !!recommendationPost && recommendationPost.length >= 2 &&
         <ChippDiv>
           <SummaryS icon={<AwesomeIconS />} size="small" label={"你可能感兴趣的内容"} />
@@ -360,7 +360,7 @@ const PostItem = React.forwardRef<HTMLDivElement, Props>(({ postInfo, userInfo, 
             ))
           }
         </ChippDiv>
-      } */}
+      }
       {
         <Actions
           postInfo={currentPost}

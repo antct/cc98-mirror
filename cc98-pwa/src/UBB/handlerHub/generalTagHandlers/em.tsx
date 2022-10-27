@@ -17,7 +17,7 @@ const handler: IGeneralTagHandler<React.ReactNode> = {
 
     const url = `${context.imgBaseURL}/em/em${emID}.gif`
 
-    return <img className="ubb-tag-em" src={useCDN ? CDN(url, false) : url} alt={`[em${emID}]`} />
+    return <img className="ubb-tag-em" src={useCDN ? CDN(url, false) : url} alt={`[em${emID}]`} referrerPolicy='no-referrer' />
   },
 }
 

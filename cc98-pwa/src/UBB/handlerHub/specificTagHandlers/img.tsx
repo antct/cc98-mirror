@@ -37,6 +37,7 @@ const handler: ITagHandler<React.ReactNode> = {
                   event.currentTarget.src = node.innerText
                 }
               }
+              referrerPolicy='no-referrer'
             />
           </div>
         </PhotoView>

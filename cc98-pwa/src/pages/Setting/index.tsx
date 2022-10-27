@@ -22,7 +22,7 @@ const Setting: React.FC = () => (
     <Signature />
     <Notification />
     <Compress />
-    {/* <CDN /> */}
+    <CDN />
     <Cache />
     <CustomWords />
   </ListS>

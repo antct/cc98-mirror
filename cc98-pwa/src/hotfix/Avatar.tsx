@@ -8,7 +8,8 @@ const Avatar_Fix: React.FC<AvatarProps> = props => (
         src={props.src}
         children={false}
         imgProps={{
-            onError: (e: React.SyntheticEvent<HTMLImageElement>) => e.currentTarget.src = RCDN(e.currentTarget.src, true)
+            onError: (e: React.SyntheticEvent<HTMLImageElement>) => e.currentTarget.src = RCDN(e.currentTarget.src, true),
+            referrerPolicy: "no-referrer"
         }}
     />
 )

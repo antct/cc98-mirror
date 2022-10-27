@@ -135,9 +135,9 @@ const UserAvatar: React.FC<Props> = ({ info, isUserCenter }) => {
             height={'100%'}
             offset={200}
             once
-            placeholder={<AvatarS src={undefined} children={false} />}
+            placeholder={<AvatarS src={undefined} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />}
           >
-            <AvatarS src={TRANS_IMG(info.portraitUrl, true)} children={false} />
+            <AvatarS src={TRANS_IMG(info.portraitUrl, true)} children={false} imgProps={{ referrerPolicy: "no-referrer" }} />
           </LazyLoad>
           <Typography variant="h6">{info.name}</Typography>
         </AvatarDiv>
