@@ -52,9 +52,17 @@ export function useInfListFix<T>(service: Service<T[]>, options: Options<T> = {}
           options.fail && options.fail(err)
         })
         .succeed(list => {
-          setDeltaList(list)
-          setList(prevList => prevList.concat(list))
           options.success && options.success(list)
+          if (list.length == 0) {
+            setState(prevState => ({
+              isLoading: false,
+              isEnd: true,
+              from: prevState.from
+            }))
+          } else {
+            setDeltaList(list)
+            setList(prevList => prevList.concat(list))
+          }
         })
     })
   }
@@ -96,7 +104,7 @@ export default function useInfList<T>(service: Service<T[]>, options: Options<T>
         })
         .succeed(list => {
           setList(prevList => prevList.concat(list))
-          
+
 
           setState({
             isLoading: false,
