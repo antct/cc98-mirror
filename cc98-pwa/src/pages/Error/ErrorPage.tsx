@@ -34,9 +34,10 @@ interface Props {
    */
   secondMessage?: string
   button?: boolean
+  buttonMessage?: string
 }
 
-export default ({ errMessage, secondMessage, button = false }: Props) => {
+export default ({ errMessage, secondMessage, button = false, buttonMessage = ""}: Props) => {
   const { isDrawerOpen } = useModel(stateModel, ['isDrawerOpen'])
   return (
     IS_PC ?
@@ -53,7 +54,7 @@ export default ({ errMessage, secondMessage, button = false }: Props) => {
           )}
           {button && window.history.length > 1 && (
             <ButtonS onClick={() => window.history.back()}>
-              回到前页
+              {buttonMessage}
             </ButtonS>
           )}
         </FlexDiv>
@@ -72,7 +73,7 @@ export default ({ errMessage, secondMessage, button = false }: Props) => {
           )}
           {button && window.history.length > 1 && (
             <ButtonS onClick={() => window.history.back()}>
-              回到前页
+              {buttonMessage}
             </ButtonS>
           )}
         </FlexDiv>
