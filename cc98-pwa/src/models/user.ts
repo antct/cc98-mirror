@@ -80,7 +80,7 @@ class UserModel extends Model<State> {
 
     const myInfo = await GET<IUser>('me')
     myInfo.fail().succeed(myInfo => {
-      const lastFanCount = getLocalStorage('fan_count') as string
+      const lastFanCount = getLocalStorage(`${myInfo.id}_fan_count`) as string
       if (lastFanCount !== null && `${myInfo.fanCount}` !== lastFanCount) {
         this.setState({
           myInfo,
@@ -90,7 +90,7 @@ class UserModel extends Model<State> {
         this.setState({
           myInfo,
         })
-        setLocalStorage('fan_count', `${myInfo.fanCount}`)
+        setLocalStorage(`${myInfo.id}_fan_count`, `${myInfo.fanCount}`)
       }
     })
 
@@ -123,7 +123,7 @@ class UserModel extends Model<State> {
 
   FRESH_FAN = () => {
     if (!this.state.isLogIn) return
-    if (this.state.myInfo) setLocalStorage('fan_count', `${this.state.myInfo.fanCount}`)
+    if (this.state.myInfo) setLocalStorage(`${this.state.myInfo.id}_fan_count`, `${this.state.myInfo.fanCount}`)
     this.setState({
       fanDiff: 0
     })
