@@ -40,7 +40,9 @@ class UserModel extends Model<State> {
   LOG_IN = async (username: string, password: string) => {
     const token = await logIn(username, password)
 
-    token.fail().succeed(_ => {
+    token.fail(_ => {
+
+    }).succeed(_ => {
       this.setState({
         isLogIn: true,
       })

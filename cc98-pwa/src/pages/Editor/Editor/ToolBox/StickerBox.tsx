@@ -41,12 +41,14 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
       key={`[a:${item}]`}
       src={useCDN ? CDN(`${IMG_BASE_URL}/mahjong/animal2017/${item}.png`, false) : `${IMG_BASE_URL}/mahjong/animal2017/${item}.png`}
       onClick={handleFunc(`[a:${item}]`)}
+      referrerPolicy='no-referrer'
     ></Img>)),
     //卡通系列10个，同样o(1)......
     carton: ['003.png', '018.gif', '019.png', '046.png', '049.gif', '059.png', '096.gif', '134.png', '189.png', '217.png'].map((item) => (<Img
       key={`[c:${item.slice(0, 3)}]`}
       src={useCDN ? CDN(`${IMG_BASE_URL}/mahjong/carton2017/${item}`, false) : `${IMG_BASE_URL}/mahjong/carton2017/${item}`}
       onClick={handleFunc(`[c:${item.slice(0, 3)}]`)}
+      referrerPolicy='no-referrer'
     ></Img>)),
     //其他表情三位数，从1算起，index+1
     face: new Array(208).fill(0).map((item, index) => {
@@ -64,6 +66,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
       key={`[f:${item.slice(0, 3)}]`}
       src={useCDN ? CDN(`${IMG_BASE_URL}/mahjong/face2017/${item}`, false) : `${IMG_BASE_URL}/mahjong/face2017/${item}`}
       onClick={handleFunc(`[f:${item.slice(0, 3)}]`)}
+      referrerPolicy='no-referrer'
     ></Img>))
   }
 
@@ -94,6 +97,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
           key={`[CC98${item}]`}
           src={useCDN ? CDN(getCC98EmojiSource(item), false) : getCC98EmojiSource(item)}
           onClick={handleFunc(`[CC98${item}]`)}
+          referrerPolicy='no-referrer'
         ></Img>) : null
       )),
     'em': new Array(92).fill(0)
@@ -109,6 +113,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
           key={`[em${item}]`}
           src={useCDN ? CDN(`${IMG_BASE_URL}/em/em${item}.gif`, false) : `${IMG_BASE_URL}/em/em${item}.gif`}
           onClick={handleFunc(`[em${item}]`)}
+          referrerPolicy='no-referrer'
         ></Img>) : null
       )),
     'ac': new Array(149).fill(0)
@@ -121,6 +126,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
         key={`[ac${item}]`}
         src={useCDN ? CDN(`${IMG_BASE_URL}/ac/${item}.png`, false) : `${IMG_BASE_URL}/ac/${item}.png`}
         onClick={handleFunc(`[ac${item}]`)}
+        referrerPolicy='no-referrer'
       ></Img>)),
     'mahjong': [...mohjong.animal, ...mohjong.carton, ...mohjong.face],
     'tb': new Array(33).fill(0)
@@ -131,6 +137,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
         key={`[tb${item}]`}
         src={useCDN ? CDN(`${IMG_BASE_URL}/tb/tb${item}.png`, false) : `${IMG_BASE_URL}/tb/tb${item}.png`}
         onClick={handleFunc(`[tb${item}]`)}
+        referrerPolicy='no-referrer'
       ></Img>)),
     'ms': new Array(54).fill(0)
       .map((item, index) => {
@@ -141,6 +148,7 @@ function getStickerReactNode(type: StickerType, handleFunc: Function, useCDN: bo
         key={`ms${item}`}
         src={useCDN ? CDN(`${IMG_BASE_URL}/ms/ms${item}.png`, false) : `${IMG_BASE_URL}/ms/ms${item}.png`}
         onClick={handleFunc(`ms${item}`)}
+        referrerPolicy='no-referrer'
       />)
   }
   return emoji[type]
