@@ -107,7 +107,8 @@ pre {
   line-height: 19px;
   overflow: auto;
   padding: 6px 10px;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  word-break: break-all;
 }
 
 blockquote {
