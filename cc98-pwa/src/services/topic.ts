@@ -109,8 +109,8 @@ export async function getRandomRecommendedTopics(from: number) {
     },
   })
   return await Promise.resolve(res.map(topics => topics.map(topic => {
-    topic.topic.content = topic.content;
-    return topic.topic;
+    topic.topic.content = topic.content
+    return topic.topic
   })))
 }
 

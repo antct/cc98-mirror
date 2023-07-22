@@ -63,7 +63,7 @@ class SettingModel extends Model<State> {
       useNotification: true,
       usePagination: IS_PC,
       useCompress: true,
-      useCDN: false,
+      useCDN: true,
       cacheSize: 3,
       customHome: 1,
       customWords: [],
@@ -81,6 +81,9 @@ class SettingModel extends Model<State> {
       showSchoolEvent: true,
       showSchoolNews: true
     }
+    // safari目前不支持cdn no refer
+    let isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    if (isSafari) this.setState({ "useCDN": false })
 
     const setting = getLocalStorage('setting') as State | null
     this.setState(setting)
