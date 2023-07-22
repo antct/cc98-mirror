@@ -73,13 +73,15 @@ export function useUrlMap() {
 interface InfProps {
   service: InfService<ITopic[]>
   place: Place
+  step?: number
 }
 
-const InfTopicList: React.FC<InfProps> = ({ service, place }) => {
+const InfTopicList: React.FC<InfProps> = ({ service, place, step = 20 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
   const [topics, state, callback] = useInfList(service, {
     fail: navigateHandler,
-    success: (place !== 'usercenter') ? updateUrlMap : undefined
+    success: (place !== 'usercenter') ? updateUrlMap : undefined,
+    step: step
   })
   const { isLoading, isEnd } = state
 
@@ -102,7 +104,7 @@ interface FinProps {
 
 const FinTopicList: React.FC<FinProps> = ({ service, noLoading, place, delay = 0 }) => {
   const [urlMap, updateUrlMap] = useUrlMap()
-  const [topics] = useFetcher(service, { 
+  const [topics] = useFetcher(service, {
     fail: navigateHandler,
     success: (place !== 'usercenter') ? updateUrlMap : undefined
   })

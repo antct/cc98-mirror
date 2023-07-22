@@ -196,7 +196,7 @@ export const TopicItem: React.FC<ItemProps> = ({ onClick, isHighlight = false, p
   </ListItemButtonS>
 )
 
-export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update' | 'search-content'
+export type Place = 'inboard' | 'newtopic' | 'usercenter' | 'follow' | 'search' | 'hot' | 'follow-update' | 'search-content' | 'randomtopic'
 
 interface Props {
   data: ITopic
@@ -214,6 +214,8 @@ export default ({ data, place, portraitUrl }: Props) => {
 
   const title = data.title
   let subtitle = data.userName || '[匿名]'
+  // 随机推荐
+  if (data.content) subtitle = data.content;
   let info1 = boardName
   let info2 = dayjs(data.lastPostTime).fromNow()
   let hitCount: number | undefined = data.hitCount
@@ -275,6 +277,13 @@ export default ({ data, place, portraitUrl }: Props) => {
       dislikeCount = undefined
       break
     case 'inboard':
+      likeCount = undefined
+      dislikeCount = undefined
+      break
+    case 'randomtopic':
+      hitCount = undefined
+      replyCount = undefined
+      lastPostUser = undefined
       likeCount = undefined
       dislikeCount = undefined
       break

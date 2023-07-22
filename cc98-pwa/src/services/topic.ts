@@ -94,6 +94,26 @@ export function getNewTopics(from: number) {
   })
 }
 
+
+/**
+ * 获取随机推荐
+ */
+export async function getRandomRecommendedTopics(from: number) {
+  interface Topics {
+    content: string
+    topic: ITopic
+  }
+  const res = await GET<Topics[]>('topic/random-recommendation', {
+    params: {
+      size: 20,
+    },
+  })
+  return await Promise.resolve(res.map(topics => topics.map(topic => {
+    topic.topic.content = topic.content;
+    return topic.topic;
+  })))
+}
+
 /**
  * 获取关注版面的帖子
  */

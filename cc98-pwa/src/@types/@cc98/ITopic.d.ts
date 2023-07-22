@@ -53,7 +53,7 @@ declare module '@cc98/api' {
     hitCount: number
     /**
      * 今日发帖数
-     */    
+     */
     todayCount: number
     totalVoteUserCount: number
     /**
@@ -94,5 +94,9 @@ declare module '@cc98/api' {
      * 分享时间
      */
     shareTime?: string
+    /**
+     * 随机推荐
+     */
+    content?: string
   }
 }
