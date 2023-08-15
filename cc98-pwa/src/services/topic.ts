@@ -114,6 +114,20 @@ export async function getRandomRecommendedTopics(from: number) {
   })))
 }
 
+
+/**
+ * 获取最近随机
+ */
+export async function getRandomRecentTopics(from: number) {
+  const res = await GET<ITopic[]>('topic/random-recent', {
+    params: {
+      size: 20,
+    },
+  })
+  return await Promise.resolve(res);
+}
+
+
 /**
  * 获取关注版面的帖子
  */
